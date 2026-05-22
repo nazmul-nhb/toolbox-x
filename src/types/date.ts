@@ -1,6 +1,3 @@
-import type { Maybe } from '../types/index';
-import type { $BnOnes, BanglaDigit, Enumerate, LocaleCode, NumberRange } from '../types/number';
-import type { LooseLiteral, Repeat, Split } from '../types/utils';
 import type {
 	BN_DAYS,
 	BN_MONTH_TABLES,
@@ -22,13 +19,16 @@ import type {
 	WESTERN_ZODIAC_SIGNS,
 	YEAR_FORMATS,
 	ZODIAC_PRESETS,
-} from './constants';
+} from '../date/constants';
 import type {
 	TIME_ZONE_IDS,
 	TIME_ZONE_LABELS,
 	TIME_ZONES,
 	TIME_ZONES_NATIVE,
-} from './timezone';
+} from '../date/timezone';
+import type { Maybe } from './index';
+import type { $BnOnes, BanglaDigit, Enumerate, LocaleCode, NumberRange } from './number';
+import type { LooseLiteral, Repeat, Split } from './utils';
 
 /** - Minute in numeric string from `00` to `23` */
 export type ClockHour = `0${Enumerate<10>}` | `${NumberRange<10, 23>}`;
@@ -315,10 +315,9 @@ export type $GMTOffset = `GMT${$UTCOffset}` | 'GMT';
 export type $ISOTimeString =
 	`${number}-${number}-${number}T${number}:${number}:${number}.${number}`;
 
-export type ISODateTimeString = `${$ISOTimeString}Z`;
-
-/** ISO timestamp string type in ISO 8601 format */
-export type ISOTimeString = `${$ISOTimeString}${'Z' | $UTCOffset}`;
+export type ISODateTimeString<F extends ISODateFormat = 'utc'> = F extends 'utc'
+	? `${$ISOTimeString}Z`
+	: `${$ISOTimeString}${$UTCOffset}`;
 
 /** Valid argument type accepted by `Date` constructor */
 export type DateArgs = string | number | Date;
@@ -327,7 +326,7 @@ export type DateArgs = string | number | Date;
 export type ISODateFormat = 'local' | 'utc';
 
 /** Options for `getTimestamp` utility */
-export interface TimestampOptions {
+export interface TimestampOptions<F extends ISODateFormat = 'utc'> {
 	/**
 	 * Optional date input (string, number, or `Date` object).
 	 * Defaults to {@link Date new Date()}.
@@ -338,7 +337,7 @@ export interface TimestampOptions {
 	 * - `'utc'` (default) → returns ISO string in UTC (`...Z`).
 	 * - `'local'` → returns ISO string with current system offset (`...+05:30`).
 	 */
-	format?: ISODateFormat;
+	format?: F | ISODateFormat;
 }
 
 /** `Chronos` Date Format options */
@@ -421,28 +420,6 @@ export interface DateLike {
 		name: string;
 	};
 }
-
-/**
- * * Options for `Chronos` _static_ method `with()`
- *
- * @remarks Should provide at least one property, otherwise use the current date and time.
- */
-export type ChronosWithOptions = Partial<{
-	/** The full year (e.g., 2025). Years 0–99 are interpreted as 1900–1999. */
-	year: number;
-	/** Month number from 1 (January) to 12 (December). */
-	month: NumberRange<1, 12>;
-	/** Day of the month, from 1 to 31. */
-	date: NumberRange<1, 31>;
-	/** Hour of the day, from 0 (midnight) to 23 (11 PM). */
-	hour: Enumerate<24>;
-	/** Minutes of the hour, from 0 to 59. */
-	minute: Enumerate<60>;
-	/** Seconds of the minute, from 0 to 59. */
-	second: Enumerate<60>;
-	/** Milliseconds of the second, from 0 to 999. */
-	millisecond: Milliseconds;
-}>;
 
 /** Mapped type to {@link TIME_UNIT_VARIANTS} */
 export type $TimeUnitVarMap = typeof TIME_UNIT_VARIANTS;

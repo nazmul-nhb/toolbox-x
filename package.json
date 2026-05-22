@@ -1,6 +1,6 @@
 {
   "name": "toolbox-x",
-  "version": "1.0.1-rc.2",
+  "version": "1.0.1-rc.3",
   "description": "A versatile collection of smart, efficient, and reusable utility functions, classes and types for everyday development needs.",
   "main": "./dist/index.cjs",
   "type": "module",
@@ -201,6 +201,10 @@
     "./types/converter": {
       "import": "./dist/types/converter.mjs",
       "require": "./dist/types/converter.cjs"
+    },
+    "./types/date": {
+      "import": "./dist/types/date.mjs",
+      "require": "./dist/types/date.cjs"
     },
     "./types/form": {
       "import": "./dist/types/form.mjs",

@@ -2,14 +2,14 @@ import { isFunction, isObject } from '../guards/non-primitives';
 import { isBoolean, isNonEmptyString, isString } from '../guards/primitives';
 import { isNumericString } from '../guards/specials';
 import { normalizeNumber } from '../number/utilities';
-import type { Numeric } from '../types/index';
 import type {
 	$TimeZoneIdentifier,
 	ClockTime,
 	TimeWithUnit,
 	TimeZoneIdNative,
 	UTCOffset,
-} from './date';
+} from '../types/date';
+import type { Numeric } from '../types/index';
 import { IANA_TZ_IDS, NATIVE_TZ_IDS } from './timezone';
 
 /**

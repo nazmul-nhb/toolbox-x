@@ -1,8 +1,8 @@
 import { isNonEmptyString, isNumber } from '../guards/primitives';
 import { isNumericString } from '../guards/specials';
+import type { $TimeUnitVar, TimeWithUnit } from '../types/date';
 import type { Numeric } from '../types/index';
 import { MS_MAP } from './constants';
-import type { $TimeUnitVar, TimeWithUnit } from './date';
 import { isTimeWithUnit } from './guards';
 
 /**

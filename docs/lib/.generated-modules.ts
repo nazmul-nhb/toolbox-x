@@ -18,6 +18,7 @@ import * as Types from 'toolbox-x/types';
 import * as TypesArray from 'toolbox-x/types/array';
 import * as TypesColors from 'toolbox-x/types/colors';
 import * as TypesConverter from 'toolbox-x/types/converter';
+import * as TypesDate from 'toolbox-x/types/date';
 import * as TypesForm from 'toolbox-x/types/form';
 import * as TypesHash from 'toolbox-x/types/hash';
 import * as TypesHttpStatus from 'toolbox-x/types/http-status';
@@ -50,6 +51,7 @@ export const MODULES: Record<ToolboxModule, unknown> = {
 	'toolbox-x/types/array': TypesArray,
 	'toolbox-x/types/colors': TypesColors,
 	'toolbox-x/types/converter': TypesConverter,
+	'toolbox-x/types/date': TypesDate,
 	'toolbox-x/types/form': TypesForm,
 	'toolbox-x/types/hash': TypesHash,
 	'toolbox-x/types/http-status': TypesHttpStatus,

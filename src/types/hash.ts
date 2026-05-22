@@ -1,4 +1,4 @@
-import type { TimeWithUnit } from '../date/date';
+import type { TimeWithUnit } from './date';
 import type { Branded, Numeric } from './index';
 import type { GenericObject } from './object';
 

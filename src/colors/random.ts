@@ -13,7 +13,7 @@ import { extractSolidColorValues } from './utils';
 const generatedColors = /* @__PURE__ */ new Set<HSL>();
 
 /** Array of recently generated colors. */
-const recentColors: Array<HSL> = /* @__PURE__ */ [];
+const recentColors: Array<HSL> = [];
 
 /**
  * * Utility to generate a unique random HSL color.

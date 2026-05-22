@@ -1,4 +1,4 @@
-export const appName = 'Chronos';
+export const appName = 'Toolbox-X';
 export const appLogo = '/chronos.png';
 export const docsRoute = '/docs';
 export const docsImageRoute = '/og/docs';

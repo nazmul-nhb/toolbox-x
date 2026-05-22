@@ -16,7 +16,7 @@ export function baseOptions(): BaseLayoutProps {
 				<div className="flex items-center gap-2">
 					<Image
 						className="w-9 aspect-5/4"
-						src={appLogo}
+						src={'/toolbox-x.png'}
 						alt={appName}
 						quality={100}
 						width={96}

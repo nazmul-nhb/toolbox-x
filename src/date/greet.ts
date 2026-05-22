@@ -1,4 +1,4 @@
-import type { GreetingConfigs } from './date';
+import type { GreetingConfigs } from '../types/date';
 import { isValidTime } from './guards';
 import { extractHourMinute, getCurrentDateTime, getTotalMinutes } from './utils';
 

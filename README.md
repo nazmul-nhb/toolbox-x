@@ -1,4 +1,4 @@
-# Toolbox X
+# Toolbox-X
 
 > “I solve problems you face daily”
 
@@ -44,6 +44,8 @@
     <img src="https://img.shields.io/npm/l/toolbox-x.svg?label=LICENSE&style=flat&color=orange&logo=open-source-initiative" alt="License" />
   </a>
 </p>
+
+[![Toolbox-X](https://raw.githubusercontent.com/nazmul-nhb/toolbox-x/refs/heads/main/toolbox-x.png)](https://toolbox-x.nazmul-nhb.dev/)
 
 ## JavaScript/TypeScript Utility Library
 
@@ -149,7 +151,7 @@ generateRandomID({
 **`pluralizer`** - Handles English word pluralization and singularization with support for irregular forms and uncountable nouns.
 
 ```ts
-import { pluralizer } from 'toolbox-x';
+import { pluralizer } from 'toolbox-x/pluralizer';
 
 pluralizer.pluralize('child'); // "children"
 pluralizer.pluralize('category', { count: 3 }); // "categories"
@@ -188,7 +190,7 @@ getColorForInitial('Banana', 50); // '#00376E80' (50% opacity)
 **`createFormData`** - Convert JavaScript objects into `FormData` with extensive configuration options for handling nested structures, files, and data transformations.
 
 ```typescript
-import { createFormData } from 'toolbox-x';
+import { createFormData } from 'toolbox-x/dom';
 
 const formData = createFormData({
   user: {
@@ -356,13 +358,13 @@ debounceAction(fetchResults, 300);
 
 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
   <a target="_blank" href="https://www.npmjs.com/package/chronos-date">
-    <img src="https://img.shields.io/badge/Chronos_Date-chronos-date-blue" alt="bn-calendar" />
+    <img src="https://img.shields.io/badge/Chronos_Date-chronos--date-blue" alt="chronos-date" />
   </a>
 </div>
 
 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
   <a target="_blank" href="https://www.npmjs.com/package/bn-calendar">
-    <img src="https://img.shields.io/badge/Bangla_Calendar-bn-calendar-blue" alt="bn-calendar" />
+    <img src="https://img.shields.io/badge/Bangla_Calendar-bn--calendar-blue" alt="bn-calendar" />
   </a>
 </div>
 

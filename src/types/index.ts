@@ -1,4 +1,4 @@
-import type { DateLike } from '../date/date';
+import type { DateLike } from './date';
 
 /** Uncontrolled any to use for edge cases */
 export type Any = any;

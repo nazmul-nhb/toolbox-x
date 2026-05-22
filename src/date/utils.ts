@@ -1,7 +1,6 @@
 import { isObject } from '../guards/non-primitives';
 import { isUndefined } from '../guards/primitives';
 import { normalizeNumber } from '../number/utilities';
-import type { Maybe, Numeric } from '../types/index';
 import type {
 	$DateUnit,
 	$TimeZoneIdentifier,
@@ -10,14 +9,15 @@ import type {
 	DateFormatOptions,
 	HourMinutes,
 	ISODateFormat,
-	ISOTimeString,
+	ISODateTimeString,
 	StrictFormat,
 	TimeOnlyFormat,
 	TimestampOptions,
 	TimeZoneDetails,
 	TimeZoneIdNative,
 	UTCOffset,
-} from './date';
+} from '../types/date';
+import type { Maybe, Numeric } from '../types/index';
 import { isValidUTCOffset } from './guards';
 import {
 	_dateArgsToDate,
@@ -318,7 +318,7 @@ export function formatDateRelative(date: Maybe<DateArgs>, format?: StrictFormat)
  *
  * @returns Timestamp string in ISO 8601 format.
  */
-export function getTimestamp(): ISOTimeString;
+export function getTimestamp(): ISODateTimeString;
 
 /**
  * * Get timestamp in ISO 8601 format.
@@ -335,7 +335,10 @@ export function getTimestamp(): ISOTimeString;
  *
  * @returns Timestamp string in ISO 8601 format.
  */
-export function getTimestamp(value: DateArgs, format?: ISODateFormat): ISOTimeString;
+export function getTimestamp<F extends ISODateFormat>(
+	value: DateArgs,
+	format?: F
+): ISODateTimeString<F>;
 
 /**
  * * Get timestamp in ISO 8601 format.
@@ -348,14 +351,19 @@ export function getTimestamp(value: DateArgs, format?: ISODateFormat): ISOTimeSt
  *
  * @returns Timestamp string in ISO 8601 format.
  */
-export function getTimestamp(options: TimestampOptions): ISOTimeString;
+export function getTimestamp<F extends ISODateFormat>(
+	options: TimestampOptions<F>
+): ISODateTimeString<F>;
 
 /** Get timestamp in ISO 8601 format. */
-export function getTimestamp(args?: DateArgs | TimestampOptions, format?: ISODateFormat) {
+export function getTimestamp<F extends ISODateFormat>(
+	args?: DateArgs | TimestampOptions<F>,
+	format?: F
+) {
 	let $value: DateArgs;
-	let $format: ISODateFormat;
+	let $format: ISODateFormat | F;
 
-	const _isTsOptions = (opt: unknown): opt is TimestampOptions => {
+	const _isTsOptions = (opt: unknown): opt is TimestampOptions<F> => {
 		return isObject(opt) && ('value' in opt || 'format' in opt);
 	};
 
@@ -380,8 +388,8 @@ export function getTimestamp(args?: DateArgs | TimestampOptions, format?: ISODat
 
 		const offset = formatUTCOffset(-offsetMins).slice(3);
 
-		return localDate.toISOString().replace('Z', offset) as ISOTimeString;
+		return localDate.toISOString().replace('Z', offset) as ISODateTimeString<F>;
 	}
 
-	return date.toISOString() as ISOTimeString;
+	return date.toISOString() as ISODateTimeString<F>;
 }
