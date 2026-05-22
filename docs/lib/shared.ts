@@ -1,5 +1,5 @@
 export const appName = 'Toolbox-X';
-export const appLogo = '/chronos.png';
+export const appLogo = '/toolbox-x.png';
 export const docsRoute = '/docs';
 export const docsImageRoute = '/og/docs';
 export const docsContentRoute = '/llms.mdx/docs';
