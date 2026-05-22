@@ -12,7 +12,7 @@ export default async function Image() {
 			site={`${appName} Documentation`}
 			icon={
 				<img
-					src={`https://chronos.nazmul-nhb.dev/${appLogo}`}
+					src={`https://toolbox-x.nazmul-nhb.dev/${appLogo}`}
 					alt={appName}
 					width={80}
 				/>
