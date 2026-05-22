@@ -1,6 +1,6 @@
 ---
 title: Format Date & Time
-description: Format Date & Time — Chronos Documentation.
+description: Format Date & Time — Toolbox-X Documentation.
 ---
 
 ## `formatDate`
@@ -16,7 +16,7 @@ formatDate(options?: DateFormatOptions): string
 ### Import
 
 ```typescript
-import { formatDate } from "toolbox-x/utils";
+import { formatDate } from "toolbox-x/date";
 ```
 
 ### Parameter
@@ -123,17 +123,14 @@ console.log({
 
 - `formatDateTime`
 
-### See Also
-
-- [Chronos format methods](/docs/chronos/format) for similar date formatting capabilities within the Chronos class.
-
 ---
 
 ### Format Tokens
 
 <Callout type="info" title="Info">
-`formatDate` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [Chronos format](/docs/chronos/format) methods, and behave similarly to libraries like `Moment.js` or `Day.js`.
+`formatDate` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens behave similarly to libraries like `Moment.js` or `Day.js`.
 </Callout>
+
 Use square brackets (`[ ]`) to escape literal text. Unescaped characters will be treated as formatting tokens and replaced accordingly.
 
 Below is a list of all supported tokens:
@@ -182,7 +179,7 @@ Formats a date as a relative time string (e.g., `"5m ago"`, `"2h from now"`). Fa
 ### Import
 
 ```typescript
-import { formatDateRelative } from "toolbox-x/utils";
+import { formatDateRelative } from "toolbox-x/date";
 ```
 
 ### Signature
@@ -203,7 +200,7 @@ formatDateRelative(date: Maybe<DateArgs>, format?: SafeFormat): string
 ### Example
 
 ```typescript pg
-import { formatDateRelative } from "toolbox-x/utils";
+import { formatDateRelative } from "toolbox-x/date";
 
 const relative5m = formatDateRelative(Date.now() - 5 * 60000);
 // "5m ago"
@@ -257,7 +254,7 @@ Formats a time-only string into a formatted time string, automatically combining
 ### Import
 
 ```typescript
-import { formatTimePart } from "toolbox-x/utils";
+import { formatTimePart } from "toolbox-x/date";
 ```
 
 ### Signature
@@ -291,7 +288,7 @@ formatTimePart(time: string, format?: TimeOnlyFormat): string
 ### Example
 
 ```typescript pg
-import { formatTimePart } from "toolbox-x/utils";
+import { formatTimePart } from "toolbox-x/date";
 
 // Basic time formatting
 const timePart = formatTimePart('14:50'); 

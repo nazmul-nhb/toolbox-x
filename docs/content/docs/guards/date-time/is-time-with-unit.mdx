@@ -73,8 +73,8 @@ if (isTimeWithUnit(input)) {
 
 ```ts pg
 import { isTimeWithUnit } from 'toolbox-x/guards';
-import { parseMSec } from 'toolbox-x/utils';
-import type { TimeWithUnit } from 'toolbox-x/types';
+import { parseMSec } from 'toolbox-x/date';
+import type { TimeWithUnit } from 'toolbox-x/types/date';
 
 // Input validation
 function validateTimeout(input: string): TimeWithUnit {
@@ -105,4 +105,4 @@ console.log(validTimes);
 
 ### Related
 
-- [`parseMSec`](/docs/utils/parse-time#parsemsec) - Parse time strings to milliseconds/seconds
+- [`parseMSec`](/docs/utils/date/parse-time#parsemsec) - Parse time strings to milliseconds/seconds

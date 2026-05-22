@@ -1,6 +1,6 @@
 ---
 title: Format UTC Offset
-description: Format UTC Offset — Chronos Documentation.
+description: Format UTC Offset — Toolbox-X Documentation.
 ---
 
 ## `formatUTCOffset`
@@ -10,7 +10,7 @@ Converts a minute-based offset to a standardized UTC offset string in `UTC±HH:M
 ### Import
 
 ```typescript
-import { formatUTCOffset } from "toolbox-x/utils";
+import { formatUTCOffset } from "toolbox-x/date";
 ```
 
 ### Function Signature
@@ -30,7 +30,7 @@ A formatted UTC offset string (e.g., `UTC+05:30` or `UTC-04:00`)
 ### Example Usage
 
 ```typescript pg
-import { formatUTCOffset } from "toolbox-x/utils";
+import { formatUTCOffset } from "toolbox-x/date";
 
 // Positive offset
 console.log(formatUTCOffset(330)); // "UTC+05:30"

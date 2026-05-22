@@ -79,12 +79,6 @@ import { IANA_TZ_IDS, TIME_ZONE_IDS } from 'toolbox-x/constants';
 ### Typical Use Cases
 
 ```ts
-// Validate user input preferring modern names
-const userInput = 'Asia/Kolkata'; // Modern systems should use this
-if (isValidTimeZoneId(userInput)) {
-    const ch = new Chronos().timeZone(userInput); // Type-safe usage
-}
-
 // Filter valid timezone identifiers including modern names
 const potentialZones = ['Asia/Dhaka', 'EST', 'Asia/Kolkata', 'UTC+06:00'];
 const validZones = potentialZones.filter(isValidTimeZoneId);
@@ -178,17 +172,6 @@ import { TIME_ZONES_NATIVE } from 'toolbox-x/constants';
 
 ```ts pg
 import { isNativeTimeZoneId } from 'toolbox-x/guards';
-import { Chronos } from 'toolbox-x';
-import { timeZonePlugin } from 'toolbox-x/plugins/timeZonePlugin';
-
-Chronos.use(timeZonePlugin);
-
-// Validate user input for maximum JS engine compatibility
-const userInput = 'Asia/Calcutta'; // JS engines recognize this
-if (isNativeTimeZoneId(userInput)) {
-    const ch = new Chronos().timeZone(userInput); // Type-safe usage
-    console.log(ch);
-}
 
 // Filter valid native timezone identifiers
 const potentialZones = ['Asia/Dhaka', 'EST', 'Asia/Kolkata', 'Asia/Calcutta'];
@@ -211,17 +194,16 @@ if (!isNativeTimeZoneId(config.timezone)) {
 | **Bundle Size**  | Larger (includes array of identifiers) | Minimal (uses native APIs)                      |
 | **Performance**  | Good                                   | Excellent (native optimized)                    |
 | **Use Case**     | Modern apps, future-proofing           | JS engine compatibility, performance            |
-
 </Callout>
 
 <Callout type="info" title="Important Note on JavaScript Engine Behavior">
 
 JavaScript engines have an interesting inconsistency:
 
-- \`Intl.supportedValuesOf('timeZone')\` typically returns some legacy names like \`Asia/Calcutta\`
-- But \`new Intl.DateTimeFormat().format()\` often accepts modern names like \`Asia/Kolkata\` and works correctly
+- `Intl.supportedValuesOf('timeZone')` typically returns some legacy names like `Asia/Calcutta`
+- But `new Intl.DateTimeFormat().format()` often accepts modern names like `Asia/Kolkata` and works correctly
 
-This means \`isNativeTimeZoneId\` is stricter about what the engine explicitly "supports" vs what might actually work.
+This means `isNativeTimeZoneId` is stricter about what the engine explicitly "supports" vs what might actually work.
 </Callout>
 
 <Callout type="info" title="Decision Guide">
@@ -271,4 +253,3 @@ console.log(new Intl.DateTimeFormat('en', {
 
 For most applications, **use `isValidTimeZoneId`** as it provides modern, future-proof validation. Use `isNativeTimeZoneId` only when you specifically need to validate against what the JS engine explicitly reports as supported.
 </Callout>
-

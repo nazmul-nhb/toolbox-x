@@ -1,6 +1,6 @@
 ---
 title: Get Time-Based Greeting
-description: Get Time-Based Greeting — Chronos Documentation.
+description: Get Time-Based Greeting — Toolbox-X Documentation.
 ---
 
 ## `getGreeting`
@@ -43,7 +43,7 @@ getGreeting(configs?: GreetingConfigs): string;
 ### Example Usage
 
 ```typescript pg tab="Basic Usage"
-import { getGreeting } from "toolbox-x/utils";
+import { getGreeting } from "toolbox-x/date";
 
 // Uses current time
 console.log(getGreeting()); 
@@ -51,14 +51,14 @@ console.log(getGreeting());
 ```
 
 ```typescript pg tab="Custom Time"
-import { getGreeting } from "toolbox-x/utils";
+import { getGreeting } from "toolbox-x/date";
 
 console.log(getGreeting({ currentTime: '15:30' }));
 // "Good Afternoon!"
 ```
 
 ```typescript pg tab="Custom Messages"
-import { getGreeting } from "toolbox-x/utils";
+import { getGreeting } from "toolbox-x/date";
 
 console.log(getGreeting({
   afternoonMessage: 'Top of the afternoon!',
@@ -68,7 +68,7 @@ console.log(getGreeting({
 ```
 
 ```typescript pg tab="Full Customization"
-import { getGreeting } from "toolbox-x/utils";
+import { getGreeting } from "toolbox-x/date";
 
 console.log(getGreeting({
   morningEnds: '10:00',
@@ -82,7 +82,7 @@ console.log(getGreeting({
 ```
 
 ```typescript pg tab="Using Aliases"
-import { greet } from "toolbox-x/utils";
+import { greet } from "toolbox-x/date";
 
 console.log(greet({ morningMessage: 'Rise and shine!' }));
 ```

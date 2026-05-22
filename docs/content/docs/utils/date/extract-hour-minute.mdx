@@ -1,6 +1,6 @@
 ---
 title: Extract Hour & Minute
-description: Extract Hour & Minute from Time — Chronos Documentation.
+description: Extract Hour & Minute from Time — Toolbox-X Documentation.
 ---
 
 ## `extractHourMinute`
@@ -10,7 +10,7 @@ Extracts the hour and minute components from a time string in `HH:MM` or `-HH:MM
 ### Import
 
 ```typescript
-import { extractHourMinute } from "toolbox-x/utils";
+import { extractHourMinute } from "toolbox-x/date";
 ```
 
 ### Function Signature
@@ -35,7 +35,7 @@ A tuple containing:
 ### Example Usage
 
 ```typescript pg
-import { extractHourMinute } from "toolbox-x/utils";
+import { extractHourMinute } from "toolbox-x/date";
 
 // Positive time
 const [hour1, minute1] = extractHourMinute("14:45");

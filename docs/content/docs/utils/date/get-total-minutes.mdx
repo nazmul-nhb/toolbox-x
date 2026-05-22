@@ -1,6 +1,6 @@
 ---
 title: Extract Total Minutes
-description: Extract Total Minutes — Chronos Documentation.
+description: Extract Total Minutes — Toolbox-X Documentation.
 ---
 
 ## `getTotalMinutes`
@@ -10,7 +10,7 @@ Converts a time string in `HH:MM` or `-HH:MM` format into total minutes from `00
 ### Import
 
 ```typescript
-import { getTotalMinutes } from "toolbox-x/utils";
+import { getTotalMinutes } from "toolbox-x/date";
 ```
 
 ### Function Signature
@@ -36,7 +36,7 @@ Total minutes elapsed since `00:00`:
 ### Example Usage
 
 ```typescript pg
-import { getTotalMinutes } from "toolbox-x/utils";
+import { getTotalMinutes } from "toolbox-x/date";
 
 // Positive time
 console.log(getTotalMinutes("14:45"));  // 885 (14*60 + 45)
@@ -58,7 +58,7 @@ console.log(getTotalMinutes("-00:00")); // 0
 - Returns raw numeric value (no rounding)
 - Follows 24-hour time format
 - Returns 0 for both `00:00` and `-00:00`
-- It internally uses [extractHourMinute](/docs/utils/extract-hour-minute)
+- It internally uses [extractHourMinute](/docs/date/extract-hour-minute)
 
 ### Aliases
 
