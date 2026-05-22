@@ -1,36 +1,40 @@
 ---
 title: Introduction
-description: A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.
+description: Toolbox-X is a JavaScript/TypeScript library for professional development, offering helper functions, type guards, validation utilities, and types with zero dependencies.
 icon: Sparkles
 ---
 
-## What is Chronos?
+>**Replace Boilerplate(s) with One-Liner(s)**
 
-**Chronos** is a lightweight, immutable, and fully tree-shakable date-time library designed for any JavaScript and TypeScript environment. It provides a rich API for date manipulation, formatting, comparison, and more — with a powerful plugin system for extending functionality.
+`toolbox-x` provides battle-tested utilities for professional TypeScript/JavaScript development. Carefully crafted to solve common challenges with elegant, production-ready solutions:
 
-## Key Features
+## Features
 
-- 🕐 **Immutable** — Every [`Chronos`](/docs/chronos) operation returns a new instance
-- 🔌 **Plugin System** — Extend with timezone, zodiac, seasons, business days, and more
-- 🌳 **Tree-Shakable** — Zero runtime dependencies, only ship what you use
-- 🛡️ **Type-Safe** — Full TypeScript support with precise types and rich IntelliSense
-- ⚡ **Lightweight** — Small bundle size with modular exports
-- 🌍 **Timezone Support** — UTC, local, and named timezone handling via [`timeZonePlugin`](/docs/plugins/timezone-plugin)
-- 🔧 **Date Utilities:** Extra utilities, type guards, types and constants for light weight date operations without the need of core [`Chronos`](/docs/chronos) class
+- **Type-Safe Utilities**: Fully typed for perfect TypeScript integration with strict type checking
+- **Type Guards & Predicates**: Runtime safety with perfect type inference
+- **Types**: Ready-to-use [types](/docs/types) designed to enhance type safety and developer efficiency
+- **Modular Design**: Tree-shaking friendly – import only what you need with zero bloat
+- **Zero Dependencies**: No external dependencies - works with any JS/TS framework
+- **IDE Support**: Full type hints with JSDoc-powered API references in your editor
+- **Battle-Tested**: Reliable utilities refined through real-world production use
+- **Optimized for Production**: Focused on clean, efficient implementations
 
 ## Quick Example
 
-```ts pg
-import { Chronos } from "toolbox-x";
+```typescript pg
+import { numberToWords, getNumbersInRange } from 'toolbox-x';
 
-const now = new Chronos();
+console.log(numberToWords(125)); // "one hundred and twenty-five"
 
-console.log({
-    today: now.format(),
-    day: now.day(),
-    tomorrow: now.add(1, "day").format(),
-    isLeapYear: now.isLeapYear()
-});
+// Get primes between 10-30 as formatted string
+const primesString = getNumbersInRange('prime', { min: 10, max: 30, getAsString: true });
+// "11, 13, 17, 19, 23, 29"
+console.log(primesString);
+
+// Get even numbers between 1-10 as array
+const evensArray = getNumbersInRange('even', { min: 1, max: 10 });
+// [2, 4, 6, 8, 10]
+console.log(evensArray);
 ```
 
 ## What's Next?

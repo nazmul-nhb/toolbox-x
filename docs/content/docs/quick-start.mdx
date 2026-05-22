@@ -4,82 +4,283 @@ description: Get up and running with toolbox-x in minutes.
 icon: Rocket
 ---
 
+After installation you can import any utility or class from `toolbox-x` or from the specific sub modules.
 
+## Examples
 
-## Creating Instances
+### 🎨 Professional Color Manipulation
 
-There are multiple ways to create a `Chronos` instance:
+**`Color`** - Convert between color formats, generate palettes, check accessibility contrast, and perform advanced color math with perfect type safety.
 
-### Using the Constructor
+```typescript pg
+import { Color } from 'toolbox-x/colors';
 
-```ts
-import { Chronos } from "toolbox-x";
-
-// Current date and time
-const now = new Chronos();
-
-// From a date string
-const date = new Chronos("2025-12-31");
-
-// From a timestamp
-const fromTimestamp = new Chronos(1735689600000);
-
-// From a Date object
-const fromDate = new Chronos(new Date());
-
-// From components
-const custom = new Chronos(2025, 6, 15, 14, 30, 0);
+const blue = new Color('#0000ff');
+const darkerBlue = blue.applyDarkness(20); // 20% darker
+console.log(darkerBlue.hsl); // "hsl(240, 100%, 30%)" (was 50%)
 ```
 
-## Basic Operations
+[Documentation →](/docs/classes/Color)
 
-```ts pg
-import { Chronos } from "toolbox-x";
+---
 
-const date = new Chronos("2025-06-15");
+### 🔍 Optimized Array Search
 
-// Formatting
-console.log({
-    format: date.format("mmmm DD, YYYY"),
-    format2: date.format("ddd")
+**`Finder`** - Blazing-fast array searching with binary search, fuzzy matching, and smart caching. Perfect for large datasets.
+
+```typescript pg
+import { Finder } from 'toolbox-x';
+
+const products = [
+ { name: 'Laptop', category: 'Electronics', price: 1200 },
+ { name: 'Mouse', category: 'Accessories', price: 25 },
+ { name: 'Keyboard', category: 'Accessories', price: 75 },
+ { name: 'Monitor', category: 'Electronics', price: 300 },
+];
+
+const productFinder = new Finder(products);
+
+const laptop = productFinder.findOne('laptop', 'name', {
+ fuzzy: true,
+ caseInsensitive: true,
 });
 
-// Arithmetic
-console.log({
-    add7days: date.add(7, "day").format(),
-    subtract1month: date.subtract(1, "month").format()
+console.log(laptop);
+```
+
+[Documentation →](/docs/classes/Finder)
+
+---
+
+### 🆔 Random ID Generation
+
+**`generateRandomID`** - Enterprise-grade unique ID generation with prefixes, timestamps, and formatting.
+
+```typescript pg
+import { generateRandomID } from 'toolbox-x';
+
+const id = generateRandomID({
+ prefix: 'user',
+ timeStamp: true,
+ length: 12,
+ caseOption: 'upper',
 });
 
-// Comparison
-const other = new Chronos("2025-07-01");
+console.log(id);
+```
+
+[Documentation →](/docs/utilities/string/generate-random-id)
+
+---
+
+### 🔢 Pluralize Strings and More
+
+**`pluralizer`** - Handles English word pluralization and singularization with support for irregular forms and uncountable nouns.
+
+```typescript pg
+import { pluralizer } from 'toolbox-x/pluralizer';
+
+const result1 = pluralizer.pluralize('child'); // "children"
+const result2 = pluralizer.pluralize('category', { count: 3 }); // "categories"
+const result3 = pluralizer.pluralize('child', { count: 1, inclusive: true }); // "1 child"
+
+const result4 = pluralizer.toSingular('geese'); // "goose"
+const result5 = pluralizer.toSingular('children'); // "child"
+
+const result6 = pluralizer.isPlural('children'); // true
+const result7 = pluralizer.isSingular('child'); // true
+const result8 = pluralizer.isPlural('fish'); // true (uncountable)
+
 console.log({
-    isBeforeJuly: date.isBefore(other, "month"),
-    daysBetween: date.diff(other, "day")
+    result1,
+    result2,
+    result3,
+    result4,
+    result5,
+    result6,
+    result7,
+    result8,
 });
 ```
 
-## Using Plugins
+[Documentation →](/docs/utilities/string/pluralizer)
 
-Extend Chronos with plugins for additional functionality:
+---
 
-```ts pg
-import { Chronos } from "toolbox-x";
-import { timeZonePlugin } from "toolbox-x/plugins/timeZonePlugin";
-import { seasonPlugin } from "toolbox-x/plugins/seasonPlugin";
+### 🎨 Color System Utilities
 
-// Register plugins (do this once, before creating instances)
-Chronos.use(timeZonePlugin);
-Chronos.use(seasonPlugin);
+**`getColorForInitial`** - Deterministic color mapping system for consistent UI theming
 
-const date = new Chronos();
-console.log({
-    original: date,
-    // Now you can use plugin methods
-    timeZone: date.timeZone("America/New_York"), // Convert to timezone
-    season: date.season() // Get current season
-});
+```typescript pg
+import { getColorForInitial } from 'toolbox-x/colors';
+
+// Get color palette for user avatars
+const color1 = getColorForInitial(['Alice', 'Bob', 'Charlie']);
+// ['#00094CFF', '#00376EFF', '#005600FF']
+
+console.log(color1);
+
+const color2 = getColorForInitial('Banana', 50); // '#00376E80' (50% opacity)
+
+console.log(color2);
 ```
 
-<Callout type="info" title="Important">
-Register plugins at the top of your application entry point, before creating any `Chronos` instances.
-</Callout>
+[Documentation →](/docs/utilities/color/get-color-for-initial)
+
+---
+
+### 📄 FormData Preparation
+
+**`createFormData`** - Convert JavaScript objects into `FormData` with extensive configuration options for handling nested structures, files, and data transformations.
+
+```typescript pg
+import { createFormData } from 'toolbox-x/dom';
+
+const file1 = new File(['file1'], 'file1.txt', { type: 'text/plain' });
+const file2 = new File(['file2'], 'file2.txt', { type: 'text/plain' }); 
+
+const formData = createFormData({
+  user: {
+    name: ' John Doe ',
+    age: 30,
+    preferences: { theme: 'dark' }
+  },
+  files: [file1, file2]
+}, {
+  trimStrings: true,
+  lowerCaseValues: ['user.name'],
+  dotNotateNested: ['user'],
+  breakArray: ['files']
+});
+
+console.log(Object.fromEntries(formData));
+
+// Resulting FormData:
+// user.name=john doe
+// user.age=30
+// user.preferences.theme=dark
+// files[0]=[File1]
+// files[1]=[File2]
+```
+
+[Documentation →](/docs/utilities/form/create-form-data)
+
+---
+
+### 🛡️ Data Sanitization
+
+**`sanitizeData`** - Clean and normalize strings/objects by trimming whitespace, removing empty values, and applying customizable filters.
+
+```typescript pg
+import { sanitizeData } from 'toolbox-x';
+
+const user = {
+ name: '  John Doe  ',
+ age: null,
+ address: { city: '  NYC  ', zip: '' },
+ tags: [],
+};
+
+const sanitized1 = sanitizeData(user, { ignoreNullish: true, ignoreEmpty: true });
+// Returns { name: "John Doe", address: { city: "NYC" } } with exact input type which may cause issue when accessing missing properties
+console.log(sanitized1);
+
+const sanitized2 = sanitizeData(user, { ignoreNullish: true, ignoreEmpty: true }, 'partial');
+// Return type: $DeepPartial<typeof user> safe property access by making all the properties (nested objects/arrays) optional 
+// Returns { name: "John Doe", address: { city: "NYC" } }
+console.log(sanitized2);
+```
+
+[Documentation →](/docs/utilities/object/sanitize-data)
+
+---
+
+### 🔄 JSON Hydration
+
+**`parseJSON`** - Bulletproof JSON parsing with primitive conversion
+
+```typescript pg
+import { parseJSON } from 'toolbox-x';
+
+const parsed = parseJSON<{value: number}>('{"value":"42"}'); // { value: 42 } (auto-converts numbers)
+console.log(parsed);
+```
+
+[Documentation →](/docs/utilities/misc/parse-json)
+
+---
+
+### 🔢 Number to Words
+
+**`numberToWords`** - Convert numbers to human-readable words (supports up to 100 quintillion).
+
+```typescript pg
+import { numberToWords } from 'toolbox-x';
+
+console.log(numberToWords(125)); // "one hundred and twenty-five"
+```
+
+[Documentation →](/docs/utilities/number/number-to-words)
+
+---
+
+### 🔢 Advanced Number Operations
+
+**`getNumbersInRange`** - Generate intelligent number sequences with prime, even/odd, and custom filtering capabilities
+
+```typescript pg
+import { getNumbersInRange } from 'toolbox-x';
+
+// Get primes between 10-30 as formatted string
+const primesString = getNumbersInRange('prime', { min: 10, max: 30, getAsString: true });
+// "11, 13, 17, 19, 23, 29"
+console.log(primesString);
+
+// Get even numbers between 1-10 as array
+const evensArray = getNumbersInRange('even', { min: 1, max: 10 });
+// [2, 4, 6, 8, 10]
+console.log(evensArray);
+```
+
+[Documentation →](/docs/utilities/number/get-numbers-in-range)
+
+**`calculatePercentage`** - Swiss Army knife for percentage calculations with 7 specialized modes
+
+```typescript pg
+import { calculatePercentage } from 'toolbox-x';
+
+// Calculate percentage change
+const percentageChange = calculatePercentage({
+ mode: 'get-change-percent',
+ oldValue: 100,
+ newValue: 150,
+});
+// 50 (50% increase)
+console.log(percentageChange);
+```
+
+[Documentation →](/docs/utilities/number/calculate-percentage)
+
+---
+
+### 🔄 Extract Updated Fields
+
+**`extractUpdatedFields`** - Detect exactly what changed between two objects (including deep nested changes).
+
+```typescript pg
+import { extractUpdatedFields } from 'toolbox-x';
+
+const dbRecord = { id: 1, content: 'Hello', meta: { views: 0 } };
+const update = { content: 'Hello', meta: { views: 1 } };
+const result = extractUpdatedFields(dbRecord, update);
+// { meta: { views: 1 } }
+console.log(result);
+```
+
+[Documentation →](/docs/utilities/object/extract-updated-fields)
+
+---
+
+## Comprehensive Documentation
+
+All the utilities and classes are categorized. Explore the documentation to find the perfect tool for your needs.

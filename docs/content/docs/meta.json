@@ -6,9 +6,8 @@
 		"installation",
 		"quick-start",
 		"---API Reference---",
-		"chronos",
-		"plugins",
 		"utils",
-		"guards"
+		"guards",
+		"..."
 	]
 }

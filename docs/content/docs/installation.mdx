@@ -4,7 +4,7 @@ description: How to install toolbox-x in your project.
 icon: PackagePlus
 ---
 
-## Package Manager
+## Choose a Package Manager
 
 Install `toolbox-x` using your preferred package manager:
 
@@ -18,30 +18,29 @@ toolbox-x
 
 ```ts
 // ESM (recommended)
-import { Chronos } from "toolbox-x";
+import { sanitizeData } from "toolbox-x";
 
 // CommonJS
-const { Chronos } = require("toolbox-x");
+const { sanitizeData } = require("toolbox-x");
 ```
 
 ## Modular Imports
 
-You can import specific submodules for better tree-shaking:
+You can import specific sub-modules for better tree-shaking:
 
 ```ts
 // Guards
-import { isValidDateInput } from "toolbox-x/guards";
+import { isString, isNumber } from "toolbox-x/guards";
 
-// Utility functions
-import { formatDate } from "toolbox-x/utils";
+// Specific functions
+import { formatDate } from "toolbox-x/date";
 
-// Type definitions
-import type { ChronosInput } from "toolbox-x/types";
+// General type definitions
+import type { Maybe } from "toolbox-x/types";
+
+// Specific type definitions
+import type { SomeType } from "toolbox-x/types/module";
 
 // Constants
 import { MONTHS } from "toolbox-x/constants";
-
-// Plugins (imported individually)
-import { timeZonePlugin } from "toolbox-x/plugins/timeZonePlugin";
-import { seasonPlugin } from "toolbox-x/plugins/seasonPlugin";
 ```

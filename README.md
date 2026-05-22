@@ -1,4 +1,4 @@
-# Toolbox-X
+# [Toolbox-X](https://toolbox-x.nazmul-nhb.dev)
 
 > “I solve problems you face daily”
 
@@ -96,7 +96,7 @@ See [Changelog](CHANGELOG.md) for recent updates.
 
 ---
 
-## Signature Utilities
+## Examples
 
 ### 🎨 Professional Color Manipulation
 
