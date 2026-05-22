@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-description: Get up and running with chronos-date in minutes.
+description: Get up and running with toolbox-x in minutes.
 icon: Rocket
 ---
 
@@ -13,7 +13,7 @@ There are multiple ways to create a `Chronos` instance:
 ### Using the Constructor
 
 ```ts
-import { Chronos } from "chronos-date";
+import { Chronos } from "toolbox-x";
 
 // Current date and time
 const now = new Chronos();
@@ -31,22 +31,10 @@ const fromDate = new Chronos(new Date());
 const custom = new Chronos(2025, 6, 15, 14, 30, 0);
 ```
 
-### Using the Wrapper Function
-
-The `chronos` function provides the same functionality with a simpler syntax:
-
-```ts
-import { chronos } from "chronos-date";
-
-const date = chronos("2025-12-31");
-date.year; // 2025
-date.monthName; // "December"
-```
-
 ## Basic Operations
 
 ```ts pg
-import { Chronos } from "chronos-date";
+import { Chronos } from "toolbox-x";
 
 const date = new Chronos("2025-06-15");
 
@@ -75,9 +63,9 @@ console.log({
 Extend Chronos with plugins for additional functionality:
 
 ```ts pg
-import { Chronos } from "chronos-date";
-import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
-import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
+import { Chronos } from "toolbox-x";
+import { timeZonePlugin } from "toolbox-x/plugins/timeZonePlugin";
+import { seasonPlugin } from "toolbox-x/plugins/seasonPlugin";
 
 // Register plugins (do this once, before creating instances)
 Chronos.use(timeZonePlugin);

@@ -26,7 +26,7 @@ isValidTimeZoneId(value: unknown): value is $TimeZoneIdentifier
 ### Example
 
 ```ts pg
-import { isValidTimeZoneId } from 'chronos-date/guards';
+import { isValidTimeZoneId } from 'toolbox-x/guards';
 
 // Valid IANA identifiers (including modern canonical names)
 console.log(isValidTimeZoneId('Asia/Dhaka')); // → true
@@ -55,7 +55,7 @@ console.log(isValidTimeZoneId(null)); // → false
 Full data is also available through this package subpath:
 
 ```ts
-import { IANA_TZ_IDS, TIME_ZONE_IDS } from 'chronos-date/constants';
+import { IANA_TZ_IDS, TIME_ZONE_IDS } from 'toolbox-x/constants';
 ```
 
 - `IANA_TZ_IDS` contains array of identifiers while `TIME_ZONE_IDS` contains the identifiers in record style `{id: { tzName: '...', offset: '...' }}`
@@ -122,7 +122,7 @@ isNativeTimeZoneId(value: unknown): value is TimeZoneIdNative
 ### Example
 
 ```ts pg
-import { isNativeTimeZoneId } from 'chronos-date/guards';
+import { isNativeTimeZoneId } from 'toolbox-x/guards';
 
 // Valid Native JS identifiers (legacy names in some engines)
 console.log(isNativeTimeZoneId('Asia/Dhaka')); // → true
@@ -153,7 +153,7 @@ console.log(isNativeTimeZoneId(null)); // → false
 Full data is also available through this package subpath:
 
 ```ts
-import { TIME_ZONES_NATIVE } from 'chronos-date/constants';
+import { TIME_ZONES_NATIVE } from 'toolbox-x/constants';
 ```
 
 - `TIME_ZONES_NATIVE` contains the identifiers in record style `{id: { tzName: '...', offset: '...' }}`
@@ -177,9 +177,9 @@ import { TIME_ZONES_NATIVE } from 'chronos-date/constants';
 ### Typical Use Cases
 
 ```ts pg
-import { isNativeTimeZoneId } from 'chronos-date/guards';
-import { Chronos } from 'chronos-date';
-import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+import { isNativeTimeZoneId } from 'toolbox-x/guards';
+import { Chronos } from 'toolbox-x';
+import { timeZonePlugin } from 'toolbox-x/plugins/timeZonePlugin';
 
 Chronos.use(timeZonePlugin);
 
@@ -245,7 +245,7 @@ This means \`isNativeTimeZoneId\` is stricter about what the engine explicitly "
 ## Practical Example
 
 ```ts pg
-import { isValidTimeZoneId, isNativeTimeZoneId } from 'chronos-date/guards';
+import { isValidTimeZoneId, isNativeTimeZoneId } from 'toolbox-x/guards';
 
 // Modern name - valid in IANA but not in native JS list
 console.log(isValidTimeZoneId('Asia/Kolkata')); // → true

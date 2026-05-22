@@ -11,15 +11,15 @@ export const ogImageSize = {
 
 export const gitConfig = {
 	user: 'nazmul-nhb',
-	repo: 'chronos-date',
+	repo: 'toolbox-x',
 	branch: 'main',
 };
 
 export const titleDescription = {
 	title: {
-		absolute: `${appName} - Elegant Date-Time Library`,
+		absolute: `${appName} - A Versatile Utility Library for JavaScript and TypeScript`,
 		default: `${appName} Documentation`,
 		template: `%s » ${appName} Documentation`,
 	},
-	description: `${appName} - A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.`,
+	description: `${appName} - A versatile collection of smart, efficient, and reusable utility functions, classes and types for everyday development needs.`,
 } as const;

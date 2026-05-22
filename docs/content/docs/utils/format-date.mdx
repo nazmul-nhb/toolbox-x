@@ -16,7 +16,7 @@ formatDate(options?: DateFormatOptions): string
 ### Import
 
 ```typescript
-import { formatDate } from "chronos-date/utils";
+import { formatDate } from "toolbox-x/utils";
 ```
 
 ### Parameter
@@ -41,7 +41,7 @@ interface DateFormatOptions {
 ### Example
 
 ```ts pg
-import { formatDate } from "chronos-date/utils";
+import { formatDate } from "toolbox-x/utils";
 
 // Using string date
 const strDateFmt = formatDate({ 
@@ -182,7 +182,7 @@ Formats a date as a relative time string (e.g., `"5m ago"`, `"2h from now"`). Fa
 ### Import
 
 ```typescript
-import { formatDateRelative } from "chronos-date/utils";
+import { formatDateRelative } from "toolbox-x/utils";
 ```
 
 ### Signature
@@ -203,7 +203,7 @@ formatDateRelative(date: Maybe<DateArgs>, format?: SafeFormat): string
 ### Example
 
 ```typescript pg
-import { formatDateRelative } from "chronos-date/utils";
+import { formatDateRelative } from "toolbox-x/utils";
 
 const relative5m = formatDateRelative(Date.now() - 5 * 60000);
 // "5m ago"
@@ -257,7 +257,7 @@ Formats a time-only string into a formatted time string, automatically combining
 ### Import
 
 ```typescript
-import { formatTimePart } from "chronos-date/utils";
+import { formatTimePart } from "toolbox-x/utils";
 ```
 
 ### Signature
@@ -291,7 +291,7 @@ formatTimePart(time: string, format?: TimeOnlyFormat): string
 ### Example
 
 ```typescript pg
-import { formatTimePart } from "chronos-date/utils";
+import { formatTimePart } from "toolbox-x/utils";
 
 // Basic time formatting
 const timePart = formatTimePart('14:50'); 

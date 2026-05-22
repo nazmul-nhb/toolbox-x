@@ -4,7 +4,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "pnpm --filter chronos-date build && pnpm gen && next build",
+		"build": "pnpm --filter toolbox-x build && pnpm gen && next build",
 		"dev": "pnpm gen && next dev",
 		"start": "next start",
 		"gen": "node scripts/generate-types.mjs",

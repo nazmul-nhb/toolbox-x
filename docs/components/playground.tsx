@@ -42,7 +42,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 		editor.layout();
 	};
 
-	// Load chronos-date types into Monaco for IntelliSense
+	// Load toolbox-x types into Monaco for IntelliSense
 	useEffect(() => {
 		if (monaco) {
 			// Configure typescript compiler options

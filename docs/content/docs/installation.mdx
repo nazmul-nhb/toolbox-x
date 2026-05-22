@@ -1,27 +1,27 @@
 ---
 title: Installation
-description: How to install chronos-date in your project.
+description: How to install toolbox-x in your project.
 icon: PackagePlus
 ---
 
 ## Package Manager
 
-Install `chronos-date` using your preferred package manager:
+Install `toolbox-x` using your preferred package manager:
 
 ```package-install
-chronos-date
+toolbox-x
 ```
 
 ## Module Formats
 
-`chronos-date` ships as both ESM and CommonJS:
+`toolbox-x` ships as both ESM and CommonJS:
 
 ```ts
 // ESM (recommended)
-import { Chronos } from "chronos-date";
+import { Chronos } from "toolbox-x";
 
 // CommonJS
-const { Chronos } = require("chronos-date");
+const { Chronos } = require("toolbox-x");
 ```
 
 ## Modular Imports
@@ -30,18 +30,18 @@ You can import specific submodules for better tree-shaking:
 
 ```ts
 // Guards
-import { isValidDateInput } from "chronos-date/guards";
+import { isValidDateInput } from "toolbox-x/guards";
 
 // Utility functions
-import { formatDate } from "chronos-date/utils";
+import { formatDate } from "toolbox-x/utils";
 
 // Type definitions
-import type { ChronosInput } from "chronos-date/types";
+import type { ChronosInput } from "toolbox-x/types";
 
 // Constants
-import { MONTHS } from "chronos-date/constants";
+import { MONTHS } from "toolbox-x/constants";
 
 // Plugins (imported individually)
-import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
-import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
+import { timeZonePlugin } from "toolbox-x/plugins/timeZonePlugin";
+import { seasonPlugin } from "toolbox-x/plugins/seasonPlugin";
 ```

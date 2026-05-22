@@ -14,7 +14,7 @@ The `parseMSec` function parses time strings with units (like `"2h"`, `"30m"`, `
 ### Import
 
 ```typescript
-import { parseMSec } from "chronos-date/utils";
+import { parseMSec } from "toolbox-x/utils";
 ```
 
 ### Function Signature
@@ -63,7 +63,7 @@ type TimeWithUnit = `${number}${$UnitAnyCase}` | `${number} ${$UnitAnyCase}`;
 ### Usage Examples
 
 ```typescript pg tab="Basic Usage"
-import { parseMSec } from "chronos-date/utils";
+import { parseMSec } from "toolbox-x/utils";
 
 // Convert time strings to milliseconds
 console.log(parseMSec('1h'));        // 3600000 (1 hour in ms)
@@ -80,8 +80,8 @@ console.log(parseMSec('300'));       // 300000 (300 seconds in ms)
 ```
 
 ```typescript pg tab="Practical Scenarios"
-import { parseMSec } from "chronos-date/utils";
-import type { TimeWithUnit } from "chronos-date/types";
+import { parseMSec } from "toolbox-x/utils";
+import type { TimeWithUnit } from "toolbox-x/types";
 
 // Setting timeouts
 const timeoutDuration = parseMSec('5s');
@@ -265,7 +265,7 @@ console.log(`Total duration: ${totalMs}ms (${parseMSec(totalMs, true)}s)`);
 
 ```typescript
 import express from 'express';
-import { parseMSec } from "chronos-date/utils";
+import { parseMSec } from "toolbox-x/utils";
 
 const app = express();
 
@@ -285,7 +285,7 @@ app.use((req, res, next) => {
 #### With Job Scheduling
 
 ```typescript
-import { parseMSec } from "chronos-date/utils";
+import { parseMSec } from "toolbox-x/utils";
 import { scheduleJob } from 'node-schedule';
 
 function scheduleRecurringJob(name: string, interval: string, task: () => void) {

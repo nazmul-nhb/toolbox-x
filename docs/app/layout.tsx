@@ -1,9 +1,9 @@
 import './global.css';
 
-import pkg from 'chronos-date/package.json';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import pkg from 'toolbox-x/package.json';
 import { appLogo, appName, titleDescription } from '@/lib/shared';
 
 const inter = Inter({

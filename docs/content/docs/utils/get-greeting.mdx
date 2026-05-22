@@ -43,7 +43,7 @@ getGreeting(configs?: GreetingConfigs): string;
 ### Example Usage
 
 ```typescript pg tab="Basic Usage"
-import { getGreeting } from "chronos-date/utils";
+import { getGreeting } from "toolbox-x/utils";
 
 // Uses current time
 console.log(getGreeting()); 
@@ -51,14 +51,14 @@ console.log(getGreeting());
 ```
 
 ```typescript pg tab="Custom Time"
-import { getGreeting } from "chronos-date/utils";
+import { getGreeting } from "toolbox-x/utils";
 
 console.log(getGreeting({ currentTime: '15:30' }));
 // "Good Afternoon!"
 ```
 
 ```typescript pg tab="Custom Messages"
-import { getGreeting } from "chronos-date/utils";
+import { getGreeting } from "toolbox-x/utils";
 
 console.log(getGreeting({
   afternoonMessage: 'Top of the afternoon!',
@@ -68,7 +68,7 @@ console.log(getGreeting({
 ```
 
 ```typescript pg tab="Full Customization"
-import { getGreeting } from "chronos-date/utils";
+import { getGreeting } from "toolbox-x/utils";
 
 console.log(getGreeting({
   morningEnds: '10:00',
@@ -82,7 +82,7 @@ console.log(getGreeting({
 ```
 
 ```typescript pg tab="Using Aliases"
-import { greet } from "chronos-date/utils";
+import { greet } from "toolbox-x/utils";
 
 console.log(greet({ morningMessage: 'Rise and shine!' }));
 ```

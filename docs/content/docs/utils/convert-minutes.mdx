@@ -34,7 +34,7 @@ convertMinutesToTime(minutes: Numeric): HourMinutes;
 ### Example Usage
 
 ```typescript pg
-import { convertMinutesToTime, getTimeFromMinutes } from "chronos-date/utils";
+import { convertMinutesToTime, getTimeFromMinutes } from "toolbox-x/utils";
 
 // Basic conversion
 const time1 = convertMinutesToTime(90);    // "1:30"
@@ -81,7 +81,7 @@ type Numeric = number | `${number}`;
 For 24-hour formatted output with leading zeros create custom function:
 
 ```ts pg
-import { convertMinutesToTime } from "chronos-date/utils";
+import { convertMinutesToTime } from "toolbox-x/utils";
 
 function formatWithLeadingZero(minutes: number) {
   const [h, m] = convertMinutesToTime(minutes).split(':');

@@ -37,7 +37,7 @@ export function baseOptions(): BaseLayoutProps {
 				type: 'icon',
 				text: 'NPM',
 				icon: <SiNpm />,
-				url: 'https://www.npmjs.com/package/chronos-date',
+				url: 'https://www.npmjs.com/package/toolbox-x',
 			},
 			{
 				type: 'icon',

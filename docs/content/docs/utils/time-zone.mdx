@@ -10,7 +10,7 @@ Retrieves comprehensive time zone information using the Internationalization API
 ### Import
 
 ```typescript
-import { getTimeZoneDetails } from "chronos-date/utils";
+import { getTimeZoneDetails } from "toolbox-x/utils";
 ```
 
 ### Function Signature
@@ -40,7 +40,7 @@ Returns a [`TimeZoneDetails`](#type-definitions) object containing:
 ### Example Usage
 
 ```typescript pg tab="Basic Usage"
-import { getTimeZoneDetails } from "chronos-date/utils";
+import { getTimeZoneDetails } from "toolbox-x/utils";
 
 // Get details for current system timezone
 const systemTZ = getTimeZoneDetails();
@@ -54,7 +54,7 @@ console.log(systemTZ);
 ```
 
 ```typescript pg tab="Specific Time Zone"
-import { getTimeZoneDetails } from "chronos-date/utils";
+import { getTimeZoneDetails } from "toolbox-x/utils";
 
 // Get details for London timezone
 const londonTZ = getTimeZoneDetails('Europe/London');
@@ -68,7 +68,7 @@ console.log(londonTZ);
 ```
 
 ```typescript pg tab="International Time Zones"
-import { getTimeZoneDetails } from "chronos-date/utils";
+import { getTimeZoneDetails } from "toolbox-x/utils";
 
 // Various international time zones
 const timeZones = (
@@ -129,7 +129,7 @@ Retrieves the current system's IANA time zone identifier using the International
 ### Import
 
 ```typescript
-import { getNativeTimeZoneId } from "chronos-date/utils";
+import { getNativeTimeZoneId } from "toolbox-x/utils";
 ```
 
 ### Function Signature
@@ -145,7 +145,7 @@ Returns a `TimeZoneIdNative` string representing the system's current IANA time 
 ### Example Usage
 
 ```typescript pg
-import { getNativeTimeZoneId } from "chronos-date/utils";
+import { getNativeTimeZoneId } from "toolbox-x/utils";
 
 const currentTimeZone = getNativeTimeZoneId();
 console.log(currentTimeZone);
@@ -170,7 +170,7 @@ Resolves all IANA time zone identifiers that match a given UTC offset.
 ### Import
 
 ```typescript
-import { getTimeZoneIds } from "chronos-date/utils";
+import { getTimeZoneIds } from "toolbox-x/utils";
 ```
 
 ### Function Signature
@@ -192,7 +192,7 @@ Returns an array of `TimeZoneIdNative` strings representing all IANA time zone i
 ### Example Usage
 
 ```typescript pg
-import { getTimeZoneIds } from "chronos-date/utils";
+import { getTimeZoneIds } from "toolbox-x/utils";
 
 const zonesForUTCPlus5 = getTimeZoneIds('UTC+05:00');
 console.log(zonesForUTCPlus5);

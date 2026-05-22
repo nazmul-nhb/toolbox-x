@@ -1,4 +1,3 @@
-import { formatDate, getTimeZoneDetails } from 'chronos-date/utils';
 import { getGithubLastEdit } from 'fumadocs-core/content/github';
 import {
 	DocsBody,
@@ -11,6 +10,7 @@ import {
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { formatDate, getTimeZoneDetails } from 'toolbox-x/date';
 import { getMDXComponents } from '@/components/mdx';
 import { gitConfig } from '@/lib/shared';
 import { getPageImage, getPageMarkdownUrl, source } from '@/lib/source';

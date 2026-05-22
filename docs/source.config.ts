@@ -10,8 +10,8 @@ import { transformerTwoslash } from 'fumadocs-twoslash';
  *
  * Usage in MDX:
  *   ```ts pg
- *   import { Chronos } from 'chronos-date';
- *   console.log(new Chronos().format());
+ *   import { getRandomID } from 'toolbox-x';
+ *   console.log(getRandomID());
  *   ```
  */
 function transformerPlayground() {

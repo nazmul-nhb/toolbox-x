@@ -23,7 +23,6 @@
 		"lint": "biome lint --diagnostic-level=error",
 		"fix": "biome check --write --diagnostic-level=error",
 		"format": "biome format --write --diagnostic-level=error",
-		"plugin": "nhb-module -t chronos-plugin -d src/plugins",
 		"create-docs": "nhb-module -t docs",
 		"prepare": "husky"
 	},
