@@ -1,0 +1,81 @@
+import type { $Area } from '../converter/area';
+import type { $BaseConverter } from '../converter/base';
+import type { UNITS } from '../converter/constants';
+import type { $Data } from '../converter/data';
+import type { $Length } from '../converter/length';
+import type { $Mass } from '../converter/mass';
+import type { $Temperature } from '../converter/temp';
+import type { $Time } from '../converter/time';
+import type { $Volume } from '../converter/volume';
+import type { LooseLiteral, Mutable } from './utils';
+
+/** - Type for Record of Units */
+export type UnitsRecord = typeof UNITS;
+
+/** * Category of units supported by the converter. */
+export type Category = keyof UnitsRecord;
+
+/** * Map of unit categories to their respective units. */
+export type UnitMap = {
+	[Key in Category]: UnitsRecord[Key][number];
+};
+
+/** * Union type of all supported units. May include any other strings. */
+export type $Unit = LooseLiteral<UnitMap[Category]>;
+
+/** * Type for array of all Units */
+export type Units = Array<UnitMap[Category]>;
+
+/** * Tuple type for Units in a specific Category */
+export type UnitsTuple<Cat extends Category> = Mutable<UnitsRecord[Cat]>;
+
+/** * Infer the category of a given unit type `U`. */
+export type InferCategory<U extends $Unit> = {
+	[K in Category]: U extends UnitMap[K] ? K : never;
+}[Category];
+
+/** * Infer Units belong to a specific Category */
+export type CategoryUnits<Cat extends Category> = UnitMap[Cat];
+
+/** * Type for the returned converter instance based on the provided unit `U`. */
+export type Converted<U extends $Unit> =
+	InferCategory<U> extends never
+		? $BaseConverter<U>
+		: InferCategory<U> extends 'area'
+			? $Area
+			: InferCategory<U> extends 'time'
+				? $Time
+				: InferCategory<U> extends 'length'
+					? $Length
+					: InferCategory<U> extends 'mass'
+						? $Mass
+						: InferCategory<U> extends 'data'
+							? $Data
+							: InferCategory<U> extends 'temp'
+								? $Temperature
+								: InferCategory<U> extends 'volume'
+									? $Volume
+									: $BaseConverter<U>;
+
+/** * Options for formatting converted values for unit converter method(s). */
+export type FormatToOptions = {
+	/** Style of formatting. Default is `'plural'`. */
+	style?: 'compact' | 'scientific' | 'plural';
+	/** Number of decimal places to include. Default is `2`. */
+	decimals?: number;
+};
+
+/** Union type for all the area units */
+export type $AreaUnit = UnitMap['area'];
+/** Union type for all the data units */
+export type $DataUnit = UnitMap['data'];
+/** Union type for all the length/distance units */
+export type $LengthUnit = UnitMap['length'];
+/** Union type for all the mass units */
+export type $MassUnit = UnitMap['mass'];
+/** Union type for all the temperature units */
+export type $TempUnit = UnitMap['temp'];
+/** Union type for all the time units */
+export type $TimeUnit = UnitMap['time'];
+/** Union type for all the volume units */
+export type $VolumeUnit = UnitMap['volume'];

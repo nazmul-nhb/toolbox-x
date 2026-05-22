@@ -1,0 +1,427 @@
+import { isInteger, isNonEmptyString, isNumber } from '../guards/primitives';
+import { isNumericString } from '../guards/specials';
+import type { Numeric } from '../types/index';
+import type {
+	BanglaDigit,
+	BnDigitResult,
+	LooseRomanNumeral,
+	RomanCapital,
+} from '../types/number';
+import {
+	BN_DIGITS,
+	ONES,
+	ORDINAL_TO_CARDINAL,
+	ORDINAL_UNDER_TEEN,
+	TEENS,
+	TENS,
+	THOUSANDS,
+} from './constants';
+import { _convertLessThanThousand } from './helpers';
+import { normalizeNumber } from './utilities';
+
+/**
+ * * Converts a numeric value into its corresponding English word representation.
+ * @warning ***Supports numeric values up to `10e19` or `10^20` (one hundred quintillion).***
+ * @warning ***Decimal values are ignored; only the integer part is converted.***
+ * @param number - The number to convert into words.
+ * @returns The number converted in words.
+ */
+export function numberToWords(num: Numeric): string {
+	let number = Math.trunc(Number(num));
+
+	if (!Number.isFinite(number) || isNaN(number)) {
+		return 'Invalid Number!';
+	}
+
+	const isNegative = number < 0;
+
+	if (number === 0) return 'zero';
+
+	number = Math.abs(number);
+
+	let i = 0;
+	let result = '';
+
+	while (number > 0) {
+		if (i >= THOUSANDS.length) {
+			return `Number exceeds supported range (max is 10e19 aka 10^20)`;
+		}
+
+		if (number % 1000 !== 0) {
+			const isLastGroup = i === 0 && number % 100 < 100;
+			const prefix = _convertLessThanThousand(number % 1000, isLastGroup);
+
+			result = `${prefix} ${THOUSANDS[i]} ${result}`;
+		}
+
+		number = Math.floor(number / 1000);
+
+		i++;
+	}
+
+	const finalResult = result.trim().replace(/\s+/g, ' ');
+
+	return isNegative ? `minus ${finalResult}` : finalResult;
+}
+
+/**
+ * * Converts a number to an uppercase Roman numeral.
+ * @param value - The number to convert. Number must be an integer and `between 1 and 3999`.
+ * @returns The Roman numeral representation in uppercase.
+ *
+ * @example convertToRomanNumerals(29) // → "XXIX"
+ */
+export const convertToRomanNumerals = (value: Numeric): RomanCapital => {
+	let num = normalizeNumber(value);
+
+	if (!isInteger(num) || num <= 0 || num >= 4000) {
+		throw new RangeError('Value must be an integer and between 1 and 3999');
+	}
+
+	const romanMap: Array<[number, string]> = [
+		[1000, 'M'],
+		[900, 'CM'],
+		[500, 'D'],
+		[400, 'CD'],
+		[100, 'C'],
+		[90, 'XC'],
+		[50, 'L'],
+		[40, 'XL'],
+		[10, 'X'],
+		[9, 'IX'],
+		[5, 'V'],
+		[4, 'IV'],
+		[1, 'I'],
+	];
+
+	let result = '';
+	for (const [value, numeral] of romanMap) {
+		while (num >= value) {
+			result += numeral;
+			num -= value;
+		}
+	}
+
+	return result as RomanCapital;
+};
+
+/**
+ * * Converts a Roman numeral to its Arabic numeric representation.
+ * @param roman - The Roman numeral to convert. Case-insensitive but must represent a valid Roman numeral (`I`–`MMMCMXCIX`) otherwise throws runtime error.
+ * @returns The numeric (Arabic system) representation of the Roman numeral.
+ *
+ * @example
+ * romanToInteger("XXIX") // → 29
+ * romanToInteger("mmxxv") // → 2025
+ */
+export const romanToInteger = (roman: LooseRomanNumeral): number => {
+	const romanMap: Record<string, number> = {
+		I: 1,
+		V: 5,
+		X: 10,
+		L: 50,
+		C: 100,
+		D: 500,
+		M: 1000,
+	};
+
+	if (!isNonEmptyString(roman) || !roman?.trim()) {
+		throw new TypeError('Input must be a non-empty string');
+	}
+
+	const upperRoman = roman?.toUpperCase()?.trim();
+
+	let total = 0;
+	let prevValue = 0;
+
+	for (let i = upperRoman.length - 1; i >= 0; i--) {
+		const char = upperRoman[i];
+		const value = romanMap[char];
+
+		if (!value) {
+			throw new Error(`Invalid Roman numeral character: '${char}'`);
+		}
+
+		if (value < prevValue) {
+			total -= value;
+		} else {
+			total += value;
+			prevValue = value;
+		}
+	}
+
+	if (total <= 0 || total >= 4000) {
+		throw new RangeError('Resulting number must be between 1 and 3999');
+	}
+
+	// Validate by reconverting
+	if (convertToRomanNumerals(total) !== upperRoman) {
+		throw new Error('Invalid or malformed Roman numeral!');
+	}
+
+	return total;
+};
+
+/**
+ * * Converts a number, numeric string, or cardinal word string into its ordinal word representation.
+ *
+ * @param number - A number (e.g. `42`), numeric string (e.g. `"42"`), or cardinal word (e.g. `"forty-two"`).
+ * @returns The ordinal word form (always in lowercase) of the input.
+ *
+ * @example
+ * numberToWordsOrdinal(1); // "first"
+ * numberToWordsOrdinal("23"); // "twenty-third"
+ * numberToWordsOrdinal("twenty-three"); // "twenty-third"
+ */
+export function numberToWordsOrdinal(number: Numeric | string) {
+	const TEEN_OR_HUNDRED = /(teen|hundred|thousand|(m|b|tr|quadr)illion)$/;
+	const UNDER_TEEN = /(zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)$/;
+
+	const _fixUnderTeen = (cardinal: string): string => {
+		return ORDINAL_UNDER_TEEN[cardinal];
+	};
+
+	const wordNumber =
+		isNumericString(number) || isNumber(number)
+			? numberToWords(number)
+			: number?.trim()?.toLowerCase();
+
+	if (TEEN_OR_HUNDRED.test(wordNumber)) {
+		return wordNumber + 'th';
+	} else if (/y$/.test(wordNumber)) {
+		return wordNumber.replace(/y$/, 'ieth');
+	} else if (UNDER_TEEN.test(wordNumber)) {
+		return wordNumber.replace(UNDER_TEEN, _fixUnderTeen);
+	} else {
+		return wordNumber;
+	}
+}
+
+/**
+ * * Convert an English cardinal/ordinal word string into a number.
+ *
+ * - Accepts hyphenated words, "and", ordinals (first, second, etc.), negatives, and large scales (thousand, million etc.).
+ *
+ * @example
+ * wordsToNumber('forty-two') // 42
+ * wordsToNumber('one hundred and seven') // 107
+ * wordsToNumber('two thousand three hundred') // 2300
+ * wordsToNumber('twenty-first') // 21
+ * wordsToNumber('negative five') // -5
+ *
+ * @param word - A human readable number (cardinal or ordinal) in words
+ * @returns Numeric value of the word or NaN if cannot parse
+ *
+ * @remarks
+ * **NOTE** - *For very large numbers (e.g. more than quintillion) results may not always be correct.*
+ */
+export function wordsToNumber(word: string): number {
+	if (!isNonEmptyString(word)) return NaN;
+
+	const trimmed = word.trim();
+
+	// Handle direct numeric strings with commas
+	if (/^[+-]?\d{1,3}(,\d{3})*(\.\d+)?$/.test(trimmed)) {
+		return Number(trimmed.replace(/,/g, ''));
+	}
+
+	// Handle simple numeric strings
+	if (/^[+-]?\d+(\.\d+)?$/.test(trimmed)) return Number(trimmed);
+
+	let input: string = trimmed.toLowerCase();
+
+	// Handle negative prefix words
+	let negative = false;
+	input = input.replace(/^\s*(minus|negative)\s+/, () => {
+		negative = true;
+		return '';
+	});
+
+	// Normalize: replace hyphens; remove "and"
+	input = input
+		.replace(/-/g, ' ')
+		.replace(/\s+and\s+/g, ' ')
+		.replace(/\s+/g, ' ')
+		.trim();
+
+	if (!input) return NaN;
+
+	// build lookup maps from arrays
+	const onesMap = new Map<string, number>(ONES.map((w, i) => [w === '' ? 'zero' : w, i]));
+	const teensMap = new Map<string, number>(TEENS.map((w, i) => [w, 10 + i]));
+	const tensMap = new Map<string, number>(TENS.map((w, i) => [w, i * 10]));
+	const scalesMap = new Map<string, number>(
+		THOUSANDS.map((w, i) => [w, i === 0 ? 1 : 1000 ** i])
+	);
+
+	const PROTECTED_TOKENS = new Set(
+		[...ONES, ...TEENS, ...TENS, ...THOUSANDS, 'hundred', 'zero'].filter(Boolean)
+	);
+
+	// Handle ordinal forms
+	const tokens = input
+		.split(' ')
+		.map((token) => {
+			if (ORDINAL_TO_CARDINAL[token]) {
+				return ORDINAL_TO_CARDINAL[token];
+			}
+
+			if (PROTECTED_TOKENS.has(token)) {
+				return token;
+			}
+
+			// Only strip suffixes if not protected
+			return token.replace(/(teenth|tieth|ieth|th|st|nd|rd)$/i, '');
+		})
+		.filter(Boolean);
+
+	if (tokens.length === 0) return NaN;
+
+	let total = 0;
+	let currentNumber = 0;
+	let hasInvalidToken = false;
+
+	for (const token of tokens) {
+		if (hasInvalidToken) break;
+
+		// Handle direct maps
+		if (onesMap.has(token)) {
+			currentNumber += onesMap.get(token)!;
+
+			continue;
+		}
+		if (teensMap.has(token)) {
+			currentNumber += teensMap.get(token)!;
+
+			continue;
+		}
+		if (tensMap.has(token)) {
+			currentNumber += tensMap.get(token)!;
+
+			continue;
+		}
+
+		// Handle 'hundred' multiplier
+		if (token === 'hundred') {
+			currentNumber = (currentNumber || 1) * 100;
+
+			continue;
+		}
+
+		// Handle scale words (thousand, million, etc.)
+		if (scalesMap.has(token)) {
+			const scale = scalesMap.get(token)!;
+			if (scale > 1) {
+				total += (currentNumber || 1) * scale;
+				currentNumber = 0;
+
+				continue;
+			}
+		}
+
+		// Handle numeric tokens
+		if (/^\d+$/.test(token)) {
+			currentNumber += Number(token);
+
+			continue;
+		}
+
+		hasInvalidToken = true;
+	}
+
+	if (hasInvalidToken) return NaN;
+
+	// Add any remaining value
+	total += currentNumber;
+
+	return negative ? -total : total;
+}
+
+/**
+ * * Converts Bangla (Arabic system) digits to Latin (Arabic system) digits.
+ *
+ * @remarks
+ * - Behavior depends on the `forceNumber` flag:
+ *   - When `forceNumber` is `true`, always returns a `number` (strips non-digit characters).
+ * 	   - Returns `NaN` if the input is non empty string or does not include any numeric string.
+ *   - When `forceNumber` is `false`, always returns a string, including non-digit characters.
+ * 	   - Returns empty string if the input is non empty string.
+ *
+ * @param bnDigit - A string containing Bangla (Arabic system) digits.
+ * @param forceNumber - Whether to force number conversion even if the input includes non-digit character(s). Default is `false`.
+ *
+ * @example
+ * banglaToDigit('১২৩abc'); // 123
+ * banglaToDigit(''); // NaN
+ * banglaToDigit('৪৫৬');    // 456
+ *
+ * @example
+ * banglaToDigit('১২৩', false);	// "123"
+ * banglaToDigit('১২৩abc', false);	// "123abc"
+ */
+export function banglaToDigit<Force extends boolean = true>(
+	bnDigit: string,
+	forceNumber = true as Force
+): BnDigitResult<Force> {
+	if (!isNonEmptyString(bnDigit)) return (forceNumber ? NaN : '') as BnDigitResult<Force>;
+
+	const digitStr = bnDigit.replace(/[০১২৩৪৫৬৭৮৯]/g, (d) =>
+		String(BN_DIGITS[d as BanglaDigit])
+	);
+
+	if (forceNumber) {
+		return Number(
+			digitStr
+				.split('')
+				.filter((dig) => !isNaN(Number(dig)))
+				.join('')
+		) as BnDigitResult<Force>;
+	}
+
+	return digitStr as BnDigitResult<Force>;
+}
+
+/**
+ * * Converts Latin (Arabic system) digits to Bangla digits (Arabic system).
+ *
+ * @remarks
+ * - Accepts numbers or numeric strings including non-digit characters.
+ * - When `preserveNonDigit` is `true`, non-digit characters are preserved in the output.
+ * - When `preserveNonDigit` is `false`, non-numeric strings are stripped.
+ * - Returns empty string for invalid input.
+ *
+ * @param digit - A number or string containing Latin (Arabic system) digits.
+ * @param preserveNonDigit - Whether to preserve non-digit characters in the output. Default is `true`.
+ *
+ * @example
+ * digitToBangla(123);          // "১২৩"
+ * digitToBangla('456');        // "৪৫৬"
+ *
+ * @example
+ * digitToBangla('12ab', false);	// "১২"
+ * digitToBangla('12ab');		// "১২ab"
+ */
+export function digitToBangla(digit: number | string, preserveNonDigit = true): string {
+	const banglaDigits = Object.keys(BN_DIGITS);
+
+	const _matchAndConvert = (value: string) => {
+		return value.replace(/\d/g, (dig) => banglaDigits[Number(dig)]);
+	};
+
+	if (isNumber(digit)) return _matchAndConvert(String(digit));
+
+	if (isNonEmptyString(digit)) {
+		const bnDigStr = _matchAndConvert(digit);
+
+		if (preserveNonDigit || isNumericString(digit)) {
+			return bnDigStr;
+		}
+
+		return bnDigStr
+			.split('')
+			.filter((dig) => banglaDigits.includes(dig))
+			.join('');
+	}
+
+	return '';
+}

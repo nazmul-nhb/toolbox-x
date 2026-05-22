@@ -1,0 +1,135 @@
+import { isString } from '../guards/primitives';
+import { flattenObjectKeyValue } from '../object/objectify';
+import { parseObjectValues } from '../object/sanitize';
+import type {
+	ParsedQuery,
+	ParsedQueryGeneric,
+	QueryObject,
+	StrictObject,
+} from '../types/object';
+import type { QueryString } from '../types/string';
+import { deepParsePrimitives } from '../utils/index';
+
+/**
+ * * Utility to generate query parameters from an object.
+ *
+ * @param params - Object containing query parameters.
+ * @returns A query string as a URL-encoded string, e.g., `?key1=value1&key2=value2`.
+ *
+ * @example
+ * generateQueryParams({ key1: 'value1', key2: 42 }); // "?key1=value1&key2=42"
+ * generateQueryParams({ key1: ['value1', 'value2'], key2: 42 }); // "?key1=value1&key1=value2&key2=42"
+ * generateQueryParams({ key1: '', key2: null }); // ""
+ * generateQueryParams({ key1: true, key2: false }); // "?key1=true&key2=false"
+ * generateQueryParams({ filters: { category: 'laptop', price: 1000 } }); // "?category=laptop&price=1000"
+ */
+export function generateQueryParams<T extends QueryObject>(params: T = {} as T): QueryString {
+	// Flatten the nested object into key-value pairs
+	const flattenedParams = flattenObjectKeyValue(params);
+
+	// Generate the query string
+	const queryParams = Object.entries(flattenedParams)
+		?.filter(([_, value]) => value != null && !(isString(value) && value?.trim() === ''))
+		?.flatMap(([key, value]) =>
+			Array.isArray(value)
+				? value
+						?.filter((v) => v != null && !(isString(v) && v.trim() === ''))
+						?.map(
+							(v) => `${encodeURIComponent(key)}=${encodeURIComponent(String(v))}`
+						)
+				: `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`
+		)
+		.join('&');
+
+	return queryParams ? `?${queryParams}` : '';
+}
+
+/**
+ * * Get query params as standard `JavaScript` Object `Record<string, string>`. You can define the type by passing a type argument.
+ *
+ * - **Note:** *Extracts query parameters from the current URL (window.location.search).*
+ *
+ * @returns Query string as key-value paired object. `Record<string, string>`.
+ */
+export function getQueryParams<QParams extends Record<string, string>>(): QParams {
+	return Object.fromEntries(new URLSearchParams(window?.location?.search)) as QParams;
+}
+
+/**
+ * * Update query params in the browser URL with given key and value.
+ * @param key Key for the query to update.
+ * @param value Value to updated against the given key.
+ */
+export function updateQueryParam(key: string, value: string) {
+	const url = new URL(window.location.href);
+	url.searchParams.set(key, value);
+	window.history.replaceState({}, '', url?.toString());
+}
+
+/**
+ * Parses a query string (with optional `?` prefix) into an object.
+ * Supports multiple values for the same key by returning arrays.
+ * Optionally parses primitive string values into actual types (e.g., "1" → 1, "true" → true).
+ *
+ * @remarks This utility is designed to parse generic string, for literal use, try {@link parseQueryStringLiteral}.
+ *
+ * - **Note:** *This function does **not** access or depend on `current URL` a.k.a `window.location.search`.*
+ *
+ * @param query - The query string to parse.
+ * @param parsePrimitives - Whether to convert stringified primitives into real values (default: true).
+ * @returns An object where keys are strings and values can be string, array, number, boolean, or null/undefined.
+ */
+export function parseQueryString<QParams extends ParsedQueryGeneric>(
+	query: string,
+	parsePrimitives = true
+): QParams {
+	const params = new URLSearchParams(query.startsWith('?') ? query.slice(1) : query);
+
+	const entries: ParsedQueryGeneric = {};
+
+	for (const [key, value] of params.entries()) {
+		if (key in entries) {
+			const current = entries[key];
+
+			const array = Array.isArray(current) ? [...current, value] : [current, value];
+
+			entries[key] = parsePrimitives ? deepParsePrimitives(array) : array;
+		} else {
+			entries[key] = value;
+		}
+	}
+
+	return (parsePrimitives ? parseObjectValues(entries) : entries) as QParams;
+}
+
+/**
+ * Parses a query string (with optional `?` prefix) into an object.
+ * Supports multiple values for the same key by returning arrays.
+ * It returns properly typed object.
+ *
+ * @remarks This utility is designed to parse literal string, for generic use, try {@link parseQueryString}.
+ *
+ * - **Note:** *This function does **not** access or depend on `current URL` a.k.a `window.location.search`.*
+ *
+ * @param query - The literal query string to parse.
+ * @returns An object where keys are strings and values can be string, array, or null/undefined.
+ */
+export function parseQueryStringLiteral<Q extends string>(query: Q): ParsedQuery<Q> {
+	const params = new URLSearchParams(query.startsWith('?') ? query.slice(1) : query);
+
+	const entries: StrictObject = {};
+
+	for (const [key, value] of params.entries()) {
+		if (key in entries) {
+			const current = entries[key];
+
+			const array = Array.isArray(current) ? [...current, value] : [current, value];
+
+			entries[key] = array;
+		} else {
+			entries[key] = value;
+		}
+	}
+
+	return entries as ParsedQuery<Q>;
+}

@@ -1,0 +1,412 @@
+import type { LOWERCASE } from '../string/constants';
+import type { $Countries } from './object';
+import type { Join, LooseLiteral, Split } from './utils';
+
+// ! Augment proper return type for `String` methods (type level only, implementation remains intact)
+declare global {
+	interface String {
+		toLowerCase(): string;
+		/**
+		 * * Converts all the alphabetic characters in a string to lowercase.
+		 *
+		 * @typeParam `Lower` - A type-level flag. If `'T'`, returns the lowercase string type (`Lowercase<string>`). Otherwise, returns literal `Lower` (must be Lowercase type).
+		 *
+		 * @remarks
+		 * - This augmentation only affects TypeScript type inference.
+		 * - Runtime behavior remains identical to the standard `toLowerCase()` method.
+		 */
+		toLowerCase<Lower extends 'T' | Lowercase<string>>(): Lower extends 'T'
+			? Lowercase<string>
+			: Lower;
+
+		toUpperCase(): string;
+		/**
+		 * * Converts all the alphabetic characters in a string to uppercase.
+		 *
+		 * @typeParam `Upper` - A type-level flag. If `'T'`, returns the uppercase string type (`Uppercase<string>`). Otherwise, returns literal `Upper` (must be Uppercase type).
+		 *
+		 * @remarks
+		 * - This augmentation only affects TypeScript type inference.
+		 * - Runtime behavior remains identical to the standard `toUpperCase()` method.
+		 */
+		toUpperCase<Upper extends 'T' | Uppercase<string>>(): Upper extends 'T'
+			? Uppercase<string>
+			: Upper;
+	}
+}
+
+/** - Options for generating anagrams. */
+export interface AnagramOptions {
+	/**
+	 * Maximum number of anagrams to generate.
+	 * Defaults to `100`. Pass `"all"` to return all possible anagrams.
+	 */
+	limit?: number | 'all';
+
+	/**
+	 * Optional dictionary array of strings for validating anagrams.
+	 * - Pass `false` (default) to skip dictionary lookup.
+	 * - Pass an array of strings to include only anagrams present in that array.
+	 * - Dictionary lookup is case-insensitive; internally, a cached lowercase `Set` is used for performance.
+	 * - Duplicate entries in the dictionary are ignored.
+	 */
+	dictionary?: false | string[];
+}
+
+/** - Options for `capitalizeString` function. */
+export interface CapitalizeOptions {
+	/** If true, capitalizes the first letter of each word (space separated). Defaults to `false`. */
+	capitalizeEachFirst?: boolean;
+	/** If true, ensures that the whole string is capitalized. Defaults to `false`. */
+	capitalizeAll?: boolean;
+	/** If true, ensures that the rest of the string is lowercase. Defaults to `true`. */
+	lowerCaseRest?: boolean;
+}
+
+/** - Configuration options for ID generation. */
+export interface RandomIdOptions {
+	/** A string to prepend to the ID. Default is an empty string. */
+	prefix?: string;
+
+	/** A string to append to the ID. Default is an empty string.*/
+	suffix?: string;
+
+	/** Whether to include the current timestamp in the ID. Default is `false`. */
+	timeStamp?: boolean;
+
+	/** The length of the random alphanumeric string. Default is `16`. */
+	length?: number;
+
+	/** The separator to use between parts of the ID. Default is an empty string. */
+	separator?: string;
+
+	/** Specifies the case for the full id (this includes alphanumeric string and suffix+prefix). Default is `null`. */
+	caseOption?: 'upper' | 'lower' | null;
+}
+
+/** - Case formats for converting a string */
+export type CaseFormat =
+	| 'camelCase'
+	| 'snake_case'
+	| 'kebab-case'
+	| 'PascalCase'
+	| 'Title Case'
+	| 'Sentence case'
+	| 'UPPERCASE'
+	| 'lowercase';
+
+/** * Options for `convertStringCase`. */
+export interface StringCaseOptions {
+	/**
+	 * Preserve acronym-like tokens (tokens that are ALL UPPERCASE with length >= 2)
+	 * when converting to PascalCase / Title Case / camelCase (mid tokens).
+	 *
+	 * Behavior summary:
+	 * - PascalCase: keep acronyms intact (API -> API).
+	 * - camelCase: first token acronyms are lowercased entirely (API -> api),
+	 *   subsequent token acronyms are preserved (API -> API).
+	 * - Title Case: acronym tokens are preserved (API).
+	 * - snake_case / kebab-case: tokens are lowercased (xml-http-request).
+	 */
+	preserveAcronyms?: boolean;
+}
+
+/** Options for masking a string. */
+export interface MaskOptions {
+	/** Number of characters to keep at the start. Defaults to `1`. */
+	start?: number;
+	/** Number of characters to keep at the end. Defaults to `1`. */
+	end?: number;
+	/** Character to use for masking. Defaults to `*`. */
+	maskCharacter?: string;
+}
+
+/** Formatted query string as `?${string}` = `?key=value&...` or empty string. */
+export type QueryString = `?${string}` | '';
+
+/** Full country name */
+export type CountryName = $Countries['country_name'];
+
+/** Country code, e.g. `"880" | "973" | "994" | "1-242" ...` */
+export type CountryCode = $Countries['country_code'];
+
+/** ISO country country codes (3-character), e.g. `"BGD" | "BRB" | "BLR" ...` */
+export type CountryISO = $Countries['iso_code'];
+
+/** ISO country country codes (2-character), e.g. `"BD" | "BB" | "BY" ...` */
+export type CountryShortISO = $Countries['iso_code_short'];
+
+/** ISO 2 character country code or any string */
+export type Country = LooseLiteral<CountryShortISO>;
+
+/** Lowercase prepositions, articles, conjunctions, and auxiliary verbs ({@link LOWERCASE}) */
+export type $LowerCaseWord = (typeof LOWERCASE)[number];
+
+// ! ======= Utility Types ======= ! //
+
+/** Ensure early inference and string constraint. */
+export type $EnsureString<Str> = Str extends string ? Str : never;
+
+/** Check if a string literal `Str` contains a substring `SubStr` */
+export type Includes<
+	Str extends string,
+	SubStr extends string,
+> = Str extends `${string}${SubStr}${string}` ? true : false;
+
+/** Trim leading space from a string literal */
+export type $TrimLeft<Str extends string> = Str extends ` ${infer R}` ? $TrimLeft<R> : Str;
+
+/** Trim trailing space from a string literal */
+export type $TrimRight<Str extends string> = Str extends `${infer L} ` ? $TrimRight<L> : Str;
+
+/** Trim leading and trailing spaces from a string literal */
+export type Trim<Str extends string> = $TrimRight<$TrimLeft<Str>>;
+
+/** Default delimiter characters */
+type $DefaultDelimiters = ' ' | '-' | '_' | '.' | '/';
+
+/** Turn user delim string like "*+," into '*, +, ,' union */
+type $UserDelimiters<Del extends string> = Del extends ''
+	? never
+	: Del extends `${infer C}${infer R}`
+		? C | $UserDelimiters<R>
+		: never;
+
+/** Is char `C` a delimiter (either default or user-provided)? */
+type $IsDelimiter<C extends string, Del extends string> = C extends $DefaultDelimiters
+	? true
+	: C extends $UserDelimiters<Del>
+		? true
+		: false;
+
+/** Insert space before capital letters: "helloWorld" -> "hello World" */
+type $SpaceBeforeCaps<Str extends string> = Str extends `${infer F}${infer R}`
+	? R extends Uncapitalize<R>
+		? `${F}${$SpaceBeforeCaps<R>}`
+		: `${F} ${$SpaceBeforeCaps<R>}`
+	: Str;
+
+/** Replace delimiter(s) with space(s) */
+type $ReplaceDelimiters<
+	Str extends string,
+	Del extends string,
+	Acc extends string = '',
+	LastWasSpace extends boolean = false,
+> = Str extends `${infer F}${infer R}`
+	? $IsDelimiter<F, Del> extends true
+		? $ReplaceDelimiters<
+				R,
+				Del,
+				Acc extends '' ? ' ' : LastWasSpace extends true ? Acc : `${Acc} `,
+				true
+			>
+		: $ReplaceDelimiters<R, Del, `${Acc}${F}`, false>
+	: Acc;
+
+/** Normalize {@link $DefaultDelimiters} or {@link $UserDelimiters} `Del` in a string literal `Str` with space(s) */
+export type $NormalizeString<Str extends string, Del extends string = ''> = Trim<
+	$ReplaceDelimiters<$SpaceBeforeCaps<Str>, Del, '', false>
+>;
+
+/** Lowercase all the words in a tuple */
+export type $LowercaseWords<T extends readonly string[]> = T extends [
+	infer H extends string,
+	...infer R extends string[],
+]
+	? [Lowercase<H>, ...$LowercaseWords<R>]
+	: [];
+
+/** Uppercase all the words in a tuple */
+export type $UppercaseWords<T extends readonly string[]> = T extends [
+	infer H extends string,
+	...infer R extends string[],
+]
+	? [Uppercase<Lowercase<H>>, ...$UppercaseWords<R>]
+	: [];
+
+/** Capitalize (first letter capital) all the words in a tuple */
+export type $CapitalizeWords<T extends readonly string[]> = T extends [
+	infer H extends string,
+	...infer R extends string[],
+]
+	? [Capitalize<Lowercase<H>>, ...$CapitalizeWords<R>]
+	: [];
+
+/** Capitalize (first letter capital) all the words in a tuple */
+export type $TitleCaseWords<T extends readonly string[]> = T extends [
+	infer H extends string,
+	...infer R extends string[],
+]
+	? [
+			H extends $LowerCaseWord ? Lowercase<H> : Capitalize<Lowercase<H>>,
+			...$TitleCaseWords<R>,
+		]
+	: [];
+
+/**
+ * - Converts a string literal `Str` into `camelCase`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks TypeScript supports up to ~45 characters for reliable literal inference.
+ */
+export type CamelCase<Str extends string, Del extends string = ''> =
+	Split<$NormalizeString<Str, Del>, ' '> extends [
+		infer F extends string,
+		...infer R extends string[],
+	]
+		? `${Lowercase<F>}${Join<$CapitalizeWords<R>, ''>}`
+		: '';
+
+/**
+ * - Converts a string literal `Str` into `snake_case`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks TypeScript supports up to ~45 characters for reliable literal inference.
+ */
+export type SnakeCase<Str extends string, Del extends string = ''> = Join<
+	$LowercaseWords<Split<$NormalizeString<Str, Del>, ' '>>,
+	'_'
+>;
+
+/**
+ * - Converts a string literal `Str` into `kebab-case`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks TypeScript supports up to ~45 characters for reliable literal inference.
+ */
+export type KebabCase<Str extends string, Del extends string = ''> = Join<
+	$LowercaseWords<Split<$NormalizeString<Str, Del>, ' '>>,
+	'-'
+>;
+
+/**
+ * - Converts a string literal `Str` into `PascalCase`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks TypeScript supports up to ~45 characters for reliable literal inference.
+ */
+export type PascalCase<Str extends string, Del extends string = ''> = Join<
+	$CapitalizeWords<Split<$NormalizeString<Str, Del>, ' '>>,
+	''
+>;
+
+/**
+ * - Converts a string literal `Str` into `Pascal_Snake_Case`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks TypeScript supports up to ~45 characters for reliable literal inference.
+ */
+export type PascalSnakeCase<Str extends string, Del extends string = ''> = Join<
+	$CapitalizeWords<Split<$NormalizeString<Str, Del>, ' '>>,
+	'_'
+>;
+
+/**
+ * - Converts a string literal `Str` into `CONSTANT_CASE`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks TypeScript supports up to ~45 characters for reliable literal inference.
+ */
+export type ConstantCase<Str extends string, Del extends string = ''> = Join<
+	$UppercaseWords<Split<$NormalizeString<Str, Del>, ' '>>,
+	'_'
+>;
+
+/**
+ * - Converts a string literal `Str` into `Train-Case`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks TypeScript supports up to ~45 characters for reliable literal inference.
+ */
+export type TrainCase<Str extends string, Del extends string = ''> = Join<
+	$CapitalizeWords<Split<$NormalizeString<Str, Del>, ' '>>,
+	'-'
+>;
+
+/**
+ * - Converts a string literal `Str` into `Dot.Case`/`dot.case`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks TypeScript supports up to ~45 characters for reliable literal inference.
+ */
+export type DotCase<Str extends string, Del extends string = ''> = Join<
+	Split<$NormalizeString<Str, Del>, ' '>,
+	'.'
+>;
+
+/**
+ * - Converts a string literal `Str` into `path/case`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks TypeScript supports up to ~45 characters for reliable literal inference.
+ */
+export type PathCase<Str extends string, Del extends string = ''> = Join<
+	$LowercaseWords<Split<$NormalizeString<Str, Del>, ' '>>,
+	'/'
+>;
+
+/**
+ * - Converts a string literal `Str` into `Title Case`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks
+ * - TypeScript supports up to ~45 characters for reliable literal inference.
+ * - Lowercase auxiliaries, prepositions, articles and conjunctions unless they are at the beginning.
+ */
+export type TitleCase<Str extends string, Del extends string = ''> =
+	Split<$NormalizeString<Str, Del>, ' '> extends [
+		infer F extends string,
+		...infer R extends string[],
+	]
+		? `${Capitalize<Lowercase<F>>} ${Join<$TitleCaseWords<R>, ' '>}`
+		: ' ';
+
+/**
+ * - Converts a string literal `Str` into `Sentence case`, using optional custom delimiters `Del` alongside {@link $DefaultDelimiters}.
+ * @remarks It will lowercase: auxiliaries, prepositions, articles and conjunctions unless they are at the beginning.
+ */
+export type SentenceCase<Str extends string, Del extends string = ''> =
+	Split<$NormalizeString<Str, Del>, ' '> extends [
+		infer F extends string,
+		...infer R extends string[],
+	]
+		? `${Capitalize<Lowercase<F>>} ${Join<$LowercaseWords<R>, ' '>}`
+		: ' ';
+
+/** Matches any non-Latin character. */
+export type SpecialCharacter = Lowercase<string> & Uppercase<string>;
+
+/** Evaluates whether a string consists only of Latin alphabet characters. */
+export type IsAlphabet<T extends string> = T extends `${infer Head}${infer Tail}`
+	? Head extends SpecialCharacter
+		? false
+		: IsAlphabet<Tail>
+	: true;
+
+/** Restricts a string to Latin-only characters; otherwise resolves to never. */
+export type Alphabet<T extends string> = IsAlphabet<T> extends true ? T : never;
+
+/** Types related to string diffing and similarity calculations. */
+export type DiffLineType = 'added' | 'removed' | 'unchanged' | 'modified';
+
+/** A single line difference between two strings, including the type of difference and the content of the line in both original and modified strings. */
+export interface DiffLine {
+	/** The type of difference: 'added', 'removed', 'unchanged', or 'modified'. */
+	type: DiffLineType;
+	/** The content of the original line. Undefined for added lines. */
+	original?: string;
+	/** The content of the modified line. Undefined for removed lines. */
+	modified?: string;
+	/** The line number in the original string (1-based). Undefined for added lines. */
+	originalLineNum?: number;
+	/** The line number in the modified string (1-based). Undefined for removed lines. */
+	modifiedLineNum?: number;
+}
+
+/** The result of a line-level diff operation, including an array of line differences and summary statistics. */
+export interface DiffResult {
+	/** An array of line differences, where each line is categorized as 'added', 'removed', 'unchanged', or 'modified'. */
+	lines: DiffLine[];
+	/** Statistics summarizing the diff results, including counts of added, removed, changed, and unchanged lines. */
+	stats: {
+		/** Total number of lines that were added in the modified string compared to the original. */
+		linesAdded: number;
+		/** Total number of lines that were removed from the original string in the modified version. */
+		linesRemoved: number;
+		/** Total number of lines that were modified (changed content) between the original and modified strings. */
+		linesChanged: number;
+		/** Total number of lines that remained unchanged between the original and modified strings. */
+		linesUnchanged: number;
+	};
+}
+
+/** A single character annotated with a `highlighted` flag indicating whether it differs from the other string in a diff operation. */
+export type HighlightedText = { text: string; highlighted: boolean };
+
+/** Result of a character-level diff, mapping each character in both strings to a `highlighted` flag. */
+export type CharDiffResult = {
+	/** An array of characters from the original string, each annotated with a `highlighted` flag indicating whether it differs from the modified string. */
+	original: HighlightedText[];
+	/** An array of characters from the modified string, each annotated with a `highlighted` flag indicating whether it differs from the original string. */
+	modified: HighlightedText[];
+};

@@ -1,0 +1,41 @@
+---
+title: Introduction
+description: A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.
+icon: Sparkles
+---
+
+## What is Chronos?
+
+**Chronos** is a lightweight, immutable, and fully tree-shakable date-time library designed for any JavaScript and TypeScript environment. It provides a rich API for date manipulation, formatting, comparison, and more — with a powerful plugin system for extending functionality.
+
+## Key Features
+
+- 🕐 **Immutable** — Every [`Chronos`](/docs/chronos) operation returns a new instance
+- 🔌 **Plugin System** — Extend with timezone, zodiac, seasons, business days, and more
+- 🌳 **Tree-Shakable** — Zero runtime dependencies, only ship what you use
+- 🛡️ **Type-Safe** — Full TypeScript support with precise types and rich IntelliSense
+- ⚡ **Lightweight** — Small bundle size with modular exports
+- 🌍 **Timezone Support** — UTC, local, and named timezone handling via [`timeZonePlugin`](/docs/plugins/timezone-plugin)
+- 🔧 **Date Utilities:** Extra utilities, type guards, types and constants for light weight date operations without the need of core [`Chronos`](/docs/chronos) class
+
+## Quick Example
+
+```ts pg
+import { Chronos } from "chronos-date";
+
+const now = new Chronos();
+
+console.log({
+    today: now.format(),
+    day: now.day(),
+    tomorrow: now.add(1, "day").format(),
+    isLeapYear: now.isLeapYear()
+});
+```
+
+## What's Next?
+
+<Cards>
+  <Card title="Installation" href="/docs/installation" />
+  <Card title="Quick Start" href="/docs/quick-start" />
+</Cards>

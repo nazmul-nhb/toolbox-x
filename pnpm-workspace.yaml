@@ -1,0 +1,12 @@
+packages:
+  - "docs"
+
+allowBuilds:
+  bun: true
+  es5-ext: true
+  esbuild: true
+  sharp: true
+
+onlyBuiltDependencies:
+  - esbuild
+  - sharp

@@ -1,0 +1,274 @@
+---
+title: Check Timezone Identifiers
+description: Check whether provided value is a timezone identifier or not using native JS API or comprehensive TZ database.
+---
+
+## isValidTimeZoneId()
+
+Validates whether the provided value is a recognized [**IANA timezone identifier from the TZ database**](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+> See [`isNativeTimeZoneId`](#isnativetimezoneid) for lightweight native JS solution.
+
+### Signature
+
+```ts
+isValidTimeZoneId(value: unknown): value is $TimeZoneIdentifier
+```
+
+### Parameters
+
+- **`value`** - The value to validate as a timezone identifier
+
+### Return Type
+
+- **`value is $TimeZoneIdentifier`** - Type predicate that returns `true` if the value is a valid IANA timezone identifier
+
+### Example
+
+```ts pg
+import { isValidTimeZoneId } from 'chronos-date/guards';
+
+// Valid IANA identifiers (including modern canonical names)
+console.log(isValidTimeZoneId('Asia/Dhaka')); // → true
+console.log(isValidTimeZoneId('America/New_York')); // → true
+console.log(isValidTimeZoneId('Europe/London')); // → true
+console.log(isValidTimeZoneId('EST')); // → true (abbreviation + identifier)
+console.log(isValidTimeZoneId('Asia/Kolkata')); // → true (modern canonical name)
+console.log(isValidTimeZoneId('Asia/Calcutta')); // → true (legacy alias)
+
+// Invalid identifiers
+console.log(isValidTimeZoneId('UTC+06:00')); // → false (offset, not identifier)
+console.log(isValidTimeZoneId('Invalid/Zone')); // → false
+console.log(isValidTimeZoneId(123)); // → false
+console.log(isValidTimeZoneId(null)); // → false
+```
+
+### Remarks
+
+- **Comprehensive IANA TZ Database coverage** - validates against all 597 identifiers including both modern canonical names and legacy aliases
+- **Includes both canonical and alias names** - recognizes modern names like `Asia/Kolkata` alongside legacy names like `Asia/Calcutta`
+- **Type predicate function** - when returns `true`, TypeScript narrows the type to `$TimeZoneIdentifier`
+- **Case-sensitive** - identifiers must match exactly (e.g., `'America/New_York'`, not `'america/new_york'`)
+- **Larger bundle size** - includes a comprehensive array of all IANA identifiers (597 entries, `~10.7 kilobytes` after minification)
+
+<Callout type="info" title="Info">
+Full data is also available through this package subpath:
+
+```ts
+import { IANA_TZ_IDS, TIME_ZONE_IDS } from 'chronos-date/constants';
+```
+
+- `IANA_TZ_IDS` contains array of identifiers while `TIME_ZONE_IDS` contains the identifiers in record style `{id: { tzName: '...', offset: '...' }}`
+
+```ts
+{
+  'Asia/Dhaka': { tzName: 'Bangladesh Standard Time', offset: 'UTC+06:00' },
+  // ...
+}
+```
+
+</Callout>
+
+### When to Use
+
+- **Future-proof applications** that want to use modern canonical names
+- **Data validation** where you need to accept both canonical and alias timezone identifiers
+- **Applications requiring maximum timezone coverage** including modern naming conventions
+- **Backend systems** where bundle size is less critical
+
+### Typical Use Cases
+
+```ts
+// Validate user input preferring modern names
+const userInput = 'Asia/Kolkata'; // Modern systems should use this
+if (isValidTimeZoneId(userInput)) {
+    const ch = new Chronos().timeZone(userInput); // Type-safe usage
+}
+
+// Filter valid timezone identifiers including modern names
+const potentialZones = ['Asia/Dhaka', 'EST', 'Asia/Kolkata', 'UTC+06:00'];
+const validZones = potentialZones.filter(isValidTimeZoneId);
+// → ['Asia/Dhaka', 'EST', 'Asia/Kolkata']
+
+// Configuration validation for modern systems
+const config = { timezone: 'Asia/Kolkata' }; // Modern configuration
+if (!isValidTimeZoneId(config.timezone)) {
+    throw new Error('Invalid timezone identifier in configuration');
+}
+```
+
+---
+
+## isNativeTimeZoneId()
+
+Validates whether the provided value is a supported time zone identifier using the native JavaScript API ([`Intl.supportedValuesOf('timeZone')`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/supportedValuesOf)).
+
+> See [`isValidTimeZoneId`](#isvalidtimezoneid) for full 597 time zone identifier support.
+
+### Signature
+
+```ts
+isNativeTimeZoneId(value: unknown): value is TimeZoneIdNative
+```
+
+### Parameters
+
+- **`value`** - The value to validate as a timezone identifier
+
+### Return Type
+
+- **`value is TimeZoneIdNative`** - Type predicate that returns `true` if the value is a valid native JS-supported time zone identifier, otherwise `false`.
+
+### Example
+
+```ts pg
+import { isNativeTimeZoneId } from 'chronos-date/guards';
+
+// Valid Native JS identifiers (legacy names in some engines)
+console.log(isNativeTimeZoneId('Asia/Dhaka')); // → true
+console.log(isNativeTimeZoneId('America/New_York')); // → true
+console.log(isNativeTimeZoneId('Europe/London')); // → true
+console.log(isNativeTimeZoneId('Asia/Calcutta')); // → true (legacy name supported natively)
+
+// Invalid identifiers
+console.log(isNativeTimeZoneId('Asia/Kolkata')); // → false (modern name not in native list)
+console.log(isNativeTimeZoneId('EST')); // → false (abbreviation, not identifier)
+console.log(isNativeTimeZoneId('UTC+06:00')); // → false (offset, not identifier)
+console.log(isNativeTimeZoneId('Invalid/Zone')); // → false
+console.log(isNativeTimeZoneId(123)); // → false
+console.log(isNativeTimeZoneId(null)); // → false
+```
+
+### Remarks
+
+- **Native JavaScript validation** - uses `Intl.supportedValuesOf('timeZone')` for validation
+- **Legacy-focused identifiers** - many JS engines still use legacy names like `Asia/Calcutta` instead of modern `Asia/Kolkata`
+- **Small bundle footprint** - relies on built-in browser/Node.js APIs, no additional data (only `~700 bytes` after minification)
+- **Type predicate function** - when returns `true`, TypeScript narrows the type to `TimeZoneIdNative`
+- **Case-sensitive** - identifiers must match exactly (e.g., `'America/New_York'`, not `'america/new_york'`)
+- **Optimal performance** - leverages native browser optimizations
+- **Note**: Some JS engines accept modern names in `DateTimeFormat` but don't include them in `supportedValuesOf()`
+
+<Callout type="info" title="Info">
+Full data is also available through this package subpath:
+
+```ts
+import { TIME_ZONES_NATIVE } from 'chronos-date/constants';
+```
+
+- `TIME_ZONES_NATIVE` contains the identifiers in record style `{id: { tzName: '...', offset: '...' }}`
+
+```ts
+{
+  'Asia/Dhaka': { tzName: 'Bangladesh Standard Time', offset: 'UTC+06:00' },
+  // ...
+}
+```
+
+</Callout>
+
+### When to Use
+
+- **Frontend applications** where bundle size is critical
+- **Compatibility with older JS engines** that use legacy timezone names
+- **Performance-sensitive code** that benefits from native API speed
+- **Validation that must match exactly what the JS engine considers "supported"**
+
+### Typical Use Cases
+
+```ts pg
+import { isNativeTimeZoneId } from 'chronos-date/guards';
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
+// Validate user input for maximum JS engine compatibility
+const userInput = 'Asia/Calcutta'; // JS engines recognize this
+if (isNativeTimeZoneId(userInput)) {
+    const ch = new Chronos().timeZone(userInput); // Type-safe usage
+    console.log(ch);
+}
+
+// Filter valid native timezone identifiers
+const potentialZones = ['Asia/Dhaka', 'EST', 'Asia/Kolkata', 'Asia/Calcutta'];
+const validZones = potentialZones.filter(isNativeTimeZoneId);
+// → ['Asia/Dhaka', 'Asia/Calcutta'] (only natively supported names)
+console.log(validZones);
+
+// Configuration validation for JS engine compatibility
+const config = { timezone: 'Asia/Calcutta' };
+if (!isNativeTimeZoneId(config.timezone)) {
+    throw new Error('Timezone not supported by JavaScript engine');
+}
+```
+
+<Callout type="info" title="`isValidTimeZoneId` vs `isNativeTimeZoneId`">
+| Aspect           | `isValidTimeZoneId`                    | `isNativeTimeZoneId`                            |
+| ---------------- | -------------------------------------- | ----------------------------------------------- |
+| **Coverage**     | 597 identifiers (full IANA database)   | 418 identifiers (engine-dependent legacy names) |
+| **Modern Names** | ✅ Includes `Asia/Kolkata` (canonical) | ❌ Usually only `Asia/Calcutta` (legacy)        |
+| **Bundle Size**  | Larger (includes array of identifiers) | Minimal (uses native APIs)                      |
+| **Performance**  | Good                                   | Excellent (native optimized)                    |
+| **Use Case**     | Modern apps, future-proofing           | JS engine compatibility, performance            |
+
+</Callout>
+
+<Callout type="info" title="Important Note on JavaScript Engine Behavior">
+
+JavaScript engines have an interesting inconsistency:
+
+- \`Intl.supportedValuesOf('timeZone')\` typically returns some legacy names like \`Asia/Calcutta\`
+- But \`new Intl.DateTimeFormat().format()\` often accepts modern names like \`Asia/Kolkata\` and works correctly
+
+This means \`isNativeTimeZoneId\` is stricter about what the engine explicitly "supports" vs what might actually work.
+</Callout>
+
+<Callout type="info" title="Decision Guide">
+
+**Use `isValidTimeZoneId` when:**
+
+- You want to use modern canonical timezone names (`Asia/Kolkata`)
+- Building future-proof applications
+- You need consistent validation regardless of JS engine quirks
+- Bundle size is not a primary concern
+
+**Use `isNativeTimeZoneId` when:**
+
+- Building frontend applications with bundle size constraints
+- You need maximum compatibility with what JS engines explicitly support
+- Performance is critical
+- You're working with data that might come from `Intl.supportedValuesOf()`
+
+</Callout>
+
+## Practical Example
+
+```ts pg
+import { isValidTimeZoneId, isNativeTimeZoneId } from 'chronos-date/guards';
+
+// Modern name - valid in IANA but not in native JS list
+console.log(isValidTimeZoneId('Asia/Kolkata')); // → true
+console.log(isNativeTimeZoneId('Asia/Kolkata')); // → false
+
+// Legacy name - valid in both
+console.log(isValidTimeZoneId('Asia/Calcutta')); // → true  
+console.log(isNativeTimeZoneId('Asia/Calcutta')); // → true
+
+// But both work in DateTimeFormat!
+const date = new Date();
+console.log(new Intl.DateTimeFormat('en', { 
+    timeZone: 'Asia/Kolkata', 
+    timeZoneName: 'long' 
+}).format(date)); // → Works!
+console.log(new Intl.DateTimeFormat('en', { 
+    timeZone: 'Asia/Calcutta', 
+    timeZoneName: 'long' 
+}).format(date)); // → Also works!
+```
+
+<Callout type="info" title="Recommendation">
+
+For most applications, **use `isValidTimeZoneId`** as it provides modern, future-proof validation. Use `isNativeTimeZoneId` only when you specifically need to validate against what the JS engine explicitly reports as supported.
+</Callout>
+

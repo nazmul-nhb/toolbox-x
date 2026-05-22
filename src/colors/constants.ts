@@ -1,0 +1,45 @@
+import type { Hex } from '../types/colors';
+
+/** Colors based on the ASCII value (index) of the letter. */
+export const ALPHABET_COLOR_PALETTE = /* @__PURE__ */ Object.freeze([
+	'#00094C',
+	'#00376E',
+	'#005600',
+	'#024647',
+	'#423067',
+	'#55188E',
+	'#00453E',
+	'#00516C',
+	'#263E0D',
+	'#0F6F3F',
+	'#730073',
+	'#053636',
+	'#253654',
+	'#4682B4',
+	'#3253B6',
+	'#43616C',
+	'#036C44',
+	'#30784F',
+	'#601C1C',
+	'#690000',
+	'#005B00',
+	'#BF0E6C',
+	'#008080',
+	'#475F47',
+	'#546F1C',
+	'#824809',
+] as Array<Hex>);
+
+/** Colors based on the index of numbers. */
+export const NUMBER_COLOR_PALETTE = /* @__PURE__ */ Object.freeze([
+	'#893213',
+	'#A44C15',
+	'#8B4513',
+	'#8A1D33',
+	'#3B543B',
+	'#342656',
+	'#A43522',
+	'#04605F',
+	'#B5680A',
+	'#6437B3',
+] as Array<Hex>);

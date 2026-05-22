@@ -1,0 +1,14 @@
+{
+	"title": "Documentation",
+	"pages": [
+		"---Getting Started---",
+		"index",
+		"installation",
+		"quick-start",
+		"---API Reference---",
+		"chronos",
+		"plugins",
+		"utils",
+		"guards"
+	]
+}

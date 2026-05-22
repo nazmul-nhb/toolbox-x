@@ -1,0 +1,777 @@
+import { convertHslToRgb } from '../colors/convert';
+import { CSS_COLORS } from '../colors/css-colors';
+import { isCSSColor, isHex6, isRGB } from '../colors/guards';
+import { _isValidHue, _isValidPercentage, _isValidRGBComponent } from '../colors/helpers';
+import { isNumber, isString } from '../guards/primitives';
+import { isBrowser } from '../guards/specials';
+import type { Hex6, RGB, SolidValues } from '../types/colors';
+import type {
+	Ansi16Color,
+	Ansi16Value,
+	AnsiSequence,
+	CSS16Color,
+	Styles,
+	StylogChain,
+} from '../types/stylog';
+import { _logToConsole } from './console.log';
+import { ANSI_16_COLORS, ANSI_TEXT_STYLES, CSS_TEXT_STYLES } from './constants';
+import {
+	_css16ToHex,
+	_extractColorName,
+	_isAnsi16ColorValue,
+	_isAnsiSequence,
+	_isCSS16Color,
+} from './helpers';
+import { detectColorSupport, hexToAnsi, isBGColor, isTextStyle, rgbToAnsi } from './utils';
+
+// ! ======= Implementation of LogStyler ======= ! //
+
+/**
+ * @class Utility class for styling console log output with `ANSI` (`Node.js`) or `CSS` (Browser).
+ *
+ * @remarks
+ * - Allows chaining of style methods or initializing with predefined styles.
+ * - For fluent, chainable styling with zero configuration use {@link https://toolbox.nazmul-nhb.dev/docs/utilities/misc/stylog Stylog} (`LogStyler` chainable wrapper).
+ *
+ * @example
+ * const styled = new LogStyler(['red', 'bold']);
+ * styled.log('Hello World');
+ *
+ * const logger = new LogStyler();
+ * logger.style('blue', 'dim', 'bold').log('Hello Blue');
+ * logger.style('blue', 'dim', 'bold').toANSI('Hello Blue');
+ * logger.style('blue', 'dim', 'bold').toCSS('Hello Blue');
+ */
+export class LogStyler {
+	readonly #styles: Array<
+		| Styles
+		| AnsiSequence
+		| Ansi16Value
+		| CSS16Color
+		| Hex6
+		| RGB
+		| `bg-${Hex6}`
+		| `bg-${RGB}`
+	>;
+
+	/**
+	 * * Creates a new `LogStyler` instance.
+	 *
+	 * @param styles - Optional array of initial styles to apply (e.g., ['red', 'bold']). Defaults to an empty array.
+	 *
+	 * @example
+	 * const styled = new LogStyler(['red', 'bold']);
+	 * styled.log('Hello World');
+	 *
+	 * const logger = new LogStyler();
+	 * logger.style('blue', 'dim', 'bold').log('Hello Blue');
+	 * logger.style('blue', 'dim', 'bold').toANSI('Hello Blue');
+	 * logger.style('blue', 'dim', 'bold').toCSS('Hello Blue');
+	 */
+	constructor(styles: Styles[] = []) {
+		this.#styles = styles;
+	}
+
+	#applyStyles(
+		...style: Array<
+			| Styles
+			| AnsiSequence
+			| Ansi16Value
+			| CSS16Color
+			| Hex6
+			| RGB
+			| `bg-${Hex6}`
+			| `bg-${RGB}`
+		>
+	): StylogChain {
+		return createStylogProxy(
+			new LogStyler([...(this.#styles as Styles[]), ...(style as Styles[])])
+		);
+	}
+
+	/**
+	 * * Chain multiple styles to the input.
+	 *
+	 * @param style - One or more styles to apply (color, background, or text style).
+	 * @returns A new StylogChain instance with the additional styles applied.
+	 *
+	 * @remarks
+	 *  - When chaining similar styles, only the last one(s) takes effect.
+	 *  - All colors applied through `style()` method are `truecolor` in form, to apply `ANSI-16` colors, use `ansi16()` method.
+	 *
+	 * @example
+	 * // Single style
+	 * Stylog.style('red').log('Red text');
+	 * Stylog.style('red').toANSI('Red text');
+	 * Stylog.style('red').toCSS('Red text');
+	 *
+	 * @example
+	 * // Multiple styles at once
+	 * Stylog.style('red', 'bold', 'underline').log('Red bold underlined text');
+	 * Stylog.style('red', 'bold', 'underline').toANSI('Red bold underlined text');
+	 * Stylog.style('red', 'bold', 'underline').toCSS('Red bold underlined text');
+	 *
+	 * @example
+	 * // Mixed foreground and background
+	 * Stylog.style('white', 'bgBlue').log('White text on blue background');
+	 * Stylog.style('white', 'bgBlue').toANSI('White text on blue background');
+	 * Stylog.style('white', 'bgBlue').toCSS('White text on blue background');
+	 *
+	 * @example
+	 * // Building on existing styles
+	 * const errorStyle = Stylog.style('red', 'bold');
+	 * errorStyle.style('underline').log('Red bold underlined error');
+	 * errorStyle.style('underline').toANSI('Red bold underlined error');
+	 * errorStyle.style('underline').toCSS('Red bold underlined error');
+	 */
+	style(...style: Styles[]): StylogChain {
+		return this.#applyStyles(...style);
+	}
+
+	/**
+	 * * Apply ANSI 16-color styling to the text.
+	 *
+	 * @param color - ANSI 16-color name (e.g., 'red', 'cyanBright', 'bgRed').
+	 * @returns A new `StylogChain` instance with the `ANSI 16-color` style applied.
+	 *
+	 * @remarks
+	 *  - Only one argument (color) can be passed on a single call.
+	 *  - Color applied through `ansi16()` method is `truecolor` in form, to apply `truecolor` colors, use `style()` method.
+	 *
+	 * @example
+	 * // Basic usage
+	 * Stylog.ansi16('red').log('Error message');
+	 *
+	 * @example
+	 * // Chaining with other styles
+	 * Stylog.ansi16('redBright').bold.italic.log('Bright red bold italic');
+	 * Stylog.ansi16('redBright').bold.italic.toANSI('Bright red bold italic');
+	 * Stylog.ansi16('redBright').bold.italic.toCSS('Bright red bold italic');
+	 *
+	 * @example
+	 * // Background colors
+	 * Stylog.ansi16('bgRed').log('Red background');
+	 * Stylog.ansi16('bgRed').toANSI('Red background');
+	 * Stylog.ansi16('bgRed').toCSS('Red background');
+	 */
+	ansi16(color: Ansi16Color): StylogChain {
+		return this.#applyStyles(ANSI_16_COLORS[color], `css-${color}`);
+	}
+
+	/**
+	 * * Returns styled tuple `[format, cssList]` for Browser.
+	 *
+	 * @remarks
+	 * - This method is specifically designed for browser environments and returns a tuple containing the formatted string with `%c` placeholder and an array of CSS styles (`string[]`).
+	 * - Use this when you need direct access to the CSS styling for custom browser output.
+	 * - If you want to format with ANSI escape codes, consider using {@link https://toolbox.nazmul-nhb.dev/docs/classes/LogStyler#toansiinput-stringify toANSI} method.
+	 *
+	 * @param input - Input to style before printing in the shell.
+	 * @param stringify - Whether to apply `JSON.stringify()` before styling. Defaults to `false`.
+	 * @returns Tuple `[format, cssList]` where:
+	 *   - `format`: String with `%c` placeholder for CSS styling
+	 *   - `cssList`: Array of CSS style strings
+	 *
+	 * @example
+	 * // Basic usage in browser
+	 * const styler = new LogStyler(['red', 'bold']);
+	 * const [format, cssList] = styler.toCSS('Error message');
+	 * // format: "%cError message"
+	 * // cssList: ["color: #FF0000", "font-weight: bold"]
+	 *
+	 * @example
+	 * // Custom browser output handling
+	 * const styled = new LogStyler(['blue', 'bgYellow', 'italic']);
+	 * const [format, styles] = styled.toCSS('Warning', true);
+	 *
+	 * // Use with custom logging function
+	 * function customLog(formatted: string, styles: string[]) {
+	 *   const styleString = styles.join('; ');
+	 *   console.log(formatted, styleString);
+	 * }
+	 * customLog(format, styles);
+	 *
+	 * @example
+	 * // With object stringification
+	 * const dataOutput = new LogStyler(['green']).toCSS({ id: 123 }, true);
+	 * // format: "%c{\"id\":123}"
+	 * // cssList: ["color: #008000"]
+	 */
+	toCSS(input: unknown, stringify = false): [`%c${string}`, string[]] {
+		const stringified = stringify === true ? JSON.stringify(input) : `${input}`;
+
+		const cssList: string[] = [];
+
+		for (const style of this.#styles) {
+			if (isString(style)) {
+				if (isTextStyle(style)) {
+					cssList.push(CSS_TEXT_STYLES[style]);
+				} else if (isBGColor(style)) {
+					const color = CSS_COLORS[_extractColorName(style)];
+					cssList.push(`background: ${color}`);
+				} else if (isCSSColor(style)) {
+					const color = CSS_COLORS[style];
+					cssList.push(`color: ${color}`);
+				} else if (this.#isValidHexOrRGB(style)) {
+					if (style.startsWith('bg-')) {
+						cssList.push(`background: ${style?.replace('bg-', '')}`);
+					} else {
+						cssList.push(`color: ${style}`);
+					}
+				} else if (_isCSS16Color(style)) {
+					const color = _css16ToHex(style);
+
+					const colorValue = style.startsWith('css-bg')
+						? `background: ${color}`
+						: `color: ${color}`;
+
+					cssList.push(colorValue);
+				}
+			}
+		}
+
+		return [`%c${stringified}`, cssList];
+	}
+
+	/**
+	 * * Returns the input as a styled string with ANSI escape codes.
+	 *
+	 * @remarks
+	 * - This method returns ANSI-formatted strings suitable for environments that support ANSI escape codes (terminals, modern browser consoles, etc.).
+	 * - For unsupported browsers, consider using the {@link https://toolbox.nazmul-nhb.dev/docs/classes/LogStyler#loginput-stringify log} method to print directly or {@link https://toolbox.nazmul-nhb.dev/docs/classes/LogStyler#tocssinput-stringify toCSS} to get styled tuple `[format, cssList]` for Browser.
+	 *
+	 * @param input - Input to style before printing in the shell.
+	 * @param stringify - Whether to apply `JSON.stringify()` before styling. Defaults to `false`.
+	 * @returns The styled string with ANSI escape codes.
+	 *
+	 * @example
+	 * const styled = new LogStyler(['red', 'bold']);
+	 * const errorMessage = styled.toANSI('Error occurred, using LogStyler');
+	 * // Or with Stylog
+	 * const errorMessage = Stylog.red.bold.toANSI('Error occurred, using Stylog');
+	 * // Returns: "\x1b[31m\x1b[1mError occurred, using Stylog\xx1b[22m\x1b[39m"
+	 *
+	 * @example
+	 * // Use in console (terminal or modern browser consoles)
+	 * console.error(errorMessage);
+	 * console.info(Stylog.red.bold.toANSI('I support ANSI!'));
+	 */
+	toANSI(input: unknown, stringify = false): string {
+		const stringified = stringify === true ? JSON.stringify(input) : `${input}`;
+		let openSeq = '',
+			closeSeq = '';
+		let fgOpenSeq = '',
+			bgOpenSeq = '';
+
+		const reopenSequences = new Map<string, string>();
+
+		for (const style of this.#styles) {
+			if (isString(style)) {
+				if (isTextStyle(style)) {
+					const [open, close] = ANSI_TEXT_STYLES[style];
+					openSeq += open;
+					closeSeq = close + closeSeq;
+					reopenSequences.set(close, (reopenSequences.get(close) ?? '') + open);
+				} else if (isBGColor(style)) {
+					const hex = CSS_COLORS[_extractColorName(style)];
+					const [open, close] = hexToAnsi(hex, true);
+					openSeq += open;
+					closeSeq = close + closeSeq;
+					bgOpenSeq = open;
+				} else if (isCSSColor(style)) {
+					const hex = CSS_COLORS[style];
+					const [open, close] = hexToAnsi(hex, false);
+					openSeq += open;
+					closeSeq = close + closeSeq;
+					fgOpenSeq = open;
+				}
+			} else if (_isAnsiSequence(style)) {
+				openSeq += style[0];
+				closeSeq = style[1] + closeSeq;
+				if (style[1] === '\x1b[49m') {
+					bgOpenSeq = style[0];
+				} else if (style[1] === '\x1b[39m') {
+					fgOpenSeq = style[0];
+				}
+			} else if (_isAnsi16ColorValue(style)) {
+				const [open, close] = style.map((s) => `\x1b[${s}m`);
+				openSeq += open;
+				closeSeq = close + closeSeq;
+				if (close === '\x1b[49m') {
+					bgOpenSeq = open;
+				} else if (close === '\x1b[39m') {
+					fgOpenSeq = open;
+				}
+			}
+		}
+
+		if (!detectColorSupport()) {
+			return stringified;
+		} else {
+			let nestedStr = stringified;
+
+			if (nestedStr.includes('\x1b[')) {
+				if (fgOpenSeq) {
+					nestedStr = nestedStr.replaceAll('\x1b[39m', `\x1b[39m${fgOpenSeq}`);
+				}
+
+				if (bgOpenSeq) {
+					nestedStr = nestedStr.replaceAll('\x1b[49m', `\x1b[49m${bgOpenSeq}`);
+				}
+
+				for (const [close, reopen] of reopenSequences) {
+					nestedStr = nestedStr.replaceAll(close, `${close}${reopen}`);
+				}
+
+				if (openSeq) {
+					nestedStr = nestedStr.replaceAll('\x1b[0m', `\x1b[0m${openSeq}`);
+				}
+			}
+
+			return openSeq.concat(nestedStr, closeSeq);
+		}
+	}
+
+	/**
+	 * * Print styled input to the console.
+	 *
+	 * @param input Input to print to the shell/console.
+	 * @param stringify Whether to apply `JSON.stringify()` before printing. Defaults to `false`.
+	 */
+	log(input: unknown, stringify = false): void {
+		if (isBrowser()) {
+			const [fmt, cssList] = this.toCSS(input, stringify);
+			_logToConsole(fmt, cssList.join(';'));
+		} else {
+			_logToConsole(this.toANSI(input, stringify));
+		}
+	}
+
+	#isValidHexOrRGB(color: string): color is Hex6 | RGB | `bg-${Hex6}` | `bg-${RGB}` {
+		const pure = color?.replace('bg-', '');
+
+		return isHex6(pure) || isRGB(pure);
+	}
+
+	#sanitizeHex(code: string): string {
+		return code?.trim()?.startsWith('#') ? code?.trim() : `#${code?.trim()}`;
+	}
+
+	#handleHex(code: string, isBg = false): StylogChain {
+		const sanitized = this.#sanitizeHex(code);
+
+		if (!isHex6(sanitized)) {
+			return this.#applyStyles();
+		}
+
+		const ansi = hexToAnsi(sanitized, isBg);
+
+		return this.#applyStyles(isBg ? `bg-${sanitized}` : sanitized, ansi);
+	}
+
+	/**
+	 * * Apply a HEX color to the text foreground.
+	 *
+	 * @param code - HEX color string (e.g., `'#4682B4'` or `'4682B4'`).
+	 * @returns A new `StylogChain` instance with the HEX color applied.
+	 *
+	 * @example
+	 * // With hash prefix
+	 * Stylog.hex('#4682B4').log('Steel blue text');
+	 * Stylog.hex('#4682B4').toANSI('Steel blue text');
+	 * Stylog.hex('#4682B4').toCSS('Steel blue text');
+	 *
+	 * @example
+	 * // Without hash prefix
+	 * Stylog.hex('4682B4').log('Steel blue text');
+	 * Stylog.hex('4682B4').toANSI('Steel blue text');
+	 * Stylog.hex('4682B4').toCSS('Steel blue text');
+	 *
+	 * @example
+	 * // Chaining with other styles
+	 * Stylog.hex('#FF0000').bold.log('Red bold text');
+	 * Stylog.hex('#FF0000').bold.toANSI('Red bold text');
+	 * Stylog.hex('#FF0000').bold.toCSS('Red bold text');
+	 */
+	hex(code: string): StylogChain {
+		return this.#handleHex(code, false);
+	}
+
+	/**
+	 * * Apply a HEX color to the text background.
+	 *
+	 * @param code - HEX color string (e.g., `'#4682B4'` or `'4682B4'`).
+	 * @returns A new StylogChain instance with the HEX background color applied.
+	 *
+	 * @example
+	 * // With hash prefix
+	 * Stylog.bgHex('#4682B4').log('Steel blue background');
+	 * Stylog.bgHex('#4682B4').toANSI('Steel blue background');
+	 * Stylog.bgHex('#4682B4').toCSS('Steel blue background');
+	 *
+	 * @example
+	 * // Without hash prefix
+	 * Stylog.bgHex('4682B4').log('Steel blue background');
+	 * Stylog.bgHex('4682B4').toANSI('Steel blue background');
+	 * Stylog.bgHex('4682B4').toCSS('Steel blue background');
+	 *
+	 * @example
+	 * // Chaining with foreground color
+	 * Stylog.white.bgHex('#000000').log('White text on black background');
+	 * Stylog.white.bgHex('#000000').toANSI('White text on black background');
+	 * Stylog.white.bgHex('#000000').toCSS('White text on black background');
+	 */
+	bgHex(code: string): StylogChain {
+		return this.#handleHex(code, true);
+	}
+
+	#extractColorValues(code: string): SolidValues {
+		const trimmed = code?.trim();
+
+		return (trimmed?.match(/[\d.]+%?/g) || []).map(parseFloat) as SolidValues;
+	}
+
+	#isValidRGB(...value: number[]) {
+		return value.every(_isValidRGBComponent);
+	}
+
+	#handleRGB(
+		code: string | number,
+		green?: number,
+		blue?: number,
+		isBg = false
+	): StylogChain {
+		if (isString(code)) {
+			const rgb = this.#extractColorValues(code);
+			if (this.#isValidRGB(...rgb)) {
+				return this.#applyStyles(
+					rgbToAnsi(...rgb, isBg),
+					isBg
+						? `bg-rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+						: `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+				);
+			} else {
+				return this.#applyStyles();
+			}
+		} else if (isNumber(code) && isNumber(green) && isNumber(blue)) {
+			if (this.#isValidRGB(code, green, blue)) {
+				return this.#applyStyles(
+					rgbToAnsi(code, green, blue, isBg),
+					isBg
+						? `bg-rgb(${code}, ${green}, ${blue})`
+						: `rgb(${code}, ${green}, ${blue})`
+				);
+			} else {
+				return this.#applyStyles();
+			}
+		} else {
+			return this.#applyStyles();
+		}
+	}
+
+	/**
+	 * * Apply an RGB color to the text foreground using a CSS-like string.
+	 *
+	 * @param code - RGB color string (e.g., `'rgb(11, 45, 1)'` or `'11, 45, 1'`).
+	 * @returns A new `StylogChain` instance with the RGB color applied.
+	 *
+	 * @example
+	 * // Full rgb() syntax
+	 * Stylog.rgb('rgb(11, 45, 1)').log('Dark green text');
+	 * Stylog.rgb('rgb(11, 45, 1)').toANSI('Dark green text');
+	 * Stylog.rgb('rgb(11, 45, 1)').toCSS('Dark green text');
+	 *
+	 * @example
+	 * // Comma-separated values
+	 * Stylog.rgb('11, 45, 1').log('Dark green text');
+	 * Stylog.rgb('11, 45, 1').toANSI('Dark green text');
+	 * Stylog.rgb('11, 45, 1').toCSS('Dark green text');
+	 *
+	 * @example
+	 * // Chaining with other styles
+	 * Stylog.rgb('255, 0, 0').bold.log('Red bold text');
+	 * Stylog.rgb('255, 0, 0').bold.toANSI('Red bold text');
+	 * Stylog.rgb('255, 0, 0').bold.toCSS('Red bold text');
+	 */
+	rgb(code: string): StylogChain;
+
+	/**
+	 * * Apply an RGB color to the text foreground using individual components.
+	 *
+	 * @param red - Red component (`0-255`).
+	 * @param green - Green component (`0-255`).
+	 * @param blue - Blue component (`0-255`).
+	 * @returns A new `StylogChain` instance with the RGB color applied.
+	 *
+	 * @example
+	 * // Individual components
+	 * Stylog.rgb(255, 0, 0).log('Red text');
+	 * Stylog.rgb(255, 0, 0).toANSI('Red text');
+	 * Stylog.rgb(255, 0, 0).toCSS('Red text');
+	 *
+	 * @example
+	 * // With other styles
+	 * Stylog.rgb(0, 255, 0).underline.log('Green underlined text');
+	 * Stylog.rgb(0, 255, 0).underline.toANSI('Green underlined text');
+	 * Stylog.rgb(0, 255, 0).underline.toCSS('Green underlined text');
+	 */
+	rgb(red: number, green: number, blue: number): StylogChain;
+
+	/** * Apply an RGB color to the text foreground using string or individual components. */
+	rgb(code: string | number, green?: number, blue?: number): StylogChain {
+		return this.#handleRGB(code, green, blue, false);
+	}
+
+	/**
+	 * * Apply an RGB color to the text background using a CSS-like string.
+	 *
+	 * @param code - RGB color string (e.g., `'rgb(225, 169, 196)'` or `'225, 169, 196'`).
+	 * @returns A new `StylogChain` instance with the RGB background color applied.
+	 *
+	 * @example
+	 * // Full rgb() syntax
+	 * Stylog.bgRGB('rgb(225, 169, 196)').log('Pink background');
+	 * Stylog.bgRGB('rgb(225, 169, 196)').toANSI('Pink background');
+	 * Stylog.bgRGB('rgb(225, 169, 196)').toCSS('Pink background');
+	 *
+	 * @example
+	 * // Comma-separated values
+	 * Stylog.bgRGB('225, 169, 196').log('Pink background');
+	 * Stylog.bgRGB('225, 169, 196').toANSI('Pink background');
+	 * Stylog.bgRGB('225, 169, 196').toCSS('Pink background');
+	 *
+	 * @example
+	 * // With foreground color
+	 * Stylog.black.bgRGB('255, 255, 255').log('Black text on white background');
+	 * Stylog.black.bgRGB('255, 255, 255').toANSI('Black text on white background');
+	 * Stylog.black.bgRGB('255, 255, 255').toCSS('Black text on white background');
+	 */
+	bgRGB(code: string): StylogChain;
+
+	/**
+	 * * Apply an RGB color to the text background using individual components.
+	 *
+	 * @param red - Red component (`0-255`).
+	 * @param green - Green component (`0-255`).
+	 * @param blue - Blue component (`0-255`).
+	 * @returns A new `StylogChain` instance with the RGB background color applied.
+	 *
+	 * @example
+	 * // Individual components
+	 * Stylog.bgRGB(0, 0, 255).log('Blue background');
+	 * Stylog.bgRGB(0, 0, 255).toANSI('Blue background');
+	 * Stylog.bgRGB(0, 0, 255).toCSS('Blue background');
+	 *
+	 * @example
+	 * // With text styles
+	 * Stylog.bgRGB(255, 255, 0).bold.log('Bold text on yellow background');
+	 * Stylog.bgRGB(255, 255, 0).bold.toANSI('Bold text on yellow background');
+	 * Stylog.bgRGB(255, 255, 0).bold.toCSS('Bold text on yellow background');
+	 */
+	bgRGB(red: number, green: number, blue: number): StylogChain;
+
+	/** * Apply an RGB color to the text background using string or individual components. */
+	bgRGB(code: string | number, green?: number, blue?: number): StylogChain {
+		return this.#handleRGB(code, green, blue, true);
+	}
+
+	#isValidHSL(h: number, s: number, l: number) {
+		return _isValidHue(h) && _isValidPercentage(s) && _isValidPercentage(l);
+	}
+
+	#handleHSL(
+		code: string | number,
+		saturation?: number,
+		lightness?: number,
+		isBg = false
+	): StylogChain {
+		if (isString(code)) {
+			const hsl = this.#extractColorValues(code);
+
+			if (this.#isValidHSL(...hsl)) {
+				return this.#handleRGB(convertHslToRgb(...hsl), undefined, undefined, isBg);
+			} else {
+				return this.#applyStyles();
+			}
+		} else if (isNumber(code) && isNumber(saturation) && isNumber(lightness)) {
+			if (this.#isValidHSL(code, saturation, lightness)) {
+				return this.#handleRGB(
+					convertHslToRgb(code, saturation, lightness),
+					undefined,
+					undefined,
+					isBg
+				);
+			} else {
+				return this.#applyStyles();
+			}
+		} else {
+			return this.#applyStyles();
+		}
+	}
+
+	/**
+	 * * Apply an HSL color to the text foreground using a CSS-like string.
+	 *
+	 * @param code - HSL color string (e.g., `'hsl(50 80.5% 40%)'`).
+	 * @returns A new `StylogChain` instance with the HSL color applied.
+	 *
+	 * @example
+	 * // Standard HSL syntax
+	 * Stylog.hsl('hsl(50 80.5% 40%)').log('Gold text');
+	 * Stylog.hsl('hsl(50 80.5% 40%)').toANSI('Gold text');
+	 * Stylog.hsl('hsl(50 80.5% 40%)').toCSS('Gold text');
+	 *
+	 * @example
+	 * // With commas
+	 * Stylog.hsl('50, 80.5%, 40%').log('Gold text');
+	 * Stylog.hsl('50, 80.5%, 40%').toANSI('Gold text');
+	 * Stylog.hsl('50, 80.5%, 40%').toCSS('Gold text');
+	 *
+	 * @example
+	 * // Chaining with other styles
+	 * Stylog.hsl('120, 100%, 50%').italic.log('Green italic text');
+	 * Stylog.hsl('120, 100%, 50%').italic.toANSI('Green italic text');
+	 * Stylog.hsl('120, 100%, 50%').italic.toCSS('Green italic text');
+	 */
+	hsl(code: string): StylogChain;
+
+	/**
+	 * * Apply an HSL color to the text foreground using individual components.
+	 *
+	 * @param hue - Hue component (`0-360`).
+	 * @param saturation - Saturation component (`0-100`).
+	 * @param lightness - Lightness component (`0-100`).
+	 * @returns A new `StylogChain` instance with the HSL color applied.
+	 *
+	 * @example
+	 * // Individual components
+	 * Stylog.hsl(0, 100, 50).log('Red text');
+	 * Stylog.hsl(0, 100, 50).toANSI('Red text');
+	 * Stylog.hsl(0, 100, 50).toCSS('Red text');
+	 *
+	 * @example
+	 * // With percentage values
+	 * Stylog.hsl(240, 100, 50).log('Blue text');
+	 * Stylog.hsl(240, 100, 50).toANSI('Blue text');
+	 * Stylog.hsl(240, 100, 50).toCSS('Blue text');
+	 */
+	hsl(hue: number, saturation: number, lightness: number): StylogChain;
+
+	/** * Apply an HSL color to the text foreground using string or individual components. */
+	hsl(code: string | number, saturation?: number, lightness?: number): StylogChain {
+		return this.#handleHSL(code, saturation, lightness, false);
+	}
+
+	/**
+	 * * Apply an HSL color to the text background using a CSS-like string.
+	 *
+	 * @param code - HSL color string (e.g., `'hsl(50 80.5% 40%)'`).
+	 * @returns A new `StylogChain` instance with the HSL background color applied.
+	 *
+	 * @example
+	 * // Standard HSL syntax
+	 * Stylog.bgHSL('hsl(50 80.5% 40%)').log('Gold background');
+	 * Stylog.bgHSL('hsl(50 80.5% 40%)').toANSI('Gold background');
+	 * Stylog.bgHSL('hsl(50 80.5% 40%)').toCSS('Gold background');
+	 *
+	 * @example
+	 * // With commas
+	 * Stylog.bgHSL('50, 80.5%, 40%').log('Gold background');
+	 * Stylog.bgHSL('50, 80.5%, 40%').toANSI('Gold background');
+	 * Stylog.bgHSL('50, 80.5%, 40%').toCSS('Gold background');
+	 *
+	 * @example
+	 * // With foreground color
+	 * Stylog.white.bgHSL('0, 100%, 50%').log('White text on red background');
+	 * Stylog.white.bgHSL('0, 100%, 50%').toANSI('White text on red background');
+	 * Stylog.white.bgHSL('0, 100%, 50%').toCSS('White text on red background');
+	 */
+	bgHSL(code: string): StylogChain;
+
+	/**
+	 * * Apply an HSL color to the text background using individual components.
+	 *
+	 * @param hue - Hue component (`0-360`).
+	 * @param saturation - Saturation component (`0-100`).
+	 * @param lightness - Lightness component (`0-100`).
+	 * @returns A new StylogChain instance with the HSL background color applied.
+	 *
+	 * @example
+	 * // Individual components
+	 * Stylog.bgHSL(120, 100, 50).log('Green background');
+	 * Stylog.bgHSL(120, 100, 50).toANSI('Green background');
+	 * Stylog.bgHSL(120, 100, 50).toCSS('Green background');
+	 *
+	 * @example
+	 * // With text styles
+	 * Stylog.bgHSL(300, 100, 50).bold.log('Bold text on purple background');
+	 * Stylog.bgHSL(300, 100, 50).bold.toANSI('Bold text on purple background');
+	 * Stylog.bgHSL(300, 100, 50).bold.toCSS('Bold text on purple background');
+	 */
+	bgHSL(hue: number, saturation: number, lightness: number): StylogChain;
+
+	/** * Apply an HSL color to the text background using string or individual components. */
+	bgHSL(code: string | number, saturation?: number, lightness?: number): StylogChain {
+		return this.#handleHSL(code, saturation, lightness, true);
+	}
+}
+
+// ! ======= Implementation of Stylog ======= ! //
+
+/**
+ * * Create a proxied instance of `LogStyler` that supports dynamic style chaining.
+ *
+ * @param styler Base `LogStyler` instance.
+ * @returns Proxied `LogStyler` instance with dynamic chaining support (`StylogChain`).
+ */
+function createStylogProxy(styler: LogStyler): StylogChain {
+	return new Proxy(styler, {
+		get(target, prop: string) {
+			if (prop in target) {
+				const value = target[prop as keyof LogStyler];
+
+				if (typeof value === 'function') {
+					return value.bind(target);
+				} else {
+					return value;
+				}
+			}
+
+			// If prop is a color or style, chain it
+			if (isCSSColor(prop) || isBGColor(prop) || isTextStyle(prop)) {
+				return createStylogProxy(target.style(prop));
+			}
+		},
+	}) as StylogChain;
+}
+
+/**
+ * * Styled console logger with chainable, type-safe color and text effects for both `Node.js` (`ANSI true-color`) and browsers (`CSS` via `%c`).
+ *
+ * @remarks
+ * - Chain any mix of foreground colors (e.g. `green`), background colors (e.g. `bgBlue`), and text styles (e.g. `bold`, `italic`, `underline`).
+ * - In browsers, styles are applied using `CSS`; in `Node.js`, `ANSI` escape codes are used.
+ * - When multiple styles of the same category are chained, the last one wins.
+ * - Use `.log(value, stringify?)` to print; set `stringify` to `true` to serialize with `JSON.stringify`.
+ * - If you need custom reusable style configurations, use {@link https://toolbox.nazmul-nhb.dev/docs/classes/LogStyler Stylog} class.
+ *
+ * @example
+ * // Simple color
+ * Stylog.green.log('Ready');
+ *
+ * @example
+ * // Foreground + background + effect, with JSON stringification
+ * Stylog.green.bgBlue.bold.log({ a: 121 }, true);
+ *
+ * @example
+ * // Reusable base chain
+ * const base = Stylog.underline;
+ * base.red.log('Error');
+ * base.error.log('Error');
+ * base.bgYellow.bold.log('Caution');
+ *
+ * @example
+ * // Works in the browser console too
+ * Stylog.cornflowerblue.italic.log('Hello from the browser');
+ */
+export const Stylog = createStylogProxy(new LogStyler());
