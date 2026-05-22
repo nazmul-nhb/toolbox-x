@@ -1,8 +1,4 @@
 import type {
-	BN_DAYS,
-	BN_MONTH_TABLES,
-	BN_MONTHS,
-	BN_SEASONS,
 	DATE_FORMATS,
 	DAY_FORMATS,
 	DAYS,
@@ -27,8 +23,8 @@ import type {
 	TIME_ZONES_NATIVE,
 } from '../date/timezone';
 import type { Maybe } from './index';
-import type { $BnOnes, BanglaDigit, Enumerate, LocaleCode, NumberRange } from './number';
-import type { LooseLiteral, Repeat, Split } from './utils';
+import type { Enumerate, LocaleCode, NumberRange } from './number';
+import type { LooseLiteral, Split } from './utils';
 
 /** - Minute in numeric string from `00` to `23` */
 export type ClockHour = `0${Enumerate<10>}` | `${NumberRange<10, 23>}`;
@@ -93,7 +89,7 @@ export type TimeZoneDetails = {
 export interface DateFormatOptions extends FormatOptions {
 	/** - Date to format, must be parsable by {@link Date} constructor. Can be string, number or `Date`. Defaults to current time. */
 	date?: DateArgs;
-	format?: StrictFormat;
+	format?: SafeFormat;
 }
 
 /** Name of time unit from `year` to `millisecond` */
@@ -155,7 +151,7 @@ export type $DateUnit =
 	| 'Seconds'
 	| 'Milliseconds';
 
-/** Standard date/time format tokens for `Chronos`. */
+/** Standard date/time format tokens. */
 export type FormatToken =
 	| YearToken
 	| MonthToken
@@ -210,7 +206,7 @@ type TokenConnector = ' ' | ', ' | '; ' | ' - ';
 export type TimeOnlyFormat = LooseLiteral<TimeFormatToken>;
 
 /** Pre-defined literal types for formatting date and time. Optionally can pass any string. */
-export type StrictFormat = LooseLiteral<
+export type SafeFormat = LooseLiteral<
 	| DateTimeISO
 	| DateFormatToken
 	| TimeFormatToken
@@ -240,27 +236,6 @@ export interface DateTimeFormatOptions extends Intl.DateTimeFormatOptions {
 	/** Locale numbering system to use. */
 	numberingSystem?: NumberingSystem;
 }
-
-/** Return object type of `duration` method of `Chronos`. */
-export interface TimeDuration {
-	/** Total number of years. */
-	years: number;
-	/** Number of months remaining after full years are counted. */
-	months: number;
-	/** Number of days remaining after full months are counted. */
-	days: number;
-	/** Number of hours remaining after full days are counted. */
-	hours: number;
-	/** Number of minutes remaining after full hours are counted. */
-	minutes: number;
-	/** Number of seconds remaining after full minutes are counted. */
-	seconds: number;
-	/** Number of milliseconds remaining after full seconds are counted. */
-	milliseconds: number;
-}
-
-/** Key of {@link TimeDuration} */
-export type DurationKey = keyof TimeDuration;
 
 /** Key of {@link TIME_ZONE_LABELS} ({@link UTCOffset}) */
 export type $TZLabelKey = keyof typeof TIME_ZONE_LABELS;
@@ -340,7 +315,7 @@ export interface TimestampOptions<F extends ISODateFormat = 'utc'> {
 	format?: F | ISODateFormat;
 }
 
-/** `Chronos` Date Format options */
+/** `Date Format options */
 export interface FormatOptions {
 	/**
 	 * * The desired format (Default format is `'dd, mmm DD, YYYY HH:mm:ss'` = `'Sun, Apr 06, 2025 16:11:55'`).
@@ -350,7 +325,7 @@ export interface FormatOptions {
 	 *
 	 *   - Supported format tokens include: `YYYY`, `YY`, `mmmm`, `mmm`, `MM`, `M`, `DD`, `D`, `dd`, `ddd`, `Do`, `HH`, `H`, `hh`, `h`, `mm`, `m`, `ss`, `s`, `ms`, `mss`, `a`, `A`, and `ZZ`.
 	 *   - *Any token not wrapped in brackets will be parsed and replaced with its corresponding date component.*
-	 *   - Please refer to {@link https://toolbox-x.nazmul-nhb.dev/docs/classes/Chronos/format#format-tokens format tokens} for details.
+	 *   - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/format#format-tokens format tokens} for details.
 	 */
 	format?: string;
 	/** - Whether to use UTC time. Defaults to `false`. */
@@ -435,114 +410,3 @@ export type $UnitAnyCase = Capitalize<$TimeUnitVar> | Uppercase<$TimeUnitVar> | 
 
 /** Number (time value) with variants of different time units */
 export type TimeWithUnit = `${number}${$UnitAnyCase}` | `${number} ${$UnitAnyCase}`;
-
-// ! Types for Bengali Plugin for `Chronos`
-
-export type $BnEn = 'bn' | 'en';
-
-type $BnOnesPadded = `০${$BnOnes}`;
-
-/** Bangla month from `১-১২` */
-export type BanglaMonth = $BnOnes | $BnOnesPadded | '১০' | '১১' | '১২';
-
-/** Bangla date of month from `১-৩১` */
-export type BanglaDate =
-	| $BnOnes
-	| $BnOnesPadded
-	| `১${BanglaDigit}`
-	| `২${BanglaDigit}`
-	| '৩০'
-	| '৩১';
-
-export type $BnYearPadded = Repeat<BanglaDigit, 4>;
-export type $BnMonthPadded = $BnOnesPadded | '১০' | '১১' | '১২';
-export type $BnDatePadded = $BnOnesPadded | `১${BanglaDigit}` | `২${BanglaDigit}` | '৩০' | '৩১';
-
-// export type BnDateString = `${$BanglaYearPadded}-${$BanglaMonthPadded}-${$BanglaDatePadded}`;
-
-/** Bangla year from `০-৯৯৯৯` */
-export type BanglaYear =
-	| BanglaDigit
-	| `${$BnOnes}${BanglaDigit}`
-	| `${$BnOnes}${BanglaDigit}${BanglaDigit}`
-	| Repeat<BanglaDigit, 4>;
-
-/** Token for Bangla season format */
-type $SeasonToken = 'S' | 'SS';
-
-/** Standard format tokens for Bangla date with seasons */
-export type DateWithSeasonToken =
-	| `${Exclude<MonthToken, 'M' | 'MM'>} ${DateToken}, ${YearToken} ${$SeasonToken}`
-	| `${DateToken} ${Exclude<MonthToken, 'M' | 'MM'>}, ${YearToken} ${$SeasonToken}`
-	| `${Exclude<MonthToken, 'M' | 'MM'>} ${DateToken} ${YearToken} ${$SeasonToken}`
-	| `${DateToken} ${Exclude<MonthToken, 'M' | 'MM'>} ${YearToken} ${$SeasonToken}`
-	| `${DayToken}, ${Exclude<MonthToken, 'M' | 'MM'>} ${DateToken}, ${YearToken}, ${$SeasonToken}`
-	| `${DayToken}, ${DateToken} ${Exclude<MonthToken, 'M' | 'MM'>}, ${YearToken}, ${$SeasonToken}`
-	| `${DayToken}, ${Exclude<MonthToken, 'M' | 'MM'>} ${DateToken} ${YearToken}, ${$SeasonToken}`
-	| `${DayToken}, ${DateToken} ${Exclude<MonthToken, 'M' | 'MM'>} ${YearToken}, ${$SeasonToken}`
-	| `${Exclude<DateToken, 'Do'>}/${Exclude<MonthToken, 'mmm' | 'mmmm'>}/${YearToken} (${$SeasonToken})`
-	| `${Exclude<DateToken, 'Do'>}-${Exclude<MonthToken, 'mmm' | 'mmmm'>}-${YearToken} (${$SeasonToken})`
-	| `${Exclude<MonthToken, 'mmm' | 'mmmm'>}/${Exclude<DateToken, 'Do'>}/${YearToken} (${$SeasonToken})`
-	| `${Exclude<MonthToken, 'mmm' | 'mmmm'>}-${Exclude<DateToken, 'Do'>}-${YearToken} (${$SeasonToken})`
-	| `${YearToken}-${Exclude<MonthToken, 'mmm' | 'mmmm'>}-${Exclude<DateToken, 'Do'>} (${$SeasonToken})`
-	| `${YearToken}/${Exclude<MonthToken, 'mmm' | 'mmmm'>}/${Exclude<DateToken, 'Do'>} (${$SeasonToken})`
-	| `${YearToken}-${Exclude<DateToken, 'Do'>}-${Exclude<MonthToken, 'mmm' | 'mmmm'>} (${$SeasonToken})`
-	| `${YearToken}/${Exclude<DateToken, 'Do'>}/${Exclude<MonthToken, 'mmm' | 'mmmm'>} (${$SeasonToken})`;
-
-/** Standard format tokens for Bangla date along with any string */
-export type BanglaDateFormat = LooseLiteral<DateFormatToken | DateWithSeasonToken>;
-
-/** Bangla name of the weekday either in Bangla or Latin */
-export type BanglaDayName<Locale extends $BnEn = 'bn'> = (typeof BN_DAYS)[number][Locale];
-/** Bangla name of the month either in Bangla or Latin */
-export type BanglaMonthName<Locale extends $BnEn = 'bn'> = (typeof BN_MONTHS)[number][Locale];
-/** Bangla name of the season either in Bangla or Latin */
-export type BanglaSeasonName<Locale extends $BnEn = 'bn'> = (typeof BN_SEASONS)[number][Locale];
-
-/** Represents Bangla year either in Bangla digit or Latin from 1-12 */
-export type $BanglaYear<Locale extends $BnEn = 'bn'> = Locale extends 'en'
-	? number
-	: BanglaYear;
-
-/** Represents Bangla month either in Bangla digit or Latin from 0-9999 */
-export type $BanglaMonth<Locale extends $BnEn = 'bn'> = Locale extends 'en'
-	? NumberRange<1, 12>
-	: BanglaMonth;
-
-/** Represents Bangla date of the month either in Bangla digit or Latin from 1-31 */
-export type $BanglaMonthDate<Locale extends $BnEn = 'bn'> = Locale extends 'en'
-	? NumberRange<1, 31>
-	: BanglaDate;
-
-/** Represents a Bangla date object for `Chronos` plugin */
-export type BanglaDateObject<Locale extends $BnEn = 'bn'> = {
-	/** Represents Bangla year either in Bangla digit or Latin from 1-12 */
-	year: $BanglaYear<Locale>;
-	/** Represents Bangla month either in Bangla digit or Latin from 1-12 */
-	month: $BanglaMonth<Locale>;
-	/** Represents Bangla date of the month either in Bangla digit or Latin from 1-31 */
-	date: $BanglaMonthDate<Locale>;
-	/** Bangla name of the weekday either in Bangla or Latin */
-	dayName: BanglaDayName<Locale>;
-	/** Bangla name of the month either in Bangla or Latin */
-	monthName: BanglaMonthName<Locale>;
-	/** Bangla name of the season either in Bangla or Latin */
-	seasonName: BanglaSeasonName<Locale>;
-	/** Leap year status of the current year */
-	isLeapYear: boolean;
-};
-
-/** Variant of Bangla calendar system */
-export type BnCalendarVariant = keyof typeof BN_MONTH_TABLES;
-
-/** Configuration object for Bangla Calendar system */
-export interface BnCalendarConfig {
-	/** - Calendar variant to use. Defaults to `'revised-2019'`. */
-	variant?: BnCalendarVariant;
-}
-
-/** Bangla date options for `Chronos` plugin (`banglaPlugin`) */
-export interface BanglaDateOptions<Locale extends $BnEn> extends BnCalendarConfig {
-	/** - Locale to use for output values. Defaults to `'bn'`. */
-	locale?: Locale | $BnEn;
-}

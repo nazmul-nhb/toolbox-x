@@ -1,31 +1,16 @@
-import { isDate, isObjectWithKeys, isValidArray } from '../guards/non-primitives';
-import { isNonEmptyString, isString } from '../guards/primitives';
-import { isDateString } from '../guards/specials';
+import { isDate } from '../guards/non-primitives';
+import { isString } from '../guards/primitives';
 import { getOrdinal } from '../number/utilities';
 import type {
-	$BnEn,
 	$GMTOffset,
 	$TimeZoneIdentifier,
-	BanglaSeasonName,
-	BnCalendarVariant,
-	ChronosProperties,
 	DateArgs,
 	FormatToken,
 	TimeZoneNameNative,
 	UTCOffset,
 } from '../types/date';
 import type { Maybe } from '../types/index';
-import type { Enumerate, NumberRange } from '../types/number';
-import {
-	BN_MONTH_TABLES,
-	BN_SEASONS,
-	BN_YEAR_OFFSET,
-	DAYS,
-	MONTHS,
-	MS_PER_DAY,
-	SORTED_TIME_FORMATS,
-} from './constants';
-import { isLeapYear, isValidUTCOffset } from './guards';
+import { DAYS, MONTHS, SORTED_TIME_FORMATS } from './constants';
 
 /** Core formatting logic shared by `formatDate` and `Chronos`, `BanglaCalendar` classes */
 export function _formatDateCore(format: string, dateComponents: Record<string, string>) {
@@ -145,74 +130,6 @@ export function _gmtToUtcOffset(gmt: Maybe<string>) {
 	return gmt === 'GMT' ? 'UTC+00:00' : (gmt?.replace(/^GMT/, 'UTC') as Maybe<UTCOffset>);
 }
 
-/** Get Bangla season name by month index (`0-11`) */
-export function _getBnSeason<L extends $BnEn = 'bn'>(month: number, locale?: L | $BnEn) {
-	const season = BN_SEASONS[Math.floor(month / 2)];
-
-	return (locale === 'en' ? season.en : season.bn) as BanglaSeasonName<L>;
-}
-
-/** Check whether a Bangla year is leap by Gregorian and Bangla years and calendar variant */
-export function _isBnLeapYear(by: number, gy: number, v?: BnCalendarVariant) {
-	return v === 'revised-1966' ? by % 4 === 2 : isLeapYear(gy);
-}
-
-/** Extract selective unit values from {@link Date} object */
-export function _extractDateUnits(date: Date) {
-	const month = date.getMonth();
-
-	return {
-		gy: date.getFullYear(),
-		$gm: month as Enumerate<12>,
-		gm: (month + 1) as NumberRange<1, 12>,
-		gd: date.getDate() as NumberRange<1, 31>,
-		wd: date.getDay() as Enumerate<7>,
-	};
-}
-
-/** Get Gregorian base year from {@link Date} object for Bangla year */
-export function _getGregBaseYear(date: Date): number {
-	const { gy, gm, gd } = _extractDateUnits(date);
-
-	return gm < 4 || (gm === 4 && gd < 14) ? gy - 1 : gy;
-}
-
-/** Get Bangla year from {@link Date} object */
-export function _getBnYear(date: Date): number {
-	return _getGregBaseYear(date) - BN_YEAR_OFFSET;
-}
-
-/** Get timestamp in milliseconds between midnight, January 1, 1970 (UTC) and the specified {@link Date} object */
-export function _getUtcTs(date: Date): number {
-	const { gy, $gm, gd } = _extractDateUnits(date);
-
-	return Date.UTC(gy, $gm, gd);
-}
-
-/** Get number of days elapsed since midnight April 14, 1970 (UTC) for specific {@link Date} */
-export function _getElapsedDays(date: Date): number {
-	return Math.floor((_getUtcTs(date) - Date.UTC(_getGregBaseYear(date), 3, 14)) / MS_PER_DAY);
-}
-
-/** Get number of days elapsed since midnight April 14, 1970 (UTC) and month index for specific `Date` and Bangla calendar variant */
-export function _bnDaysMonthIdx(date: Date, variant?: BnCalendarVariant) {
-	const v = variant ?? 'revised-2019';
-
-	const table = _isBnLeapYear(_getBnYear(date), date.getFullYear(), v)
-		? BN_MONTH_TABLES?.[v].leap
-		: BN_MONTH_TABLES?.[v].normal;
-
-	let days = _getElapsedDays(date);
-	let monthIdx = 0;
-
-	while (days >= table[monthIdx]) {
-		days -= table[monthIdx];
-		monthIdx++;
-	}
-
-	return { days, monthIdx };
-}
-
 /**
  * Convert number to string and pad at the start with zero (`'0'`)
  * @param value Value to convert and pad with
@@ -221,16 +138,6 @@ export function _bnDaysMonthIdx(date: Date, variant?: BnCalendarVariant) {
  */
 export function _padZero(value: number, length = 2) {
 	return String(value).padStart(length, '0');
-}
-
-/**
- * Pad at the start of a string with Bangla zero (`'০'`)
- * @param str String to pad with
- * @param length Maximum length to pad, default is `2`
- * @returns The padded string
- */
-export function _padShunno(str: string, length = 2) {
-	return str.padStart(length, '০');
 }
 
 /**
@@ -245,27 +152,4 @@ export function _dateArgsToDate(value: Maybe<DateArgs>): Date {
 	return isDate(value)
 		? value
 		: new Date(isString(value) ? value.replace(/['"]/g, '') : (value ?? Date.now()));
-}
-
-/**
- * Type guard to check if a value has the necessary properties to be reconstructed into a `Chronos` instance.
- * - Validates that the value is an object with the required keys and that the `native` property is a valid date or date string, and that the `utcOffset` is valid.
- * @param value The value to check for reconstructability.
- * @returns `true` if the value has the required properties for reconstruction, otherwise `false`.
- */
-export function _hasChronosProperties(value: unknown): value is ChronosProperties {
-	return (
-		isObjectWithKeys(value, [
-			'origin',
-			'native',
-			'utcOffset',
-			'timeZoneName',
-			'timeZoneId',
-		]) &&
-		isNonEmptyString(value.origin) &&
-		(isDate(value.native) || isDateString(value.native)) &&
-		isValidUTCOffset(value.utcOffset) &&
-		isNonEmptyString(value.timeZoneName) &&
-		(isNonEmptyString(value.timeZoneId) || isValidArray<string>(value.timeZoneId))
-	);
 }
