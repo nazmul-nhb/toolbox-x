@@ -9,6 +9,7 @@ import {
 } from 'src/form/guards';
 import { isEmptyObject, isNotEmptyObject, isValidArray } from 'src/guards/non-primitives';
 import { isNonEmptyString, isString } from 'src/guards/primitives';
+import type { DateLike } from 'src/types/date';
 import type { FormDataConfigs } from 'src/types/form';
 import type { DotNotationKey, GenericObject, KeyForObject } from 'src/types/object';
 
@@ -28,19 +29,22 @@ export const createFormData = <T extends GenericObject>(
 
 	const { stringifyNested = '*' } = configs || {};
 
+	/** - Helper to compare a key with a path */
+	const _compareKeyPath = (key: string, path: string) => {
+		return key === path || key.startsWith(`${path}.`);
+	};
+
 	/** - Helper to check if a key should be lowercase */
 	const _shouldLowercaseKeys = (key: string) => {
 		return Array.isArray(configs?.lowerCaseKeys)
-			? configs?.lowerCaseKeys?.some((path) => key === path || key.startsWith(`${path}.`))
+			? configs?.lowerCaseKeys?.some((path) => _compareKeyPath(key, path))
 			: configs?.lowerCaseKeys === '*';
 	};
 
 	/** - Helper to check if a key should be lowercase */
 	const _shouldLowercaseValue = (key: string) => {
 		return Array.isArray(configs?.lowerCaseValues)
-			? configs.lowerCaseValues?.some(
-					(path) => key === path || key?.startsWith(`${path}.`)
-				)
+			? configs.lowerCaseValues?.some((path) => _compareKeyPath(key, path))
 			: configs?.lowerCaseValues === '*';
 	};
 
@@ -49,14 +53,17 @@ export const createFormData = <T extends GenericObject>(
 		return (_shouldLowercaseKeys(key) ? key.toLowerCase() : key) as KeyForObject<T>;
 	};
 
+	/** - Helper function to parse {@link DateLike} value into string */
+	const _parseDateLike = (value: DateLike) => {
+		return String(JSON.parse(JSON.stringify(value)));
+	};
+
 	/** - Helper function to check if a key matches a breakArray key. */
 	const _isRequiredKey = (key: string) => {
 		const transformedKey = _transformKey(key);
 
 		return Array.isArray(configs?.requiredKeys)
-			? configs?.requiredKeys?.some(
-					(path) => transformedKey === path || transformedKey?.startsWith(`${path}.`)
-				)
+			? configs?.requiredKeys?.some((path) => _compareKeyPath(transformedKey, path))
 			: configs?.requiredKeys === '*';
 	};
 
@@ -65,7 +72,7 @@ export const createFormData = <T extends GenericObject>(
 		const transformedKey = _transformKey(key);
 
 		return Array.isArray(configs?.dotNotateNested)
-			? configs.dotNotateNested.includes(transformedKey)
+			? configs?.dotNotateNested?.some((path) => _compareKeyPath(transformedKey, path))
 			: configs?.dotNotateNested === '*';
 	};
 
@@ -74,7 +81,7 @@ export const createFormData = <T extends GenericObject>(
 		const transformedKey = _transformKey(key);
 
 		return Array.isArray(stringifyNested)
-			? stringifyNested.includes(transformedKey)
+			? stringifyNested?.some((path) => _compareKeyPath(transformedKey, path))
 			: stringifyNested === '*';
 	};
 
@@ -83,7 +90,7 @@ export const createFormData = <T extends GenericObject>(
 		const transformedKey = _transformKey(key);
 
 		return Array.isArray(configs?.breakArray)
-			? configs.breakArray.includes(transformedKey)
+			? configs.breakArray.some((path) => _compareKeyPath(transformedKey, path))
 			: configs?.breakArray === '*';
 	};
 
@@ -107,7 +114,9 @@ export const createFormData = <T extends GenericObject>(
 				isNotEmptyObject(value);
 
 			if (shouldKeep) {
-				if (isNotEmptyObject(value)) {
+				if (isDateLike(value)) {
+					acc[transformedKey] = value;
+				} else if (isNotEmptyObject(value)) {
 					if (isDateLike(value)) {
 						acc[transformedKey] = value;
 					} else {
@@ -197,7 +206,7 @@ export const createFormData = <T extends GenericObject>(
 				formData.append(transformedKey, JSON.stringify(value));
 			}
 		} else if (isDateLike(value)) {
-			formData.append(transformedKey, JSON.parse(JSON.stringify(value)));
+			formData.append(transformedKey, _parseDateLike(value));
 		} else if (isNotEmptyObject(value)) {
 			if (_shouldStringify(key) && !_shouldDotNotate(key)) {
 				// * Clean object before stringifying, preserving required keys
@@ -255,7 +264,7 @@ export const createFormData = <T extends GenericObject>(
 				_addToFormData(fullKey, value);
 			} else if (isNotEmptyObject(value) && !_shouldStringify(fullKey)) {
 				if (isDateLike(value)) {
-					_addToFormData(key, JSON.parse(JSON.stringify(value)));
+					_addToFormData(key, _parseDateLike(value));
 				} else {
 					// * Process nested objects
 					_processObject(value, key);
@@ -263,7 +272,7 @@ export const createFormData = <T extends GenericObject>(
 			} else if (isFileOrBlob(value)) {
 				_addToFormData(key, value);
 			} else if (isDateLike(value)) {
-				_addToFormData(key, JSON.parse(JSON.stringify(value)));
+				_addToFormData(key, _parseDateLike(value));
 			} else if (isEmptyObject(value)) {
 				if (_isRequiredKey(fullKey)) {
 					_addToFormData(key, JSON.stringify(value));

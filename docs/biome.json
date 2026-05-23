@@ -34,6 +34,9 @@
 			"correctness": {
 				"useJsxKeyInIterable": "off"
 			},
+			"security": {
+				"noDangerouslySetInnerHtml": "info"
+			},
 			"suspicious": {
 				"noArrayIndexKey": "info"
 			},

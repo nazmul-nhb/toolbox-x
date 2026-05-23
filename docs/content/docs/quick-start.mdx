@@ -139,14 +139,16 @@ import { createFormData } from 'toolbox-x/dom';
 const file1 = new File(['file1'], 'file1.txt', { type: 'text/plain' });
 const file2 = new File(['file2'], 'file2.txt', { type: 'text/plain' }); 
 
-const formData = createFormData({
+const data = {
   user: {
     name: ' John Doe ',
     age: 30,
     preferences: { theme: 'dark' }
   },
   files: [file1, file2]
-}, {
+};
+
+const formData = createFormData(data, {
   trimStrings: true,
   lowerCaseValues: ['user.name'],
   dotNotateNested: ['user'],
@@ -181,11 +183,11 @@ const user = {
  tags: [],
 };
 
-const sanitized1 = sanitizeData(user, { ignoreNullish: true, ignoreEmpty: true });
+const sanitized1 = sanitizeData(user, { ignoreFalsy: true, ignoreEmpty: true });
 // Returns { name: "John Doe", address: { city: "NYC" } } with exact input type which may cause issue when accessing missing properties
 console.log(sanitized1);
 
-const sanitized2 = sanitizeData(user, { ignoreNullish: true, ignoreEmpty: true }, 'partial');
+const sanitized2 = sanitizeData(user, { ignoreFalsy: true, ignoreEmpty: true }, 'partial');
 // Return type: $DeepPartial<typeof user> safe property access by making all the properties (nested objects/arrays) optional 
 // Returns { name: "John Doe", address: { city: "NYC" } }
 console.log(sanitized2);

@@ -1,4 +1,4 @@
-import { isObjectWithKeys } from 'src/guards';
+import { isObjectWithKeys, isValidArray } from 'src/guards';
 import { isString } from 'src/guards/primitives';
 import type { CustomFile, FileUpload, OriginFileObj } from 'src/types/form';
 
@@ -50,7 +50,7 @@ export function isCustomFile(value: unknown): value is CustomFile {
  * @returns `true` if the value is a valid `CustomFile[]`, otherwise `false`.
  */
 export function isCustomFileArray(value: unknown): value is CustomFile[] {
-	return Array.isArray(value) && value?.length > 0 && value?.every(isCustomFile);
+	return isValidArray(value) && value?.every(isCustomFile);
 }
 
 /**
@@ -60,7 +60,7 @@ export function isCustomFileArray(value: unknown): value is CustomFile[] {
  * @returns `true` if the value is a valid `File[]` or `Blob[]`, otherwise `false`.
  */
 export function isFileArray(value: unknown): value is File[] | Blob[] {
-	return Array.isArray(value) && value?.length > 0 && value?.every(isFileOrBlob);
+	return isValidArray(value) && value?.every(isFileOrBlob);
 }
 
 /**

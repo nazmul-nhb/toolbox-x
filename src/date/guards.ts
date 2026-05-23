@@ -6,6 +6,7 @@ import { normalizeNumber } from 'src/number/utilities';
 import type {
 	$TimeZoneIdentifier,
 	ClockTime,
+	DateLike,
 	TimeWithUnit,
 	TimeZoneIdNative,
 	UTCOffset,
@@ -89,7 +90,7 @@ export function isLeapYear(year: Numeric): boolean {
  * @param value Value to check if it is date-like object.
  * @returns `true` if the value is date-like object, otherwise `false`.
  */
-export function isDateLike(value: unknown): boolean {
+export function isDateLike(value: unknown): value is DateLike {
 	if (value instanceof Date) return true;
 
 	if (isObject(value)) {
