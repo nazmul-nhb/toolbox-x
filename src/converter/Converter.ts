@@ -1,3 +1,12 @@
+import { $Area } from 'src/converter/area';
+import { $BaseConverter } from 'src/converter/base';
+import { UNITS } from 'src/converter/constants';
+import { $Data } from 'src/converter/data';
+import { $Length } from 'src/converter/length';
+import { $Mass } from 'src/converter/mass';
+import { $Temperature } from 'src/converter/temp';
+import { $Time } from 'src/converter/time';
+import { $Volume } from 'src/converter/volume';
 import type {
 	$AreaUnit,
 	$DataUnit,
@@ -10,17 +19,8 @@ import type {
 	Category,
 	Converted,
 	UnitMap,
-} from '../types/converter';
-import type { Maybe, Numeric } from '../types/index';
-import { $Area } from './area';
-import { $BaseConverter } from './base';
-import { UNITS } from './constants';
-import { $Data } from './data';
-import { $Length } from './length';
-import { $Mass } from './mass';
-import { $Temperature } from './temp';
-import { $Time } from './time';
-import { $Volume } from './volume';
+} from 'src/types/converter';
+import type { Maybe, Numeric } from 'src/types/index';
 
 /**
  * @function `Converter` Creates instances of specific unit converter class based on the provided unit.

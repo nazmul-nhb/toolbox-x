@@ -9,4 +9,4 @@ export {
 	TemperatureConverter,
 	TimeConverter,
 	VolumeConverter,
-} from './converter/Converter';
+} from 'src/converter/Converter';

@@ -1,12 +1,5 @@
-import { isUUID } from '../guards/specials';
-import type {
-	$UUIDVersion,
-	DecodedUUID,
-	SupportedVersion,
-	UUID,
-	UUIDOptions,
-} from '../types/hash';
-import { md5, sha1 } from './core';
+import { isUUID } from 'src/guards/specials';
+import { md5, sha1 } from 'src/hash/core';
 import {
 	_bytesToRandomHex,
 	_checkUUIDVersion,
@@ -15,8 +8,15 @@ import {
 	_isOptionV3V5,
 	_randomNode48,
 	_uuidTimestamp,
-} from './helpers';
-import { randomHex } from './utils';
+} from 'src/hash/helpers';
+import { randomHex } from 'src/hash/utils';
+import type {
+	$UUIDVersion,
+	DecodedUUID,
+	SupportedVersion,
+	UUID,
+	UUIDOptions,
+} from 'src/types/hash';
 
 /**
  * * Generates UUIDs across all major RFC-compliant versions (1, 3, 4, 5, 6, 7, 8), following standards from `RFC4122`. Default version is `v4`.

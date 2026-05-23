@@ -1,4 +1,4 @@
-import type { Deserializer, Serializer } from '../types/index';
+import type { Deserializer, Serializer } from 'src/types/index';
 
 // * ****************** Local Storage ****************** * //
 

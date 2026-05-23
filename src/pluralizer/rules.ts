@@ -1,4 +1,4 @@
-import type { PluralizeRule } from '../types/pluralizer';
+import type { PluralizeRule } from 'src/types/pluralizer';
 
 /** Irregular singular → plural mappings */
 export const irregularRules: readonly [string, string][] = /* @__PURE__ */ Object.freeze([

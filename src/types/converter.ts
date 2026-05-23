@@ -1,13 +1,13 @@
-import type { $Area } from '../converter/area';
-import type { $BaseConverter } from '../converter/base';
-import type { UNITS } from '../converter/constants';
-import type { $Data } from '../converter/data';
-import type { $Length } from '../converter/length';
-import type { $Mass } from '../converter/mass';
-import type { $Temperature } from '../converter/temp';
-import type { $Time } from '../converter/time';
-import type { $Volume } from '../converter/volume';
-import type { LooseLiteral, Mutable } from './utils';
+import type { $Area } from 'src/converter/area';
+import type { $BaseConverter } from 'src/converter/base';
+import type { UNITS } from 'src/converter/constants';
+import type { $Data } from 'src/converter/data';
+import type { $Length } from 'src/converter/length';
+import type { $Mass } from 'src/converter/mass';
+import type { $Temperature } from 'src/converter/temp';
+import type { $Time } from 'src/converter/time';
+import type { $Volume } from 'src/converter/volume';
+import type { LooseLiteral, Mutable } from 'src/types/utils';
 
 /** - Type for Record of Units */
 export type UnitsRecord = typeof UNITS;

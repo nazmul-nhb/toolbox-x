@@ -1,4 +1,4 @@
-import type { $TimeUnitVar, ClockHour, DayPart } from '../types/date';
+import type { $TimeUnitVar, ClockHour, DayPart } from 'src/types/date';
 
 /** Milliseconds per day */
 export const MS_PER_DAY = 86400000;

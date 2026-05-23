@@ -1,6 +1,6 @@
-import { isNonEmptyString } from '../guards/primitives';
-import { isBase64 } from '../guards/specials';
-import { _constantTimeEquals } from './helpers';
+import { isNonEmptyString } from 'src/guards/primitives';
+import { isBase64 } from 'src/guards/specials';
+import { _constantTimeEquals } from 'src/hash/helpers';
 import {
 	base64ToBytes,
 	bytesToBase64,
@@ -10,7 +10,7 @@ import {
 	intTo4BytesBE,
 	sha256Bytes,
 	utf8ToBytes,
-} from './utils';
+} from 'src/hash/utils';
 
 /**
  * @class Lightweight stream-cipher–style encryption utility using `HMAC-SHA256` for keystream generation and authentication.

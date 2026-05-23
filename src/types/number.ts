@@ -6,10 +6,10 @@ import type {
 	LOCALE_CODES,
 	PREFIX_MULTIPLIERS,
 	UNITS,
-} from '../number/constants';
-import type { Unit } from '../number/Unit';
-import type { Maybe } from './index';
-import type { LooseLiteral } from './utils';
+} from 'src/number/constants';
+import type { Unit } from 'src/number/Unit';
+import type { Maybe } from 'src/types/index';
+import type { LooseLiteral } from 'src/types/utils';
 
 /** Enumerate & Enumerate Internal: builds a union of all numbers from 0 to N - 1 */
 type $EnumerateInternal<N extends number, Acc extends number[] = []> = Acc['length'] extends N

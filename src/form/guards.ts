@@ -1,5 +1,5 @@
-import { isString } from '../guards/primitives';
-import type { CustomFile, FileUpload, OriginFileObj } from '../types/form';
+import { isString } from 'src/guards/primitives';
+import type { CustomFile, FileUpload, OriginFileObj } from 'src/types/form';
 
 /**
  * * Checks if a given value is a valid `FormData` & it's not empty.

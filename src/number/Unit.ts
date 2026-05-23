@@ -1,5 +1,5 @@
-import type { SIPrefix, UnitKey, UnitNumberMethods } from '../types/number';
-import { PREFIX_MULTIPLIERS } from './constants';
+import { PREFIX_MULTIPLIERS } from 'src/number/constants';
+import type { SIPrefix, UnitKey, UnitNumberMethods } from 'src/types/number';
 
 /**
  * @class Class to handle conversions between various types of units.

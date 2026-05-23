@@ -1,12 +1,12 @@
-import type { Numeric } from '../types/index';
+import { formatCurrency } from 'src/number/utilities';
+import type { Numeric } from 'src/types/index';
 import type {
 	ConvertOptions,
 	CurrencyCode,
 	FrankFurter,
 	FrankFurterCurrency,
 	LocaleCode,
-} from '../types/number';
-import { formatCurrency } from './utilities';
+} from 'src/types/number';
 
 /**
  * * A utility class for handling currency operations like formatting and conversion.

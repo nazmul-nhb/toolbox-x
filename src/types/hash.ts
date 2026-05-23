@@ -1,6 +1,6 @@
-import type { TimeWithUnit } from './date';
-import type { Branded, Numeric } from './index';
-import type { GenericObject } from './object';
+import type { TimeWithUnit } from 'src/types/date';
+import type { Branded, Numeric } from 'src/types/index';
+import type { GenericObject } from 'src/types/object';
 
 /** UUID versions as number from `1-8` */
 export type $UUIDVersion = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;

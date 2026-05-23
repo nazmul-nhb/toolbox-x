@@ -1,9 +1,9 @@
-import { isNonEmptyString, isNumber } from '../guards/primitives';
-import { isNumericString } from '../guards/specials';
-import type { $TimeUnitVar, TimeWithUnit } from '../types/date';
-import type { Numeric } from '../types/index';
-import { MS_MAP } from './constants';
-import { isTimeWithUnit } from './guards';
+import { MS_MAP } from 'src/date/constants';
+import { isTimeWithUnit } from 'src/date/guards';
+import { isNonEmptyString, isNumber } from 'src/guards/primitives';
+import { isNumericString } from 'src/guards/specials';
+import type { $TimeUnitVar, TimeWithUnit } from 'src/types/date';
+import type { Numeric } from 'src/types/index';
 
 /**
  * * Parse the given value to milliseconds or optionally to seconds.

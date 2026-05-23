@@ -9,7 +9,7 @@ export {
 	parseQueryStringLiteral as literalQueryStringToObject,
 	parseQueryStringLiteral,
 	updateQueryParam,
-} from './dom/query';
+} from 'src/dom/query';
 
 export {
 	getFromLocalStorage,
@@ -18,16 +18,16 @@ export {
 	removeFromSessionStorage,
 	saveToLocalStorage,
 	saveToSessionStorage,
-} from './dom/storage';
+} from 'src/dom/storage';
 
-export { copyToClipboard, smoothScrollTo, toggleFullScreen } from './dom/utils';
+export { copyToClipboard, smoothScrollTo, toggleFullScreen } from 'src/dom/utils';
 
 // ! Form Utilities
 export {
 	createControlledFormData as convertIntoFormData,
 	createControlledFormData,
 	createControlledFormData as createFormData,
-} from './form/convert';
+} from 'src/form/convert';
 export {
 	isCustomFile,
 	isCustomFileArray,
@@ -37,5 +37,5 @@ export {
 	isFileUpload,
 	isOriginFileObj,
 	isValidFormData,
-} from './form/guards';
-export { parseFormData, serializeForm } from './form/transform';
+} from 'src/form/guards';
+export { parseFormData, serializeForm } from 'src/form/transform';

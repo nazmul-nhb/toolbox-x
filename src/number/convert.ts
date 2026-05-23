@@ -1,12 +1,5 @@
-import { isInteger, isNonEmptyString, isNumber } from '../guards/primitives';
-import { isNumericString } from '../guards/specials';
-import type { Numeric } from '../types/index';
-import type {
-	BanglaDigit,
-	BnDigitResult,
-	LooseRomanNumeral,
-	RomanCapital,
-} from '../types/number';
+import { isInteger, isNonEmptyString, isNumber } from 'src/guards/primitives';
+import { isNumericString } from 'src/guards/specials';
 import {
 	BN_DIGITS,
 	ONES,
@@ -15,9 +8,16 @@ import {
 	TEENS,
 	TENS,
 	THOUSANDS,
-} from './constants';
-import { _convertLessThanThousand } from './helpers';
-import { normalizeNumber } from './utilities';
+} from 'src/number/constants';
+import { _convertLessThanThousand } from 'src/number/helpers';
+import { normalizeNumber } from 'src/number/utilities';
+import type { Numeric } from 'src/types/index';
+import type {
+	BanglaDigit,
+	BnDigitResult,
+	LooseRomanNumeral,
+	RomanCapital,
+} from 'src/types/number';
 
 /**
  * * Converts a numeric value into its corresponding English word representation.

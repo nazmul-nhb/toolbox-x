@@ -1,8 +1,8 @@
-import { isNumber } from '../guards/primitives';
-import { isNumericString } from '../guards/specials';
-import type { Maybe, Numeric } from '../types/index';
-import type { CurrencyCode, LocaleCode } from '../types/number';
-import { CURRENCY_LOCALES } from './constants';
+import { isNumber } from 'src/guards/primitives';
+import { isNumericString } from 'src/guards/specials';
+import { CURRENCY_LOCALES } from 'src/number/constants';
+import type { Maybe, Numeric } from 'src/types/index';
+import type { CurrencyCode, LocaleCode } from 'src/types/number';
 
 /**
  * * Rounds a number to the nearest specified interval.

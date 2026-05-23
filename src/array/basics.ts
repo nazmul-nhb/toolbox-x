@@ -1,6 +1,6 @@
-import type { Flattened } from '../types/array';
-import type { Maybe } from '../types/index';
-import type { GenericObject } from '../types/object';
+import type { Flattened } from 'src/types/array';
+import type { Maybe } from 'src/types/index';
+import type { GenericObject } from 'src/types/object';
 
 /**
  * * Flattens a nested array recursively or wraps any non-array data type in an array.

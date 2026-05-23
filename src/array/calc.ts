@@ -1,9 +1,9 @@
-import { isValidArray } from '../guards/non-primitives';
-import { roundNumber } from '../number/basics';
-import type { Maybe } from '../types/index';
-import type { GenericObject, NestedPrimitiveKey, NumericDotKey } from '../types/object';
-import { _getNumericProp, _resolveNestedKey } from './helpers';
-import { splitArrayByProperty } from './transform';
+import { _getNumericProp, _resolveNestedKey } from 'src/array/helpers';
+import { splitArrayByProperty } from 'src/array/transform';
+import { isValidArray } from 'src/guards/non-primitives';
+import { roundNumber } from 'src/number/basics';
+import type { Maybe } from 'src/types/index';
+import type { GenericObject, NestedPrimitiveKey, NumericDotKey } from 'src/types/object';
 
 /**
  * * Calculates the sum of differences between two numeric fields for each item in the array.

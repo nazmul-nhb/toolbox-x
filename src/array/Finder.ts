@@ -1,8 +1,8 @@
-import { isFunction } from '../guards/non-primitives';
-import { isString } from '../guards/primitives';
-import type { FindOptions } from '../types/array';
-import type { Maybe, OwnKeys } from '../types/index';
-import type { GenericObject } from '../types/object';
+import { isFunction } from 'src/guards/non-primitives';
+import { isString } from 'src/guards/primitives';
+import type { FindOptions } from 'src/types/array';
+import type { Maybe, OwnKeys } from 'src/types/index';
+import type { GenericObject } from 'src/types/object';
 
 type KeySelector<T> = Extract<OwnKeys<T>, string | number> | ((item: T) => string | number);
 

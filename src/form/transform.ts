@@ -1,7 +1,7 @@
-import { generateQueryParams } from '../dom/query';
-import { isString } from '../guards/primitives';
-import { parseObjectValues } from '../object/sanitize';
-import type { ParsedFormData, SerializedForm } from '../types/form';
+import { generateQueryParams } from 'src/dom/query';
+import { isString } from 'src/guards/primitives';
+import { parseObjectValues } from 'src/object/sanitize';
+import type { ParsedFormData, SerializedForm } from 'src/types/form';
 
 /**
  * * Serialize form data into an object or a query string.

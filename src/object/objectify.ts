@@ -1,7 +1,8 @@
-import { isDateLike } from '../date/guards';
-import { isFileOrBlob } from '../form/guards';
-import { isEmptyObject, isNotEmptyObject, isObject } from '../guards/non-primitives';
-import type { FlattenPartial } from '../types/index';
+import { isDateLike } from 'src/date/guards';
+import { isFileOrBlob } from 'src/form/guards';
+import { isEmptyObject, isNotEmptyObject, isObject } from 'src/guards/non-primitives';
+import { parseObjectValues } from 'src/object/sanitize';
+import type { FlattenPartial } from 'src/types/index';
 import type {
 	ExpandAll,
 	FlattenDotValue,
@@ -9,9 +10,8 @@ import type {
 	GenericObject,
 	MergeAll,
 	Objects,
-} from '../types/object';
-import { isDeepEqual } from '../utils/index';
-import { parseObjectValues } from './sanitize';
+} from 'src/types/object';
+import { isDeepEqual } from 'src/utils/index';
 
 /**
  * Deeply merges two or more objects.

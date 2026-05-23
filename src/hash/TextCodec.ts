@@ -1,7 +1,13 @@
-import { isNonEmptyString } from '../guards/primitives';
-import { isBase64, isBinaryString, isHexString } from '../guards/specials';
-import { _padStartWith0, _splitByCharLength } from './helpers';
-import { base64ToBytes, bytesToBase64, bytesToUtf8, hexToBytes, utf8ToBytes } from './utils';
+import { isNonEmptyString } from 'src/guards/primitives';
+import { isBase64, isBinaryString, isHexString } from 'src/guards/specials';
+import { _padStartWith0, _splitByCharLength } from 'src/hash/helpers';
+import {
+	base64ToBytes,
+	bytesToBase64,
+	bytesToUtf8,
+	hexToBytes,
+	utf8ToBytes,
+} from 'src/hash/utils';
 
 /**
  * @class `TextCodec` provides **UTF-8–safe** conversions between `text`, `hex`, `binary`, and `Base64` representations using byte-level transformations.

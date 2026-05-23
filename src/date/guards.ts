@@ -1,16 +1,16 @@
-import { isFunction, isObject } from '../guards/non-primitives';
-import { isBoolean, isNonEmptyString, isString } from '../guards/primitives';
-import { isNumericString } from '../guards/specials';
-import { normalizeNumber } from '../number/utilities';
+import { IANA_TZ_IDS, NATIVE_TZ_IDS } from 'src/date/timezone';
+import { isFunction, isObject } from 'src/guards/non-primitives';
+import { isBoolean, isNonEmptyString, isString } from 'src/guards/primitives';
+import { isNumericString } from 'src/guards/specials';
+import { normalizeNumber } from 'src/number/utilities';
 import type {
 	$TimeZoneIdentifier,
 	ClockTime,
 	TimeWithUnit,
 	TimeZoneIdNative,
 	UTCOffset,
-} from '../types/date';
-import type { Numeric } from '../types/index';
-import { IANA_TZ_IDS, NATIVE_TZ_IDS } from './timezone';
+} from 'src/types/date';
+import type { Numeric } from 'src/types/index';
 
 /**
  * * Checks if the provided value is a valid time string in "HH:MM" format.

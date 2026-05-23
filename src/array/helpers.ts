@@ -1,5 +1,5 @@
-import { isNotEmptyObject } from '../guards/non-primitives';
-import { normalizeNumber } from '../number/utilities';
+import { isNotEmptyObject } from 'src/guards/non-primitives';
+import { normalizeNumber } from 'src/number/utilities';
 
 /**
  * Safely resolves nested keys from a dot-separated string like "user.city".

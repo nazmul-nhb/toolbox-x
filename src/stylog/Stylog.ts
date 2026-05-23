@@ -1,10 +1,26 @@
-import { convertHslToRgb } from '../colors/convert';
-import { CSS_COLORS } from '../colors/css-colors';
-import { isCSSColor, isHex6, isRGB } from '../colors/guards';
-import { _isValidHue, _isValidPercentage, _isValidRGBComponent } from '../colors/helpers';
-import { isNumber, isString } from '../guards/primitives';
-import { isBrowser } from '../guards/specials';
-import type { Hex6, RGB, SolidValues } from '../types/colors';
+import { convertHslToRgb } from 'src/colors/convert';
+import { CSS_COLORS } from 'src/colors/css-colors';
+import { isCSSColor, isHex6, isRGB } from 'src/colors/guards';
+import { _isValidHue, _isValidPercentage, _isValidRGBComponent } from 'src/colors/helpers';
+import { isNumber, isString } from 'src/guards/primitives';
+import { isBrowser } from 'src/guards/specials';
+import { _logToConsole } from 'src/stylog/console.log';
+import { ANSI_16_COLORS, ANSI_TEXT_STYLES, CSS_TEXT_STYLES } from 'src/stylog/constants';
+import {
+	_css16ToHex,
+	_extractColorName,
+	_isAnsi16ColorValue,
+	_isAnsiSequence,
+	_isCSS16Color,
+} from 'src/stylog/helpers';
+import {
+	detectColorSupport,
+	hexToAnsi,
+	isBGColor,
+	isTextStyle,
+	rgbToAnsi,
+} from 'src/stylog/utils';
+import type { Hex6, RGB, SolidValues } from 'src/types/colors';
 import type {
 	Ansi16Color,
 	Ansi16Value,
@@ -12,17 +28,7 @@ import type {
 	CSS16Color,
 	Styles,
 	StylogChain,
-} from '../types/stylog';
-import { _logToConsole } from './console.log';
-import { ANSI_16_COLORS, ANSI_TEXT_STYLES, CSS_TEXT_STYLES } from './constants';
-import {
-	_css16ToHex,
-	_extractColorName,
-	_isAnsi16ColorValue,
-	_isAnsiSequence,
-	_isCSS16Color,
-} from './helpers';
-import { detectColorSupport, hexToAnsi, isBGColor, isTextStyle, rgbToAnsi } from './utils';
+} from 'src/types/stylog';
 
 // ! ======= Implementation of LogStyler ======= ! //
 

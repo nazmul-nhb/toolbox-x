@@ -1,6 +1,6 @@
-import type { PercentageOptions } from '../types/number';
-import { getAverage } from './basics';
-import { areInvalidNumbers } from './guards';
+import { getAverage } from 'src/number/basics';
+import { areInvalidNumbers } from 'src/number/guards';
+import type { PercentageOptions } from 'src/types/number';
 
 /**
  * * Performs a percentage-related calculation based on the given mode and inputs.

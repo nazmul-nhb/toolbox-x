@@ -3,7 +3,7 @@ import type {
 	PageListOptions,
 	PaginatorMeta,
 	PaginatorOptions,
-} from '../types/utils';
+} from 'src/types/utils';
 
 /** @class Generates pagination logic, offsets, metadata and other pagination logic(s) for APIs and UIs. */
 export class Paginator {

@@ -1,5 +1,5 @@
-import type { TupleOf } from '../types/utils';
-import { getLevenshteinDistance } from './utilities';
+import { getLevenshteinDistance } from 'src/string/utilities';
+import type { TupleOf } from 'src/types/utils';
 
 /**
  * Calculates the similarity between two strings using the Levenshtein edit distance.

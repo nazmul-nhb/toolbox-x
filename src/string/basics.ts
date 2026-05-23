@@ -1,5 +1,5 @@
-import { isNonEmptyString } from '../guards/primitives';
-import type { RandomIdOptions } from '../types/string';
+import { isNonEmptyString } from 'src/guards/primitives';
+import type { RandomIdOptions } from 'src/types/string';
 
 /**
  * * Utility to truncate a string to a specified length.

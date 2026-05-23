@@ -1,5 +1,10 @@
-import type { DotNotationKey, KeyForArray, KeyForObject, NestedKeyString } from './object';
-import type { QueryString } from './string';
+import type {
+	DotNotationKey,
+	KeyForArray,
+	KeyForObject,
+	NestedKeyString,
+} from 'src/types/object';
+import type { QueryString } from 'src/types/string';
 
 /** - Configuration options to control FormData generation behavior. */
 export interface FormDataConfigs<T> {

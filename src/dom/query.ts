@@ -1,14 +1,14 @@
-import { isString } from '../guards/primitives';
-import { flattenObjectKeyValue } from '../object/objectify';
-import { parseObjectValues } from '../object/sanitize';
+import { isString } from 'src/guards/primitives';
+import { flattenObjectKeyValue } from 'src/object/objectify';
+import { parseObjectValues } from 'src/object/sanitize';
 import type {
 	ParsedQuery,
 	ParsedQueryGeneric,
 	QueryObject,
 	StrictObject,
-} from '../types/object';
-import type { QueryString } from '../types/string';
-import { deepParsePrimitives } from '../utils/index';
+} from 'src/types/object';
+import type { QueryString } from 'src/types/string';
+import { deepParsePrimitives } from 'src/utils/index';
 
 /**
  * * Utility to generate query parameters from an object.

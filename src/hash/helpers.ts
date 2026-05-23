@@ -1,8 +1,8 @@
-import { isObjectWithKeys } from '../guards/non-primitives';
-import { isNonEmptyString, isString } from '../guards/primitives';
-import { isUUID } from '../guards/specials';
-import type { $UUIDOptionsV3V5, $UUIDVersion, UUID, UUIDVersion } from '../types/hash';
-import { randomHex } from './utils';
+import { isObjectWithKeys } from 'src/guards/non-primitives';
+import { isNonEmptyString, isString } from 'src/guards/primitives';
+import { isUUID } from 'src/guards/specials';
+import { randomHex } from 'src/hash/utils';
+import type { $UUIDOptionsV3V5, $UUIDVersion, UUID, UUIDVersion } from 'src/types/hash';
 
 /** Function type to run md5 rounds */
 type MD5Round = (

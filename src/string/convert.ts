@@ -1,6 +1,6 @@
-import { isString } from '../guards/primitives';
-import type { MaskOptions } from '../types/string';
-import { trimString } from './basics';
+import { isString } from 'src/guards/primitives';
+import { trimString } from 'src/string/basics';
+import type { MaskOptions } from 'src/types/string';
 
 /**
  * * Replaces all occurrences of a string or pattern in the given input string.

@@ -1,8 +1,8 @@
-import { convertHexToRgb } from '../colors/convert';
-import { isCSSColor } from '../colors/guards';
-import type { Hex, SolidValues } from '../types/colors';
-import type { AnsiSequence, BGColor, TextStyle } from '../types/stylog';
-import { ANSI_TEXT_STYLES, CSS_TEXT_STYLES } from './constants';
+import { convertHexToRgb } from 'src/colors/convert';
+import { isCSSColor } from 'src/colors/guards';
+import { ANSI_TEXT_STYLES, CSS_TEXT_STYLES } from 'src/stylog/constants';
+import type { Hex, SolidValues } from 'src/types/colors';
+import type { AnsiSequence, BGColor, TextStyle } from 'src/types/stylog';
 
 /**
  * * Detects color support level of the current terminal/shell.

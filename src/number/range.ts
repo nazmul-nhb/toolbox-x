@@ -1,11 +1,11 @@
-import { shuffleArray } from '../array/basics';
-import { isUndefined } from '../guards/primitives';
-import type { NumberType, RangedNumbers, RangeOptions } from '../types/number';
-import { convertArrayToString } from '../utils/index';
-import { getRandomNumber } from './basics';
-import { isEven, isOdd } from './guards';
-import { _applyMultiples } from './helpers';
-import { isPrime } from './prime';
+import { shuffleArray } from 'src/array/basics';
+import { isUndefined } from 'src/guards/primitives';
+import { getRandomNumber } from 'src/number/basics';
+import { isEven, isOdd } from 'src/number/guards';
+import { _applyMultiples } from 'src/number/helpers';
+import { isPrime } from 'src/number/prime';
+import type { NumberType, RangedNumbers, RangeOptions } from 'src/types/number';
+import { convertArrayToString } from 'src/utils/index';
 
 /**
  * * Function to get numbers within a range based on the provided {@link NumberType} and options.

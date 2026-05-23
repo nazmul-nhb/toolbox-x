@@ -1,8 +1,8 @@
-import { isNumber, isUndefined } from '../guards/primitives';
-import type { Maybe, Numeric } from '../types/index';
-import type { ConvertedDecimal, DecimalOptions, RandomNumberOptions } from '../types/number';
-import { _find2NumbersHCF, _find2NumbersLCM } from './helpers';
-import { normalizeNumber } from './utilities';
+import { isNumber, isUndefined } from 'src/guards/primitives';
+import { _find2NumbersHCF, _find2NumbersLCM } from 'src/number/helpers';
+import { normalizeNumber } from 'src/number/utilities';
+import type { Maybe, Numeric } from 'src/types/index';
+import type { ConvertedDecimal, DecimalOptions, RandomNumberOptions } from 'src/types/number';
 
 /**
  * * Utility to generate a random number between a given range.

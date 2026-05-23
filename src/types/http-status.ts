@@ -1,5 +1,5 @@
-import type { HTTP_STATUS_DATA } from '../http-status/constants';
-import type { LooseLiteral } from './utils';
+import type { HTTP_STATUS_DATA } from 'src/http-status/constants';
+import type { LooseLiteral } from 'src/types/utils';
 
 /** Mapped type of HTTP status entries */
 export type $HttpStatusMap = (typeof HTTP_STATUS_DATA)[number];

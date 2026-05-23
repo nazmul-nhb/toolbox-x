@@ -1,6 +1,6 @@
-import { isNonEmptyString, isNumber, isString } from '../guards/primitives';
-import { COUNTRIES } from '../object/countries';
-import type { CountryDetails } from '../types/object';
+import { isNonEmptyString, isNumber, isString } from 'src/guards/primitives';
+import { COUNTRIES } from 'src/object/countries';
+import type { CountryDetails } from 'src/types/object';
 
 /**
  * @function `getCountryByPhone` Get country details by matching the country code in the given phone number.

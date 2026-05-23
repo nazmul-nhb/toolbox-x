@@ -1,4 +1,5 @@
-import { isNonEmptyString } from '../guards/primitives';
+import { isNonEmptyString } from 'src/guards/primitives';
+import { LOWERCASE } from 'src/string/constants';
 import type {
 	$LowerCaseWord,
 	CamelCase,
@@ -15,8 +16,7 @@ import type {
 	StringCaseOptions,
 	TitleCase,
 	TrainCase,
-} from '../types/string';
-import { LOWERCASE } from './constants';
+} from 'src/types/string';
 
 /** Lowercase words set for fast lookup */
 const smallSet = /* @__PURE__ */ new Set(LOWERCASE);

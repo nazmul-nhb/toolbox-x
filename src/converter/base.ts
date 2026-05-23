@@ -1,6 +1,6 @@
-import type { $Unit, Category, FormatToOptions, Units, UnitsTuple } from '../types/converter';
-import type { Numeric } from '../types/index';
-import { INVARIANT_UNITS, IRREGULAR_PLURALS, UNITS, Y_TO_IES } from './constants';
+import { INVARIANT_UNITS, IRREGULAR_PLURALS, UNITS, Y_TO_IES } from 'src/converter/constants';
+import type { $Unit, Category, FormatToOptions, Units, UnitsTuple } from 'src/types/converter';
+import type { Numeric } from 'src/types/index';
 
 /**
  * @description Base class providing common mathematical and formatting utilities

@@ -1,5 +1,5 @@
-import type { Hex } from '../types/colors';
-import type { Ansi16Color, AnsiSequence, TextStyle } from '../types/stylog';
+import type { Hex } from 'src/types/colors';
+import type { Ansi16Color, AnsiSequence, TextStyle } from 'src/types/stylog';
 
 /** ANSI styles for non-color text effects */
 export const ANSI_TEXT_STYLES = /* @__PURE__ */ Object.freeze({

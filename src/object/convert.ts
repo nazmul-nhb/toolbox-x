@@ -1,11 +1,11 @@
-import { isObject } from '../guards/non-primitives';
-import { isNumber, isString } from '../guards/primitives';
+import { isObject } from 'src/guards/non-primitives';
+import { isNumber, isString } from 'src/guards/primitives';
 import type {
 	ConvertedObject,
 	ConvertObjectOptions,
 	GenericObject,
 	NumericDotKey,
-} from '../types/object';
+} from 'src/types/object';
 
 /**
  * * Converts the values of specified keys in an object to `"string"` or `"number"`.

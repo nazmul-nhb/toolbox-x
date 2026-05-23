@@ -1,6 +1,6 @@
-import { isUndefined } from '../guards/primitives';
-import type { Numeric } from '../types/index';
-import { normalizeNumber } from './utilities';
+import { isUndefined } from 'src/guards/primitives';
+import { normalizeNumber } from 'src/number/utilities';
+import type { Numeric } from 'src/types/index';
 
 /**
  * * Check if a number is even or not.

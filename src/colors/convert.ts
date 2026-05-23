@@ -1,3 +1,10 @@
+import { isHex6, isHex8, isHSL, isHSLA, isRGB, isRGBA } from 'src/colors/guards';
+import { _isValidAlpha } from 'src/colors/helpers';
+import {
+	extractAlphaColorValues,
+	extractSolidColorValues,
+	percentToHex,
+} from 'src/colors/utils';
 import type {
 	ColorType,
 	ConvertedColors,
@@ -8,11 +15,8 @@ import type {
 	HSLA,
 	RGB,
 	RGBA,
-} from '../types/colors';
-import type { Percent } from '../types/number';
-import { isHex6, isHex8, isHSL, isHSLA, isRGB, isRGBA } from './guards';
-import { _isValidAlpha } from './helpers';
-import { extractAlphaColorValues, extractSolidColorValues, percentToHex } from './utils';
+} from 'src/types/colors';
+import type { Percent } from 'src/types/number';
 
 /**
  * * Converts HSL to RGB color format.

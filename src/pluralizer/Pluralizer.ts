@@ -1,7 +1,7 @@
-import { isNonEmptyString, isString, isUndefined } from '../guards/primitives';
-import { normalizeNumber } from '../number/utilities';
-import type { IrregularMap, PluralizeOptions, PluralizeRule } from '../types/pluralizer';
-import { irregularRules, pluralRules, singularRules, uncountables } from './rules';
+import { isNonEmptyString, isString, isUndefined } from 'src/guards/primitives';
+import { normalizeNumber } from 'src/number/utilities';
+import { irregularRules, pluralRules, singularRules, uncountables } from 'src/pluralizer/rules';
+import type { IrregularMap, PluralizeOptions, PluralizeRule } from 'src/types/pluralizer';
 
 /**
  * @class Handles English word pluralization and singularization with support for irregular forms and uncountable nouns.

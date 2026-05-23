@@ -1,7 +1,15 @@
-import { _secToDate, _toSeconds } from '../date/helpers';
-import { parseMSec } from '../date/parse';
-import { isNotEmptyObject } from '../guards/non-primitives';
-import { isNonEmptyString } from '../guards/primitives';
+import { _secToDate, _toSeconds } from 'src/date/helpers';
+import { parseMSec } from 'src/date/parse';
+import { isNotEmptyObject } from 'src/guards/non-primitives';
+import { isNonEmptyString } from 'src/guards/primitives';
+import { _constantTimeEquals } from 'src/hash/helpers';
+import {
+	base64ToBytes,
+	bytesToBase64,
+	bytesToUtf8,
+	hmacSha256,
+	utf8ToBytes,
+} from 'src/hash/utils';
 import type {
 	DecodedToken,
 	SignetHeader,
@@ -10,12 +18,10 @@ import type {
 	TokenString,
 	VerifiedToken,
 	VerifyOptions,
-} from '../types/hash';
-import type { Maybe } from '../types/index';
-import type { GenericObject } from '../types/object';
-import { stableStringify, stripJsonEdgeGarbage } from '../utils/index';
-import { _constantTimeEquals } from './helpers';
-import { base64ToBytes, bytesToBase64, bytesToUtf8, hmacSha256, utf8ToBytes } from './utils';
+} from 'src/types/hash';
+import type { Maybe } from 'src/types/index';
+import type { GenericObject } from 'src/types/object';
+import { stableStringify, stripJsonEdgeGarbage } from 'src/utils/index';
 
 /**
  * @class A lightweight, secure implementation of JWT-like tokens using `HMAC-SHA256` signatures.

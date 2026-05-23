@@ -1,8 +1,4 @@
-import { isDateLike } from '../date/guards';
-import { isEmptyObject, isNotEmptyObject, isValidArray } from '../guards/non-primitives';
-import { isNonEmptyString, isString } from '../guards/primitives';
-import type { FormDataConfigs } from '../types/form';
-import type { DotNotationKey, GenericObject, KeyForObject } from '../types/object';
+import { isDateLike } from 'src/date/guards';
 import {
 	isCustomFile,
 	isCustomFileArray,
@@ -10,7 +6,11 @@ import {
 	isFileList,
 	isFileOrBlob,
 	isFileUpload,
-} from './guards';
+} from 'src/form/guards';
+import { isEmptyObject, isNotEmptyObject, isValidArray } from 'src/guards/non-primitives';
+import { isNonEmptyString, isString } from 'src/guards/primitives';
+import type { FormDataConfigs } from 'src/types/form';
+import type { DotNotationKey, GenericObject, KeyForObject } from 'src/types/object';
 
 /**
  * * Utility to convert object into FormData in a controlled way.

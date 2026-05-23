@@ -1,5 +1,5 @@
 // ! Colors Guards
-export { isCSSColor, isHex6, isHex8, isHSL, isHSLA, isRGB, isRGBA } from './colors/guards';
+export { isCSSColor, isHex6, isHex8, isHSL, isHSLA, isRGB, isRGBA } from 'src/colors/guards';
 // ! Date & Time Guards
 export {
 	isDateLike,
@@ -12,7 +12,7 @@ export {
 	isValidUTCOffset as isValidUTC,
 	isValidUTCOffset as isValidUTCOffSet,
 	isValidUTCOffset,
-} from './date/guards';
+} from 'src/date/guards';
 // ! Non-Primitive Type Guards
 export {
 	isArray,
@@ -43,7 +43,7 @@ export {
 	isSet as isValidSet,
 	isValidArray as isArrayWithLength,
 	isValidArray,
-} from './guards/non-primitives';
+} from 'src/guards/non-primitives';
 // ! Primitive Type Guards
 export {
 	isBigInt,
@@ -60,7 +60,7 @@ export {
 	isSymbol,
 	isTruthy,
 	isUndefined,
-} from './guards/primitives';
+} from 'src/guards/primitives';
 // ! Special Type Guards
 export {
 	isBase64,
@@ -82,7 +82,7 @@ export {
 	isURL,
 	isURL as isValidURL,
 	isUUID,
-} from './guards/specials';
+} from 'src/guards/specials';
 export {
 	areInvalidNumbers,
 	areInvalidNumbers as areNumbersInvalid,
@@ -97,7 +97,7 @@ export {
 	isOdd,
 	isOdd as isOddNumber,
 	isPerfectSquare,
-} from './number/guards';
+} from 'src/number/guards';
 export {
 	isCamelCase,
 	isEmojiOnly,
@@ -105,4 +105,4 @@ export {
 	isPalindrome,
 	isPascalCase,
 	isSnakeCase,
-} from './string/guards';
+} from 'src/string/guards';

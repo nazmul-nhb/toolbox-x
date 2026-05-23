@@ -1,4 +1,4 @@
-import type { AlphaValue, Hex, Hex8, HSL } from '../types/colors';
+import type { AlphaValue, Hex, Hex8, HSL } from 'src/types/colors';
 
 /**
  * * Applies an opacity value to a color string.

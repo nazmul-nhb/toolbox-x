@@ -1,6 +1,6 @@
-import { isString } from '../guards/primitives';
-import { _md5cycle, _numToHex, _stringToNumbers } from './helpers';
-import { bytesToHex, sha256Bytes, utf8ToBytes } from './utils';
+import { isString } from 'src/guards/primitives';
+import { _md5cycle, _numToHex, _stringToNumbers } from 'src/hash/helpers';
+import { bytesToHex, sha256Bytes, utf8ToBytes } from 'src/hash/utils';
 
 /**
  * * Computes the `MD5` digest of the given string using a pure JavaScript implementation.

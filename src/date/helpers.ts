@@ -1,6 +1,7 @@
-import { isDate } from '../guards/non-primitives';
-import { isString } from '../guards/primitives';
-import { getOrdinal } from '../number/utilities';
+import { DAYS, MONTHS, SORTED_TIME_FORMATS } from 'src/date/constants';
+import { isDate } from 'src/guards/non-primitives';
+import { isString } from 'src/guards/primitives';
+import { getOrdinal } from 'src/number/utilities';
 import type {
 	$GMTOffset,
 	$TimeZoneIdentifier,
@@ -8,9 +9,8 @@ import type {
 	FormatToken,
 	TimeZoneNameNative,
 	UTCOffset,
-} from '../types/date';
-import type { Maybe } from '../types/index';
-import { DAYS, MONTHS, SORTED_TIME_FORMATS } from './constants';
+} from 'src/types/date';
+import type { Maybe } from 'src/types/index';
 
 /** Core formatting logic shared by `formatDate` and `Chronos`, `BanglaCalendar` classes */
 export function _formatDateCore(format: string, dateComponents: Record<string, string>) {

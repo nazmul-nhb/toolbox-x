@@ -1,5 +1,5 @@
-import type { CharDiffResult, DiffLine, DiffResult } from '../types/string';
-import { _buildCharLcsTable, _calculateSimilarity, _getLcsIndices } from './helpers';
+import { _buildCharLcsTable, _calculateSimilarity, _getLcsIndices } from 'src/string/helpers';
+import type { CharDiffResult, DiffLine, DiffResult } from 'src/types/string';
 
 /**
  * * Computes a line-based text diff between two strings using the Longest Common Subsequence (LCS) algorithm.

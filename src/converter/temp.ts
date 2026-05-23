@@ -1,8 +1,8 @@
-import type { $TempUnit, FormatToOptions } from '../types/converter';
-import type { Numeric } from '../types/index';
-import type { $Record } from '../types/object';
-import { $BaseConverter } from './base';
-import { UNITS } from './constants';
+import { $BaseConverter } from 'src/converter/base';
+import { UNITS } from 'src/converter/constants';
+import type { $TempUnit, FormatToOptions } from 'src/types/converter';
+import type { Numeric } from 'src/types/index';
+import type { $Record } from 'src/types/object';
 
 /**
  * @class TemperatureConverter

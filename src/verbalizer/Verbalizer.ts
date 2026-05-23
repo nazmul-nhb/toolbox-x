@@ -1,6 +1,11 @@
-import { isNonEmptyString } from '../guards/primitives';
-import type { IrregularEntry, VerbRule } from '../types/verbalizer';
-import { baseRules, irregularVerbs, pastParticipleRules, pastRules } from './rules';
+import { isNonEmptyString } from 'src/guards/primitives';
+import type { IrregularEntry, VerbRule } from 'src/types/verbalizer';
+import {
+	baseRules,
+	irregularVerbs,
+	pastParticipleRules,
+	pastRules,
+} from 'src/verbalizer/rules';
 
 /**
  * @class Handles English verb conjugation between base, past tense, and past participle forms.

@@ -15,16 +15,16 @@ import type {
 	WESTERN_ZODIAC_SIGNS,
 	YEAR_FORMATS,
 	ZODIAC_PRESETS,
-} from '../date/constants';
+} from 'src/date/constants';
 import type {
 	TIME_ZONE_IDS,
 	TIME_ZONE_LABELS,
 	TIME_ZONES,
 	TIME_ZONES_NATIVE,
-} from '../date/timezone';
-import type { Maybe } from './index';
-import type { Enumerate, LocaleCode, NumberRange } from './number';
-import type { LooseLiteral, Split } from './utils';
+} from 'src/date/timezone';
+import type { Maybe } from 'src/types/index';
+import type { Enumerate, LocaleCode, NumberRange } from 'src/types/number';
+import type { LooseLiteral, Split } from 'src/types/utils';
 
 /** - Minute in numeric string from `00` to `23` */
 export type ClockHour = `0${Enumerate<10>}` | `${NumberRange<10, 23>}`;

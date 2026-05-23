@@ -1,11 +1,11 @@
-import type { CSSColor, Hex6, Hex8, HSL, HSLA, RGB, RGBA } from '../types/colors';
-import { CSS_COLORS } from './css-colors';
+import { CSS_COLORS } from 'src/colors/css-colors';
 import {
 	_isValidAlpha,
 	_isValidHue,
 	_isValidPercentage,
 	_isValidRGBComponent,
-} from './helpers';
+} from 'src/colors/helpers';
+import type { CSSColor, Hex6, Hex8, HSL, HSLA, RGB, RGBA } from 'src/types/colors';
 
 /**
  * Checks if a color is in `Hex` format.

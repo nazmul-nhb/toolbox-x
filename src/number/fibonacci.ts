@@ -1,4 +1,4 @@
-import type { Numeric } from '../types/index';
+import type { Numeric } from 'src/types/index';
 
 /**
  * * Generates the first `limit` Fibonacci numbers.

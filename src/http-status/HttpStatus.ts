@@ -1,3 +1,4 @@
+import { HTTP_STATUS_DATA } from 'src/http-status/constants';
 import type {
 	HttpStatusCode,
 	HttpStatusName,
@@ -5,9 +6,8 @@ import type {
 	StatusCode,
 	StatusEntry,
 	StatusName,
-} from '../types/http-status';
-import type { Maybe } from '../types/index';
-import { HTTP_STATUS_DATA } from './constants';
+} from 'src/types/http-status';
+import type { Maybe } from 'src/types/index';
 
 /**
  * @class Utility class for retrieving and managing HTTP status codes with rich MDN-based metadata.

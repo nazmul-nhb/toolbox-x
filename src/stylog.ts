@@ -1,8 +1,8 @@
-export { LogStyler, Stylog } from './stylog/Stylog';
+export { LogStyler, Stylog } from 'src/stylog/Stylog';
 export {
 	detectColorSupport,
 	hexToAnsi,
 	isBGColor,
 	isTextStyle,
 	rgbToAnsi,
-} from './stylog/utils';
+} from 'src/stylog/utils';

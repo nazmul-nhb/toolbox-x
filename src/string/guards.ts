@@ -1,4 +1,4 @@
-import { reverseString } from './convert';
+import { reverseString } from 'src/string/convert';
 
 /**
  * * Checks if a string is a palindrome.

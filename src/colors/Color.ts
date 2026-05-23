@@ -1,4 +1,13 @@
-import { isNonEmptyString } from '../guards/primitives';
+import { convertColorCode } from 'src/colors/convert';
+import { CSS_COLORS } from 'src/colors/css-colors';
+import { isHSL, isHSLA, isRGB, isRGBA } from 'src/colors/guards';
+import { generateRandomHSLColor } from 'src/colors/random';
+import {
+	extractAlphaColorValues,
+	extractSolidColorValues,
+	percentToHex,
+} from 'src/colors/utils';
+import { isNonEmptyString } from 'src/guards/primitives';
 import type {
 	AlphaColors,
 	Analogous,
@@ -13,13 +22,8 @@ import type {
 	SolidColors,
 	Tetrad,
 	Triad,
-} from '../types/colors';
-import type { Percent } from '../types/number';
-import { convertColorCode } from './convert';
-import { CSS_COLORS } from './css-colors';
-import { isHSL, isHSLA, isRGB, isRGBA } from './guards';
-import { generateRandomHSLColor } from './random';
-import { extractAlphaColorValues, extractSolidColorValues, percentToHex } from './utils';
+} from 'src/types/colors';
+import type { Percent } from 'src/types/number';
 
 /**
  * @class Represents a color in {@link Hex6 Hex}, {@link Hex8}, {@link RGB}, {@link RGBA}, {@link HSL}, and {@link HSLA} formats.

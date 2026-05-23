@@ -1,4 +1,4 @@
-import type { Hex } from '../types/colors';
+import type { Hex } from 'src/types/colors';
 
 /** Colors based on the ASCII value (index) of the letter. */
 export const ALPHABET_COLOR_PALETTE = /* @__PURE__ */ Object.freeze([

@@ -1,6 +1,6 @@
-import { isValidArray } from '../guards/non-primitives';
-import { isNonEmptyString } from '../guards/primitives';
-import type { AnagramOptions } from '../types/string';
+import { isValidArray } from 'src/guards/non-primitives';
+import { isNonEmptyString } from 'src/guards/primitives';
+import type { AnagramOptions } from 'src/types/string';
 
 /** `WeakMap` to cache user provided dictionary array */
 const DICT_CACHE = /* @__PURE__ */ new WeakMap<object, Set<string>>();

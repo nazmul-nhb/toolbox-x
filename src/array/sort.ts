@@ -1,8 +1,8 @@
-import { isArrayOfType, isObject, isValidArray } from '../guards/non-primitives';
-import { isBoolean, isNumber, isString } from '../guards/primitives';
-import type { OrderOption, SortByOption, SortNature, SortOptions } from '../types/array';
-import type { BasicPrimitive } from '../types/index';
-import type { GenericObject } from '../types/object';
+import { isArrayOfType, isObject, isValidArray } from 'src/guards/non-primitives';
+import { isBoolean, isNumber, isString } from 'src/guards/primitives';
+import type { OrderOption, SortByOption, SortNature, SortOptions } from 'src/types/array';
+import type { BasicPrimitive } from 'src/types/index';
+import type { GenericObject } from 'src/types/object';
 
 /**
  * Compare two strings using natural sorting (e.g., `"file2"` < `"file10"`).

@@ -1,13 +1,13 @@
+import { convertColorCode, convertHslToHex, convertHslToRgb } from 'src/colors/convert';
+import { _generateRandomHSL, _isSimilarToLast } from 'src/colors/helpers';
+import { extractSolidColorValues } from 'src/colors/utils';
 import type {
 	$ColorType,
 	HSL,
 	RandomColor,
 	RandomColorOptions,
 	RandomHexRGB,
-} from '../types/colors';
-import { convertColorCode, convertHslToHex, convertHslToRgb } from './convert';
-import { _generateRandomHSL, _isSimilarToLast } from './helpers';
-import { extractSolidColorValues } from './utils';
+} from 'src/types/colors';
 
 /** Track previously generated colors. */
 const generatedColors = /* @__PURE__ */ new Set<HSL>();

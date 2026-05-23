@@ -1,14 +1,14 @@
-import { isArrayOfType } from '../guards/non-primitives';
-import { isNumber, isString } from '../guards/primitives';
-import type { CSSColor, Hex6 } from '../types/colors';
+import { isArrayOfType } from 'src/guards/non-primitives';
+import { isNumber, isString } from 'src/guards/primitives';
+import { CSS_16_COLORS } from 'src/stylog/constants';
+import type { CSSColor, Hex6 } from 'src/types/colors';
 import type {
 	Ansi16Color,
 	Ansi16Value,
 	AnsiSequence,
 	BGColor,
 	CSS16Color,
-} from '../types/stylog';
-import { CSS_16_COLORS } from './constants';
+} from 'src/types/stylog';
 
 /**
  * * Extract the CSS color name from a background-prefixed style key.

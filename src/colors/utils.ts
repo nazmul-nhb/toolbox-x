@@ -1,4 +1,6 @@
-import { isNonEmptyString, isNumber } from '../guards/primitives';
+import { isHex6, isHex8, isHSL, isHSLA, isRGB, isRGBA } from 'src/colors/guards';
+import { _applyOpacity } from 'src/colors/helpers';
+import { isNonEmptyString, isNumber } from 'src/guards/primitives';
 import type {
 	AlphaValues,
 	Hex,
@@ -8,10 +10,8 @@ import type {
 	RGB,
 	RGBA,
 	SolidValues,
-} from '../types/colors';
-import type { Percent } from '../types/number';
-import { isHex6, isHex8, isHSL, isHSLA, isRGB, isRGBA } from './guards';
-import { _applyOpacity } from './helpers';
+} from 'src/types/colors';
+import type { Percent } from 'src/types/number';
 
 /**
  * * Extracts numbers from a color string like `rgb(66, 103, 69)` or `hsl(120, 42.86%, 41.18%)`.

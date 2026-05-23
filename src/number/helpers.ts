@@ -1,4 +1,4 @@
-import { ONES, TEENS, TENS } from './constants';
+import { ONES, TEENS, TENS } from 'src/number/constants';
 
 /**
  * Apply multiples of a number if there is any.

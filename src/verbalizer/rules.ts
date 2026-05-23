@@ -1,4 +1,4 @@
-import type { VerbRule } from '../types/verbalizer';
+import type { VerbRule } from 'src/types/verbalizer';
 
 /** Irregular verb mappings: base → past → past participle */
 export const irregularVerbs: Readonly<Array<[string, string, string]>> =

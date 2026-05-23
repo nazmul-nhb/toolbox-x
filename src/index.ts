@@ -1,12 +1,12 @@
 // ! String Utilities
-export { generateRandomID, trimString, truncateString } from './string/basics';
+export { generateRandomID, trimString, truncateString } from 'src/string/basics';
 
-export { generateAnagrams } from './string/anagram';
+export { generateAnagrams } from 'src/string/anagram';
 
 export {
 	capitalizeString,
 	convertStringCase,
-} from './string/case';
+} from 'src/string/case';
 
 export {
 	extractEmails,
@@ -19,9 +19,9 @@ export {
 	replaceAllInString,
 	reverseString,
 	slugifyString,
-} from './string/convert';
+} from 'src/string/convert';
 
-export { computeTextDiff, getCharacterDifferences } from './string/diff';
+export { computeTextDiff, getCharacterDifferences } from 'src/string/diff';
 
 export {
 	countWords,
@@ -32,7 +32,7 @@ export {
 	getLevenshteinDistance as levenshteinDistance,
 	extractNumbersFromString as parseNumbersFromText,
 	countWords as wordCount,
-} from './string/utilities';
+} from 'src/string/utilities';
 
 // ! Number Utilities
 export {
@@ -60,13 +60,13 @@ export {
 	sumDigits,
 	sumNumbers,
 	sumNumbers as sumOfNumbers,
-} from './number/basics';
+} from 'src/number/basics';
 
-export { Currency } from './number/Currency';
+export { Currency } from 'src/number/Currency';
 
-export { Unit, Unit as UnitConverter } from './number/Unit';
+export { Unit, Unit as UnitConverter } from 'src/number/Unit';
 
-export { calculatePercentage } from './number/percent';
+export { calculatePercentage } from 'src/number/percent';
 
 export {
 	fibonacciGenerator,
@@ -78,7 +78,7 @@ export {
 	getFibonacciSeriesMemo as getMemoizedFibonacci,
 	getFibonacciSeriesMemo as getMemoizedFibonacciSeries,
 	getNthFibonacci,
-} from './number/fibonacci';
+} from 'src/number/fibonacci';
 
 export {
 	convertToRomanNumerals as arabicToRoman,
@@ -105,14 +105,14 @@ export {
 	convertToRomanNumerals as toRomanNumeral,
 	wordsToNumber,
 	wordsToNumber as wordToNumber,
-} from './number/convert';
+} from 'src/number/convert';
 
 export {
 	findPrimeNumbers,
 	findPrimeNumbers as getPrimeNumbers,
 	isPrime,
 	isPrime as isPrimeNumber,
-} from './number/prime';
+} from 'src/number/prime';
 
 export {
 	getOrdinal as cardinalToOrdinal,
@@ -130,9 +130,9 @@ export {
 	roundToNearest as roundNumberToNearestInterval,
 	roundToNearest,
 	roundToNearest as roundToNearestInterval,
-} from './number/utilities';
+} from 'src/number/utilities';
 
-export { getNumbersInRange } from './number/range';
+export { getNumbersInRange } from 'src/number/range';
 
 // ! Array Utilities
 export {
@@ -142,7 +142,7 @@ export {
 	isInvalidOrEmptyArray,
 	isInvalidOrEmptyArray as isValidEmptyArray,
 	shuffleArray,
-} from './array/basics';
+} from 'src/array/basics';
 
 export {
 	averageByField,
@@ -153,9 +153,9 @@ export {
 	sumByField,
 	sumFieldDifference,
 	sumFieldDifference as totalDeltaByField,
-} from './array/calc';
+} from 'src/array/calc';
 
-export { Finder } from './array/Finder';
+export { Finder } from 'src/array/Finder';
 
 export {
 	naturalSort as compareNaturally,
@@ -163,7 +163,7 @@ export {
 	naturalSort,
 	naturalSort as naturalSortForString,
 	sortAnArray,
-} from './array/sort';
+} from 'src/array/sort';
 
 export {
 	createOptionsArray,
@@ -181,7 +181,7 @@ export {
 	rotateArray,
 	splitArray,
 	splitArrayByProperty,
-} from './array/transform';
+} from 'src/array/transform';
 
 // ! Object Utilities
 export {
@@ -191,7 +191,7 @@ export {
 	extractObjectKeysDeep as extractKeysDeep,
 	extractObjectKeys,
 	extractObjectKeysDeep,
-} from './object/basics';
+} from 'src/object/basics';
 
 export {
 	extractNewFields,
@@ -202,13 +202,13 @@ export {
 	mergeAndFlattenObjects,
 	mergeObjects,
 	parseJsonToObject,
-} from './object/objectify';
+} from 'src/object/objectify';
 
 export {
 	parseObjectValues,
 	parseObjectValues as parseStringifiedObjectValues,
 	sanitizeData,
-} from './object/sanitize';
+} from 'src/object/sanitize';
 
 export {
 	convertObjectValues,
@@ -224,7 +224,7 @@ export {
 	remapFields as remapObjectFields,
 	deleteFields as removeFields,
 	deleteFields as removeObjectFields,
-} from './object/convert';
+} from 'src/object/convert';
 
 // ! Other Utilities
 export {
@@ -249,6 +249,6 @@ export {
 	stableStringify,
 	stripJsonEdgeGarbage,
 	throttleAction,
-} from './utils/index';
+} from 'src/utils/index';
 
-export { getCountryByPhone } from './utils/xtras';
+export { getCountryByPhone } from 'src/utils/xtras';

@@ -1,12 +1,18 @@
-import type { COUNTRIES } from '../object/countries';
+import type { COUNTRIES } from 'src/object/countries';
 import type {
 	AdvancedTypes,
 	Maybe,
 	NormalPrimitive,
 	PartialOrRequired,
 	ValidArray,
-} from './index';
-import type { $DeepPartial, $UnionToIntersection, Prettify, Split, Tuple } from './utils';
+} from 'src/types/index';
+import type {
+	$DeepPartial,
+	$UnionToIntersection,
+	Prettify,
+	Split,
+	Tuple,
+} from 'src/types/utils';
 
 /** - Generic object with `unknown` value */
 export type StrictObject = Record<string, unknown>;

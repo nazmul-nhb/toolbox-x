@@ -1,6 +1,6 @@
-import type { Color } from '../colors/Color';
-import type { CSS_COLORS } from '../colors/css-colors';
-import type { Branded, Maybe } from './index';
+import type { Color } from 'src/colors/Color';
+import type { CSS_COLORS } from 'src/colors/css-colors';
+import type { Branded, Maybe } from 'src/types/index';
 
 /** - A string, number for generating color. */
 export type ColorInput = string | number;

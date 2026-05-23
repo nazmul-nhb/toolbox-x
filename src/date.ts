@@ -3,9 +3,9 @@ export {
 	getGreeting as generateGreeting,
 	getGreeting,
 	getGreeting as greet,
-} from './date/greet';
+} from 'src/date/greet';
 
-export { parseMSec as parseMs, parseMSec } from './date/parse';
+export { parseMSec as parseMs, parseMSec } from 'src/date/parse';
 
 // ! Other date/time utils
 export {
@@ -38,4 +38,4 @@ export {
 	getTotalMinutes as extractTotalMinutesFromTime,
 	getTotalMinutes,
 	getTotalMinutes as getTotalMinutesFromTime,
-} from './date/utils';
+} from 'src/date/utils';

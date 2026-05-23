@@ -1,4 +1,4 @@
-import type { Numeric } from './index';
+import type { Numeric } from 'src/types/index';
 
 /** A pair of RegExp and replacement for pluralization rules */
 export type PluralizeRule = [RegExp, string];

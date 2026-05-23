@@ -1,15 +1,15 @@
-import { isDateLike } from '../date/guards';
-import { isCustomFile, isFileList, isFileOrBlob, isFileUpload } from '../form/guards';
-import { isArrayOfType, isNotEmptyObject, isObject } from '../guards/non-primitives';
-import { isString } from '../guards/primitives';
-import { trimString } from '../string/basics';
-import type { Any, PartialOrRequired } from '../types/index';
+import { isDateLike } from 'src/date/guards';
+import { isCustomFile, isFileList, isFileOrBlob, isFileUpload } from 'src/form/guards';
+import { isArrayOfType, isNotEmptyObject, isObject } from 'src/guards/non-primitives';
+import { isString } from 'src/guards/primitives';
+import { trimString } from 'src/string/basics';
+import type { Any, PartialOrRequired } from 'src/types/index';
 import type {
 	DotNotationKey,
 	GenericObject,
 	SanitizedData,
 	SanitizeOptions,
-} from '../types/object';
+} from 'src/types/object';
 
 /**
  * * Trims all the words in a string.

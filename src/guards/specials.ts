@@ -1,6 +1,6 @@
-import type { UUID, UUIDVersion } from '../types/hash';
-import { isArray } from './non-primitives';
-import { isString } from './primitives';
+import { isArray } from 'src/guards/non-primitives';
+import { isString } from 'src/guards/primitives';
+import type { UUID, UUIDVersion } from 'src/types/hash';
 
 /**
  * * Type guard to check if a value is a valid email string.

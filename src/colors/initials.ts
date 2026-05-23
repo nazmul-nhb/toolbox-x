@@ -1,9 +1,9 @@
-import { isNumber, isString } from '../guards/primitives';
-import type { ColorInput, ColorInputArray, Hex8 } from '../types/colors';
-import type { Percent } from '../types/number';
-import { ALPHABET_COLOR_PALETTE, NUMBER_COLOR_PALETTE } from './constants';
-import { _applyOpacity } from './helpers';
-import { percentToHex } from './utils';
+import { ALPHABET_COLOR_PALETTE, NUMBER_COLOR_PALETTE } from 'src/colors/constants';
+import { _applyOpacity } from 'src/colors/helpers';
+import { percentToHex } from 'src/colors/utils';
+import { isNumber, isString } from 'src/guards/primitives';
+import type { ColorInput, ColorInputArray, Hex8 } from 'src/types/colors';
+import type { Percent } from 'src/types/number';
 
 /**
  *  * Generates a hex (`Hex8` format) color based on the first character (initial) of a string or number.

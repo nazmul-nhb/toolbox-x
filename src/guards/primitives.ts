@@ -1,4 +1,4 @@
-import type { FalsyPrimitive, NormalPrimitive, Primitive } from '../types/index';
+import type { FalsyPrimitive, NormalPrimitive, Primitive } from 'src/types/index';
 
 /**
  * * Type guard to check whether a value is a finite number (excluding `NaN` and `Infinity`).

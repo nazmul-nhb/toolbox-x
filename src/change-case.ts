@@ -12,4 +12,4 @@ export {
 	toSnakeCase,
 	toTitleCase,
 	toTrainCase,
-} from './string/case';
+} from 'src/string/case';

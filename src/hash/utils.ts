@@ -1,5 +1,5 @@
-import { isHexString } from '../guards/specials';
-import { _bytesToRandomHex, _splitByCharLength } from './helpers';
+import { isHexString } from 'src/guards/specials';
+import { _bytesToRandomHex, _splitByCharLength } from 'src/hash/helpers';
 
 /**
  * * Generates a random hexadecimal string of the specified length.

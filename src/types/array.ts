@@ -1,5 +1,5 @@
-import type { NormalPrimitiveKey } from './index';
-import type { GenericObject, NestedPrimitiveKey } from './object';
+import type { NormalPrimitiveKey } from 'src/types/index';
+import type { GenericObject, NestedPrimitiveKey } from 'src/types/object';
 
 /** * Flatten Array or Wrap in Array */
 export type Flattened<T> = T extends (infer U)[] ? Flattened<U> : T;

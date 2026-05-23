@@ -1,6 +1,6 @@
-import type { ANSI_16_COLORS } from '../stylog/constants';
-import type { LogStyler } from '../stylog/Stylog';
-import type { CSSColor } from './colors';
+import type { ANSI_16_COLORS } from 'src/stylog/constants';
+import type { LogStyler } from 'src/stylog/Stylog';
+import type { CSSColor } from 'src/types/colors';
 
 /** Non-color text styles */
 export type TextStyle =

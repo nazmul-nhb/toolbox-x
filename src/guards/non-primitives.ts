@@ -1,6 +1,6 @@
-import type { AsyncFunction, GenericFn, Maybe, ValidArray } from '../types/index';
-import type { GenericObject } from '../types/object';
-import { isString } from './primitives';
+import { isString } from 'src/guards/primitives';
+import type { AsyncFunction, GenericFn, Maybe, ValidArray } from 'src/types/index';
+import type { GenericObject } from 'src/types/object';
 
 /**
  * * Type guard to check if a value is an array.

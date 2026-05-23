@@ -1,6 +1,6 @@
-import type { LOWERCASE } from '../string/constants';
-import type { $Countries } from './object';
-import type { Join, LooseLiteral, Split } from './utils';
+import type { LOWERCASE } from 'src/string/constants';
+import type { $Countries } from 'src/types/object';
+import type { Join, LooseLiteral, Split } from 'src/types/utils';
 
 // ! Augment proper return type for `String` methods (type level only, implementation remains intact)
 declare global {

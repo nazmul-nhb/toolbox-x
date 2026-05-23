@@ -3,7 +3,7 @@ export {
 	VEDIC_ZODIAC_SIGNS,
 	DAYS as WEEK_DAYS,
 	WESTERN_ZODIAC_SIGNS,
-} from './date/constants';
+} from 'src/date/constants';
 
 export {
 	IANA_TZ_IDS,
@@ -13,7 +13,7 @@ export {
 	TIME_ZONES,
 	TIME_ZONES_NATIVE,
 	TIME_ZONES as TZ_ABBREVIATIONS,
-} from './date/timezone';
+} from 'src/date/timezone';
 
 export {
 	AUSTRALIA_SEASONS,
@@ -27,11 +27,11 @@ export {
 	SEASON_PRESETS,
 	US_ACADEMIC_SEASONS,
 	DEFAULT_SEASONS as WESTERN_SEASONS,
-} from './date/seasons';
+} from 'src/date/seasons';
 
-export { ALPHABET_COLOR_PALETTE, NUMBER_COLOR_PALETTE } from './colors/constants';
+export { ALPHABET_COLOR_PALETTE, NUMBER_COLOR_PALETTE } from 'src/colors/constants';
 
-export { CSS_COLORS } from './colors/css-colors';
+export { CSS_COLORS } from 'src/colors/css-colors';
 
 export {
 	CURRENCY_CODES,
@@ -39,17 +39,17 @@ export {
 	FRANKFURTER_CURRENCIES,
 	UNITS as GENERAL_UNITS,
 	LOCALE_CODES,
-} from './number/constants';
+} from 'src/number/constants';
 
-export { LOWERCASE as LOWERCASED_WORDS } from './string/constants';
+export { LOWERCASE as LOWERCASED_WORDS } from 'src/string/constants';
 
-export { UNITS as CATEGORIZED_UNITS } from './converter/constants';
+export { UNITS as CATEGORIZED_UNITS } from 'src/converter/constants';
 
-export { COUNTRIES } from './object/countries';
+export { COUNTRIES } from 'src/object/countries';
 
 export {
 	HTTP_STATUS_CODES as HTTP_CODES,
 	HTTP_STATUS_CODES as HTTP_STATUS,
 	HTTP_STATUS_CODES,
 	HTTP_STATUS_CODES as STATUS_CODES,
-} from './http-status/constants';
+} from 'src/http-status/constants';

@@ -1,6 +1,6 @@
-import { _resolveNestedKey } from '../array/helpers';
-import { sortAnArray } from '../array/sort';
-import { isDateLike } from '../date/guards';
+import { _resolveNestedKey } from 'src/array/helpers';
+import { sortAnArray } from 'src/array/sort';
+import { isDateLike } from 'src/date/guards';
 import {
 	isArray,
 	isArrayOfType,
@@ -8,9 +8,9 @@ import {
 	isNotEmptyObject,
 	isObject,
 	isValidArray,
-} from '../guards/non-primitives';
-import { isNonEmptyString, isPrimitive, isString } from '../guards/primitives';
-import { isNumericString } from '../guards/specials';
+} from 'src/guards/non-primitives';
+import { isNonEmptyString, isPrimitive, isString } from 'src/guards/primitives';
+import { isNumericString } from 'src/guards/specials';
 import type {
 	ClassDetails,
 	Constructor,
@@ -18,14 +18,14 @@ import type {
 	Maybe,
 	Primitive,
 	VoidFn,
-} from '../types/index';
-import type { GenericObject } from '../types/object';
+} from 'src/types/index';
+import type { GenericObject } from 'src/types/object';
 import type {
 	ArrayOfObjectsToStringOptions,
 	ArrayOfPrimitivesToStringOptions,
 	ArrayToStringOptions,
 	ProtoMethodOptions,
-} from '../types/utils';
+} from 'src/types/utils';
 
 /**
  * * Deeply compare two values (arrays, objects, or primitive values).

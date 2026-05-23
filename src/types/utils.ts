@@ -1,5 +1,5 @@
-import type { AdvancedTypes, List, NormalPrimitive, Numeric } from './index';
-import type { GenericObject, NestedPrimitiveKey } from './object';
+import type { AdvancedTypes, List, NormalPrimitive, Numeric } from 'src/types/index';
+import type { GenericObject, NestedPrimitiveKey } from 'src/types/object';
 
 /** Options to initialize Paginator */
 export interface PaginatorOptions {

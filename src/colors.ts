@@ -1,4 +1,4 @@
-export { Color, Colour } from './colors/Color';
+export { Color, Colour } from 'src/colors/Color';
 export {
 	convertColorCode,
 	convertHex8ToHsla,
@@ -14,9 +14,9 @@ export {
 	convertRgbToHex,
 	convertRgbToHsl,
 	convertRgbToRgba,
-} from './colors/convert';
+} from 'src/colors/convert';
 // ! Color Utilities
-export { getColorForInitial } from './colors/initials';
+export { getColorForInitial } from 'src/colors/initials';
 export {
 	generateRandomColor,
 	generateRandomColor as getRandomColor,
@@ -24,11 +24,11 @@ export {
 	generateRandomHSLColor as generateRandomHSL,
 	generateRandomHSLColor,
 	generateRandomHSLColor as getRandomHSL,
-} from './colors/random';
+} from 'src/colors/random';
 
 export {
 	applyOpacityToHex,
 	extractAlphaColorValues,
 	extractSolidColorValues,
 	percentToHex,
-} from './colors/utils';
+} from 'src/colors/utils';
