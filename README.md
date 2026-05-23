@@ -192,17 +192,22 @@ getColorForInitial('Banana', 50); // '#00376E80' (50% opacity)
 ```typescript
 import { createFormData } from 'toolbox-x/dom';
 
-const formData = createFormData({
+const file1 = new File(['file1'], 'file1.txt', { type: 'application/text' });
+const file2 = new File(['file2'], 'file2.txt', { type: 'application/text' });
+
+const user = {
   user: {
     name: ' John Doe ',
     age: 30,
     preferences: { theme: 'dark' }
   },
   files: [file1, file2]
-}, {
+};
+
+const formData = createFormData(user, {
   trimStrings: true,
   lowerCaseValues: ['user.name'],
-  dotNotateNested: ['user.preferences'],
+  dotNotateNested: ['user'],
   breakArray: ['files']
 });
 

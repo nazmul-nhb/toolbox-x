@@ -84,6 +84,16 @@ export {
 	isUUID,
 } from 'src/guards/specials';
 export {
+	isUUIDv1,
+	isUUIDv2,
+	isUUIDv3,
+	isUUIDv4,
+	isUUIDv5,
+	isUUIDv6,
+	isUUIDv7,
+	isUUIDv8,
+} from 'src/hash/uuid';
+export {
 	areInvalidNumbers,
 	areInvalidNumbers as areNumbersInvalid,
 	areInvalidNumbers as isInvalidNumber,

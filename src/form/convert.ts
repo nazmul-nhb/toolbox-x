@@ -20,7 +20,7 @@ import type { DotNotationKey, GenericObject, KeyForObject } from 'src/types/obje
  * @param configs - Configuration options to control the formData.
  * @returns `FormData` instance containing the sanitized and transformed data.
  */
-export const createControlledFormData = <T extends GenericObject>(
+export const createFormData = <T extends GenericObject>(
 	data: T,
 	configs?: FormDataConfigs<T>
 ): FormData => {
@@ -46,7 +46,7 @@ export const createControlledFormData = <T extends GenericObject>(
 
 	/** - Transforms key to lowercase if needed */
 	const _transformKey = (key: string) => {
-		return _shouldLowercaseKeys(key) ? key.toLowerCase() : key;
+		return (_shouldLowercaseKeys(key) ? key.toLowerCase() : key) as KeyForObject<T>;
 	};
 
 	/** - Helper function to check if a key matches a breakArray key. */
@@ -65,7 +65,7 @@ export const createControlledFormData = <T extends GenericObject>(
 		const transformedKey = _transformKey(key);
 
 		return Array.isArray(configs?.dotNotateNested)
-			? configs.dotNotateNested.includes(transformedKey as KeyForObject<T>)
+			? configs.dotNotateNested.includes(transformedKey)
 			: configs?.dotNotateNested === '*';
 	};
 
@@ -74,7 +74,7 @@ export const createControlledFormData = <T extends GenericObject>(
 		const transformedKey = _transformKey(key);
 
 		return Array.isArray(stringifyNested)
-			? stringifyNested.includes(transformedKey as KeyForObject<T>)
+			? stringifyNested.includes(transformedKey)
 			: stringifyNested === '*';
 	};
 
@@ -83,7 +83,7 @@ export const createControlledFormData = <T extends GenericObject>(
 		const transformedKey = _transformKey(key);
 
 		return Array.isArray(configs?.breakArray)
-			? configs.breakArray.includes(transformedKey as KeyForObject<T>)
+			? configs.breakArray.includes(transformedKey)
 			: configs?.breakArray === '*';
 	};
 
