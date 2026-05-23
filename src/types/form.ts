@@ -5,6 +5,7 @@ import type {
 	NestedKeyString,
 } from 'src/types/object';
 import type { QueryString } from 'src/types/string';
+import type { RequireExactly } from 'src/types/utils';
 
 /** - Configuration options to control FormData generation behavior. */
 export interface FormDataConfigs<T> {
@@ -59,12 +60,15 @@ export interface FormDataConfigs<T> {
 }
 
 /** * Represents a file upload operation, commonly used in libraries like `FilePond` or `Ant Design Upload`. */
-export interface FileUpload {
-	/** The primary file being uploaded. */
-	file: File | CustomFile;
-	/** The list of files associated with the upload. */
-	fileList: CustomFile[];
-}
+export type FileUpload = RequireExactly<
+	{
+		/** The primary file being uploaded. */
+		file: File | CustomFile;
+		/** The list of files associated with the upload. */
+		fileList: CustomFile[];
+	},
+	1
+>;
 
 /** * Represents a custom file structure used in file upload components. */
 export interface CustomFile {

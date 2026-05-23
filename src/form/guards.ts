@@ -1,11 +1,12 @@
+import { isObjectWithKeys } from 'src/guards';
 import { isString } from 'src/guards/primitives';
 import type { CustomFile, FileUpload, OriginFileObj } from 'src/types/form';
 
 /**
- * * Checks if a given value is a valid `FormData` & it's not empty.
+ * * Checks if a given value is a valid {@link FormData} & it's not empty.
  * - **N.B.** Be cautious when using this in SSR (Server-Side Rendering) environments (such as `Next.js` Server Components), as it may not work as expected.
  * @param value - The value to check.
- * @returns `true` if the value is a valid `FormData` and not empty, otherwise `false`.
+ * @returns `true` if the value is a valid {@link FormData} and not empty, otherwise `false`.
  */
 export function isValidFormData(value: unknown): value is FormData {
 	if (!(value instanceof FormData)) return false;
@@ -23,39 +24,27 @@ export function isValidFormData(value: unknown): value is FormData {
 }
 
 /**
- * * Checks if a given value is an `OriginFileObj`.
+ * * Checks if a given value is an {@link OriginFileObj}.
  * - **N.B.** Be cautious when using this in SSR (Server-Side Rendering) environments (such as `Next.js` Server Components), as it may not work as expected.
  * @param value - The value to check.
- * @returns `true` if the value is a valid `OriginFileObj`, otherwise `false`.
+ * @returns `true` if the value is a valid {@link OriginFileObj}, otherwise `false`.
  */
 export function isOriginFileObj(value: unknown): value is OriginFileObj {
-	if (typeof value !== 'object' || value === null || Array.isArray(value)) {
-		return false;
-	}
-
-	const obj = value as Record<string, unknown>;
-
-	return isString(obj.uid);
+	return isObjectWithKeys(value, ['uid']) && isString(value.uid);
 }
 
 /**
- * * Checks if a given value is a `CustomFile`.
+ * * Checks if a given value is a {@link CustomFile}.
  * - **N.B.** Be cautious when using this in SSR (Server-Side Rendering) environments (such as `Next.js` Server Components), as it may not work as expected.
  * @param value - The value to check.
- * @returns `true` if the value is a valid `CustomFile`, otherwise `false`.
+ * @returns `true` if the value is a valid {@link CustomFile}, otherwise `false`.
  */
 export function isCustomFile(value: unknown): value is CustomFile {
-	if (typeof value !== 'object' || value === null || Array.isArray(value)) {
-		return false;
-	}
-
-	const obj = value as Record<string, unknown>;
-
-	return 'originFileObj' in obj && isOriginFileObj(obj.originFileObj);
+	return isObjectWithKeys(value, ['originFileObj']) && isOriginFileObj(value.originFileObj);
 }
 
 /**
- * * Checks if a given value is an array of `CustomFile` objects.
+ * * Checks if a given value is an array of {@link CustomFile} objects.
  * - **N.B.** Be cautious when using this in SSR (Server-Side Rendering) environments (such as `Next.js` Server Components), as it may not work as expected.
  * @param value - The value to check.
  * @returns `true` if the value is a valid `CustomFile[]`, otherwise `false`.
@@ -75,18 +64,18 @@ export function isFileArray(value: unknown): value is File[] | Blob[] {
 }
 
 /**
- * * Checks if a given value is an instance of `FileList`.
+ * * Checks if a given value is an instance of {@link FileList}.
  * @param value - The value to check.
- * @returns `true` if the value is a valid `FileList`, otherwise `false`.
+ * @returns `true` if the value is a valid {@link FileList}, otherwise `false`.
  */
 export function isFileList(value: unknown): value is FileList {
 	return typeof FileList !== 'undefined' && value instanceof FileList;
 }
 
 /**
- * * Checks if a given value is an instance of `File` or `Blob`.
+ * * Checks if a given value is an instance of {@link File} or {@link Blob}.
  * @param value - The value to check.
- * @returns `true` if the value is an instance of `File` or `Blob`, otherwise `false`.
+ * @returns `true` if the value is an instance of {@link File} or {@link Blob}, otherwise `false`.
  */
 export function isFileOrBlob(value: unknown): value is File | Blob {
 	return (
@@ -96,19 +85,14 @@ export function isFileOrBlob(value: unknown): value is File | Blob {
 }
 
 /**
- * * Checks if a given value is a `FileUpload` object.
+ * * Checks if a given value is a {@link FileUpload} object.
  * @param value - The value to check.
- * @returns `true` if the value is a valid `FileUpload`, otherwise `false`.
+ * @returns `true` if the value is a valid {@link FileUpload}, otherwise `false`.
  */
 export function isFileUpload(value: unknown): value is FileUpload {
-	if (typeof value !== 'object' || value === null || Array.isArray(value)) {
-		return false;
-	}
-
-	const obj = value as Record<string, unknown>;
-
 	return (
-		('file' in obj && isCustomFile(obj.file)) ||
-		('fileList' in obj && isCustomFileArray(obj.fileList))
+		(isObjectWithKeys(value, ['file']) &&
+			(isCustomFile(value.file) || isFileOrBlob(value.file))) ||
+		(isObjectWithKeys(value, ['fileList']) && isCustomFileArray(value.fileList))
 	);
 }

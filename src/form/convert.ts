@@ -215,8 +215,17 @@ export const createFormData = <T extends GenericObject>(
 			const isNotNullish = value != null && value !== '';
 
 			if (isNotNullish || _isRequiredKey(key)) {
-				if (isString(value) && _shouldLowercaseValue(key)) {
-					formData.append(transformedKey, value?.toLowerCase());
+				if (isString(value)) {
+					let processedValue = value;
+
+					if (configs?.trimStrings) {
+						processedValue = processedValue.trim();
+					}
+					if (_shouldLowercaseValue(key)) {
+						processedValue = processedValue.toLowerCase();
+					}
+
+					formData.append(transformedKey, processedValue);
 				} else {
 					formData.append(transformedKey, value as Blob);
 				}
@@ -238,7 +247,7 @@ export const createFormData = <T extends GenericObject>(
 
 			// * Trim string values if trimStrings is enabled
 			if (configs?.trimStrings && isNonEmptyString(value)) {
-				value = value?.trim();
+				value = value.trim();
 			}
 
 			// * Check if this key is preserved as dot-notation
