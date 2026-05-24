@@ -118,11 +118,22 @@ export function isDateLike(value: unknown): value is DateLike {
 			return true;
 		}
 
+		const temporals = [
+			'Instant',
+			'Duration',
+			'PlainDate',
+			'PlainTime',
+			'PlainDateTime',
+			'PlainMonthDay',
+			'PlainYearMonth',
+			'ZonedDateTime',
+		];
+
 		// Temporal
 		if (
 			isFunction(value.toJSON) &&
 			isFunction(value.toString) &&
-			['PlainDate', 'ZonedDateTime', 'Instant'].includes(value.constructor?.name ?? '')
+			temporals.includes(value.constructor?.name ?? '')
 		) {
 			return true;
 		}
