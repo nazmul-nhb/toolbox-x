@@ -9,9 +9,10 @@ import {
 } from 'src/form/guards';
 import { isEmptyObject, isNotEmptyObject, isValidArray } from 'src/guards/non-primitives';
 import { isNonEmptyString, isString } from 'src/guards/primitives';
+import { trimString } from 'src/string/basics';
 import type { DateLike } from 'src/types/date';
 import type { FormDataConfigs } from 'src/types/form';
-import type { DotNotationKey, GenericObject, KeyForObject } from 'src/types/object';
+import type { GenericObject, KeyForObject } from 'src/types/object';
 
 /**
  * * Utility to convert object into FormData in a controlled way.
@@ -25,27 +26,41 @@ export const createFormData = <T extends GenericObject>(
 	data: T,
 	configs?: FormDataConfigs<T>
 ): FormData => {
+	if (typeof FormData === 'undefined') {
+		throw new Error(
+			'FormData is not available! Please make sure your environment supports FormData.'
+		);
+	}
+
 	const formData = new FormData();
 
-	const { stringifyNested = '*' } = configs || {};
+	const {
+		stringifyNested = '*',
+		ignoreKeys = [],
+		breakArray,
+		lowerCaseKeys,
+		dotNotateNested,
+		lowerCaseValues,
+		requiredKeys,
+	} = configs || {};
 
-	/** - Helper to compare a key with a path */
-	const _compareKeyPath = (key: string, path: string) => {
-		return key === path || key.startsWith(`${path}.`);
+	/** - Helper to check if a key (plain or dot-notated) matches a path */
+	const _compareKeyPaths = (key: string, paths: string[]) => {
+		return paths.some((path) => key === path || key.startsWith(`${path}.`));
 	};
 
 	/** - Helper to check if a key should be lowercase */
 	const _shouldLowercaseKeys = (key: string) => {
-		return Array.isArray(configs?.lowerCaseKeys)
-			? configs?.lowerCaseKeys?.some((path) => _compareKeyPath(key, path))
-			: configs?.lowerCaseKeys === '*';
+		return Array.isArray(lowerCaseKeys)
+			? _compareKeyPaths(key, lowerCaseKeys)
+			: lowerCaseKeys === '*';
 	};
 
 	/** - Helper to check if a key should be lowercase */
 	const _shouldLowercaseValue = (key: string) => {
-		return Array.isArray(configs?.lowerCaseValues)
-			? configs.lowerCaseValues?.some((path) => _compareKeyPath(key, path))
-			: configs?.lowerCaseValues === '*';
+		return Array.isArray(lowerCaseValues)
+			? _compareKeyPaths(key, lowerCaseValues)
+			: lowerCaseValues === '*';
 	};
 
 	/** - Transforms key to lowercase if needed */
@@ -62,18 +77,18 @@ export const createFormData = <T extends GenericObject>(
 	const _isRequiredKey = (key: string) => {
 		const transformedKey = _transformKey(key);
 
-		return Array.isArray(configs?.requiredKeys)
-			? configs?.requiredKeys?.some((path) => _compareKeyPath(transformedKey, path))
-			: configs?.requiredKeys === '*';
+		return Array.isArray(requiredKeys)
+			? _compareKeyPaths(transformedKey, requiredKeys)
+			: requiredKeys === '*';
 	};
 
 	/** - Helper function to check if a key matches a dotNotation path to preserve. */
 	const _shouldDotNotate = (key: string) => {
 		const transformedKey = _transformKey(key);
 
-		return Array.isArray(configs?.dotNotateNested)
-			? configs?.dotNotateNested?.some((path) => _compareKeyPath(transformedKey, path))
-			: configs?.dotNotateNested === '*';
+		return Array.isArray(dotNotateNested)
+			? _compareKeyPaths(transformedKey, dotNotateNested)
+			: dotNotateNested === '*';
 	};
 
 	/** - Helper function to check if a key matches a stringifyNested key. */
@@ -81,7 +96,7 @@ export const createFormData = <T extends GenericObject>(
 		const transformedKey = _transformKey(key);
 
 		return Array.isArray(stringifyNested)
-			? stringifyNested?.some((path) => _compareKeyPath(transformedKey, path))
+			? _compareKeyPaths(transformedKey, stringifyNested)
 			: stringifyNested === '*';
 	};
 
@@ -89,9 +104,9 @@ export const createFormData = <T extends GenericObject>(
 	const _shouldBreakArray = (key: string) => {
 		const transformedKey = _transformKey(key);
 
-		return Array.isArray(configs?.breakArray)
-			? configs.breakArray.some((path) => _compareKeyPath(transformedKey, path))
-			: configs?.breakArray === '*';
+		return Array.isArray(breakArray)
+			? _compareKeyPaths(transformedKey, breakArray)
+			: breakArray === '*';
 	};
 
 	/** - Helper to clean object by removing null/undefined/empty values while respecting required keys */
@@ -102,7 +117,7 @@ export const createFormData = <T extends GenericObject>(
 			const fullKey = parentKey ? `${parentKey}.${transformedKey}` : transformedKey;
 
 			// * Skip ignored keys (don't include them in the cleaned object)
-			if (configs?.ignoreKeys?.includes(fullKey as DotNotationKey<T>)) {
+			if (_compareKeyPaths(fullKey, ignoreKeys)) {
 				return acc;
 			}
 
@@ -133,7 +148,7 @@ export const createFormData = <T extends GenericObject>(
 							let cleanString = value;
 
 							if (configs?.trimStrings) {
-								cleanString = cleanString?.trim();
+								cleanString = trimString(cleanString);
 							}
 							if (_shouldLowercaseValue(fullKey)) {
 								cleanString = cleanString?.toLowerCase();
@@ -162,6 +177,10 @@ export const createFormData = <T extends GenericObject>(
 	/** * Helper function to add values to formData */
 	const _addToFormData = (key: string, value: unknown) => {
 		const transformedKey = _transformKey(key);
+
+		if (_compareKeyPaths(transformedKey, ignoreKeys)) {
+			return;
+		}
 
 		if (isCustomFileArray(value)) {
 			value?.forEach((file) => formData.append(transformedKey, file?.originFileObj));
@@ -228,7 +247,7 @@ export const createFormData = <T extends GenericObject>(
 					let processedValue = value;
 
 					if (configs?.trimStrings) {
-						processedValue = processedValue.trim();
+						processedValue = trimString(processedValue);
 					}
 					if (_shouldLowercaseValue(key)) {
 						processedValue = processedValue.toLowerCase();
@@ -250,13 +269,13 @@ export const createFormData = <T extends GenericObject>(
 			const fullKey = parentKey ? `${parentKey}.${transformedKey}` : transformedKey;
 
 			// * Skip keys that are in ignoreKeys
-			if (configs?.ignoreKeys?.includes(fullKey as DotNotationKey<T>)) {
+			if (_compareKeyPaths(fullKey, ignoreKeys)) {
 				return;
 			}
 
 			// * Trim string values if trimStrings is enabled
 			if (configs?.trimStrings && isNonEmptyString(value)) {
-				value = value.trim();
+				value = trimString(value);
 			}
 
 			// * Check if this key is preserved as dot-notation
