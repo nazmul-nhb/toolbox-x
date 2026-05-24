@@ -15,10 +15,10 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import type { ChatUIMessage, SearchTool } from '../../app/api/chat/route';
-import { cn } from '../../lib/cn';
-import { Markdown } from '../markdown';
-import { buttonVariants } from '../ui/button';
+import type { ChatUIMessage, SearchTool } from '@/app/api/chat/route';
+import { Markdown } from '@/components/markdown';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/cn';
 
 const Context = createContext<{
 	open: boolean;
@@ -259,7 +259,7 @@ function Input(props: ComponentProps<'textarea'>) {
 
 const roleName: Record<string, string> = {
 	user: 'you',
-	assistant: 'Chronos AI',
+	assistant: 'Toolbox-X AI',
 };
 
 function Message({ message, ...props }: { message: ChatUIMessage } & ComponentProps<'div'>) {
@@ -484,9 +484,25 @@ export function useHotKey() {
 }
 
 export function useAISearchContext() {
-	return use(Context)!;
+	const context = use(Context);
+
+	if (!context) {
+		throw Error('useAISearchContext must be used within AISearchProvider', {
+			cause: 'useAISearchContext was called outside of its provider',
+		});
+	}
+
+	return context;
 }
 
 function useChatContext() {
-	return use(Context)!.chat;
+	const context = use(Context);
+
+	if (!context) {
+		throw Error('useChatContext must be used within AISearchProvider', {
+			cause: 'useChatContext was called outside of its provider',
+		});
+	}
+
+	return context.chat;
 }

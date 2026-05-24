@@ -2,8 +2,8 @@
 
 import { X } from 'lucide-react';
 import { type HTMLAttributes, useEffect, useState } from 'react';
-import { cn } from '../lib/cn';
-import { buttonVariants } from './ui/button';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/cn';
 
 type BannerVariant = 'rainbow' | 'normal';
 
