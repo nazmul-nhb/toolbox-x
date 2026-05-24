@@ -1,20 +1,19 @@
 @import "tailwindcss";
-@import "fumadocs-ui/css/solar.css";
+@import "fumadocs-ui/css/purple.css";
 @import "fumadocs-ui/css/preset.css";
 @import "fumadocs-twoslash/twoslash.css";
 
 @theme inline {
-	/* toolbox-x brand palette — electric blue */
-	--color-brand-50: #eff8ff;
-	--color-brand-100: #dbeeff;
-	--color-brand-200: #bfe0ff;
-	--color-brand-300: #93caff;
-	--color-brand-400: #5aa9ff;
-	--color-brand-500: #2488ff;
-	--color-brand-600: #0066e6;
-	--color-brand-700: #0052b4;
-	--color-brand-800: #003f8a;
-	--color-brand-900: #002c61;
+	--color-brand-50: #f5f3ff;
+	--color-brand-100: #ede9fe;
+	--color-brand-200: #ddd6fe;
+	--color-brand-300: #c4b5fd;
+	--color-brand-400: #a78bfa;
+	--color-brand-500: #8b5cf6;
+	--color-brand-600: #7c3aed;
+	--color-brand-700: #6d28d9;
+	--color-brand-800: #5b21b6;
+	--color-brand-900: #4c1d95;
 }
 
 html {
