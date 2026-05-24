@@ -353,7 +353,7 @@ throttleAction(updateScrollPosition, 100);
 debounceAction(fetchResults, 300);
 ```
 
-[Full Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/misc/debounceAction)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/misc/debounceAction)
 
 > These utilities represent just a portion of the comprehensive `toolbox-x`. Each is designed with production-grade reliability and developer experience in mind. Explore more in the [full documentation](https://toolbox-x.nazmul-nhb.dev). All the utilities and classes are categorized.
 

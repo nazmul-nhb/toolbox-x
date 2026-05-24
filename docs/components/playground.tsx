@@ -202,7 +202,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 									wrapInSuspense
 									options={{
 										themes: {
-											light: 'night-owl-light',
+											light: 'horizon-bright',
 											dark: 'dracula',
 										},
 										structure: 'classic',
