@@ -1,12 +1,44 @@
 ---
 title: Guards
-description: Type Guards — Toolbox-X Documentation.
+description: Predicates & Type Guards — Toolbox-X Documentation.
 icon: Lock
 ---
 
 ## Overview
 
-`toolbox-x` provides a comprehensive set of type guards and predicates for working with dates and times using the subpath `'toolbox-x/guards'`. These guards help you safely validate and handle different date representations in your code.
+`toolbox-x` provides a comprehensive set of type guards and predicate functions using the subpath `'toolbox-x/guards'`. These guards help you safely validate and handle different types and shapes in your code.
+
+### 1. Predicate Functions (Boolean Validators)
+
+Simple functions that return `boolean` without affecting TypeScript's type system:
+
+```ts
+const prime = isPrime(number); // Returns true/false
+```
+
+### 2. Type Guards (Type Narrowing)
+
+Functions using `x is T` syntax that narrow types in conditional blocks:
+
+```ts
+if (isString(input)) { // input is now narrowed to string type
+  input.toLowerCase(); // Type-safe access
+}
+```
+
+### Key Differences
+
+| Feature        | Predicates        | Type Guards       |
+|----------------|-------------------|-------------------|
+| Return type    | `boolean`         | `value is Type`   |
+| Type narrowing | No                | Yes               |
+| Usage          | Anywhere          | Conditionals      |
+| Example        | `isPrime(value)`  | `isString(value)` |
+
+### Why This Matters
+
+- **Predicates** for simple validation
+- **Guards** when you need type narrowing
 
 ## Imports
 
@@ -14,3 +46,7 @@ icon: Lock
 // All type guards for working with dates and times
 import { guardName } from 'toolbox-x/guards';
 ```
+
+---
+
+Browse by category or use the search (`ctrl+k`) to find the perfect predicate/type guard for your task.
