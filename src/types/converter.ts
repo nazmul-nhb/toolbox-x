@@ -58,12 +58,12 @@ export type Converted<U extends $Unit> =
 									: $BaseConverter<U>;
 
 /** * Options for formatting converted values for unit converter method(s). */
-export type FormatToOptions = {
+export interface FormatToOptions {
 	/** Style of formatting. Default is `'plural'`. */
 	style?: 'compact' | 'scientific' | 'plural';
 	/** Number of decimal places to include. Default is `2`. */
 	decimals?: number;
-};
+}
 
 /** Union type for all the area units */
 export type $AreaUnit = UnitMap['area'];

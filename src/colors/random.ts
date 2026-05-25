@@ -1,13 +1,7 @@
-import { convertColorCode, convertHslToHex, convertHslToRgb } from 'src/colors/convert';
+import { convertHslToHex, convertHslToRgb } from 'src/colors/convert';
 import { _generateRandomHSL, _isSimilarToLast } from 'src/colors/helpers';
 import { extractSolidColorValues } from 'src/colors/utils';
-import type {
-	$ColorType,
-	HSL,
-	RandomColor,
-	RandomColorOptions,
-	RandomHexRGB,
-} from 'src/types/colors';
+import type { $ColorType, HSL, RandomColor, RandomColorOptions } from 'src/types/colors';
 
 /** Track previously generated colors. */
 const generatedColors = /* @__PURE__ */ new Set<HSL>();
@@ -39,18 +33,6 @@ export const generateRandomHSLColor = (maxColors: number = 16): HSL => {
 	}
 
 	return color;
-};
-
-/**
- * @deprecated For optimized performance and more flexibility, please consider using {@link generateRandomColor}.
- *
- * * Utility to generate a unique random color in `Hex6` and `RGB` format.
- *
- * @param maxColors - The maximum number of recent colors to store in memory. Default is `16`.
- * @returns An object of generated unique random color in both `Hex` and `RGB` formats.
- */
-export const generateRandomColorInHexRGB = (maxColors = 16): RandomHexRGB => {
-	return convertColorCode(generateRandomHSLColor(maxColors));
 };
 
 /**

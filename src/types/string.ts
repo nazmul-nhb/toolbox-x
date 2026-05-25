@@ -401,12 +401,17 @@ export interface DiffResult {
 }
 
 /** A single character annotated with a `highlighted` flag indicating whether it differs from the other string in a diff operation. */
-export type HighlightedText = { text: string; highlighted: boolean };
+export interface HighlightedText {
+	/** Character text. */
+	text: string;
+	/** Whether the character is different from the other string. */
+	highlighted: boolean;
+}
 
 /** Result of a character-level diff, mapping each character in both strings to a `highlighted` flag. */
-export type CharDiffResult = {
+export interface CharDiffResult {
 	/** An array of characters from the original string, each annotated with a `highlighted` flag indicating whether it differs from the modified string. */
 	original: HighlightedText[];
 	/** An array of characters from the modified string, each annotated with a `highlighted` flag indicating whether it differs from the original string. */
 	modified: HighlightedText[];
-};
+}

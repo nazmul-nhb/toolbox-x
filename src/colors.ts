@@ -20,7 +20,6 @@ export { getColorForInitial } from 'src/colors/initials';
 export {
 	generateRandomColor,
 	generateRandomColor as getRandomColor,
-	generateRandomColorInHexRGB,
 	generateRandomHSLColor as generateRandomHSL,
 	generateRandomHSLColor,
 	generateRandomHSLColor as getRandomHSL,

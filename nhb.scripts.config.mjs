@@ -1,8 +1,8 @@
 // @ts-check
 
 import { defineScriptConfig } from 'nhb-scripts';
-import { convertStringCase, toCamelCase } from 'toolbox-x/change-case';
-import { isCamelCase } from 'toolbox-x/guards';
+import { convertStringCase } from 'toolbox-x/change-case';
+import { isCamelCase, isPascalCase } from 'toolbox-x/guards';
 
 export default defineScriptConfig({
 	commit: {
@@ -42,12 +42,14 @@ export default defineScriptConfig({
 
 /** @type { FileGenerator } */
 function generateDocs(docTitle) {
-	/** @type { string } */
-	const camelTitle = isCamelCase(docTitle) ? docTitle : toCamelCase(docTitle);
+	const camelTitle =
+		isCamelCase(docTitle) || isPascalCase(docTitle)
+			? docTitle
+			: convertStringCase(docTitle, 'camelCase');
 
 	return [
 		{
-			name: `${convertStringCase(camelTitle, 'kebab-case')}.mdx`,
+			name: `${convertStringCase(docTitle, 'kebab-case')}.mdx`,
 			content: `---
 title: ${camelTitle}
 description: ${camelTitle} Description.

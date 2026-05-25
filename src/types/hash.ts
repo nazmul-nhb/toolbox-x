@@ -57,22 +57,22 @@ export interface DecodedUUID {
 }
 
 /** Header for `Signet` */
-export type SignetHeader = {
+export interface SignetHeader {
 	/** Algorithm used. Currently supports `'HS256'` only */
 	alg: 'HS256';
 	/** Type of token. Fixed `'SIGNET+JWT'` */
 	typ: 'SIGNET+JWT';
-};
+}
 
 /** Options for token verification */
-export type VerifyOptions = {
+export interface VerifyOptions {
 	/** Where the token is allowed to be used */
 	audience?: string | string[];
 	/** Who the token is about */
 	subject?: string;
 	/** From where/who the token is issued */
 	issuer?: string;
-};
+}
 
 /** Token signing options */
 export interface SignOptions extends VerifyOptions {

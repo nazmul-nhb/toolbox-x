@@ -59,7 +59,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 					{`Last updated: ${formatDate({
 						date: lastModified,
 						format: 'dd, mmm DD, YYYY hh:mm:ssA',
-					})} (${getTimeZoneDetails().tzNameLong})`}
+					})} (${getTimeZoneDetails().tzNameLongOffset})`}
 				</p>
 			)}
 		</DocsPage>

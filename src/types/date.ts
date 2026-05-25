@@ -74,7 +74,7 @@ export interface GreetingConfigs {
 }
 
 /** Time zone details object */
-export type TimeZoneDetails = {
+export interface TimeZoneDetails {
 	/** IANA time zone identifier */
 	tzIdentifier: $TimeZoneIdentifier;
 	/** Long localized form (e.g., `'Pacific Standard Time'`, `'Nordamerikanische Westküsten-Normalzeit'`) */
@@ -83,7 +83,7 @@ export type TimeZoneDetails = {
 	tzNameLongGeneric: Maybe<LooseLiteral<TimeZoneName>>;
 	/** Long localized GMT format, prefixed with `"GMT"` (e.g., `"GMT-08:00"`) */
 	tzNameLongOffset: Maybe<LooseLiteral<$GMTOffset>>;
-};
+}
 
 /** Options for `formatDate` utility */
 export interface DateFormatOptions extends FormatOptions {

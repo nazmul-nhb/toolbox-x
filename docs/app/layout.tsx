@@ -32,10 +32,6 @@ export default function Layout({ children }: LayoutProps<'/'>) {
 	return (
 		<html lang="en" className={inter.className} suppressHydrationWarning>
 			<body className="flex flex-col min-h-screen">
-				{/* <Banner variant="rainbow">
-					Documentation is still Under Maintenance! You may find some broken links or
-					missing content.
-				</Banner> */}
 				<RootProvider>{children}</RootProvider>
 			</body>
 		</html>
