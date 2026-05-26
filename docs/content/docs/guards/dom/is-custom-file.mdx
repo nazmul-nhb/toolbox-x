@@ -1,0 +1,75 @@
+---
+title: Check CustomFile
+description: Checks if a value is a CustomFile object.
+---
+
+## isCustomFile
+
+Checks if a value is a `CustomFile` object.
+
+### Function Signature
+
+```typescript
+isCustomFile(value: unknown): value is CustomFile
+```
+
+### Type Definition
+
+```typescript
+/** * Represents a custom file structure used in file upload components. */
+interface CustomFile {
+ /** Unique identifier for the file. */
+ uid: string;
+ /** The timestamp (milliseconds) when the file was last modified. */
+ lastModified: number;
+ /** A string representation of the last modified date. */
+ lastModifiedDate: Date;
+ /** The name of the file. */
+ name: string;
+ /** The size of the file in bytes. */
+ size: number;
+ /** The MIME type of the file. */
+ type: string;
+ /** Upload progress percentage (0-100). */
+ percent: number;
+ /** The original file object before any transformations. */
+ originFileObj: OriginFileObj;
+ /** The URL for a thumbnail preview of the file. */
+ thumbUrl: string;
+ /** Optional error information if the upload fails. */
+ error?: FileError;
+ /** Optional server response after a successful upload. */
+ response?: string;
+ /** Optional status of the file upload (e.g., "uploading", "done", "error"). */
+ status?: string;
+}
+
+/** * Represents an error that occurs during a file upload. */
+interface FileError extends Error {
+ /** HTTP status code of the error. */
+ status: number;
+ /** The HTTP method used for the request (e.g., "POST", "PUT"). */
+ method: string;
+ /** The URL where the upload was attempted. */
+ url: string;
+}
+```
+
+### Validation Rules
+
+- Must be an object
+- Must have `originFileObj` property that passes `isOriginFileObj`
+- Contains all required CustomFile properties
+
+### Example
+
+```typescript
+const customFile = {
+  uid: '123',
+  name: 'file.txt',
+  originFileObj: originFile,
+  // ...other required properties
+};
+
+isCustomFile(customFile); // true
+```

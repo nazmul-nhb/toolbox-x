@@ -30,7 +30,7 @@ export function isValidFormData(value: unknown): value is FormData {
  * @returns `true` if the value is a valid {@link OriginFileObj}, otherwise `false`.
  */
 export function isOriginFileObj(value: unknown): value is OriginFileObj {
-	return isObjectWithKeys(value, ['uid']) && isString(value.uid);
+	return isObjectWithKeys(value, ['uid']) && isString(value.uid); // ! should also validate with isFileOrBlob(value) &&
 }
 
 /**

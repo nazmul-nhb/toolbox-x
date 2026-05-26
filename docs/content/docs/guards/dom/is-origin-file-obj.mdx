@@ -1,0 +1,41 @@
+---
+title: Check OriginFileObj
+description: Checks if a value is an OriginFileObj for Ant-Design Upload component.
+---
+
+## isOriginFileObj
+
+Checks if a value is an `OriginFileObj` (extended `File` with UID). For `Ant-Design Upload` component.
+
+### Function Signature
+
+```typescript
+isOriginFileObj(value: unknown): value is OriginFileObj
+```
+
+### Type Definition
+
+```typescript
+/** * Represents the original file object before any modifications. */
+interface OriginFileObj extends File {
+ /** Unique identifier for the original file. */
+ uid: string;
+}
+```
+
+### Validation Rules
+
+- Must be an object
+- Must have string `uid` property
+- Inherits all File properties
+
+### Example
+
+```typescript pg
+import { isOriginFileObj } from 'toolbox-x/dom';
+
+const file = new File([], 'test.txt');
+const originFile = Object.assign(file, { uid: '123' });
+
+console.log(isOriginFileObj(originFile)); // true
+```

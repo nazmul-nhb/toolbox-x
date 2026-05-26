@@ -1,0 +1,26 @@
+---
+title: Check File Array
+description: Checks if a value is an array of native File objects.
+---
+
+## isFileArray
+
+Checks if a value is an array of native `File` objects.
+
+### Function Signature
+
+```typescript
+isFileArray(value: unknown): value is File[] | Blob[]
+```
+
+### Validation Rules
+
+- Must be non-empty array
+- Every element must be File instance
+
+### Example
+
+```typescript
+const files = [new File([], 'test.txt')];
+isFileArray(files); // true
+```

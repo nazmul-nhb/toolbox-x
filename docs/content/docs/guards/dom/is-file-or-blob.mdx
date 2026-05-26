@@ -1,0 +1,31 @@
+---
+title: Check File or Blob
+description: Checks if a given value is an instance of File or Blob.
+---
+
+## isFileOrBlob
+
+Checks if a given value is an instance of `File` or `Blob`.
+
+### Function Signature
+
+```typescript
+isFileOrBlob(value: unknown): value is File | Blob
+```
+
+### Validation Rules
+
+- Must be File/Blob instance
+- Available in browser environments
+
+### Example
+
+```typescript pg
+import { isFileOrBlob } from 'toolbox-x/dom'
+
+const file = new File(['hello world'], 'hello.txt', {
+ type: 'text/plain',
+});
+
+console.log(isFileOrBlob(file)); // true
+```

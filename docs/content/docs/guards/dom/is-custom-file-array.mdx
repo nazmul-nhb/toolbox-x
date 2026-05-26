@@ -1,0 +1,26 @@
+---
+title: Check CustomFileArray
+description: Checks if a value is an array of CustomFile objects.
+---
+
+## isCustomFileArray
+
+Checks if a value is an array of `CustomFile` objects.
+
+### Function Signature
+
+```typescript
+isCustomFileArray(value: unknown): value is CustomFile[]
+```
+
+### Validation Rules
+
+- Must be non-empty array
+- Every element must pass `isCustomFile`
+
+### Example
+
+```typescript
+const files = [customFile1, customFile2]; 
+isCustomFileArray(files); // true
+```

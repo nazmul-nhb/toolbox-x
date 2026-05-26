@@ -1,0 +1,5 @@
+{
+	"title": "DOM Guards",
+	"icon": "GlobeLock",
+	"pages": ["is-valid-form-data", "is-file-or-blob", "is-file-list", "is-file-array", "..."]
+}

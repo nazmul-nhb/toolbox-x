@@ -1,0 +1,26 @@
+---
+title: Check FileList
+description: Checks if a value is a FileList instance.
+---
+
+## isFileList
+
+Checks if a value is a `FileList` instance.
+
+### Function Signature
+
+```typescript
+isFileList(value: unknown): value is FileList
+```
+
+### Validation Rules
+
+- Must be FileList instance
+- Available in browser environments
+
+### Example
+
+```typescript
+const fileInput = document.querySelector('input[type="file"]');
+isFileList(fileInput.files); // true
+```

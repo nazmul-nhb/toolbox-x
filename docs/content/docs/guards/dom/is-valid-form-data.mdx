@@ -1,0 +1,42 @@
+---
+title: Check FormData
+description: Checks if a value is a valid non-empty FormData instance.
+---
+
+## isValidFormData
+
+Checks if a value is a valid non-empty `FormData` instance.
+
+### Function Signature
+
+```typescript
+isValidFormData(value: unknown): value is FormData
+```
+
+### Parameters
+
+- `value`: The value to check
+
+### Returns
+
+`true` if:
+
+- Value is a FormData instance
+- Has entries (not empty)
+- Supports .entries() method
+
+### Example
+
+```typescript pg
+import { isValidFormData } from 'toolbox-x/dom';
+
+const formData = new FormData();
+formData.append('name', 'John');
+
+console.log(isValidFormData(formData)); // true
+console.log(isValidFormData({})); // false
+```
+
+<Callout type="warn" title="SSR Note">
+⚠️ May not work in SSR environments like Next.js Server Components
+</Callout>

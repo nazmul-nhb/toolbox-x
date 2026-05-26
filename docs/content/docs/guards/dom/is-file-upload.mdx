@@ -1,0 +1,43 @@
+---
+title: Check FileUpload
+description: Checks if a value is a FileUpload object.
+---
+
+## isFileUpload
+
+Checks if a value is a `FileUpload` object, commonly used in libraries like `FilePond` or `Ant Design Upload`.
+
+### Function Signature
+
+```typescript
+isFileUpload(value: unknown): value is FileUpload
+```
+
+### Type Definition
+
+```typescript
+/** * Represents a file upload operation, commonly used in libraries like `FilePond` or `Ant Design Upload`. */
+interface FileUpload {
+ /** The primary file being uploaded. */
+ file: File | CustomFile;
+ /** The list of files associated with the upload. */
+ fileList: CustomFile[];
+}
+```
+
+### Validation Rules
+
+- Must be an object
+- Must have either:
+  - `file` property that is File or CustomFile
+  - `fileList` property that is CustomFile[]
+
+### Example
+
+```typescript
+const upload = {
+  file: customFile,
+  fileList: [customFile1, customFile2]
+};
+isFileUpload(upload); // true
+```
