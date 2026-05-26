@@ -1,0 +1,67 @@
+---
+title: Check Array of Type
+description: Validates that all elements in an array match a specific type guard.
+---
+
+## isArrayOfType
+
+Validates that all elements in an array match a specific type guard. Useful for checking homogeneous collections from untyped sources.
+
+### Signature
+
+```typescript
+function isArrayOfType<T>(
+  value: unknown,
+  typeCheck: (item: unknown) => item is T
+): value is T[]
+```
+
+### Examples
+
+```typescript pg
+import { isArrayOfType, isNumber, isString, isBoolean, isObject } from 'toolbox-x/guards';
+
+// Primitive type checking
+console.log(isArrayOfType([1, 2, 3], isNumber));      // true
+console.log(isArrayOfType(['a', 'b'], isString));     // true
+console.log(isArrayOfType([true, false], isBoolean)); // true
+
+// Complex object validation
+interface User {
+  id: number;
+  name: string;
+  active: boolean;
+}
+
+const isUser = (u: unknown): u is User => (
+  isObject(u) && 
+  isNumber(u.id) && 
+  isString(u.name) && 
+  isBoolean(u.active)
+);
+
+const apiResponse: unknown = [
+  { id: 1, name: 'Alice', active: true },
+  { id: 2, name: 'Bob', active: false }
+];
+
+if (isArrayOfType(apiResponse, isUser)) {
+  // apiResponse is now typed as User[]
+  const activeUsers = apiResponse.filter(u => u.active);
+
+  console.log(activeUsers);
+}
+```
+
+### Use Cases
+
+- Validating API response arrays
+- Processing CSV/JSON data
+- Sanitizing user-provided arrays
+- Runtime validation of typed collections
+
+### Aliases
+
+| Main Export           | Alias Names                           |
+|-----------------------|---------------------------------------|
+| `isValidArray`        | `isArrayWithLength`                   |

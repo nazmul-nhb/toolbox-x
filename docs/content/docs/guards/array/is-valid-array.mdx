@@ -1,0 +1,43 @@
+---
+title: Check Valid Array
+description: Checks if a value is both an array and contains at least one element.
+---
+
+## isValidArray
+
+Checks if a value is both an array and contains at least one element. Combines array detection with length check in a single operation.
+
+### Signature
+
+```typescript
+function isValidArray<T>(value: unknown): value is Array<T>
+```
+
+### Examples
+
+```typescript pg
+import { isValidArray } from 'toolbox-x/guards';
+
+// Positive cases
+console.log(isValidArray([1]));            // true
+console.log(isValidArray([null]));         // true (contains element)
+console.log(isValidArray(new Array(1)));   // true (array with length)
+
+// Negative cases
+console.log(isValidArray([]));             // false
+console.log(isValidArray({ length: 1 }));  // false (not a real array)
+
+// With type parameter
+const data: unknown = [1, 2, 3];
+if (isValidArray<number>(data)) {
+  const sum = data.reduce((a, b) => a + b, 0); // data is number[]
+
+  console.log(sum);
+}
+```
+
+### Notes
+
+- More efficient than separate `isArray` and `length` checks
+- Returns `false` for sparse arrays with length but no elements
+- Preserves type information through generics

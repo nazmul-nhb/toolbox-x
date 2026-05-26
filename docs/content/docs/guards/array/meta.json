@@ -1,0 +1,5 @@
+{
+	"title": "Array Guards",
+	"icon": "ListCheck",
+	"pages": ["is-array", "is-valid-array", "is-array-of-type", "..."]
+}

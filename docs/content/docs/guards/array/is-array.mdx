@@ -1,0 +1,37 @@
+---
+title: Check Array Type
+description: Checks if a value is an array.
+---
+
+
+## isArray
+
+Determines whether a value is a JavaScript array. Properly narrows TypeScript type to `Array<T>` when used in type predicates. Handles all array types including typed arrays.
+
+### Signature
+
+```typescript
+function isArray<T>(value: unknown): value is Array<T>
+```
+
+### Examples
+
+```typescript pg
+import { isArray } from 'toolbox-x/guards';
+
+// Basic array detection
+console.log(isArray([1, 2, 3]));           // true
+console.log(isArray(new Array(5)));        // true
+
+// Edge cases
+console.log(isArray({ length: 2 }));       // false (array-like objects)
+console.log(isArray('array'));             // false (strings are not arrays)
+console.log(isArray(null));                // false
+console.log(isArray(undefined));           // false
+
+// Type narrowing
+const unknownValue: unknown = ['a', 'b', 'c'];
+if (isArray<string>(unknownValue)) {
+  console.log(unknownValue.join(', '));    // safely typed as string[]
+}
+```

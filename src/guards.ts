@@ -10,7 +10,6 @@ export {
 	isValidTime as isValidTimeString,
 	isValidTimeZoneId,
 	isValidUTCOffset as isValidUTC,
-	isValidUTCOffset as isValidUTCOffSet,
 	isValidUTCOffset,
 } from 'src/date/guards';
 // ! Non-Primitive Type Guards

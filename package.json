@@ -1,6 +1,6 @@
 {
   "name": "toolbox-x",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A versatile collection of smart, efficient, and reusable utility functions, classes and types for everyday development needs.",
   "main": "./dist/index.cjs",
   "type": "module",
