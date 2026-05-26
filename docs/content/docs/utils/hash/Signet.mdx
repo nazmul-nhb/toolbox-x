@@ -19,9 +19,6 @@ Signet is a zero-dependency token implementation similar to JSON Web Tokens (`JW
 
 ```typescript
 import { Signet } from 'toolbox-x/hash';
-
-// Initialize with a secret key (keep this secure!)
-const signet = new Signet('your-secret-key-here');
 ```
 
 ### Basic Usage
@@ -95,11 +92,11 @@ new Signet(secret: string)
 
 Creates a new Signet instance with the specified secret key.
 
-**Parameters:**
+#### Parameters
 
 - `secret`: Non-empty string used for signing/verifying tokens
 
-**Example:**
+#### Example
 
 ```typescript
 const signet = new Signet(process.env.JWT_SECRET);
@@ -109,18 +106,18 @@ const signet = new Signet(process.env.JWT_SECRET);
 
 Creates and signs a new token.
 
-**Signature:**
+#### Signature
 
 ```ts
 sign(payload: GenericObject, options?: SignOptions): TokenString
 ```
 
-**Parameters:**
+#### Parameters
 
 - `payload`: Custom data to include in token (must be non-empty object)
 - `options`: Optional configuration for claims and expiration
 
-**Example:**
+#### Example
 
 ```typescript
 const token = signet.sign(
@@ -133,20 +130,20 @@ const token = signet.sign(
 
 Verifies token signature and validates claims.
 
-**Signature:**
+#### Signature
 
 ```ts
 verify<T>(token: string, options?: VerifyOptions): VerifiedToken<T>
 ```
 
-**Parameters:**
+#### Parameters
 
 - `token`: Token string to verify
 - `options`: Optional validation criteria
 
 **Returns:** Object with `isValid` boolean and either `payload` or `error`
 
-**Example:**
+#### Example
 
 ```typescript
 const result = signet.verify<UserData>(token, {
@@ -159,13 +156,13 @@ const result = signet.verify<UserData>(token, {
 
 Verifies token and throws error if invalid.
 
-**Signature:**
+#### Signature
 
 ```ts
 verifyOrThrow<T>(token: string, options?: VerifyOptions): VerifiedToken<T>
 ```
 
-**Example:**
+#### Example
 
 ```typescript
 try {
@@ -180,13 +177,13 @@ try {
 
 Decodes token without verifying signature.
 
-**Signature:**
+#### Signature
 
 ```ts
 decode<T>(token: string): DecodedToken<T>
 ```
 
-**Example:**
+#### Example
 
 ```typescript
 const decoded = signet.decode<{ userId: number }>(token);
@@ -197,13 +194,13 @@ console.log(decoded.payload.userId); // Type-safe access
 
 Extracts payload without verification (convenience method).
 
-**Signature:**
+#### Signature
 
 ```ts
 decodePayload<T>(token: string): SignetPayload<T>
 ```
 
-**Example:**
+#### Example
 
 ```typescript
 const payload = signet.decodePayload(token);
@@ -212,23 +209,43 @@ console.log(payload.iatDate);
 
 ### Validation Methods
 
-#### `hasExpired(token: string): boolean`
+#### hasExpired()
+
+```ts
+hasExpired(token: string): boolean
+```
 
 Checks if token has expired based on `exp` claim.
 
-#### `isTooEarly(token: string): boolean`  
+#### isTooEarly()
+
+```ts
+isTooEarly(token: string): boolean
+```
 
 Checks if token's `nbf` claim indicates it's not yet valid.
 
-#### `isInvalidIssuer(token: string, expected: string): boolean`
+#### isInvalidIssuer()
+
+```ts
+isInvalidIssuer(token: string, expected: string): boolean
+```
 
 Validates issuer claim.
 
-#### `isInvalidAudience(token: string, expected: string | string[]): boolean`
+#### isInvalidAudience()
+
+```ts
+isInvalidAudience(token: string, expected: string | string[]): boolean
+```
 
 Validates audience claim.
 
-#### `isInvalidSubject(token: string, expected: string): boolean`
+#### isInvalidSubject()
+
+```ts
+isInvalidSubject(token: string, expected: string): boolean
+```
 
 Validates subject claim.
 

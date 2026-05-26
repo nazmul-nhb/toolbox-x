@@ -1,5 +1,5 @@
 ---
-title: Text ↔ Binary Conversions
+title: Text Encoding Conversions
 description: TextCodec provides UTF-8–safe conversions between text, hex, binary, and Base64 representations using byte-level transformations.
 ---
 
@@ -7,7 +7,7 @@ description: TextCodec provides UTF-8–safe conversions between text, hex, bina
 
 Provides **UTF-8–safe** conversions between text, hex, binary, and Base64 representations using byte-level transformations.
 
-### Overview
+## Overview
 
 `TextCodec` is a static utility class for encoding and decoding text across different binary representations. All conversions go through UTF-8 bytes as an intermediate format, ensuring proper handling of Unicode characters across all formats, using engine agnostic `Uint8Array` operations.
 
@@ -15,7 +15,7 @@ Provides **UTF-8–safe** conversions between text, hex, binary, and Base64 repr
 Does not rely on `Node.js` or `Web APIs`. **Works on any JS engine**
 </Callout>
 
-### Key Features
+## Key Features
 
 - **Unicode-safe**: Full support for emoji, non-Latin scripts, and extended characters
 - **Engine-agnostic**: Uses `Uint8Array` for consistent behavior across browsers and Node.js
@@ -24,13 +24,13 @@ Does not rely on `Node.js` or `Web APIs`. **Works on any JS engine**
 - **Type-safe**: Written in TypeScript with proper type guards
 - **Zero dependencies**: Pure JavaScript implementation
 
-### Import
+## Import
 
 ```typescript
 import { TextCodec } from 'toolbox-x/hash';
 ```
 
-### Quick Start
+## Quick Start
 
 ```typescript pg
 import { TextCodec } from 'toolbox-x/hash';
@@ -58,9 +58,9 @@ console.log({
 
 ---
 
-### Validation Methods
+## Validation Methods
 
-#### `isValidHex`
+### `isValidHex`
 
 Validates whether a string represents a valid hexadecimal byte sequence.
 
@@ -78,7 +78,7 @@ static isValidHex(hex: string): boolean
 Equivalent standalone type guard: [**isHexString**](/docs/guards/mixed-guards#ishexstring)
 </Callout>
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.isValidHex('ff 0a');      // true
@@ -91,7 +91,7 @@ TextCodec.isValidHex('12 34 g5');   // false (contains 'g')
 
 ---
 
-#### `isValidBinary`
+### `isValidBinary`
 
 Validates whether a string represents a valid binary byte sequence.
 
@@ -109,7 +109,7 @@ static isValidBinary(binary: string): boolean
 Equivalent standalone type guard: [**isBinaryString**](/docs/guards/mixed-guards#isbinarystring)
 </Callout>
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.isValidBinary('01000001');           // true
@@ -121,7 +121,7 @@ TextCodec.isValidBinary('01200001');           // false (contains '2')
 
 ---
 
-#### `isValidBase64`
+### `isValidBase64`
 
 Validates whether a string represents a valid Base64-encoded string.
 
@@ -139,7 +139,7 @@ static isValidBase64(b64: string): boolean
 Equivalent standalone type guard: [**isBase64**](/docs/guards/mixed-guards#isbase64)
 </Callout>
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.isValidBase64('SGVsbG8=');   // true
@@ -150,9 +150,9 @@ TextCodec.isValidBase64('SGVsbG8');    // false (missing padding)
 
 ---
 
-### UTF-8 ↔ Text Conversions
+## UTF-8 ↔ Text Conversions
 
-#### `utf8ToHex`
+### `utf8ToHex`
 
 Converts UTF-8 text into hexadecimal byte representation.
 
@@ -167,7 +167,7 @@ static utf8ToHex(text: string, spaced = true): string
 
 **Returns:** Hexadecimal byte string
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.utf8ToHex('Hi');              // '48 69'
@@ -178,7 +178,7 @@ TextCodec.utf8ToHex('🎉');              // 'f0 9f 8e 89' (Unicode emoji)
 
 ---
 
-#### `utf8ToBinary`
+### `utf8ToBinary`
 
 Converts UTF-8 text into binary byte representation.
 
@@ -193,7 +193,7 @@ static utf8ToBinary(text: string, spaced = true): string
 
 **Returns:** Binary byte string
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.utf8ToBinary('A');            // '01000001'
@@ -203,7 +203,7 @@ TextCodec.utf8ToBinary('Hi');           // '01001000 01101001'
 
 ---
 
-#### `hexToUtf8`
+### `hexToUtf8`
 
 Converts hexadecimal byte string into UTF-8 text.
 
@@ -217,7 +217,7 @@ static hexToUtf8(hex: string): string
 
 **Returns:** Decoded UTF-8 text (empty string for invalid input)
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.hexToUtf8('48 69');                 // 'Hi'
@@ -228,7 +228,7 @@ TextCodec.hexToUtf8('invalid');               // '' (empty string)
 
 ---
 
-#### `binaryToUtf8`
+### `binaryToUtf8`
 
 Converts binary byte string into UTF-8 text.
 
@@ -242,7 +242,7 @@ static binaryToUtf8(binary: string): string
 
 **Returns:** Decoded UTF-8 text (empty string for invalid input)
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.binaryToUtf8('01001000 01101001');      // 'Hi'
@@ -253,9 +253,9 @@ TextCodec.binaryToUtf8('010');                    // '' (invalid input)
 
 ---
 
-### Hexadecimal ↔ Binary Conversions
+## Hexadecimal ↔ Binary Conversions
 
-#### `hexToBinary`
+### `hexToBinary`
 
 Converts hexadecimal byte string into binary byte string.
 
@@ -270,7 +270,7 @@ static hexToBinary(hex: string, spaced = true): string
 
 **Returns:** Binary byte string (empty string for invalid input)
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.hexToBinary('ff');              // '11111111'
@@ -281,7 +281,7 @@ TextCodec.hexToBinary('invalid');         // '' (empty string)
 
 ---
 
-#### `binaryToHex`
+### `binaryToHex`
 
 Converts binary byte string into hexadecimal byte string.
 
@@ -296,7 +296,7 @@ static binaryToHex(binary: string, spaced = true): string
 
 **Returns:** Hexadecimal byte string (empty string for invalid input)
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.binaryToHex('11111111');              // 'ff'
@@ -307,9 +307,9 @@ TextCodec.binaryToHex('1111111');               // '' (7 bits, invalid)
 
 ---
 
-### Base64 Conversions
+## Base64 Conversions
 
-#### `utf8ToBase64`
+### `utf8ToBase64`
 
 Converts UTF-8 text into a Base64-encoded string.
 
@@ -323,7 +323,7 @@ static utf8ToBase64(text: string): string
 
 **Returns:** Base64 encoded string (empty string for empty input)
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.utf8ToBase64('Hello');        // 'SGVsbG8='
@@ -334,7 +334,7 @@ TextCodec.utf8ToBase64('');             // ''
 
 ---
 
-#### `base64ToUtf8`
+### `base64ToUtf8`
 
 Converts a Base64-encoded string into UTF-8 text.
 
@@ -348,7 +348,7 @@ static base64ToUtf8(b64: string): string
 
 **Returns:** Decoded UTF-8 text (empty string for invalid input)
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.base64ToUtf8('SGVsbG8=');     // 'Hello'
@@ -358,9 +358,9 @@ TextCodec.base64ToUtf8('NotBase64!');   // '' (invalid input)
 
 ---
 
-### Cross-Format Conversions
+## Cross-Format Conversions
 
-#### `base64ToHex`
+### `base64ToHex`
 
 Converts Base64 directly into hexadecimal byte string.
 
@@ -375,7 +375,7 @@ static base64ToHex(b64: string, spaced = true): string
 
 **Returns:** Hexadecimal byte string
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.base64ToHex('SGVsbG8=');      // '48 65 6c 6c 6f'
@@ -384,7 +384,7 @@ TextCodec.base64ToHex('SGk=', false);   // '4869'
 
 ---
 
-#### `base64ToBinary`
+### `base64ToBinary`
 
 Converts Base64 directly into binary byte string.
 
@@ -399,7 +399,7 @@ static base64ToBinary(b64: string, spaced = true): string
 
 **Returns:** Binary byte string
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.base64ToBinary('SGVsbG8=');   // '01001000 01100101 01101100 01101100 01101111'
@@ -407,7 +407,7 @@ TextCodec.base64ToBinary('SGVsbG8=');   // '01001000 01100101 01101100 01101100 
 
 ---
 
-#### `hexToBase64`
+### `hexToBase64`
 
 Converts hexadecimal byte string into a Base64 string.
 
@@ -421,7 +421,7 @@ static hexToBase64(hex: string): string
 
 **Returns:** Base64 encoded string
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.hexToBase64('48 69');         // 'SGk='
@@ -430,7 +430,7 @@ TextCodec.hexToBase64('4869');          // 'SGk='
 
 ---
 
-#### `binaryToBase64`
+### `binaryToBase64`
 
 Converts binary byte string into a Base64 string.
 
@@ -444,7 +444,7 @@ static binaryToBase64(binary: string): string
 
 **Returns:** Base64 encoded string
 
-##### Examples
+#### Examples
 
 ```typescript
 TextCodec.binaryToBase64('01001000 01101001');  // 'SGk='
@@ -452,9 +452,9 @@ TextCodec.binaryToBase64('01001000 01101001');  // 'SGk='
 
 ---
 
-### Usage Patterns
+## Usage Patterns
 
-#### Working with Cryptographic Data
+### Working with Cryptographic Data
 
 ```typescript
 // Hash verification
@@ -467,7 +467,7 @@ if (TextCodec.isValidHex(storedHash)) {
 }
 ```
 
-#### Data Serialization
+### Data Serialization
 
 ```typescript
 // Encode data for storage
@@ -481,7 +481,7 @@ const decoded = TextCodec.base64ToUtf8(encoded);
 const restoredData = JSON.parse(decoded);
 ```
 
-#### Network Protocols
+### Network Protocols
 
 ```typescript
 // Parse binary protocol messages
@@ -493,7 +493,7 @@ if (TextCodec.isValidHex(rawHex)) {
 }
 ```
 
-#### Debugging Binary Data
+### Debugging Binary Data
 
 ```typescript
 // Convert text to different binary representations for inspection
@@ -514,7 +514,7 @@ if (TextCodec.isValidHex(unknownHex)) {
 
 ---
 
-### Error Handling
+## Error Handling
 
 All methods safely handle invalid input:
 
@@ -537,7 +537,7 @@ TextCodec.utf8ToBase64('');          // ''
 
 ---
 
-### Performance Notes
+## Performance Notes
 
 - All methods are `static` - no instance creation needed
 - UTF-8 conversion is handled by engine agnostic algorithm, **works on any JS engine**
@@ -547,7 +547,7 @@ TextCodec.utf8ToBase64('');          // ''
 
 ---
 
-### Unicode Support
+## Unicode Support
 
 All methods fully support Unicode characters:
 
@@ -563,7 +563,7 @@ TextCodec.utf8ToHex('العربية'); // 'd8 a7 d9 84 d8 b9 d8 b1 d8 a8 d9 8a d
 
 ---
 
-### Related Utilities
+## Related Utilities
 
 For lower-level operations, see:
 

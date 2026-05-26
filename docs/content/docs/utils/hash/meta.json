@@ -1,0 +1,15 @@
+{
+	"pages": [
+		"uuid",
+		"decode-uuid",
+		"check-uuid-versions",
+		"random-hex",
+		"md5",
+		"sha-1",
+		"sha-256",
+		"Cipher",
+		"Signet",
+		"TextCodec",
+		"..."
+	]
+}
