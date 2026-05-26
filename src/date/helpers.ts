@@ -1,5 +1,4 @@
 import { DAYS, MONTHS, SORTED_TIME_FORMATS } from 'src/date/constants';
-import { isDate } from 'src/guards/non-primitives';
 import { isString } from 'src/guards/primitives';
 import { getOrdinal } from 'src/number/utilities';
 import type {
@@ -144,12 +143,13 @@ export function _padZero(value: number, length = 2) {
  * Convert a string, number, or `Date` object to a `Date` object.
  * - If the input is already a `Date`, it is returned as is.
  * - If it's a string, it is parsed into a `Date`.
- * - If it's a number or undefined, it is treated as a timestamp and converted to a `Date`.
+ * - If it's a number, it is treated as a timestamp and converted to a `Date`.
  * @param value The date input to convert, which can be a `Date` object, a date string, a timestamp number, or undefined (which defaults to the current date and time).
  * @returns A `Date` object representing the input date.
  */
 export function _dateArgsToDate(value: Maybe<DateArgs>): Date {
-	return isDate(value)
+	return value instanceof Date
 		? value
 		: new Date(isString(value) ? value.replace(/['"]/g, '') : (value ?? Date.now()));
+	// ! Needs more work on this
 }
