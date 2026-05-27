@@ -10,7 +10,7 @@ import {
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { formatDate, getTimeZoneDetails } from 'toolbox-x/date';
+import { formatDate } from 'toolbox-x/date';
 import { getMDXComponents } from '@/components/mdx';
 import { gitConfig } from '@/lib/shared';
 import { getPageImage, getPageMarkdownUrl, source } from '@/lib/source';
@@ -57,9 +57,10 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 			{lastModified && (
 				<p className="text-sm text-fd-muted-foreground text-right">
 					{`Last updated: ${formatDate({
+						useUTC: true,
 						date: lastModified,
 						format: 'dd, mmm DD, YYYY hh:mm:ssA',
-					})} (${getTimeZoneDetails().tzNameLongOffset})`}
+					})} (UTC)`}
 				</p>
 			)}
 		</DocsPage>
