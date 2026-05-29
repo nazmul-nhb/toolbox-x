@@ -1,5 +1,11 @@
 import { isString } from 'src/guards/primitives';
-import type { AsyncFunction, GenericFn, Maybe, ValidArray } from 'src/types/index';
+import type {
+	AsyncFunction,
+	GenericFn,
+	Maybe,
+	MethodDescriptor,
+	ValidArray,
+} from 'src/types/index';
 import type { GenericObject } from 'src/types/object';
 
 /**
@@ -75,8 +81,10 @@ export function isFunction(value: unknown): value is GenericFn {
  * @param descriptor - The property descriptor to check.
  * @returns `true` if the descriptor is defined and its value is a function; otherwise, `false`.
  */
-export const isMethodDescriptor = (descriptor: Maybe<PropertyDescriptor>): boolean => {
-	return !!descriptor && typeof descriptor?.value === 'function';
+export const isMethodDescriptor = (
+	descriptor: Maybe<PropertyDescriptor>
+): descriptor is MethodDescriptor => {
+	return !!descriptor && isFunction(descriptor?.value);
 };
 
 /**

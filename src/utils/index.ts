@@ -4,6 +4,7 @@ import { isDateLike } from 'src/date/guards';
 import {
 	isArray,
 	isArrayOfType,
+	isFunction,
 	isMethodDescriptor,
 	isNotEmptyObject,
 	isObject,
@@ -252,7 +253,7 @@ export function getInstanceGetterNames(cls: Constructor): string[] {
 	const descriptors = Object.getOwnPropertyDescriptors(cls.prototype);
 
 	const result = Object.entries(descriptors)
-		.filter(([key, desc]) => typeof desc.get === 'function' && key !== 'constructor')
+		.filter(([key, desc]) => isFunction(desc.get) && key !== 'constructor')
 		.map(([key]) => key);
 
 	return sortAnArray(result);

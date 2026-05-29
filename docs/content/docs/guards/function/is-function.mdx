@@ -1,0 +1,49 @@
+---
+title: Check Function
+description: Determines if a value is a callable function.
+---
+
+## isFunction
+
+Determines if a value is a callable function. Works for all function types including async functions, generators, and class constructors.
+
+### Import
+
+```ts
+import { isFunction } from 'toolbox-x/guards';
+```
+
+### Signature
+
+```typescript
+function isFunction(value: unknown): value is GenericFn
+```
+
+### Examples
+
+```typescript pg
+import { isFunction } from 'toolbox-x/guards';
+
+// Function checks
+console.log(isFunction(function() {}));     // true
+console.log(isFunction(() => {}));          // true
+console.log(isFunction(class {}));          // true
+console.log(isFunction(async function() {})); // true
+console.log(isFunction(function*() {}));    // true
+
+// Non-functions
+console.log(isFunction({}));                // false
+console.log(isFunction(null));              // false
+console.log(isFunction('function'));        // false
+
+// Type narrowing
+const callback: unknown = () => console.log('called');
+if (isFunction(callback)) {
+  callback(); // safely callable
+}
+```
+
+### Notes
+
+- Returns true for all callable values
+- Includes async functions and generators

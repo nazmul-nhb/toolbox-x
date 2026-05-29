@@ -1,0 +1,63 @@
+---
+title: Check Functions Returning Promises
+description: Checks if a function returns a Promise.
+---
+
+## isReturningPromise
+
+### Import
+
+```ts
+import { isReturningPromise } from 'toolbox-x/guards';
+```
+
+### Signature
+
+```typescript
+function isReturningPromise<T>(fn: unknown): fn is AsyncFunction<T>
+```
+
+### Description
+
+Checks if a function returns a Promise. Identifies only async functions.
+
+### Examples
+
+```typescript pg
+import { isReturningPromise } from 'toolbox-x/guards';
+
+// Async functions
+console.log(isReturningPromise(async () => {}));          // true
+console.log(isReturningPromise(async function() {}));     // true
+
+// Promise-returning functions
+console.log(isReturningPromise(() => Promise.resolve())); // false
+console.log(isReturningPromise(() => new Promise(() => {}))); // false
+
+// Non-async functions
+console.log(isReturningPromise(() => {}));                // false
+console.log(isReturningPromise(function*() {}));          // false
+```
+
+```ts
+// Type-safe handling
+function wrapAsync(fn: unknown) {
+  if (!isReturningPromise(fn)) {
+    throw new Error('Function must return a Promise');
+  }
+  
+  return async (...args: unknown[]) => {
+    try {
+      return await fn(...args);
+    } catch (error) {
+      console.error('Async error:', error);
+      throw error;
+    }
+  };
+}
+```
+
+### Notes
+
+- Detects only async functions
+- Works with bound functions and methods

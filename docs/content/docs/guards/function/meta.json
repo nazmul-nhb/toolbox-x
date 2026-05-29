@@ -1,0 +1,5 @@
+{
+	"title": "Function Guards",
+	"description": "Type-safe utility functions for runtime type checking of functions.",
+	"icon": "SquareFunction"
+}

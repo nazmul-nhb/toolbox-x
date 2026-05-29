@@ -76,11 +76,14 @@ export type VoidFn = (...args: any[]) => void;
 /** Delayed (debounced or throttled) function type after certain delay */
 export type DelayedFn<T extends VoidFn> = (...args: Parameters<T>) => void;
 
-// ! Export with previous alias
-export type { DelayedFn as ThrottledFn, VoidFn as VoidFunction };
-
 /** Asynchronous function type */
 export type AsyncFunction<T> = (...args: any[]) => Promise<T>;
+
+/** * A property descriptor that represents a method (a function-valued property). */
+export interface MethodDescriptor<Fn extends GenericFn = GenericFn>
+	extends Omit<PropertyDescriptor, 'value'> {
+	value: Fn;
+}
 
 /** Advanced types to exclude from counting as object key */
 export type AdvancedTypes =

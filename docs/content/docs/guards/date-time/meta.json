@@ -1,5 +1,6 @@
 {
 	"title": "Date-Time Guards",
 	"icon": "ClockCheck",
-	"pages": ["is-date", "is-date-string", "is-date-like", "..."]
+	"pages": ["is-date", "is-date-string", "is-date-like", "..."],
+	"description": "Type guards for date and time validation."
 }

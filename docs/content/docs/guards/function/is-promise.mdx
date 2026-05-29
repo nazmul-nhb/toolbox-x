@@ -1,0 +1,46 @@
+---
+title: Check Promise
+description: Determines if a value is a Promise (thenable object).
+---
+
+## isPromise
+
+Determines if a value is a Promise (thenable object). Works with native Promises and most Promise implementations.
+
+### Import
+
+```ts
+import { isPromise } from 'toolbox-x/guards';
+```
+
+### Signature
+
+```typescript
+function isPromise<T>(value: unknown): value is Promise<T>
+```
+
+### Examples
+
+```typescript pg
+import { isPromise } from 'toolbox-x/guards';
+
+// Promise detection
+console.log(isPromise(Promise.resolve()));     // true
+console.log(isPromise(new Promise(() => {}))); // true
+console.log(isPromise({
+  then: () => {},
+  catch: () => {}
+}));                                           // true (thenable)
+
+// Non-promises
+console.log(isPromise({}));                  // false
+console.log(isPromise({ then: 1 }));         // false (non-function then)
+console.log(isPromise(null));                // false
+```
+
+### Notes
+
+- Detects both native Promises and thenables
+- Works across different Promise implementations
+- Useful for promise unwrapping utilities
+

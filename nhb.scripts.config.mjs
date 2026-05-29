@@ -56,6 +56,18 @@ description: ${camelTitle} Description.
 ---
 
 ## \`${camelTitle}()\`
+
+### Import
+
+\`\`\`ts
+import { ${camelTitle} } from 'toolbox-x';
+\`\`\`
+
+### Signature
+
+\`\`\`
+${camelTitle}()
+\`\`\`
 `,
 		},
 	];
