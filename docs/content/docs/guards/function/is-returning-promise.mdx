@@ -5,6 +5,8 @@ description: Checks if a function returns a Promise.
 
 ## isReturningPromise
 
+Checks if a function returns a Promise. Identifies only async functions.
+
 ### Import
 
 ```ts
@@ -17,9 +19,11 @@ import { isReturningPromise } from 'toolbox-x/guards';
 function isReturningPromise<T>(fn: unknown): fn is AsyncFunction<T>
 ```
 
-### Description
+## Type Definition
 
-Checks if a function returns a Promise. Identifies only async functions.
+```typescript
+type AsyncFunction<T> = (...args: any) => Promise<T>;
+```
 
 ### Examples
 
@@ -56,6 +60,12 @@ function wrapAsync(fn: unknown) {
   };
 }
 ```
+
+## Alias
+
+| Main Export          | Alias Names         |
+| -------------------- | ------------------- |
+| `isReturningPromise` | `doesReturnPromise` |
 
 ### Notes
 

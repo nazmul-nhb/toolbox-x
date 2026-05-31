@@ -23,7 +23,6 @@ export {
 	isError,
 	isFunction,
 	isJSON,
-	isJSON as isJSONObject,
 	isJSON as isValidJSON,
 	isMap,
 	isMap as isValidMap,

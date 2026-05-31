@@ -29,4 +29,8 @@ export {
 	isUUIDv8,
 	uuid,
 } from 'src/hash/uuid';
-export { generateRandomID, generateRandomID as randomID } from 'src/string/basics';
+export {
+	generateRandomID,
+	generateRandomID as randomID,
+	generateRandomID as getRandomID,
+} from 'src/string/basics';
