@@ -27,7 +27,9 @@ import { isMethodDescriptor } from 'toolbox-x/guards';
 const obj = {
   method() {},
   prop: 'value',
-  get accessor() { return this.prop; }
+  get accessor() {
+    return this.prop;
+  }
 };
 
 // Checking descriptors
@@ -39,25 +41,6 @@ console.log(isMethodDescriptor(propDesc));    // false
 
 const accessorDesc = Object.getOwnPropertyDescriptor(obj, 'accessor'); 
 console.log(isMethodDescriptor(accessorDesc)); // false
-```
-
-```ts
-// Practical usage in decorators
-function logMethod(
-  target: any,
-  propertyKey: string,
-  descriptor: PropertyDescriptor
-) {
-  if (!isMethodDescriptor(descriptor)) {
-    throw new Error('@logMethod can only decorate methods');
-  }
-  
-  const original = descriptor.value;
-  descriptor.value = function(...args: any[]) {
-    console.log(`Calling ${propertyKey} with`, args);
-    return original.apply(this, args);
-  };
-}
 ```
 
 ## Alias
