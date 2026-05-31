@@ -178,11 +178,11 @@ export function _randomNode48(): string {
 }
 
 /**
- * Generates random hex string of given byte length using crypto API if available, otherwise falls back to Math.random.
+ * Fills the given {@link Uint8Array} with random values using crypto API if available, otherwise falls back to {@link Math.random}.
  * @param bytes Instance of {@link Uint8Array} to fill with random values.
- * @returns Hex string representation of the random bytes.
+ * @returns Random bytes. It also mutates the {@link bytes} argument.
  */
-export function _bytesToRandomHex(bytes: Uint8Array<ArrayBuffer>): string {
+export function _fillWithRandomBytes(bytes: Uint8Array): Uint8Array {
 	if (crypto?.getRandomValues) {
 		crypto.getRandomValues(bytes);
 	} else {
@@ -190,6 +190,17 @@ export function _bytesToRandomHex(bytes: Uint8Array<ArrayBuffer>): string {
 			bytes[i] = Math.floor(Math.random() * 256);
 		}
 	}
+
+	return bytes;
+}
+
+/**
+ * Generates random hex string of given byte length using crypto API if available, otherwise falls back to {@link Math.random}.
+ * @param bytes Instance of {@link Uint8Array} to fill with random values.
+ * @returns Hex string representation of the random bytes. It also mutates the {@link bytes} argument.
+ */
+export function _bytesToRandomHex(bytes: Uint8Array): string {
+	_fillWithRandomBytes(bytes);
 
 	let hex = '';
 
