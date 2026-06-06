@@ -1,0 +1,112 @@
+---
+title: Numeric Type Guards
+description: Runtime type guards to validate numeric values.
+---
+
+Runtime type guards to validate numeric values.
+
+## `isInteger`
+
+Validates if a value is an integer.
+
+### Signature
+
+```typescript
+isInteger(value: unknown): value is number
+```
+
+### Examples
+
+```typescript pg
+import { isInteger } from 'toolbox-x/guards';
+
+console.log(isInteger(42));          // true
+console.log(isInteger(42.5));        // false
+console.log(isInteger('42'));        // false
+```
+
+---
+
+## isPositiveInteger
+
+Validates if a value is a positive integer.
+
+### Signature
+
+```typescript
+isPositiveInteger(value: unknown): value is number
+```
+
+### Examples
+
+```typescript pg
+import { isPositiveInteger } from 'toolbox-x/guards';
+
+console.log(isPositiveInteger(42));   // true
+console.log(isPositiveInteger(-42));  // false
+console.log(isPositiveInteger(0));    // false
+```
+
+---
+
+## isNumericString
+
+Validates whether a value is a **string that fully represents a finite number**.
+
+### Signature
+
+```typescript
+isNumericString(value: unknown): value is `${number}`
+```
+
+### Description
+
+This function checks:
+
+- ✅ Integers: `'42'`, `'-15'`
+- ✅ Decimals: `'3.14'`, `'0.5'`, `'-.99'`
+- ✅ Scientific notation: `'1e5'`, `'-2.5e-3'`
+- ✅ Strings with leading/trailing whitespace (they are trimmed)
+
+It **excludes** any string that would result in:
+
+- ❌ `NaN` (e.g. `'abc'`, `''`, `'42px'`)
+- ❌ `Infinity`, `-Infinity`
+- ❌ Hexadecimal numbers (e.g. `'0xFF'`)
+- ❌ Strings that only partially parse into a number
+
+<Callout type="idea" title="Info">
+Internally uses `Number.isFinite(Number(value))` for validation.
+</Callout>
+
+### Examples
+
+```typescript pg
+import { isNumericString } from 'toolbox-x/guards';
+
+// ✅ Valid cases
+console.log(isNumericString('42'));            // true
+console.log(isNumericString('3.14159'));       // true
+console.log(isNumericString('-0.5'));          // true
+console.log(isNumericString('1e6'));           // true
+console.log(isNumericString('   15.2   '));    // true
+
+// ❌ Invalid cases
+console.log(isNumericString(''));              // false
+console.log(isNumericString('NaN'));           // false
+console.log(isNumericString('Infinity'));      // false
+console.log(isNumericString('0xFF'));          // false
+console.log(isNumericString('3.14px'));        // false
+console.log(isNumericString('  '));            // false
+
+// ✅ Type-safe conversion
+function toNumber(value: unknown) {
+  return isNumericString(value) ? Number(value) : NaN;
+}
+
+console.log(toNumber('666  '));
+```
+
+<Callout type="info" title="Note">
+  Please, refer to number guard: [isNumber](./core#isnumber) for strict number type checking.
+</Callout>
