@@ -1,0 +1,53 @@
+---
+title: Nullish Type Checkers
+description: Runtime type guards to validate nullish values.
+---
+
+Runtime type guards to validate nullish values (`null`/`undefined`).
+
+## Imports
+
+```ts
+import { isNull, isUndefined } from 'toolbox-x/guards';
+```
+
+## isNull
+
+Validates if a value is null.
+
+### Signature
+
+```typescript
+isNull(value: unknown): value is null
+```
+
+### Examples
+
+```typescript pg
+import { isNull } from 'toolbox-x/guards';
+
+console.log(isNull(null));           // true
+console.log(isNull(undefined));      // false
+console.log(isNull(0));              // false
+```
+
+## isUndefined
+
+Validates if a value is undefined.
+
+### Signature
+
+```typescript
+isUndefined(value: unknown): value is undefined
+```
+
+### Examples
+
+```typescript pg
+import { isUndefined } from 'toolbox-x/guards';
+
+let var1;
+
+console.log(isUndefined(var1));      // true
+console.log(isUndefined(null));      // false
+```
