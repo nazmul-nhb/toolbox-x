@@ -8,7 +8,7 @@ Collection of type-guards for runtime type checking of core primitive values, en
 ## Imports
 
 ```ts
-import { isNumber, isString, isBoolean, isSymbol } from 'toolbox-x/guards';
+import { isNumber, isString, isBoolean, isSymbol, isBigint } from 'toolbox-x/guards';
 ```
 
 ---
@@ -57,7 +57,9 @@ if (isNumber(input)) {
 }
 ```
 
-Please, refer to numeric string guard: [isNumericString](mixed-guards#isnumericstring) for stringified number checking.
+<Callout type="idea" title="Info">
+Please, refer to numeric string guard: [isNumericString](./numeric#isnumericstring) for stringified number checking.
+</Callout>
 
 ---
 
@@ -156,3 +158,44 @@ console.log(getPrivateValue(obj));
 1. Returns true only for actual Symbol primitives
 2. Useful for working with unique identifier patterns
 3. Helps maintain type safety when using Symbol properties
+
+---
+
+## isBigInt
+
+Checks if a value is a BigInt primitive. Essential for working with large integers.
+
+### Signature
+
+```typescript
+isBigInt(value: unknown): value is bigint
+```
+
+### Examples
+
+```typescript pg
+import { isBigInt } from 'toolbox-x/guards';
+
+// BigInt detection
+console.log(isBigInt(1n));                  // true
+console.log(isBigInt(BigInt(42)));          // true
+
+// Non-BigInt
+console.log(isBigInt(42));                  // false
+console.log(isBigInt('42'));                // false
+
+// Type-safe operations
+const largeNumber: unknown = 9007199254740993n;
+if (isBigInt(largeNumber)) {
+  const squared = largeNumber * largeNumber; // valid operation
+  console.log(squared)
+}
+
+// Edge cases
+console.log(isBigInt(null));                // false
+console.log(isBigInt(undefined));           // false
+```
+
+### Use Cases
+
+- Safe operations on large integers

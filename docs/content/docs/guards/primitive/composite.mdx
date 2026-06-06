@@ -1,0 +1,128 @@
+---
+title: Composite Type Guards
+description: Runtime type guards to validate composite primitive values.
+---
+
+Runtime type guards to validate composite primitive values.
+
+## Imports
+
+```typescript
+import { isPrimitive, isNormalPrimitive, isNonEmptyString, isFalsy, isTruthy } from 'toolbox-x/guards';
+```
+
+---
+
+## isPrimitive
+
+Validates if a value is a JavaScript primitive. It covers `string | number | boolean | symbol | bigint | null | undefined`
+
+### Signature
+
+```typescript
+isPrimitive(value: unknown): value is Primitive
+```
+
+### Examples
+
+```typescript pg
+import { isPrimitive } from 'toolbox-x/guards'; 
+
+console.log(isPrimitive('hello'));       // true
+console.log(isPrimitive(42));            // true
+console.log(isPrimitive(null));          // true
+console.log(isPrimitive({}));            // false
+console.log(isPrimitive(Symbol('id')));  // true
+console.log(isPrimitive(123n));          // true (Bigint)
+```
+
+---
+
+## isNormalPrimitive
+
+Validates if a value is a normal JavaScript primitive. It covers `string | number | boolean | null | undefined`
+
+### Signature
+
+```typescript
+isNormalPrimitive(value: unknown): value is NormalPrimitive
+```
+
+### Examples
+
+```typescript pg
+import { isNormalPrimitive } from 'toolbox-x/guards';
+
+console.log(isNormalPrimitive('hello'));   // true
+console.log(isNormalPrimitive(42));        // true
+console.log(isNormalPrimitive(null));      // true
+console.log(isNormalPrimitive({}));        // false
+```
+
+---
+
+## isNonEmptyString
+
+Validates if a value is a non-empty string.
+
+### Signature
+
+```typescript
+function isNonEmptyString(value: unknown): value is string
+```
+
+### Examples
+
+```typescript pg
+import { isNonEmptyString } from 'toolbox-x/guards';
+
+console.log(isNonEmptyString('hi')); // true
+console.log(isNonEmptyString(''));   // false
+console.log(isNonEmptyString(42));   // false
+```
+
+---
+
+## isFalsy
+
+Validates if a value is falsy.
+
+### Signature
+
+```typescript
+isFalsy(value: unknown): value is FalsyPrimitive
+```
+
+### Examples
+
+```typescript pg
+import { isFalsy } from 'toolbox-x/guards';
+
+console.log(isFalsy(false));         // true
+console.log(isFalsy(0));             // true
+console.log(isFalsy(''));            // true
+console.log(isFalsy('hello'));       // false
+```
+
+---
+
+## isTruthy
+
+Validates if a value is truthy.
+
+### Signature
+
+```typescript
+isTruthy<T>(value: T): value is Exclude<T, FalsyPrimitive>
+```
+
+### Examples
+
+```typescript pg
+import { isTruthy } from 'toolbox-x/guards';
+
+console.log(isTruthy('hello'));      // true
+console.log(isTruthy(42));           // true
+console.log(isTruthy(true));         // true
+console.log(isTruthy(null));         // false
+```
