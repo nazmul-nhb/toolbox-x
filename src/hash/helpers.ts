@@ -182,7 +182,7 @@ export function _randomNode48(): string {
  * @param bytes Instance of {@link Uint8Array} to fill with random values.
  * @returns Random bytes. It also mutates the {@link bytes} argument.
  */
-export function _fillWithRandomBytes(bytes: Uint8Array): Uint8Array {
+export function _fillWithRandomValues(bytes: Uint8Array): Uint8Array {
 	if (crypto?.getRandomValues) {
 		crypto.getRandomValues(bytes);
 	} else {
@@ -200,7 +200,7 @@ export function _fillWithRandomBytes(bytes: Uint8Array): Uint8Array {
  * @returns Hex string representation of the random bytes. It also mutates the {@link bytes} argument.
  */
 export function _bytesToRandomHex(bytes: Uint8Array): string {
-	_fillWithRandomBytes(bytes);
+	_fillWithRandomValues(bytes);
 
 	let hex = '';
 

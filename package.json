@@ -118,12 +118,12 @@
 	"license": "Apache-2.0",
 	"packageManager": "pnpm@11.3.0+sha512.2c403d6594527287672b1f7056343a1f7c3634036a67ffabfcc2b3d7595d843768f8787148d1b57cf7956c90606bbd192857c363af19e96d2d0ec9ec5741d215",
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.15",
-		"@types/node": "^25.9.0",
+		"@biomejs/biome": "^2.4.16",
+		"@types/node": "^25.9.1",
 		"husky": "^9.1.7",
-		"lint-staged": "^17.0.5",
+		"lint-staged": "^17.0.7",
 		"nhb-scripts": "^1.9.2",
-		"tsdown": "^0.22.0",
+		"tsdown": "^0.22.2",
 		"typescript": "^6.0.3"
 	},
 	"lint-staged": {
