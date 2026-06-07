@@ -415,3 +415,57 @@ function blockIP(ip: unknown) {
   }
 }
 ```
+
+---
+
+## isJSON
+
+Validates if a string contains valid JSON. More strict than `isString` as it verifies parsable content.
+
+### Signature
+
+```typescript
+isJSON(value: unknown): value is string
+```
+
+### Examples
+
+```typescript pg
+import { isJSON } from 'toolbox-x/guards'; 
+
+// Valid JSON
+console.log(isJSON('{}'));                  // true
+console.log(isJSON('{"key":"value"}'));     // true
+console.log(isJSON('[]'));                  // true
+console.log(isJSON('42'));                  // true
+
+// Invalid JSON
+console.log(isJSON(''));                    // false
+console.log(isJSON('undefined'));           // false
+console.log(isJSON('{key: "value"}'));      // false (no quotes)
+console.log(isJSON("{'key': 'value'}"));    // false (single quotes)
+```
+
+```ts
+// Practical usage
+function parseIfJSON(input: unknown) {
+  if (isJSON(input)) {
+    return JSON.parse(input);
+  }
+  return input;
+}
+```
+
+### Notes
+
+- Only returns true for strings that can be parsed
+- Rejects JSON fragments (must be valid top-level value)
+- Useful for API response validation
+
+## Aliases
+
+| Main Export | Alias Names    |
+| ----------- | -------------- |
+| `isJSON`    | `isValidJSON`  |
+| `isURL`     | `isValidURL`   |
+| `isEmail`   | `isValidEmail` |

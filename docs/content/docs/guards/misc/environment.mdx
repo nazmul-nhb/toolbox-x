@@ -1,0 +1,138 @@
+---
+title: Environment Guards
+description: Runtime type guards to check different environments.
+---
+
+Runtime type guards to check different environments.
+
+## isBrowser
+
+Determines if code is running in a web browser environment
+
+### Signature
+
+```typescript
+isBrowser(): boolean
+```
+
+### Description
+
+Determines if code is running in a web browser environment by checking for:
+
+- `window` object
+- `document` object
+
+### Examples
+
+```typescript pg
+import { isBrowser } from 'toolbox-x/guards';
+
+console.log(isBrowser());   // true in browser, false in server environment
+```
+
+```ts
+// Environment-specific logic
+function getWindowSize() {
+  if (isBrowser()) {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+  }
+  return null;
+}
+```
+
+---
+
+## isNode
+
+Determines if code is running in a Node.js environment
+
+### Signature
+
+```typescript
+isNode(): boolean
+```
+
+### Description
+
+Determines if code is running in a Node.js environment by checking:
+
+- process object
+- process.versions.node
+- Absence of browser APIs
+
+### Examples
+
+```typescript pg
+import { isNode } from 'toolbox-x/guards';
+
+console.log(isNode());  // true in Node.js environment, false in browser environment
+```
+
+```ts
+// Module loading
+function loadModule() {
+  if (isNode()) {
+    return require('fs');  // Node-specific module
+  }
+  throw new Error('Node.js required');
+}
+```
+
+---
+
+## isEnvironment
+
+Checks if the current Node.js environment matches the specified value (case-sensitive).
+
+### Signature
+
+```typescript
+isEnvironment(env: string): boolean
+```
+
+### Description
+
+Common values:
+
+- "development"
+- "production"
+- "test"
+
+### Examples
+
+```typescript pg
+import { isEnvironment } from 'toolbox-x/guards';
+
+// Simulate Node.js environment in the browser
+const process: Record<string, Record<string, string>> = {
+    env: {
+        NODE_ENV: 'development' 
+    } 
+};
+
+// Matching cases
+console.log(isEnvironment('development'));     // true
+
+// Non-matching cases
+console.log(isEnvironment('production'));      // false
+```
+
+```ts
+// Environment-specific config
+function getConfig() {
+  return isEnvironment('production')
+    ? productionConfig
+    : developmentConfig;
+}
+```
+
+---
+
+## Aliases
+
+| Main Export      | Alias Names                                           |
+|------------------|-------------------------------------------------------|
+| `isEnvironment`  | `isExpectedNodeENV`, `isNodeENV`, `isNodeEnvironment` |
