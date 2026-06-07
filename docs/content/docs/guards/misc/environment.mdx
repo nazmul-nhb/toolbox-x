@@ -106,18 +106,11 @@ Common values:
 ```typescript pg
 import { isEnvironment } from 'toolbox-x/guards';
 
-// Simulate Node.js environment in the browser
-const process: Record<string, Record<string, string>> = {
-    env: {
-        NODE_ENV: 'development' 
-    } 
-};
-
 // Matching cases
-console.log(isEnvironment('development'));     // true
+console.log(isEnvironment('production'));      // true
 
 // Non-matching cases
-console.log(isEnvironment('production'));      // false
+console.log(isEnvironment('development'));     // false
 ```
 
 ```ts
