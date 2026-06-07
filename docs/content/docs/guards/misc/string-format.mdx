@@ -1,0 +1,417 @@
+---
+title: String Format Guards
+description: Runtime type guards to check different string formats.
+---
+
+Runtime type guards to check different string formats.
+
+## Import
+
+```ts
+import {
+  isEmail, isEmailArray, isURL, isPhoneNumber, isIPAddress,
+  isUUID, isBase64, isHexString, isBinaryString
+} from 'toolbox-x/guards';
+```
+
+## isEmail
+
+Validates if a string conforms to standard email format.
+
+### Signature
+
+```typescript
+isEmail(value: unknown): value is string
+```
+
+### Description
+
+Uses comprehensive regex pattern covering:
+
+- Local part (before @)
+- Domain part (after @)
+- Top-level domain (2+ characters)
+- Common special characters (., %, +, -)
+
+### Examples
+
+```typescript pg
+import { isEmail } from 'toolbox-x/guards';
+
+// Valid emails
+console.log(isEmail('user@example.com'));      // true
+console.log(isEmail('first.last@sub.domain.co.uk')); // true
+console.log(isEmail('user+filter@example.org')); // true
+
+// Invalid emails
+console.log(isEmail('plainstring'));           // false
+console.log(isEmail('user@.com'));             // false
+console.log(isEmail('@example.com'));          // false
+console.log(isEmail('user@domain'));           // false
+
+// Type narrowing
+const input: unknown = 'test@example.com';
+if (isEmail(input)) {
+  const [local, domain] = input.split('@'); // input is string
+
+  console.log({ local, domain })
+}
+```
+
+---
+
+## isEmailArray
+
+Validates that all elements in an array are valid email strings. Combines array and email validation in single operation.
+
+### Signature
+
+```typescript
+isEmailArray(value: unknown): value is string[]
+```
+
+### Examples
+
+```typescript pg
+import { isEmailArray } from 'toolbox-x/guards';
+
+// Valid cases
+console.log(isEmailArray(['a@b.com', 'x@y.org'])); // true
+console.log(isEmailArray([]));                     // true (empty array considered valid)
+
+// Invalid cases
+console.log(isEmailArray(['invalid', 'a@b.com'])); // false
+console.log(isEmailArray('not an array'));         // false
+```
+
+```ts
+// Practical usage
+function processContacts(emails: unknown) {
+  if (isEmailArray(emails)) {
+    return emails.map(sendNewsletter); // emails is string[]
+  }
+  throw new Error('Invalid email list');
+}
+```
+
+---
+
+## isUUID
+
+Validates if a value is a string representing a UUID of **version 1–8** (`RFC4122`).
+
+### Signature
+
+```typescript
+isUUID(value: unknown): value is UUID<UUIDVersion>
+```
+
+### Description
+
+It checks:
+
+- 8-4-4-4-12 hexadecimal digit pattern.
+- Version marker in the third group (`1-8`).
+- Variant marker in the fourth group (`8`, `9`, `a`, or `b`).
+
+<Callout type="info" title="Info">
+- It checks `uuid` in **case-insensitive** mode.
+- It narrows down the `value` to a [**branded**](/docs/types/utility-types#brandedt-b) type `UUID<UUIDVersion>` where `UUIDVersion` is the UUID version (`v1`–`v8`).
+</Callout>
+
+### Examples
+
+```typescript pg
+import { isUUID } from 'toolbox-x/guards';
+
+// Valid UUIDs
+console.log(isUUID('d9428888-122b-11e8-b642-0ed5f89f718b')); // true (v1)
+console.log(isUUID('6ba7b810-9dad-11d1-80b4-00c04fd430c8')); // true (v1)
+console.log(isUUID('550e8400-e29b-41d4-a716-446655440000')); // true (v4)
+
+// Invalid formats
+console.log(isUUID('not-a-uuid'));             // false
+console.log(isUUID('12345678-1234-1234-1234-123456789abc')); // false (invalid version)
+console.log(isUUID(123456789));                // false
+```
+
+```ts
+// Practical usage
+interface Resource {
+  id: UUID<UUIDVersion>;
+  name: string;
+}
+
+function validateResource(res: unknown): res is Resource {
+  return isObject(res) && isUUID(res.id) && isString(res.name);
+}
+```
+
+### Type Definitions
+
+```ts
+/** UUID versions as string from `v1-v8` */
+type UUIDVersion = `v1` | `v2` | `v3` | `v4` | `v5` | `v6` | `v7` | `v8`;
+
+/** General 5 parts UUID string type */
+type $UUID = `${string}-${string}-${string}-${string}-${string}`;
+
+/** General 5 parts UUID string as branded type */
+type UUID<V extends UUIDVersion> = Branded<$UUID, V>;
+```
+
+### Notes
+
+- Supports UUID **versions 1–8**.
+- Returns a branded type to help enforce version-specific UUID typing in TypeScript.
+- Case-insensitive validation.
+
+---
+
+## isURL
+
+Validates if a string is a properly formatted URL using the browser's `URL` constructor.
+
+### Signature
+
+```typescript
+isURL(value: unknown): value is string
+```
+
+### Description
+
+It checks:
+
+- Valid protocol (http/https/ftp etc.)
+- Proper domain structure
+- Optional path/query/hash components
+
+<Callout type="info" title="Info">
+- This guard uses the JavaScript's `URL` constructor to validate the URL.
+- If the `URL` constructor throws an error, the guard returns `false`.
+</Callout>
+
+### Examples
+
+```typescript pg
+import { isURL } from 'toolbox-x/guards';
+
+// Valid URLs
+console.log(isURL('https://example.com'));     // true
+console.log(isURL('ftp://files.test/path?q=1')); // true
+
+// Invalid URLs
+console.log(isURL('example.com'));             // false (missing protocol)
+console.log(isURL('http://'));                 // false (empty domain)
+console.log(isURL('//cdn.domain/image.png'));  // false (`URL` constructor cannot parse it)
+console.log(isURL(123456));                    // false
+```
+
+```ts
+// Safe URL creation
+function createLink(href: unknown) {
+  return isURL(href) ? new URL(href) : null;
+}
+```
+
+---
+
+## isBase64
+
+Validates if a string is properly Base64 encoded. Accepts both standard and URL-safe variants including padding.
+
+### Signature
+
+```typescript
+isBase64(value: unknown): value is string
+```
+
+### Examples
+
+```typescript pg
+import { isBase64 } from 'toolbox-x/guards';
+
+// Valid Base64
+console.log(isBase64('SGVsbG8gd29ybGQ='));     // true
+console.log(isBase64('YWJjMTIz'));             // true
+console.log(isBase64('AAECAwQF'));             // true
+
+// Invalid cases
+console.log(isBase64('Not base64!'));          // false
+console.log(isBase64('SGVsbG8gd29ybGQ'));      // false (missing padding)
+console.log(isBase64({}));                     // false
+```
+
+```ts
+// Decoding safely
+function decodeBase64(input: unknown) {
+  return isBase64(input) ? atob(input) : null;
+}
+```
+
+---
+
+## isHexString
+
+Validates if a string is a valid hexadecimal byte sequence. Accepts both spaced and un-spaced formats, with flexible whitespace between bytes.
+
+### Signature
+
+```typescript
+isHexString(value: unknown): value is string
+```
+
+### Examples
+
+```typescript pg
+import { isHexString } from 'toolbox-x/guards';
+
+// Valid hexadecimal strings
+console.log(isHexString('48656c6c6f20776f726c64'));  // true (un-spaced)
+console.log(isHexString('48 65 6c 6c 6f 20 77 6f 72 6c 64')); // true (spaced)
+console.log(isHexString('0A1B2C3D')); // true (uppercase)
+console.log(isHexString('0a1b2c3d')); // true (lowercase)
+
+// Invalid cases
+console.log(isHexString('0x123ABC')); // false (contains '0x' prefix)
+console.log(isHexString('GHIJKL')); // false (non-hex characters)
+console.log(isHexString(12345));  // false (not a string)
+```
+
+```ts
+// Safe conversion
+function hexToBytes(input: unknown) {
+  return isHexString(input) 
+    ? Buffer.from(input.replace(/\s+/g, ''), 'hex') 
+    : null;
+}
+```
+
+---
+
+## isBinaryString
+
+Validates if a string is a valid binary byte sequence. Accepts both spaced and un-spaced formats, with flexible whitespace between bytes. Each byte must consist of exactly 8 bits.
+
+### Signature
+
+```typescript
+isBinaryString(value: unknown): value is string
+```
+
+### Examples
+
+```typescript pg
+import { isBinaryString } from 'toolbox-x/guards';
+
+// Valid binary strings
+console.log(isBinaryString('0100100001100101011011000110110001101111'));  // true (un-spaced)
+console.log(isBinaryString('01001000 01100101 01101100 01101100 01101111'));  // true (spaced)
+console.log(isBinaryString('00000000 11111111')); // true
+
+// Invalid cases
+console.log(isBinaryString('010010000110010101101100011011000110111')); // false (31 bits)
+console.log(isBinaryString('01021000 01100101')); // false (contains '2')
+console.log(isBinaryString({}));  // false (not a string)
+```
+
+```ts
+// Safe processing
+function binaryToDecimal(input: unknown) {
+  return isBinaryString(input) 
+    ? parseInt(input.replace(/\s+/g, ''), 2) 
+    : null;
+}
+```
+
+---
+
+## isPhoneNumber
+
+Validates international phone numbers using E.164 format standard.
+
+### Signature
+
+```typescript
+isPhoneNumber(value: unknown): value is string
+```
+
+### Description
+
+It checks:
+
+- Optional leading +
+- Country code (1-15 digits)
+- Subscriber number
+
+### Examples
+
+```typescript pg
+import { isPhoneNumber } from 'toolbox-x/guards';
+
+// Valid numbers
+console.log(isPhoneNumber('+1234567890'));     // true
+console.log(isPhoneNumber('11234567890'));     // true
+console.log(isPhoneNumber('+441234567890'));   // true
+
+// Invalid numbers
+console.log(isPhoneNumber('123-456-7890'));    // false (contains separators)
+console.log(isPhoneNumber('1800FLOWERS'));     // false (contains letters)
+console.log(isPhoneNumber('+123'));            // false (too short)
+```
+
+```ts
+// Formatting example
+function formatPhone(input: unknown) {
+  if (isPhoneNumber(input)) {
+    return input.startsWith('+') ? input : `+${input}`;
+  }
+  return null;
+}
+```
+
+---
+
+## isIPAddress
+
+Validates IP addresses.
+
+### Signature
+
+```typescript
+isIPAddress(value: unknown): value is string
+```
+
+### Description
+
+Validates both IPv4 and IPv6 address formats including:
+
+- IPv4 dotted notation (192.168.1.1)
+- IPv6 hexadecimal notation (2001:0db8:85a3::8a2e:0370:7334)
+- Compressed IPv6 forms
+- Does NOT validate range/scope
+
+### Examples
+
+```typescript pg
+import { isIPAddress } from 'toolbox-x/guards';
+
+// Valid IPs
+console.log(isIPAddress('192.168.1.1'));       // true
+console.log(isIPAddress('::1'));               // true (IPv6 localhost)
+console.log(isIPAddress('2001:db8::8a2e:370:7334')); // true
+console.log(isIPAddress('256.300.1.1'));       // true
+
+// Invalid IPs
+console.log(isIPAddress('localhost'));         // false
+console.log(isIPAddress('192.168.1'));         // false (incomplete)
+```
+
+```ts
+// Usage
+function blockIP(ip: unknown) {
+  if (isIPAddress(ip)) {
+    firewall.addBlock(ip);  // ip is string
+  }
+}
+```
