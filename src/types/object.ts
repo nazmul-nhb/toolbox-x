@@ -15,10 +15,10 @@ import type {
 } from 'src/types/utils';
 
 /** - Generic object with `unknown` value */
-export type StrictObject = Record<PropertyKey, unknown>;
+export type StrictObject = Record<string, unknown>;
 
 /** - Generic object but with `any` value */
-export type GenericObject = Record<PropertyKey, any>;
+export type GenericObject = Record<string, any>;
 
 /** - A tuple of generic objects */
 export type Objects = readonly [GenericObject, ...GenericObject[]];

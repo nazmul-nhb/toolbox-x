@@ -1,0 +1,374 @@
+---
+title: Object Type Guards
+description: Collection of type-safe utility functions for runtime type checking of objects.
+---
+
+## Generic Objects
+
+Collection of type-safe utility functions for runtime type checking of objects (including built-in JS objects). These guards enable TypeScript type narrowing and runtime validation.
+
+### Import
+
+```typescript
+import { isObject, isNotEmptyObject, isObjectWithKeys, isEmptyObject } from 'toolbox-x/guards';
+```
+
+### Type Definitions
+
+```typescript
+/** Generic object with any value */
+type GenericObject = Record<string, any>;;
+```
+
+### isObject
+
+Determines if a value is a plain JavaScript object (excluding null and arrays). Properly narrows TypeScript type to object with string keys.
+
+#### Signature
+
+```typescript
+isObject(value: unknown): value is GenericObject
+```
+
+#### Examples
+
+```typescript pg
+import { isString, isObject } from "toolbox-x/guards";
+
+// Object detection
+console.log(isObject({}));                         // true
+console.log(isObject({ key: 'value' }));           // true
+console.log(isObject(Object.create(null)));        // true (prototype-less objects)
+console.log(isObject(new Date()));                 // true (object wrapper)
+
+// Non-object values
+console.log(isObject([]));                                    // false 
+console.log(isObject(null));                                  // false  
+console.log(isObject(42));                                    // false
+console.log(isObject('text'));                                // false
+console.log(isObject(() => {}));                              // false (functions are objects but excluded)
+
+// Type narrowing
+const config: unknown = { env: 'production' };
+
+if (isObject(config)) {
+  // config is now GenericObject
+  if (isString(config.env)) {
+    // config.env is string
+    console.log({ ENV: config.env });
+  }
+}
+```
+
+#### Notes
+
+- Returns `true` for any object type except arrays
+- Functions are intentionally excluded despite being objects
+- Properly handles edge cases like `Object.create(null)`
+
+### isNotEmptyObject
+
+Validates that a value is both an object and contains at least one enumerable property. Useful for checking non-empty configurations or data payloads.
+
+#### Signature
+
+```typescript
+isNotEmptyObject(value: unknown): value is GenericObject
+```
+
+#### Examples
+
+```typescript pg
+import { isNotEmptyObject } from "toolbox-x/guards";
+
+// With properties
+console.log(isNotEmptyObject({ a: 1 }));    // true
+console.log(isNotEmptyObject({ '': 0 }));   // true (empty string key counts)
+
+// Empty cases  
+console.log(isNotEmptyObject({}));          // false
+console.log(isNotEmptyObject(Object.create(null))); // false
+console.log(isNotEmptyObject({ [Symbol('key')]: 'value' })); // false (symbol keys not enumerable)
+```
+
+```ts
+// Practical usage
+function processConfig(config: unknown) {
+  if (isNotEmptyObject(config)) {
+    // Safe to access properties
+    return {
+      ...defaults,
+      ...config
+    };
+  }
+  throw new Error('Configuration must be a non-empty object');
+}
+```
+
+#### Use Cases
+
+- Validating API response objects
+- Checking for non-empty configurations
+- Ensuring payloads contain data
+- Input validation for object parameters
+
+### isObjectWithKeys
+
+Checks if a value is an object containing all specified keys. The most strict object validation guard, ensuring both the object shape and required properties.
+
+#### Signature
+
+```typescript
+isObjectWithKeys<Key extends string>(value: unknown, keys: ValidArray<Key>): value is { [K in Key]: unknown }
+```
+
+#### Examples
+
+```typescript pg
+import { isObjectWithKeys, isString, isNumber } from 'toolbox-x/guards';
+
+// Basic usage
+const value = { name: 'Alice', age: 30 };
+
+console.log(isObjectWithKeys(value, ['name', 'age']));  // true
+console.log(isObjectWithKeys(value, ['email']));        // false
+
+// With interface
+interface Person {
+  name: string;
+  age: number;
+}
+
+function validatePerson(data: unknown): Person {
+  if (
+    isObjectWithKeys(data, ['name', 'age']) &&
+    isString(data.name) &&
+    isNumber(data.age)
+  ) {
+    const { name, age } = data;
+
+    return { name, age }; // data is now Person
+  } else {
+    // throw new Error('Invalid person data');
+  }
+}
+
+console.log(validatePerson({ name: 'Alice', age: 30 }));
+console.log(validatePerson({ name: 'Alice' }));
+
+// Edge cases
+console.log(isObjectWithKeys({}, ['any']));            // false
+console.log(isObjectWithKeys(null, ['key']));          // false
+console.log(isObjectWithKeys({ [Symbol()]: 1 }, ['key'])); // false
+```
+
+#### Notes
+
+- Only checks for presence of keys, not their types
+- Combine with other guards for complete validation
+- Works with both string and symbol keys in the check
+
+### isEmptyObject
+
+Determines if a value is an object with no enumerable properties of its own. Useful for checking default/empty states.
+
+#### Signature
+
+```typescript
+isEmptyObject(value: unknown): boolean
+```
+
+#### Examples
+
+```typescript pg
+import { isEmptyObject } from "toolbox-x/guards";
+
+// Empty objects
+console.log(isEmptyObject({}));              // true
+console.log(isEmptyObject(Object.create(null))); // true
+
+// Non-empty cases
+console.log(isEmptyObject({ key: undefined })); // false
+console.log(isEmptyObject(new Date()));       // false (has prototype properties)
+
+// With Object.create
+const obj = Object.create({ inherited: 'prop' });
+console.log(isEmptyObject(obj));             // true (only checks own properties)
+```
+
+#### Use Cases
+
+- Checking for empty state objects
+- Default parameter handling
+- Validating cleaned or stripped objects
+- Difference detection in state management
+
+### Aliases
+
+| Main Export        | Alias Names     |
+| ------------------ | --------------- |
+| `isEmptyObject`    | `isObjectEmpty` |
+| `isNotEmptyObject` | `isValidObject` |
+
+---
+
+## Built-in Objects
+
+### isSet
+
+Checks if a value is a Set object. Works with native Set and cross-realm instances.
+
+#### Signature
+
+```typescript
+isSet<T>(value: unknown): value is Set<T>
+```
+
+#### Examples
+
+```typescript pg
+import { isSet } from 'toolbox-x/guards';
+
+// Set detection
+console.log(isSet(new Set()));               // true
+console.log(isSet(new Set([1, 2, 3])));      // true
+
+// Non-sets
+console.log(isSet([]));                      // false
+console.log(isSet({ size: 0 }));             // false (Set-like)
+
+// Type narrowing
+const collection: unknown = new Set(['a', 'b']);
+if (isSet<string>(collection)) {
+  console.log([...collection].join(', ')); // a, b
+}
+```
+
+#### Use Cases
+
+- Collection type validation
+- Data processing pipelines
+- Set operations validation
+- Cross-window communication
+
+### isMap
+
+Validates if a value is a Map object. Works with native Map and cross-realm instances.
+
+#### Signature
+
+```typescript
+isMap<K, V>(value: unknown): value is Map<K, V>
+```
+
+#### Examples
+
+```typescript pg
+import { isMap } from 'toolbox-x/guards';
+
+// Map detection
+console.log(isMap(new Map()));               // true
+console.log(isMap(new Map([['key', 'value']]))); // true
+
+// Non-maps
+console.log(isMap({}));                      // false
+console.log(isMap(new Set()));               // false
+
+// Type-safe usage
+const storage: unknown = new Map<string, number>();
+if (isMap<string, number>(storage)) {
+  storage.set('count', 42);     // properly typed
+}
+```
+
+#### Notes
+
+- Detects both empty and populated Maps
+- Works across different JavaScript realms
+- Preserves key-value type information
+
+### isRegExp
+
+Checks if a value is a RegExp object. Handles both literal and constructor-created regular expressions.
+
+#### Signature
+
+```typescript
+isRegExp(value: unknown): value is RegExp
+```
+
+#### Examples
+
+```typescript pg
+import { isRegExp } from 'toolbox-x/guards';
+
+// RegExp detection
+console.log(isRegExp(/test/i));             // true
+console.log(isRegExp(new RegExp('test')));  // true
+
+// Non-regex
+console.log(isRegExp('test'));              // false
+console.log(isRegExp({ test: true }));      // false
+
+// Type-safe operations
+const pattern: unknown = /[a-z]+/;
+if (isRegExp(pattern)) {
+  const result = pattern.test('abc'); // safely callable
+}
+```
+
+#### Use Cases
+
+- Input validation patterns
+- Dynamic regex construction
+- Serialization/deserialization
+- Cross-window communication
+
+### isError
+
+Determines if a value is an Error object. Works with native errors and custom error classes.
+
+#### Signature
+
+```typescript
+isError(value: unknown): value is Error
+```
+
+#### Examples
+
+```typescript
+// Error detection
+console.log(isError(new Error()));          // true
+console.log(isError(new TypeError()));      // true
+console.log(isError(new CustomError()));    // true (if extends Error)
+
+// Non-errors
+console.log(isError('error message'));      // false
+console.log(isError({ message: 'error' })); // false
+```
+
+```ts
+// Error handling
+try {
+  // ...
+} catch (e) {
+  if (isError(e)) {
+    console.error(e.message);  // safely accessible
+    Sentry.captureException(e);
+  } else {
+    console.error('Unknown error:', e);
+  }
+}
+```
+
+#### Notes
+
+- Works with all Error subclasses
+- Properly handles error-like objects
+- Essential for robust error handling
+
+### Aliases
+
+| Main Export | Alias Names           |
+| ----------- | --------------------- |
+| `isRegExp`  | `isRegularExpression` |

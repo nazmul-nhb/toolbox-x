@@ -21,10 +21,12 @@ import type {
 
 /**
  * * Converts a numeric value into its corresponding English word representation.
- * @warning ***Supports numeric values up to `10e19` or `10^20` (one hundred quintillion).***
- * @warning ***Decimal values are ignored; only the integer part is converted.***
  * @param number - The number to convert into words.
  * @returns The number converted in words.
+ *
+ * @warning
+ * - Supports numeric values up to `10e19` (`10^20`) (one hundred quintillion).
+ * - Decimal values are ignored; only the integer part is converted.
  */
 export function numberToWords(num: Numeric): string {
 	let number = Math.trunc(Number(num));
