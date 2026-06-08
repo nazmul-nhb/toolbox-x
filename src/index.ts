@@ -140,7 +140,6 @@ export {
 	flattenArray,
 	getLastArrayElement,
 	isInvalidOrEmptyArray,
-	isInvalidOrEmptyArray as isValidEmptyArray,
 	shuffleArray,
 } from 'src/array/basics';
 

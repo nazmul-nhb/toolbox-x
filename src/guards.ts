@@ -1,3 +1,4 @@
+export { isInvalidOrEmptyArray } from 'src/array/basics';
 // ! Colors Guards
 export { isCSSColor, isHex6, isHex8, isHSL, isHSLA, isRGB, isRGBA } from 'src/colors/guards';
 // ! Date & Time Guards
@@ -103,6 +104,7 @@ export {
 	isOdd as isOddNumber,
 	isPerfectSquare,
 } from 'src/number/guards';
+export { isPrime, isPrime as isPrimeNumber } from 'src/number/prime';
 export {
 	isCamelCase,
 	isEmojiOnly,
@@ -111,3 +113,4 @@ export {
 	isPascalCase,
 	isSnakeCase,
 } from 'src/string/guards';
+export { isDeepEqual } from 'src/utils/index';
