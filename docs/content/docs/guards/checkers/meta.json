@@ -1,0 +1,6 @@
+{
+	"title": "Checker Functions",
+	"description": "Predicate functions to check and compare values",
+	"pages": ["is-deep-equal", "..."],
+	"icon": "SquareCheckBig"
+}
