@@ -100,6 +100,7 @@ export {
 	isFibonacci as isPartOfFibonacci,
 	isFibonacci as isPartOfFibonacciSeries,
 	isMultiple,
+	isMultiple as isMultipleOf,
 	isOdd,
 	isOdd as isOddNumber,
 	isPerfectSquare,
