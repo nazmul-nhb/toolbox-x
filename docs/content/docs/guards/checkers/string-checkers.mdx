@@ -1,0 +1,189 @@
+---
+title: String Checkers
+description: Predicate functions to check/compare strings.
+---
+
+Predicate functions to check/compare strings. These functions return `true` or `false`.
+
+## isCamelCase
+
+Checks if a string follows the **camelCase** format.
+
+### Function Signature
+
+```ts
+isCamelCase(str: string): boolean;
+```
+
+### Parameters
+
+- **`str`**: The string to check.
+
+### Returns
+
+Returns `true` if the string is in camelCase, otherwise `false`.
+
+### Example
+
+```ts pg
+import { isCamelCase } from 'toolbox-x/guards';
+
+console.log(isCamelCase('camelCase')); // true
+console.log(isCamelCase('CamelCase')); // false
+```
+
+---
+
+## isPascalCase
+
+Checks if a string follows the **PascalCase** format.
+
+### Function Signature
+
+```ts
+isPascalCase(str: string): boolean;
+```
+
+### Parameters
+
+- **`str`**: The string to check.
+
+### Returns
+
+Returns `true` if the string is in PascalCase, otherwise `false`.
+
+### Example
+
+```ts pg
+import { isPascalCase } from 'toolbox-x/guards';
+
+console.log(isPascalCase('PascalCase')); // true
+console.log(isPascalCase('pascalCase')); // false
+```
+
+---
+
+## isSnakeCase
+
+Checks if a string follows the **snake_case** format.
+
+### Function Signature
+
+```ts
+isSnakeCase(str: string): boolean;
+```
+
+### Parameters
+
+- **`str`**: The string to check.
+
+### Returns
+
+Returns `true` if the string is in snake_case, otherwise `false`.
+
+### Example
+
+```ts pg
+import { isSnakeCase } from 'toolbox-x/guards';
+
+console.log(isSnakeCase('snake_case')); // true
+console.log(isSnakeCase('Snake_Case')); // false
+```
+
+---
+
+## isKebabCase
+
+Checks if a string follows the **kebab-case** format.
+
+### Function Signature
+
+```ts
+isKebabCase(str: string): boolean;
+```
+
+### Parameters
+
+- **`str`**: The string to check.
+
+### Returns
+
+Returns `true` if the string is in kebab-case, otherwise `false`.
+
+### Example
+
+```ts pg
+import { isKebabCase } from 'toolbox-x/guards';
+
+console.log(isKebabCase('kebab-case')); // true
+console.log(isKebabCase('Kebab-Case')); // false
+```
+
+---
+
+## isPalindrome
+
+Checks if a string is a **palindrome** (reads the same backward as forward, ignoring case and non-alphanumeric characters).
+
+### Function Signature
+
+```ts
+isPalindrome: (input: string): boolean;
+```
+
+### Parameters
+
+- **`input`**: The string to check.
+
+### Returns
+
+Returns `true` if the string is a palindrome, otherwise `false`.
+
+### Example
+
+```ts pg
+import { isPalindrome } from 'toolbox-x/guards';
+
+console.log(isPalindrome('Racecar')); // true
+console.log(isPalindrome('A man, a plan, a canal: Panama')); // true
+console.log(isPalindrome('hello')); // false
+```
+
+### Dependencies
+
+- Uses `reverseString` internally to perform the reversal comparison.
+
+---
+
+## isEmojiOnly
+
+Checks if a string contains **only emojis**.
+
+### Function Signature
+
+```ts
+isEmojiOnly(str: string): boolean;
+```
+
+### Parameters
+
+- **`str`**: The input string to check.
+
+### Returns
+
+Returns `true` if the string contains only emojis, otherwise `false`.
+
+### Example
+
+```ts pg
+import { isEmojiOnly } from 'toolbox-x/guards';
+
+console.log(isEmojiOnly('🎉🔥')); // true
+console.log(isEmojiOnly('🎉 text')); // false
+console.log(isEmojiOnly('')); // false
+```
+
+### Notes
+
+- This uses the Unicode `\p{Emoji}` property from RegExp Unicode property escapes.
+- The `u` flag is required for proper Unicode handling.

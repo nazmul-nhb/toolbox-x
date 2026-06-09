@@ -66,6 +66,8 @@ export const maskString = (input: string, options?: MaskOptions): string => {
  * * Reverses a given string.
  * @param input - The string to reverse.
  * @returns The reversed string.
+ *
+ * @remarks It {@link trimString trims} the whitespace of the input string before reversing it.
  */
 export const reverseString = (input: string): string => {
 	const trimmedString = trimString(input);

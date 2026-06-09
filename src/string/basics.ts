@@ -104,7 +104,7 @@ export function generateRandomID(options?: RandomIdOptions): string {
 }
 
 /**
- * * Trims all the words in a string.
+ * * Trims all whitespaces in a string.
  *
  * @param input The string to trim.
  * @returns Trimmed string.
@@ -112,7 +112,7 @@ export function generateRandomID(options?: RandomIdOptions): string {
 export function trimString(input: string): string;
 
 /**
- * * Trims all the words in an array of strings.
+ * * Trims all whitespaces in an array of strings.
  *
  * @param input The array of strings to trim.
  * @returns Trimmed array of strings.
@@ -120,7 +120,7 @@ export function trimString(input: string): string;
 export function trimString(input: string[]): string[];
 
 /**
- * * Trims all the words in a string or an array of strings.
+ * * Trims all whitespaces in a string or an array of strings.
  *
  * @param input String or array of strings.
  * @returns Trimmed string or array of strings.
