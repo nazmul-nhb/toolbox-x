@@ -1,6 +1,6 @@
 {
 	"title": "Array Guards",
-	"icon": "ListCheck",
+	"icon": "ListTodo",
 	"pages": ["is-array", "is-valid-array", "is-array-of-type", "..."],
 	"description": "Type guards for array validation."
 }
