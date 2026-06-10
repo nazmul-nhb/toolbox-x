@@ -1,0 +1,150 @@
+---
+title: Array Split Utilities
+description: Split Arrays using multiple methods.
+---
+
+Split Arrays utilities provide flexible ways to divide and group arrays based on different criteria, supporting both simple chunking and complex property-based grouping with nested path support.
+
+## splitArray
+
+The `splitArray` function divides an array into smaller sub-arrays (chunks) of a specified size. It's useful when you need to batch process or paginate data.
+
+### Function Signature
+
+```typescript
+function splitArray<T>(arr: T[], chunkSize: number): T[][]
+```
+
+### Parameters
+
+- `arr` (`T[]`): The array to split into chunks.
+- `chunkSize` (`number`): The maximum size of each chunk.
+
+### Returns
+
+- `T[][]`: A new array where each item is a chunked sub-array of the original.
+
+### Example
+
+```ts pg
+import { splitArray } from 'toolbox-x';
+
+const splitted = splitArray([1, 2, 3, 4, 5, 6, 7], 3);
+console.log(splitted);
+// → [[1, 2, 3], [4, 5, 6], [7]]
+```
+
+<Callout type="idea" title="Note">
+This function is ideal for handling pagination, batching API calls, or distributing data evenly in UI components like grid layouts.
+</Callout>
+
+---
+
+## splitArrayByProperty
+
+The `splitArrayByProperty` function groups an array of objects by a specified property value, returning an array of grouped sub-arrays. It supports **dot notation** for nested properties, making it useful for deeply structured object collections.
+
+### Function Signature
+
+```ts
+function splitArrayByProperty<T extends GenericObject, P extends NestedPrimitiveKey<T>>(source: Maybe<T[]>, property: P): T[][]
+```
+
+### Parameters
+
+- `source` (`T[] | undefined`): The array of objects to group (handles `undefined` input gracefully)
+- `property` (`P`): The property to group by — supports nested paths in dot notation (e.g., `'user.city'`)
+
+### Returns
+
+- `T[][]`: An array of grouped sub-arrays where objects share the same resolved property value
+
+### Examples
+
+```ts pg tab="Basic Grouping"
+import { splitArrayByProperty } from 'toolbox-x';
+
+const inventory = [
+  { type: 'fruit', name: 'apple' },
+  { type: 'vegetable', name: 'carrot' },
+  { type: 'fruit', name: 'banana' }
+];
+
+const result = splitArrayByProperty(inventory, 'type');
+console.log(result);
+// → [
+//     [{ type: 'fruit', name: 'apple' }, { type: 'fruit', name: 'banana' }],
+//     [{ type: 'vegetable', name: 'carrot' }]
+//   ]
+```
+
+```ts pg tab="Grouping by Nested Property"
+import { splitArrayByProperty } from 'toolbox-x';
+
+const users = [
+  { profile: { city: 'Dhaka' }, name: 'Alice' },
+  { profile: { city: 'Dhaka' }, name: 'Bob' },
+  { profile: { city: 'Chittagong' }, name: 'Carol' }
+];
+
+const result = splitArrayByProperty(users, 'profile.city');
+console.log(result);
+// → [
+//     [{ profile: { city: 'Dhaka' }, name: 'Alice' }, { profile: { city: 'Dhaka' }, name: 'Bob' }],
+//     [{ profile: { city: 'Chittagong' }, name: 'Carol' }]
+//   ]
+```
+
+```ts pg tab="Handling Special Values"
+import { splitArrayByProperty } from 'toolbox-x';
+
+const data = [
+  { category: 'A', value: 1 },
+  { category: null, value: 2 },
+  { category: 'A', value: 3 },
+  { category: undefined, value: 4 }
+];
+
+const result = splitArrayByProperty(data, 'category');
+console.log(result);
+// → [
+//     [{ category: 'A', value: 1 }, { category: 'A', value: 3 }],
+//     [{ category: null, value: 2 }, { category: undefined, value: 4 }]
+//   ]
+```
+
+### Key Features
+
+1. **Dot Notation Support**: Supports nested object paths like `'user.profile.city'`
+2. **Null/Undefined Handling**: Groups null and undefined values under a reserved key
+3. **Type Safe**: Maintains TypeScript type information for grouped items
+4. **Empty Input Handling**: Returns empty array for invalid/empty input
+5. **String Conversion**: Converts grouping keys to strings to ensure consistent object indexing
+
+### Comparison with `splitArray`
+
+| Feature        | splitArray          | splitArrayByProperty       |
+| -------------- | ------------------- | -------------------------- |
+| Input Type     | Any array           | Array of objects           |
+| Grouping Logic | Fixed chunk size    | By (nested) property value |
+| Null/undefined | Preserved in chunks | Grouped under special key  |
+| Return Order   | Original order      | Grouped by resolved key    |
+
+### Use Cases
+
+- Organizing API response data by categories or nested metadata
+- Preparing deeply nested data for grouped UI components
+- Aggregating data for reporting and analytics
+- Transforming structures for grouped charts or tables
+- Grouping objects by region, status, or user-defined tags
+
+<Callout type="info" title="Note">
+- For optimal TypeScript usage, ensure your objects properly type the property you're grouping by
+- Dot-notation support allows grouping by deeply nested properties like `'meta.stats.region'`
+- This function works best when grouping by primitive fields (string, number, boolean, null, undefined)
+- Object order within each group is preserved; order of group entries may vary
+</Callout>
+
+### Aliases
+
+- `groupArrayByProperty`
