@@ -475,10 +475,15 @@ export function deepParsePrimitives<T = unknown>(input: unknown): T {
  *
  * "Hi".toBang(); // "Hi!!!"
  */
-export function definePrototypeMethod<Proto extends object, Name extends keyof Proto>(
+export function definePrototypeMethod<
+	Proto extends object,
+	Name extends keyof Proto,
+	Args extends unknown[],
+	Return,
+>(
 	proto: Proto,
 	name: Name,
-	impl: (...args: unknown[]) => unknown,
+	impl: (...args: Args) => Return,
 	options?: ProtoMethodOptions
 ): void {
 	const alreadyExists = Object.hasOwn(proto, name);
@@ -486,7 +491,7 @@ export function definePrototypeMethod<Proto extends object, Name extends keyof P
 	if (alreadyExists && !options?.overwrite) return;
 
 	Object.defineProperty(proto, name, {
-		value: function (this: Proto, ...args: unknown[]) {
+		value: function (this: Proto, ...args: Args) {
 			return impl.apply(this, args);
 		},
 
