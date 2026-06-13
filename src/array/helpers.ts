@@ -1,6 +1,5 @@
 import { isNotEmptyObject } from 'src/guards/non-primitives';
 import { normalizeNumber } from 'src/number/utilities';
-import type { Maybe } from '../types/index';
 
 /**
  * Safely resolves nested keys from a dot-separated string like "user.city".
@@ -9,9 +8,9 @@ import type { Maybe } from '../types/index';
  * @param path - The nested path string (e.g. "user.city")
  * @returns The resolved value or `undefined`
  */
-export function _resolveNestedKey<T>(obj: T, path: string): Maybe<T> {
+export function _resolveNestedKey(obj: unknown, path: string): unknown {
 	if (isNotEmptyObject(obj)) {
-		return path?.split('.').reduce<T>((acc, key) => {
+		return path?.split('.').reduce<unknown>((acc, key) => {
 			if (isNotEmptyObject(acc)) {
 				return acc[key];
 			}
