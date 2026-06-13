@@ -270,7 +270,7 @@ export function formatTimePart(time: string, format?: TimeOnlyFormat): string {
 }
 
 /**
- * * Formats a date as a relative time string (e.g., "5m ago", "2h from now").
+ * * Formats a date as a relative time string (e.g., `"5m ago"`, `"2h from now"`).
  *
  * @param date - The date to format, which can be a `Date` object, a date string, or a timestamp number.
  * @param format - Optional format string for dates older than 7 days. Defaults to `'mmm D, yyyy hh:mm a'`.
