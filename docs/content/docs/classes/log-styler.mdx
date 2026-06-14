@@ -39,7 +39,7 @@ import { LogStyler } from 'toolbox-x/stylog';
 
 ### Usage
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 // Simple usage
@@ -63,7 +63,7 @@ customStyler.log('Custom styled message');
 
 Initializes with an optional array of initial styles.
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler(['red', 'bold']);
@@ -75,7 +75,7 @@ const styler = new LogStyler(['red', 'bold']);
 
 Add one or more styles and return a new `StylogChain` instance for chaining.
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
@@ -96,9 +96,9 @@ Apply `ANSI 16-color` styling to the text.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `color` | `Ansi16Color` | `ANSI 16-color` name (e.g., `'red'`, `'cyanBright'`). |
+| Parameter | Type          | Description                                           |
+| :-------- | :------------ | :---------------------------------------------------- |
+| `color`   | `Ansi16Color` | `ANSI 16-color` name (e.g., `'red'`, `'cyanBright'`). |
 
 ##### Returns
 
@@ -106,7 +106,7 @@ Apply `ANSI 16-color` styling to the text.
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
@@ -129,9 +129,9 @@ Apply a HEX color to the text foreground.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`). |
+| Parameter | Type     | Description                                         |
+| :-------- | :------- | :-------------------------------------------------- |
+| `code`    | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`). |
 
 ##### Returns
 
@@ -139,7 +139,7 @@ Apply a HEX color to the text foreground.
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
@@ -155,9 +155,9 @@ Apply a HEX color to the text background.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`). |
+| Parameter | Type     | Description                                         |
+| :-------- | :------- | :-------------------------------------------------- |
+| `code`    | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`). |
 
 ##### Returns
 
@@ -165,7 +165,7 @@ Apply a HEX color to the text background.
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
@@ -181,17 +181,17 @@ Apply an RGB color to the text foreground.
 
 ##### Parameters (String version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | RGB color string (e.g., `'rgb(11, 45, 1)'` or `'11, 45, 1'`). |
+| Parameter | Type     | Description                                                   |
+| :-------- | :------- | :------------------------------------------------------------ |
+| `code`    | `string` | RGB color string (e.g., `'rgb(11, 45, 1)'` or `'11, 45, 1'`). |
 
 ##### Parameters (Component version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `red` | `number` | Red component (`0-255`). |
-| `green` | `number` | Green component (`0-255`). |
-| `blue` | `number` | Blue component (`0-255`). |
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `red`     | `number` | Red component (`0-255`).   |
+| `green`   | `number` | Green component (`0-255`). |
+| `blue`    | `number` | Blue component (`0-255`).  |
 
 ##### Returns
 
@@ -199,7 +199,7 @@ Apply an RGB color to the text foreground.
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
@@ -216,17 +216,17 @@ Apply an RGB color to the text background.
 
 ##### Parameters (String version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | RGB color string (e.g., `'rgb(225, 169, 196)'` or `'225, 169, 196'`). |
+| Parameter | Type     | Description                                                           |
+| :-------- | :------- | :-------------------------------------------------------------------- |
+| `code`    | `string` | RGB color string (e.g., `'rgb(225, 169, 196)'` or `'225, 169, 196'`). |
 
 ##### Parameters (Component version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `red` | `number` | Red component (`0-255`). |
-| `green` | `number` | Green component (`0-255`). |
-| `blue` | `number` | Blue component (`0-255`). |
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `red`     | `number` | Red component (`0-255`).   |
+| `green`   | `number` | Green component (`0-255`). |
+| `blue`    | `number` | Blue component (`0-255`).  |
 
 ##### Returns
 
@@ -234,7 +234,7 @@ Apply an RGB color to the text background.
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
@@ -251,17 +251,17 @@ Apply an HSL color to the text foreground.
 
 ##### Parameters (String version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`). |
+| Parameter | Type     | Description                                                           |
+| :-------- | :------- | :-------------------------------------------------------------------- |
+| `code`    | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`). |
 
 ##### Parameters (Component version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `hue` | `number` | Hue component (`0-360`). |
+| Parameter    | Type                 | Description                               |
+| :----------- | :------------------- | :---------------------------------------- |
+| `hue`        | `number`             | Hue component (`0-360`).                  |
 | `saturation` | `number` or `string` | Saturation component (`0-100 or 0-100%`). |
-| `lightness` | `number` or `string` | Lightness component (`0-100 or 0-100%`). |
+| `lightness`  | `number` or `string` | Lightness component (`0-100 or 0-100%`).  |
 
 ##### Returns
 
@@ -269,7 +269,7 @@ Apply an HSL color to the text foreground.
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
@@ -286,17 +286,17 @@ Apply an HSL color to the text background.
 
 ##### Parameters (String version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`). |
+| Parameter | Type     | Description                                                           |
+| :-------- | :------- | :-------------------------------------------------------------------- |
+| `code`    | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`). |
 
 ##### Parameters (Component version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `hue` | `number` | Hue component (`0-360`). |
+| Parameter    | Type                 | Description                               |
+| :----------- | :------------------- | :---------------------------------------- |
+| `hue`        | `number`             | Hue component (`0-360`).                  |
 | `saturation` | `number` or `string` | Saturation component (`0-100 or 0-100%`). |
-| `lightness` | `number` or `string` | Lightness component (`0-100 or 0-100%`). |
+| `lightness`  | `number` or `string` | Lightness component (`0-100 or 0-100%`).  |
 
 ##### Returns
 
@@ -304,7 +304,7 @@ Apply an HSL color to the text background.
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
@@ -321,9 +321,9 @@ Returns the input as a styled string with ANSI escape codes.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `input` | `unknown` | Input to style before printing in the shell. |
+| Parameter   | Type                 | Description                                                              |
+| :---------- | :------------------- | :----------------------------------------------------------------------- |
+| `input`     | `unknown`            | Input to style before printing in the shell.                             |
 | `stringify` | `boolean` (optional) | Whether to apply `JSON.stringify()` before styling. Defaults to `false`. |
 
 ##### Returns
@@ -332,7 +332,7 @@ Returns the input as a styled string with ANSI escape codes.
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler(['red', 'bold']);
@@ -360,9 +360,9 @@ Returns styled tuple `[format, cssList]` for browser environments.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `input` | `unknown` | Input to style before printing in the console. |
+| Parameter   | Type                 | Description                                        |
+| :---------- | :------------------- | :------------------------------------------------- |
+| `input`     | `unknown`            | Input to style before printing in the console.     |
 | `stringify` | `boolean` (optional) | Whether to stringify objects. Defaults to `false`. |
 
 ##### Returns
@@ -375,7 +375,7 @@ Use this method when you need direct access to CSS styling for custom browser ou
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 // Basic usage in browser
@@ -404,14 +404,14 @@ Print styled input to the console.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `input` | `unknown` | Value to print to console/shell. |
+| Parameter   | Type                 | Description                                                               |
+| :---------- | :------------------- | :------------------------------------------------------------------------ |
+| `input`     | `unknown`            | Value to print to console/shell.                                          |
 | `stringify` | `boolean` (optional) | Whether to apply `JSON.stringify()` before printing. Defaults to `false`. |
 
 ##### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler(['red', 'bold']);
@@ -472,7 +472,7 @@ Prefixed with `bg`: `bgRed`, `bgBlue`, `bgGreen`, `bgYellow`, etc.
 
 ### Examples
 
-```ts pg
+```ts
 import { LogStyler } from 'toolbox-x/stylog';
 
 // Simple error styling

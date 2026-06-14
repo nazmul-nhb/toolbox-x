@@ -41,7 +41,7 @@ import { Stylog } from 'toolbox-x/stylog';
 
 ### Quick Usage
 
-```ts pg tab="Simple"
+```ts tab="Simple"
 import { Stylog } from 'toolbox-x/stylog';
 
 // Basic coloring
@@ -50,7 +50,7 @@ Stylog.green.log('Success message');
 Stylog.blue.log('Info message');
 ```
 
-```ts pg tab="Complex"
+```ts tab="Complex"
 import { Stylog } from 'toolbox-x/stylog';
 
 // Multiple styles
@@ -63,7 +63,7 @@ Stylog.green.italic.log({ data: 'value' }, true);
 Stylog.hex('#FF5733').bgRGB(50, 100, 150).bold.log('Custom colors');
 ```
 
-```ts pg tab="Reusable Bases"
+```ts tab="Reusable Bases"
 import { Stylog } from 'toolbox-x/stylog';
 
 // Create reusable style bases
@@ -132,9 +132,9 @@ Apply `ANSI 16-color` styling to the text.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `color` | `Ansi16Color` | `ANSI 16-color` name (e.g., `'red'`, `'cyanBright'`) |
+| Parameter | Type          | Description                                          |
+| :-------- | :------------ | :--------------------------------------------------- |
+| `color`   | `Ansi16Color` | `ANSI 16-color` name (e.g., `'red'`, `'cyanBright'`) |
 
 ##### Returns
 
@@ -171,9 +171,9 @@ Apply a HEX color to the text foreground.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`) |
+| Parameter | Type     | Description                                        |
+| :-------- | :------- | :------------------------------------------------- |
+| `code`    | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`) |
 
 ##### Returns
 
@@ -206,9 +206,9 @@ Apply a HEX color to the text background.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`) |
+| Parameter | Type     | Description                                        |
+| :-------- | :------- | :------------------------------------------------- |
+| `code`    | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`) |
 
 ##### Returns
 
@@ -241,17 +241,17 @@ Apply an RGB color to the text foreground.
 
 ##### Parameters (String version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | RGB color string (e.g., `'rgb(11, 45, 1)'` or `'11, 45, 1'`) |
+| Parameter | Type     | Description                                                  |
+| :-------- | :------- | :----------------------------------------------------------- |
+| `code`    | `string` | RGB color string (e.g., `'rgb(11, 45, 1)'` or `'11, 45, 1'`) |
 
 ##### Parameters (Component version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `red` | `number` | Red component (`0-255`) |
-| `green` | `number` | Green component (`0-255`) |
-| `blue` | `number` | Blue component (`0-255`) |
+| Parameter | Type     | Description               |
+| :-------- | :------- | :------------------------ |
+| `red`     | `number` | Red component (`0-255`)   |
+| `green`   | `number` | Green component (`0-255`) |
+| `blue`    | `number` | Blue component (`0-255`)  |
 
 ##### Returns
 
@@ -288,17 +288,17 @@ Apply an RGB color to the text background.
 
 ##### Parameters (String version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | RGB color string (e.g., `'rgb(225, 169, 196)'` or `'225, 169, 196'`) |
+| Parameter | Type     | Description                                                          |
+| :-------- | :------- | :------------------------------------------------------------------- |
+| `code`    | `string` | RGB color string (e.g., `'rgb(225, 169, 196)'` or `'225, 169, 196'`) |
 
 ##### Parameters (Component version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `red` | `number` | Red component (`0-255`) |
-| `green` | `number` | Green component (`0-255`) |
-| `blue` | `number` | Blue component (`0-255`) |
+| Parameter | Type     | Description               |
+| :-------- | :------- | :------------------------ |
+| `red`     | `number` | Red component (`0-255`)   |
+| `green`   | `number` | Green component (`0-255`) |
+| `blue`    | `number` | Blue component (`0-255`)  |
 
 ##### Returns
 
@@ -335,17 +335,17 @@ Apply an HSL color to the text foreground.
 
 ##### Parameters (String version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`) |
+| Parameter | Type     | Description                                                          |
+| :-------- | :------- | :------------------------------------------------------------------- |
+| `code`    | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`) |
 
 ##### Parameters (Component version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `hue` | `number` | Hue component (`0-360`) |
+| Parameter    | Type                 | Description                              |
+| :----------- | :------------------- | :--------------------------------------- |
+| `hue`        | `number`             | Hue component (`0-360`)                  |
 | `saturation` | `number` or `string` | Saturation component (`0-100 or 0-100%`) |
-| `lightness` | `number` or `string` | Lightness component (`0-100 or 0-100%`) |
+| `lightness`  | `number` or `string` | Lightness component (`0-100 or 0-100%`)  |
 
 ##### Returns
 
@@ -383,17 +383,17 @@ Apply an HSL color to the text background.
 
 ##### Parameters (String version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `code` | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`) |
+| Parameter | Type     | Description                                                          |
+| :-------- | :------- | :------------------------------------------------------------------- |
+| `code`    | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`) |
 
 ##### Parameters (Component version)
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `hue` | `number` | Hue component (`0-360`) |
+| Parameter    | Type                 | Description                              |
+| :----------- | :------------------- | :--------------------------------------- |
+| `hue`        | `number`             | Hue component (`0-360`)                  |
 | `saturation` | `number` or `string` | Saturation component (`0-100 or 0-100%`) |
-| `lightness` | `number` or `string` | Lightness component (`0-100 or 0-100%`) |
+| `lightness`  | `number` or `string` | Lightness component (`0-100 or 0-100%`)  |
 
 ##### Returns
 
@@ -431,9 +431,9 @@ Returns the input as a styled string with ANSI escape codes.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `input` | `unknown` | Input to style before printing in the shell |
+| Parameter   | Type                 | Description                                                             |
+| :---------- | :------------------- | :---------------------------------------------------------------------- |
+| `input`     | `unknown`            | Input to style before printing in the shell                             |
 | `stringify` | `boolean` (optional) | Whether to apply `JSON.stringify()` before styling. Defaults to `false` |
 
 ##### Returns
@@ -469,9 +469,9 @@ Chainable method that returns a styled tuple `[format, cssList]` for browser env
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `input` | `unknown` | Input to style before printing in the console |
+| Parameter   | Type                 | Description                                       |
+| :---------- | :------------------- | :------------------------------------------------ |
+| `input`     | `unknown`            | Input to style before printing in the console     |
 | `stringify` | `boolean` (optional) | Whether to stringify objects. Defaults to `false` |
 
 ##### Returns
@@ -519,9 +519,9 @@ Print the styled message to console.
 
 ##### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `input` | `unknown` | Value to print to console/shell |
+| Parameter   | Type                 | Description                                                              |
+| :---------- | :------------------- | :----------------------------------------------------------------------- |
+| `input`     | `unknown`            | Value to print to console/shell                                          |
 | `stringify` | `boolean` (optional) | Whether to apply `JSON.stringify()` before printing. Defaults to `false` |
 
 ##### Examples
@@ -548,7 +548,7 @@ Stylog.hex('#FF5733').bgRGB(50, 100, 150).bold.italic.log('Complex styling');
 
 ### Cross-Platform Support
 
-```ts pg tab="Node.js"
+```ts tab="Node.js"
 import { Stylog } from 'toolbox-x/stylog';
 
 // Uses ANSI escape codes for true-color support
@@ -559,7 +559,7 @@ Stylog.hex('#FF5733').log('Custom hex in Node.js');
 Stylog.rgb(255, 100, 50).log('Custom RGB in Node.js');
 ```
 
-```ts pg tab="Browser"
+```ts tab="Browser"
 import { Stylog } from 'toolbox-x/stylog';
 
 // Uses CSS styles via %c formatting
