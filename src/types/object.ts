@@ -453,3 +453,10 @@ export type $Record<Key extends PropertyKey = string, T = any> = {
 export type CountryDetails = Readonly<
 	$Record<'country_name' | 'country_code' | 'iso_code_short' | 'iso_code', string>
 >;
+
+/**
+ * Converts an object into a union of key-value tuples.
+ */
+export type ObjectEntry<T extends GenericObject> = {
+	[K in keyof T]: [K, T[K]];
+}[keyof T];

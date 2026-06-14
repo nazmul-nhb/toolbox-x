@@ -5,6 +5,8 @@
 		"includes": [
 			"**",
 			"!!**/dist",
+			"!!**/.next",
+			"!!**/.source",
 			"!!**/node_modules",
 			"!!__dump__",
 			"!!__ideas__",
@@ -24,7 +26,15 @@
 		"bracketSpacing": true,
 		"expand": "auto",
 		"useEditorconfig": true,
-		"includes": ["**", "!**/dist", "!**/node_modules", "!**/.estimator", "!**/*.md"]
+		"includes": [
+			"**",
+			"!**/dist",
+			"!!**/.next",
+			"!!**/.source",
+			"!**/node_modules",
+			"!**/.estimator",
+			"!**/*.md"
+		]
 	},
 	"linter": {
 		"enabled": true,
@@ -69,6 +79,7 @@
 				"useArrayLiterals": "error",
 				"useAsConstAssertion": "error",
 				"useBlockStatements": "off",
+				"useShorthandFunctionType": "off",
 				"useImportType": "warn",
 				"useConst": "warn"
 			},
@@ -135,6 +146,8 @@
 			"**",
 			"!node_modules/*",
 			"!dist/*",
+			"!!**/.next",
+			"!!**/.source",
 			"!coverage/*",
 			"!**/*.test.ts",
 			"!**/__tests__/**/*",

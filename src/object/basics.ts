@@ -1,5 +1,5 @@
 import { isNotEmptyObject } from 'src/guards/non-primitives';
-import type { DeepKeys, GenericObject } from 'src/types/object';
+import type { DeepKeys, GenericObject, ObjectEntry } from 'src/types/object';
 import type { Tuple } from 'src/types/utils';
 import { stableStringify } from 'src/utils/index';
 
@@ -141,4 +141,20 @@ export function extractObjectKeysDeep<T extends GenericObject>(obj: T): Array<De
 	}
 
 	return (isNotEmptyObject(obj) ? _getDeepKeys(obj) : []) as Array<DeepKeys<T>>;
+}
+
+/**
+ * * Extracts all the top-level entries of an object as an array of key-value pairs.
+ *
+ * @remarks
+ * - Returns an empty array (`[]`) for an empty object or a non-object value.
+ * - Internally uses {@link Object.entries}.
+ *
+ * @param obj The object from which to extract the entries.
+ * @returns An array of key-value pairs.
+ */
+export function extractObjectEntries<T extends GenericObject>(obj: T): Array<ObjectEntry<T>> {
+	const entries = isNotEmptyObject(obj) ? Object.entries(obj) : [];
+
+	return entries as Array<ObjectEntry<T>>;
 }

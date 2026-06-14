@@ -1,5 +1,7 @@
+import { isFunction } from 'src/guards';
+import { extractObjectEntries } from 'src/object/basics';
 import type { Flattened } from 'src/types/array';
-import type { Maybe } from 'src/types/index';
+import type { ConditionFns, Maybe } from 'src/types/index';
 import type { GenericObject } from 'src/types/object';
 
 /**
@@ -18,31 +20,35 @@ export const flattenArray = <T>(input: T | T[]): Flattened<T>[] => {
 };
 
 /**
- * @deprecated _Please, use `findAll` instance method from `Finder` class for **more advanced filtering and searching.**_
- *
  * * Filters an array of objects based on multiple conditions for specified keys.
+ *
  * @param array - The array of objects to filter.
  * @param conditions - An object where keys represent the property names and values represent filter conditions.
  *                     The conditions can be a function `(value: T[K]) => boolean`.
  * @returns The filtered array of objects.
  * @throws `Error` If the input is not a valid array.
+ *
+ * @remarks Use `findAll` instance method from `Finder` class for **more advanced filtering and searching.**
  */
 export const filterArrayOfObjects = <T extends GenericObject>(
-	array: T[],
-	conditions: { [K in keyof T]?: (value: Maybe<T[K]>) => boolean }
+	array: Maybe<T[]>,
+	conditions: ConditionFns<T>
 ): T[] => {
 	if (!Array.isArray(array)) {
-		throw new Error('The provided input is not a valid array!');
+		throw new TypeError('The provided input is not a valid array!');
 	}
 
-	return array?.filter((item) =>
-		Object.entries(conditions)?.every(([key, conditionFn]) => {
-			if (typeof conditionFn === 'function') {
-				return conditionFn(item[key as keyof T]);
+	return array?.filter((item) => {
+		return extractObjectEntries(conditions)?.every((pair) => {
+			const [key, conditionFn] = pair ?? [];
+
+			if (key && isFunction(conditionFn)) {
+				return conditionFn(item[key]);
 			}
+
 			return true;
-		})
-	);
+		});
+	});
 };
 
 /**

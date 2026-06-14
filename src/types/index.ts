@@ -1,4 +1,5 @@
 import type { DateLike } from 'src/types/date';
+import type { GenericObject } from 'src/types/object';
 
 /** Uncontrolled any to use for edge cases */
 export type Any = any;
@@ -84,6 +85,14 @@ export interface MethodDescriptor<Fn extends GenericFn = GenericFn>
 	extends Omit<PropertyDescriptor, 'value'> {
 	value: Fn;
 }
+
+/** A function type that accepts a value and returns a boolean. */
+export type ConditionFn<T = unknown> = (value: Maybe<T>) => boolean;
+
+/** An object type for storing multiple {@link ConditionFn condition} functions. */
+export type ConditionFns<T extends GenericObject> = {
+	[K in keyof T]?: ConditionFn<T[K]>;
+};
 
 /** Advanced types to exclude from counting as object key */
 export type AdvancedTypes =

@@ -5,7 +5,7 @@ description: Filters an array of objects based on multiple conditions.
 
 ## filterArrayOfObjects
 
-<Callout type="warn" title="Deprecated">
+<Callout type="idea" title="Tips">
 Please use the [`findAll`](/docs/classes/Finder#findall) instance method from the [`Finder`](/docs/classes/Finder) class for more advanced filtering and searching.
 </Callout>
 
@@ -40,12 +40,11 @@ const data = [
   { name: 'Charlie', age: 35, active: true },
 ];
 
-const conditions = {
-  age: (age: number | undefined) => (age ?? 0) > 28,
-  active: (active: boolean | undefined) => active === true,
-};
+const filteredData = filterArrayOfObjects(data, {
+	age: (age) => (age ?? 0) > 28,
+	active: (active) => active === true,
+});
 
-const filteredData = filterArrayOfObjects(data, conditions);
 console.log(filteredData);
 // Output: [{ name: 'Charlie', age: 35, active: true }]
 ```
