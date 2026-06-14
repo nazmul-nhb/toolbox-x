@@ -45,7 +45,7 @@ console.log(myVerbalizer.isPast('ran'));           // → true
 
 You can modify your instance without affecting others:
 
-```ts pg
+```ts
 import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
@@ -161,7 +161,7 @@ console.log(myVerbalizer.isBase('ran')); // → false
 
 Add a new base tense conjugation rule.
 
-```ts pg
+```ts 
 import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
@@ -174,7 +174,7 @@ myVerbalizer.addBaseRule(/ied$/i, 'y');
 
 Add a new past tense conjugation rule.
 
-```ts pg
+```ts 
 import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
@@ -187,7 +187,7 @@ myVerbalizer.addPastRule(/e$/i, 'ed');
 
 Add a new past participle conjugation rule.
 
-```ts pg
+```ts 
 import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
@@ -200,7 +200,7 @@ myVerbalizer.addParticipleRule(/e$/i, 'ed');
 
 Add an irregular verb.
 
-```ts pg
+```ts 
 import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();

@@ -37,7 +37,7 @@ import { naturalSort } from 'toolbox-x';
 
 const result = naturalSort("file2", "file10");
 console.log(result); 
-// Output: -1 (meaning "file2" comes before "file10")
+// Output: -8 (meaning "file2" comes before "file10")
 
 const items = ["item10", "item2", "item1"];
 const sorted = items.sort((a, b) => naturalSort(a, b));
@@ -60,6 +60,6 @@ interface SortNature {
 
 The following aliases can be used for the `naturalSort` function:
 
-- `compareNaturally`
 - `naturalSortForString`
+- `compareNaturally`
 - `compareSorter`

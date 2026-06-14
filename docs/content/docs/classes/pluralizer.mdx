@@ -99,10 +99,10 @@ console.log(myPluralizer.pluralize('analysis'));
 
 #### PluralizeOptions
 
-| Property | Type | Description |
-| :--- | :--- | :--- |
-| `count` | `Numeric` | Determines whether to use singular or plural form. If omitted, always returns the plural form. |
-| `inclusive` | `boolean` | Whether to include the count in the returned string. Works only if `count` is provided. |
+| Property    | Type      | Description                                                                                    |
+| :---------- | :-------- | :--------------------------------------------------------------------------------------------- |
+| `count`     | `Numeric` | Determines whether to use singular or plural form. If omitted, always returns the plural form. |
+| `inclusive` | `boolean` | Whether to include the count in the returned string. Works only if `count` is provided.        |
 
 <Callout type="info" title="Note">
 Any number (`count`) which is not `1` is considered plural. `count` can be a number (`3`) or a numeric string (`"3"`).
@@ -174,7 +174,7 @@ console.log(myPluralizer.isSingular('child')); // → true
 
 Add a new pluralization rule.
 
-```ts pg
+```ts 
 import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
@@ -187,7 +187,7 @@ myPluralizer.addPluralRule(/(quiz)$/i, '$1zes');
 
 Add a new singularization rule.
 
-```ts pg
+```ts 
 import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
@@ -200,7 +200,7 @@ myPluralizer.addSingularRule(/(matr)ices$/i, '$1ix');
 
 Add an irregular word pair.
 
-```ts pg
+```ts 
 import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
@@ -213,7 +213,7 @@ myPluralizer.addIrregular('person', 'people');
 
 Add a word or pattern that should never change.
 
-```ts pg
+```ts
 import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
