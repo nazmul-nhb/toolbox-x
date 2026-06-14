@@ -14,10 +14,7 @@ Filters an array of objects based on multiple conditions for specified keys.
 ### Function Signature
 
 ```typescript
-function filterArrayOfObjects<T extends GenericObject>(
-  array: T[],
-  conditions: { [K in keyof T]?: (value: Maybe<T[K]>) => boolean }
-): T[]
+const filterArrayOfObjects = <T extends GenericObject>(array: Maybe<T[]>, conditions: ConditionFns<T>): T[]
 ```
 
 ### Parameters
@@ -47,4 +44,17 @@ const filteredData = filterArrayOfObjects(data, {
 
 console.log(filteredData);
 // Output: [{ name: 'Charlie', age: 35, active: true }]
+```
+
+
+### Type of Conditions Parameter
+
+``` ts
+/** A function type that accepts a value and returns a boolean. */
+type ConditionFn<T = unknown> = (value: Maybe<T>) => boolean;
+
+/** An object type for storing multiple condition functions. */
+type ConditionFns<T extends GenericObject> = {
+	[K in keyof T]?: ConditionFn<T[K]>;
+};
 ```
