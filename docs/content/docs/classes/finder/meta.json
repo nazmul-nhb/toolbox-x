@@ -1,13 +1,12 @@
 {
-  "title": "Finder",
-  "pages": [
-    "index",
-    "binary-search",
-    "clear-cache",
-    "find-all",
-    "find-all-async",
-    "find-one",
-    "find-one-async",
-    "fuzzy-search"
-  ]
+	"pages": [
+		"find-one",
+		"find-all",
+		"find-one-async",
+		"find-all-async",
+		"fuzzy-search",
+		"binary-search",
+		"clear-cache",
+		"..."
+	]
 }

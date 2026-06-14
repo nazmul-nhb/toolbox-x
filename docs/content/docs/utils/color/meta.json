@@ -1,13 +1,11 @@
 {
-	"title": "Color Utilities",
-	"icon": "Palette",
 	"pages": [
-		"index",
+		"get-color-for-initial",
+		"random-color",
 		"color-checkers",
 		"color-converters",
 		"convert-color-code",
 		"extract-color-values",
-		"get-color-for-initial",
-		"random-color"
+		"..."
 	]
 }

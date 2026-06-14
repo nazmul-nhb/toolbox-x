@@ -1,11 +1,10 @@
 {
-  "title": "Paginator",
-  "pages": [
-    "---Paginator---",
-    "instance-creation",
-    "calculation-methods",
-    "page-navigation",
-    "utility-methods",
-    "static-methods"
-  ]
+	"pages": [
+		"page-navigation",
+		"calculation-methods",
+		"instance-creation",
+		"utility-methods",
+		"static-methods",
+		"..."
+	]
 }

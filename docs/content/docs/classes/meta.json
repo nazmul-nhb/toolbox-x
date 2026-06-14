@@ -1,17 +1,12 @@
 {
-  "title": "Classes",
-  "icon": "LayoutGrid",
-  "pages": [
-    "index",
-    "color",
-    "converter",
-    "currency",
-    "finder",
-    "http-status",
-    "log-styler",
-    "paginator",
-    "pluralizer",
-    "unit",
-    "verbalizer"
-  ]
+	"pages": [
+		"color",
+		"converter",
+		"pluralizer",
+		"verbalizer",
+		"http-status",
+		"paginator",
+		"log-styler",
+		"..."
+	]
 }

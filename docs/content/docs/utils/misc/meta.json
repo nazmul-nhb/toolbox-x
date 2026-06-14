@@ -1,19 +1,17 @@
 {
-  "title": "Miscellaneous Utilities",
-  "icon": "HelpCircle",
-  "pages": [
-    "index",
-    "class-methods",
-    "convert-array-to-string",
-    "debounce-action",
-    "deep-parse-primitives",
-    "define-prototype-method",
-    "get-country-by-phone",
-    "http-status",
-    "json-stringify",
-    "parse-json",
-    "stylog",
-    "stylog-utils",
-    "throttle-action"
-  ]
+	"pages": [
+		"class-methods",
+		"convert-array-to-string",
+		"debounce-action",
+		"throttle-action",
+		"deep-parse-primitives",
+		"define-prototype-method",
+		"get-country-by-phone",
+		"http-status",
+		"json-stringify",
+		"parse-json",
+		"stylog",
+		"stylog-utils",
+		"..."
+	]
 }

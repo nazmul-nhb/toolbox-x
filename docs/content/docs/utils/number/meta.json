@@ -1,8 +1,5 @@
 {
-	"title": "Number Utilities",
-	"icon": "Binary",
 	"pages": [
-		"index",
 		"bangla-digits",
 		"calculate-hcf",
 		"calculate-lcm",
@@ -28,6 +25,7 @@
 		"round-to-nearest",
 		"sum-digits",
 		"sum-numbers",
-		"words-to-number"
+		"words-to-number",
+		"..."
 	]
 }

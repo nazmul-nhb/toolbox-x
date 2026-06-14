@@ -1,16 +1,14 @@
 {
-	"title": "DOM Utilities",
-	"icon": "Globe",
 	"pages": [
-		"index",
+		"local-storage",
+		"session-storage",
 		"copy-to-clipboard",
 		"generate-query-params",
 		"get-query-params",
-		"local-storage",
+		"update-query-param",
 		"parse-query-string",
-		"session-storage",
 		"smooth-scroll-to",
 		"toggle-full-screen",
-		"update-query-param"
+		"..."
 	]
 }

@@ -1,12 +1,13 @@
 {
-	"title": "Object Utilities",
-	"icon": "Blocks",
 	"pages": [
-		"index",
 		"clone-object",
+		"sanitize-data",
 		"convert-object-values",
 		"count-object-fields",
 		"delete-fields",
+		"pick-fields",
+		"pick-fields-by-condition",
+		"remap-fields",
 		"extract-new-fields",
 		"extract-object-keys",
 		"extract-updated-and-new-fields",
@@ -17,9 +18,6 @@
 		"merge-objects",
 		"parse-json-to-object",
 		"parse-object-values",
-		"pick-fields",
-		"pick-fields-by-condition",
-		"remap-fields",
-		"sanitize-data"
+		"..."
 	]
 }

@@ -1,20 +1,17 @@
 {
-	"title": "Array Utilities",
-	"icon": "LayoutList",
 	"pages": [
-		"index",
 		"array-metrics",
 		"create-options-array",
-		"filter-array",
+		"sort-array",
+		"split-array",
 		"find-missing",
 		"flatten-array",
 		"get-duplicates",
+		"remove-duplicates",
 		"get-last-element",
 		"move-element",
-		"remove-duplicates",
 		"rotate-array",
 		"shuffle-array",
-		"sort-array",
-		"split-array"
+		"..."
 	]
 }
