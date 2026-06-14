@@ -410,3 +410,19 @@ export type $UnitAnyCase = Capitalize<$TimeUnitVar> | Uppercase<$TimeUnitVar> | 
 
 /** Number (time value) with variants of different time units */
 export type TimeWithUnit = `${number}${$UnitAnyCase}` | `${number} ${$UnitAnyCase}`;
+
+/**
+ * * Interface for defining options for relative date formatting.
+ *
+ * @remarks This interface is an extension of {@link Intl.RelativeTimeFormatOptions} and is used by `formatRelativeDateNative` function to format dates relative to a given date.
+ */
+export interface RelativeDateFormatOptions extends Intl.RelativeTimeFormatOptions {
+	/**
+	 * * The date to compare against. Defaults to {@link Date new Date()}. Can be any type of {@link DateArgs}.
+	 */
+	fromDate?: DateArgs;
+	/**
+	 * * The locale to use for formatting. Defaults to `'en'`.
+	 */
+	locale?: LocalesArguments;
+}
