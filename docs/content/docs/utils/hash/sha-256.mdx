@@ -119,9 +119,9 @@ export function sha256(msg: string): string {
 
 #### Dependencies
 
-- **[utf8ToBytes](encoding#utf8tobytes)**: Converts the input string to `UTF-8` encoded bytes
-- **[sha256Bytes](encoding#sha256bytes)**: Pure JavaScript `SHA-256` implementation operating on bytes
-- **[bytesToHex](encoding#bytestohex)**: Converts the resulting hash bytes to hexadecimal string
+- **[utf8ToBytes](./encoding#utf8tobytes)**: Converts the input string to `UTF-8` encoded bytes
+- **[sha256Bytes](./encoding#sha256bytes)**: Pure JavaScript `SHA-256` implementation operating on bytes
+- **[bytesToHex](./encoding#bytestohex)**: Converts the resulting hash bytes to hexadecimal string
 
 ### Common Use Cases
 
@@ -305,10 +305,10 @@ function safeSha256(input: unknown): string | null {
 
 ### Related Functions
 
-- **[sha256Bytes](encoding#sha256bytes)**: Hash raw bytes instead of strings
-- **[utf8ToBytes](encoding#utf8tobytes)**: Convert string to `UTF-8` bytes
-- **[bytesToHex](encoding#bytestohex)**: Convert bytes to hexadecimal string
-- **[hmacSha256](encoding#hmacsha256)**: `HMAC` with `SHA-256` for message authentication
+- **[sha256Bytes](./encoding#sha256bytes)**: Hash raw bytes instead of strings
+- **[utf8ToBytes](./encoding#utf8tobytes)**: Convert string to `UTF-8` bytes
+- **[bytesToHex](./encoding#bytestohex)**: Convert bytes to hexadecimal string
+- **[hmacSha256](./encoding#hmacsha256)**: `HMAC` with `SHA-256` for message authentication
 
 ### Examples in Context
 
@@ -357,4 +357,4 @@ class ConfigManager {
 
 ### See Also
 
-- [Encoding & Crypto Utilities](encoding) - Lower-level byte operations
+- [Encoding & Crypto Utilities](./encoding) - Lower-level byte operations

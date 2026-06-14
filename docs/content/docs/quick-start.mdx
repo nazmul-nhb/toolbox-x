@@ -30,7 +30,7 @@ const darkerBlue = blue.applyDarkness(20); // 20% darker
 console.log(darkerBlue.hsl); // "hsl(240, 100%, 30%)" (was 50%)
 ```
 
-[Documentation →](/docs/classes/Color)
+[Documentation →](/docs/classes/color)
 
 ---
 
@@ -58,7 +58,7 @@ const laptop = productFinder.findOne('laptop', 'name', {
 console.log(laptop);
 ```
 
-[Documentation →](/docs/classes/Finder)
+[Documentation →](/docs/classes/finder)
 
 ---
 
@@ -79,7 +79,7 @@ const id = generateRandomID({
 console.log(id);
 ```
 
-[Documentation →](/docs/utilities/string/generate-random-id)
+[Documentation →](/docs/utils/string/generate-random-id)
 
 ---
 
@@ -113,7 +113,7 @@ console.log({
 });
 ```
 
-[Documentation →](/docs/utilities/string/pluralizer)
+[Documentation →](/docs/utils/string/pluralizer)
 
 ---
 
@@ -135,7 +135,7 @@ const color2 = getColorForInitial('Banana', 50); // '#00376E80' (50% opacity)
 console.log(color2);
 ```
 
-[Documentation →](/docs/utilities/color/get-color-for-initial)
+[Documentation →](/docs/utils/color/get-color-for-initial)
 
 ---
 
@@ -175,7 +175,7 @@ console.log(Object.fromEntries(formData));
 // files[1]=[File2]
 ```
 
-[Documentation →](/docs/utilities/form/create-form-data)
+[Documentation →](/docs/utils/form/create-form-data)
 
 ---
 
@@ -203,7 +203,7 @@ const sanitized2 = sanitizeData(user, { ignoreFalsy: true, ignoreEmpty: true }, 
 console.log(sanitized2);
 ```
 
-[Documentation →](/docs/utilities/object/sanitize-data)
+[Documentation →](/docs/utils/object/sanitize-data)
 
 ---
 
@@ -218,7 +218,7 @@ const parsed = parseJSON<{value: number}>('{"value":"42"}'); // { value: 42 } (a
 console.log(parsed);
 ```
 
-[Documentation →](/docs/utilities/misc/parse-json)
+[Documentation →](/docs/utils/misc/parse-json)
 
 ---
 
@@ -232,7 +232,7 @@ import { numberToWords } from 'toolbox-x';
 console.log(numberToWords(125)); // "one hundred and twenty-five"
 ```
 
-[Documentation →](/docs/utilities/number/number-to-words)
+[Documentation →](/docs/utils/number/number-to-words)
 
 ---
 
@@ -254,7 +254,7 @@ const evensArray = getNumbersInRange('even', { min: 1, max: 10 });
 console.log(evensArray);
 ```
 
-[Documentation →](/docs/utilities/number/get-numbers-in-range)
+[Documentation →](/docs/utils/number/get-numbers-in-range)
 
 **`calculatePercentage`** - Swiss Army knife for percentage calculations with 7 specialized modes
 
@@ -271,7 +271,7 @@ const percentageChange = calculatePercentage({
 console.log(percentageChange);
 ```
 
-[Documentation →](/docs/utilities/number/calculate-percentage)
+[Documentation →](/docs/utils/number/calculate-percentage)
 
 ---
 
@@ -289,4 +289,4 @@ const result = extractUpdatedFields(dbRecord, update);
 console.log(result);
 ```
 
-[Documentation →](/docs/utilities/object/extract-updated-fields)
+[Documentation →](/docs/utils/object/extract-updated-fields)

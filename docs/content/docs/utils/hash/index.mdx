@@ -6,7 +6,7 @@ icon: Hash
 
 ## Overview
 
-A comprehensive suite of hashing, UUID, encoding, and lightweight cryptographic utilities—including JWT-style signing [Signet](Signet), `stream-cipher` encryption [Cipher](./Cipher), and more.
+A comprehensive suite of hashing, UUID, encoding, and lightweight cryptographic utilities—including JWT-style signing [Signet](./hash/Signet), `stream-cipher` encryption [Cipher](./hash/Cipher), and more.
 
 <Callout type="info" title="Info">
  Does not rely on `Node.js` or `Web APIs`. **Works on any JS engine**
@@ -23,26 +23,26 @@ import { utilityName } from 'toolbox-x/hash';
 
 ### Hash Functions
 
-- **[md5](./md5)** - Compute `MD5` hash (32-character hex)
-- **[sha1](./sha1)** - Compute `SHA-1` hash (40-character hex)
-- **[sha256](./sha256)** - Compute `SHA-256` hash (64-character hex)
+- **[md5](./hash/md5)** - Compute `MD5` hash (32-character hex)
+- **[sha1](./hash/sha-1)** - Compute `SHA-1` hash (40-character hex)
+- **[sha256](./hash/sha-256)** - Compute `SHA-256` hash (64-character hex)
 
 ### UUID Utilities
 
-- **[uuid](./uuid)** - Generate RFC-compliant UUIDs (versions 1, 3, 4, 5, 6, 7, 8)
-- **[decodeUUID](./decode-uuid)** - Decode UUIDs into version, variant, and timestamp information
-- **[Version Checkers](./check-uuid-versions)** - Type-safe ([branded type](/docs/types/utility-types#brandedt-b)) validation for specific UUID versions
+- **[uuid](./hash/uuid)** - Generate RFC-compliant UUIDs (versions 1, 3, 4, 5, 6, 7, 8)
+- **[decodeUUID](./hash/decode-uuid)** - Decode UUIDs into version, variant, and timestamp information
+- **[Version Checkers](./hash/check-uuid-versions)** - Type-safe ([branded type](/docs/types/utility-types#brandedt-b)) validation for specific UUID versions
 
 ### Encryption/Authentication Tools
 
-- **[Signet](Signet)** - Sign, decode, verify tokens in `JWT` style
-- **[Cipher](Cipher)** - Encrypt, decrypt text in `stream-cipher` encryption style
+- **[Signet](./hash/Signet)** - Sign, decode, verify tokens in `JWT` style
+- **[Cipher](./hash/Cipher)** - Encrypt, decrypt text in `stream-cipher` encryption style
 
 ### Other Utilities
 
-- **[randomHex](./random-hex)** - Generate cryptographically secure random hex strings
-- **[Encoding & Crypto Utilities](./encoding)** - Low-level encoding, decoding, and cryptographic functions
-- **[TextCodec](./TextCodec)** - Convert text between hex, binary, and Base64 formats
+- **[randomHex](./hash/random-hex)** - Generate cryptographically secure random hex strings
+- **[Encoding & Crypto Utilities](./hash/encoding)** - Low-level encoding, decoding, and cryptographic functions
+- **[TextCodec](./hash/TextCodec)** - Convert text between hex, binary, and Base64 formats
 
 ## Quick Start
 

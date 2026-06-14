@@ -75,7 +75,7 @@ static isValidHex(hex: string): boolean
 **Returns:** `true` if valid hex byte string
 
 <Callout type="idea" title="Equivalent">
-Equivalent standalone type guard: [**isHexString**](/docs/guards/mixed-guards#ishexstring)
+Equivalent standalone type guard: [**isHexString**](/docs/guards/misc/string-format#ishexstring)
 </Callout>
 
 #### Examples
@@ -106,7 +106,7 @@ static isValidBinary(binary: string): boolean
 **Returns:** `true` if valid binary byte string
 
 <Callout type="idea" title="Equivalent">
-Equivalent standalone type guard: [**isBinaryString**](/docs/guards/mixed-guards#isbinarystring)
+Equivalent standalone type guard: [**isBinaryString**](/docs/guards/misc/string-format#isbinarystring)
 </Callout>
 
 #### Examples
@@ -136,7 +136,7 @@ static isValidBase64(b64: string): boolean
 **Returns:** `true` if valid Base64-encoded string
 
 <Callout type="idea" title="Equivalent">
-Equivalent standalone type guard: [**isBase64**](/docs/guards/mixed-guards#isbase64)
+Equivalent standalone type guard: [**isBase64**](/docs/guards/misc/string-format#isbase64)
 </Callout>
 
 #### Examples
@@ -567,9 +567,9 @@ TextCodec.utf8ToHex('العربية'); // 'd8 a7 d9 84 d8 b9 d8 b1 d8 a8 d9 8a d
 
 For lower-level operations, see:
 
-- [**utf8ToBytes**](encoding#utf8tobytes) - Convert text to raw bytes
-- [**bytesToUtf8**](encoding#bytestoutf8) - Convert bytes to text
-- [**hexToBytes**](encoding#hextobytes) - Convert hex to raw bytes
-- [**bytesToHex**](encoding#bytestohex) - Convert bytes to hex
-- [**base64ToBytes**](encoding#base64tobytes) - Convert Base64 to bytes
-- [**bytesToBase64**](encoding#bytestobase64) - Convert bytes to Base64
+- [**utf8ToBytes**](./encoding#utf8tobytes) - Convert text to raw bytes
+- [**bytesToUtf8**](./encoding#bytestoutf8) - Convert bytes to text
+- [**hexToBytes**](./encoding#hextobytes) - Convert hex to raw bytes
+- [**bytesToHex**](./encoding#bytestohex) - Convert bytes to hex
+- [**base64ToBytes**](./encoding#base64tobytes) - Convert Base64 to bytes
+- [**bytesToBase64**](./encoding#bytestobase64) - Convert bytes to Base64
