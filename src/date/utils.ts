@@ -206,8 +206,8 @@ export function getTimeZoneIds(offset: UTCOffset): TimeZoneIdNative[] {
  * - The default format is `'dd, mmm DD, YYYY HH:mm:ss'` (e.g., `'Sun, Apr 06, 2025 16:11:55'`).
  * - By default, local time is used; set `useUTC` to `true` to format in UTC.
  * - The format string supports various tokens for date and time components, as well as literal text enclosed in square brackets.
- * - See {@link https://toolbox-x.nazmul-nhb.dev/docs/utilities/date/formatDate#format-tokens format tokens} for details on supported tokens.
- * - For more complex date/time manipulations, consider using the {@link https://toolbox-x.nazmul-nhb.dev/docs/classes/Chronos Chronos} class.
+ * - See {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/date-time/format-date#format-tokens format tokens} for details on supported tokens.
+ * - For more complex date/time manipulations, consider using the {@link https://chronos.nazmul-nhb.dev/docs/ chronos-date} library.
  *
  * @returns Date/time string in specified format.
  */
@@ -220,7 +220,7 @@ export function formatDate(options?: DateFormatOptions): string {
 
 	const $date = _dateArgsToDate(date);
 
-	if (isNaN($date.getTime())) {
+	if (Number.isNaN($date.getTime())) {
 		return 'Invalid Date!';
 	}
 
@@ -290,7 +290,7 @@ export function formatTimePart(time: string, format?: TimeOnlyFormat): string {
 export function formatDateRelative(date: Maybe<DateArgs>, format?: SafeFormat): string {
 	const $date = _dateArgsToDate(date);
 
-	if (isNaN($date.getTime())) {
+	if (Number.isNaN($date.getTime())) {
 		return 'Invalid Date!';
 	}
 
@@ -377,7 +377,7 @@ export function getTimestamp<F extends ISODateFormat>(
 
 	let date = _dateArgsToDate($value);
 
-	if (isNaN(date.getTime())) {
+	if (Number.isNaN(date.getTime())) {
 		date = new Date();
 	}
 

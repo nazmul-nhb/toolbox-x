@@ -26,8 +26,8 @@ export function truncateString(str: string, maxLength: number): string {
  * @param options Configuration options for random ID generation.
  * @returns The generated ID string composed of the random alphanumeric string of specified length with optional `timeStamp`, `prefix`, and `suffix`, `caseOption` and `separator`.
  *
- * @see {@link https://toolbox-x.nazmul-nhb.dev/docs/utilities/hash/uuid uuid} for `uuid` generation
- * @see {@link https://toolbox-x.nazmul-nhb.dev/docs/utilities/hash/randomHex randomHex} for random hexadecimal string generation
+ * @see {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/hash/uuid uuid} for `uuid` generation
+ * @see {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/hash/random-hex randomHex} for random hexadecimal string generation
  *
  * @example
  * // Generate an ID with all default options
@@ -89,7 +89,7 @@ export function generateRandomID(options?: RandomIdOptions): string {
 		Math.random().toString(36).slice(2, 3)
 	).join('');
 
-	const ID = [prefix && prefix.trim(), date, randomString, suffix && suffix.trim()]
+	const ID = [prefix?.trim(), date, randomString, suffix?.trim()]
 		.filter(Boolean)
 		.join(separator);
 

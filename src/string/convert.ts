@@ -105,7 +105,7 @@ export function extractURLs(str: string): string[] {
 /**
  * * Returns a grammatically correct unit string, optionally prefixed with the number.
  *
- * @remarks For complex and versatile pluralization, please refer to {@link https://toolbox-x.nazmul-nhb.dev/docs/utilities/string/pluralizer pluralizer} or {@link https://toolbox-x.nazmul-nhb.dev/docs/classes/Pluralizer Pluralizer Class} instead.
+ * @remarks For complex and versatile pluralization, please refer to {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/string/pluralizer pluralizer} or {@link https://toolbox-x.nazmul-nhb.dev/docs/classes/pluralizer Pluralizer Class} instead.
  *
  * @param count The numeric value to determine singular or plural.
  * @param unit The unit name (e.g., "day", "hour").
