@@ -1,0 +1,75 @@
+---
+title: Serialize Form
+description: Converts HTML form elements into structured JavaScript objects or URL-encoded query strings.
+---
+
+## serializeForm
+
+Converts HTML form elements into structured JavaScript objects or URL-encoded query strings, handling both single and multiple input values.
+
+### Function Signature
+
+```typescript
+function serializeForm<T extends boolean = false>(
+  form: HTMLFormElement,
+  toQueryString?: T
+): SerializedForm<T>
+```
+
+### Parameters
+
+| Parameter | Type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `form` | `HTMLFormElement` | The form element to serialize. | — |
+| `toQueryString` | `boolean` (optional) | Return as a query string instead of an object. | `false` |
+
+### Returns
+
+- **`SerializedForm<T>`**:
+  - A `Record<string, string | string[]>` object (if `toQueryString` is `false`).
+  - A `string` representing a URL-encoded query string (if `toQueryString` is `true`).
+
+---
+
+### Example Usage
+
+```ts pg tab="Object Format"
+import { serializeForm } from 'toolbox-x/dom';
+
+// Assuming an HTML form with inputs: name="John", hobbies="reading", hobbies="coding"
+const form = document.querySelector('form') as HTMLFormElement;
+const data = serializeForm(form);
+console.log(data);
+// → { name: 'John', hobbies: ['reading', 'coding'] }
+```
+
+```ts pg tab="Query String Format"
+import { serializeForm } from 'toolbox-x/dom';
+
+const form = document.querySelector('form') as HTMLFormElement;
+const query = serializeForm(form, true);
+console.log(query);
+// → "name=John&hobbies=reading&hobbies=coding"
+```
+
+---
+
+## Behavior Details
+
+- **Multiple Inputs**: Multiple checkboxes with the same name or multi-select inputs automatically get serialized into arrays.
+- **File Inputs**: File input values are serialized as their filename strings, not actual binary contents. For uploading files, use [`createFormData`](./create-form-data) instead.
+
+> [!WARNING]
+> **Server-Side Rendering (SSR)**: This utility is a browser-only tool because it directly references and reads `HTMLFormElement` DOM nodes. It will throw errors in SSR contexts if executed server-side.
+
+---
+
+## Types
+
+### `SerializedForm`
+
+```typescript
+type SerializedForm<T extends boolean> = T extends false
+  ? Record<string, string | string[]>
+  : string;
+```

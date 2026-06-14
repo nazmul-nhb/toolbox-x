@@ -1,0 +1,63 @@
+---
+title: Flatten Object Dot Notation
+description: Converts a nested object structure into a flat object using dot notation for keys.
+---
+
+## flattenObjectDotNotation
+
+The `flattenObjectDotNotation` function converts a nested object structure into a flat, single-level object using dot-separated paths for keys.
+
+### Function Signature
+
+```typescript
+function flattenObjectDotNotation<T extends GenericObject>(
+  object: T
+): FlattenDotValue<MergeAll<[T]>>
+```
+
+### Parameters
+
+- **`object`** (`T`): The nested object to flatten.
+
+### Return Value
+
+- **`FlattenDotValue<MergeAll<[T]>>`**: A flat object with dot-notation keys mapped to their original nested values.
+
+### Example Usage
+
+```ts pg tab="Basic Nesting"
+import { flattenObjectDotNotation } from 'toolbox-x';
+
+const nested = { user: { name: 'John', address: { city: 'NYC' } } };
+const flat = flattenObjectDotNotation(nested);
+console.log(flat);
+// Output: { 'user.name': 'John', 'user.address.city': 'NYC' }
+```
+
+```ts pg tab="Complex Nesting"
+import { flattenObjectDotNotation } from 'toolbox-x';
+
+const config = {
+  server: {
+    host: 'localhost',
+    ports: { http: 80, https: 443 }
+  }
+};
+
+const flat = flattenObjectDotNotation(config);
+console.log(flat);
+/*
+Output:
+{
+  'server.host': 'localhost',
+  'server.ports.http': 80,
+  'server.ports.https': 443
+}
+*/
+```
+
+### Notes
+
+- **Arrays**: Arrays are treated as terminal/primitive values and are not flattened.
+- **Special Objects**: Instances of `Date`, `RegExp`, etc. are preserved as-is.
+- Returns a new object without mutating the original `object`.

@@ -1,0 +1,83 @@
+---
+title: Pick Object Fields
+description: Creates a new object containing only the specified properties from a source object.
+---
+
+## pickFields
+
+The `pickFields` function creates a new object containing only the specified properties from a source object, preserving accurate TypeScript types.
+
+### Function Signature
+
+```typescript
+function pickFields<T extends GenericObject, U extends keyof T>(
+  source: T,
+  keys: U[]
+): { [K in U]: T[K] }
+```
+
+### Parameters
+
+- **`source`** (`T`): The source object to pick properties from.
+- **`keys`** (`U[]`): An array of property keys to select.
+
+### Return Value
+
+- **`{ [K in U]: T[K] }`**: A new object containing only the specified properties.
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { pickFields } from 'toolbox-x';
+
+const user = {
+  id: 1,
+  name: 'John',
+  email: 'john@example.com',
+  age: 30
+};
+
+const picked = pickFields(user, ['name', 'email']);
+console.log(picked); 
+// Output: { name: 'John', email: 'john@example.com' }
+```
+
+```ts pg tab="Top-Level Only"
+import { pickFields } from 'toolbox-x';
+
+const book = {
+  title: 'Clean Code',
+  author: 'Robert Martin',
+  details: {
+    pages: 464,
+    publisher: 'Prentice Hall'
+  }
+};
+
+const picked = pickFields(book, ['title', 'details']);
+console.log(picked);
+/*
+Output:
+{
+  title: 'Clean Code',
+  details: { pages: 464, publisher: 'Prentice Hall' }
+}
+*/
+```
+
+### Notes
+
+- This function operates on **top-level** properties only. It does not support deep picking or dot-notation paths.
+- It is non-destructive and returns a new object without mutating the original `source`.
+
+### Aliases
+
+The following aliases can be used for the `pickFields` function:
+
+- `pickObjectFields`
+
+### See Also
+
+- [pickFieldsByCondition](./pick-fields-by-condition) - Conditionally select object fields.
+- [deleteFields](./delete-fields) - Remove specific object fields.
+- [remapFields](./remap-fields) - Rename object keys.

@@ -1,0 +1,50 @@
+---
+title: Reverse Number
+description: Reverses the digits of a given number while preserving its sign.
+---
+
+## reverseNumber
+
+The `reverseNumber` function reverses the digits of a given number or numeric string. For negative numbers, the negative sign is preserved.
+
+### Function Signature
+
+```typescript
+function reverseNumber(num: Numeric): number
+```
+
+### Parameters
+
+- **`num`** (`Numeric`): The number (or numeric string) to be reversed.
+
+### Return Value
+
+- **`number`**: The number with its digits reversed. If the input number is negative, the negative sign is preserved.
+
+### Example Usage
+
+```ts pg tab="Positive Number"
+import { reverseNumber } from 'toolbox-x';
+
+console.log(reverseNumber(123));  
+// Output: 321
+```
+
+```ts pg tab="Negative Number"
+import { reverseNumber } from 'toolbox-x';
+
+console.log(reverseNumber(-456));  
+// Output: -654
+```
+
+```ts pg tab="Numeric String"
+import { reverseNumber } from 'toolbox-x';
+
+console.log(reverseNumber('789'));  
+// Output: 987
+```
+
+### Notes
+
+- The function uses `Math.abs` to safely handle negative values.
+- It converts the number to a string, reverses the characters, and parses it back to a number.

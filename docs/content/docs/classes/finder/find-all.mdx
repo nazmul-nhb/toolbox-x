@@ -1,0 +1,103 @@
+---
+title: findAll()
+description: Finds all items matching specified criteria using optimized search strategies.
+---
+
+## `findAll()`
+
+Finds all items matching specified criteria using optimized search strategies.
+
+### Signature
+
+```typescript
+findAll(
+  matcher: string | number,
+  keySelector: KeySelector<T>,
+  options?: FindOptions<T>
+): T[]
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `matcher` | `string \| number` | Value to match against. |
+| `keySelector` | `KeySelector<T>` | Property name or value extractor function. |
+| `options` | `FindOptions<T>` | Search configuration options. |
+
+### Returns
+
+`T[]` — Array of all matching items (empty array if none found).
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { Finder } from 'toolbox-x';
+
+const users = [
+  { id: 1, name: 'John Doe', role: 'admin' },
+  { id: 2, name: 'Jane Smith', role: 'user' },
+  { id: 3, name: 'Bob Johnson', role: 'user' }
+];
+
+const userFinder = new Finder(users);
+const admins = userFinder.findAll('admin', 'role');
+console.log(admins); // → [{ id: 1, name: 'John Doe', role: 'admin' }]
+```
+
+```ts pg tab="With Fuzzy Matching"
+import { Finder } from 'toolbox-x';
+
+const products = [
+  { id: 1, name: "Smartphone" },
+  { id: 2, name: "Camera" },
+  { id: 3, name: "Laptop" }
+];
+
+const productFinder = new Finder(products);
+const laptops = productFinder.findAll('lptp', 'name', {
+  fuzzy: true
+});
+console.log(laptops); // → [{ id: 3, name: "Laptop" }]
+```
+
+```ts pg tab="Cached Search"
+import { Finder } from 'toolbox-x';
+
+const users = [
+  { id: 1, name: 'John Doe', status: 'active' },
+  { id: 2, name: 'Jane Smith', status: 'active' }
+];
+
+const userFinder = new Finder(users);
+const results = userFinder.findAll('active', 'status', {
+  cacheKey: 'active-users'
+});
+console.log(results);
+```
+
+### Behavior Details
+
+1. **Search Flow**:
+   - Checks cache first if `cacheKey` is provided.
+   - Uses linear search for small datasets (less than 100 items).
+   - Uses binary search for larger sorted datasets.
+   - Falls back to fuzzy search when enabled.
+
+2. **Result Handling**:
+   - Returns all matches (not just the first one).
+   - Maintains the original item order in results.
+   - Returns an empty array if no matches are found.
+
+3. **Performance**:
+   - Cached results: $O(1)$
+   - Linear search: $O(n)$
+   - Binary search: $O(\log n) + O(m)$ where $m$ is the number of matches.
+   - Fuzzy search: $O(n)$
+
+### Notes
+
+- **Cache Behavior**: Results are cached for 5 minutes by default. The cache is automatically cleared when the dataset changes.
+- **String Matching**: Case-insensitive by default. Exact matching unless `fuzzy` is enabled.
+- **Sorting**: Auto-sorts when `needSorting` is true. Skips sorting for pre-sorted data. Natural key order is used.
+- **Edge Cases**: Empty input returns an empty array. Handles null/undefined in data. Works with both numeric and string keys.

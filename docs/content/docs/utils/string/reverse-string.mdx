@@ -1,0 +1,38 @@
+---
+title: Reverse String
+description: Reverses the characters of a given string.
+---
+
+## reverseString
+
+The `reverseString` function reverses the characters of a given string, returning a new string with the characters in reverse order.
+
+### Function Signature
+
+```typescript
+function reverseString(input: string): string
+```
+
+### Parameters
+
+- **`input`** (`string`): The string to reverse.
+
+### Return Value
+
+- **`string`**: The reversed string.
+
+### Example Usage
+
+```ts pg
+import { reverseString } from 'toolbox-x';
+
+console.log(reverseString('hello')); 
+// Output: 'olleh'
+
+console.log(reverseString('world')); 
+// Output: 'dlrow'
+```
+
+### Notes
+
+- The input string is trimmed of leading and trailing whitespace before reversing.

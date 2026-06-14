@@ -1,0 +1,93 @@
+---
+title: Extract Object Keys
+description: Extracts the keys of an object with proper typing at the top-level or recursively.
+---
+
+## extractObjectKeys
+
+The `extractObjectKeys` function extracts the keys of an object with proper typing.
+
+### Function Signatures
+
+```typescript
+function extractObjectKeys<T extends GenericObject>(obj: T): Array<keyof T>
+function extractObjectKeys<T extends GenericObject>(obj: T, tuple: true): Tuple<keyof T>
+```
+
+### Parameters
+
+- **`obj`** (`T`): The object to extract keys from.
+- **`tuple`** (`boolean`, optional): If `true`, returns keys as a tuple instead of an array.
+
+### Return Value
+
+- **`Array<keyof T> | Tuple<keyof T>`**: The keys of the object. Returns an empty array if the input is `null` or `undefined`.
+
+### Example Usage
+
+```ts pg tab="Default Array Return"
+import { extractObjectKeys } from 'toolbox-x';
+
+const obj = { a: 1, b: 2, c: 3 };
+const keys = extractObjectKeys(obj); 
+console.log(keys); 
+// Output: ['a', 'b', 'c']
+```
+
+```ts pg tab="Tuple Return"
+import { extractObjectKeys } from 'toolbox-x';
+
+const obj = { a: 1, b: 2, c: 3 };
+const keys = extractObjectKeys(obj, true); 
+console.log(keys); 
+// Output: ['a', 'b', 'c'] (strongly typed as tuple)
+```
+
+### Aliases
+
+The following aliases can be used for the `extractObjectKeys` function:
+
+- `extractKeys`
+
+---
+
+## extractObjectKeysDeep
+
+Recursively extracts all nested keys from an object with proper typing.
+
+### Function Signature
+
+```typescript
+function extractObjectKeysDeep<T extends GenericObject>(obj: T): Array<DeepKeys<T>>
+```
+
+### Parameters
+
+- **`obj`** (`T`): The object to extract keys from.
+
+### Return Value
+
+- **`Array<DeepKeys<T>>`**: An array of all nested keys. Returns an empty array if the input is `null` or `undefined`.
+
+### Example Usage
+
+```ts pg
+import { extractObjectKeysDeep } from 'toolbox-x';
+
+const obj = { 
+  a: 1, 
+  b: { 
+    c: 2, 
+    d: { e: 3 } 
+  } 
+};
+const keys = extractObjectKeysDeep(obj); 
+console.log(keys);
+// Output: ['a', 'b', 'c', 'd', 'e']
+```
+
+### Aliases
+
+The following aliases can be used for the `extractObjectKeysDeep` function:
+
+- `extractKeysDeep`

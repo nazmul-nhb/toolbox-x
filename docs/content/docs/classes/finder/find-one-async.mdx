@@ -1,0 +1,83 @@
+---
+title: findOneAsync()
+description: Asynchronously finds the first matching item using the same search strategies as findOne().
+---
+
+## `findOneAsync()`
+
+Asynchronously finds the first matching item using the same search strategies as `findOne()`.
+
+### Signature
+
+```typescript
+async findOneAsync(
+  supplier: () => Promise<T[]>,
+  matcher: string | number,
+  keySelector: KeySelector<T>,
+  options?: Omit<FindOptions<T>, 'data'>
+): Promise<T | undefined>
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `supplier` | `() => Promise<T[]>` | Async function providing the data. |
+| `matcher` | `string \| number` | Value to match against. |
+| `keySelector` | `KeySelector<T>` | Property name or value extractor function. |
+| `options` | `Omit<FindOptions<T>, 'data'>` | Search configuration options (excluding `data`). |
+
+### Returns
+
+`Promise<T | undefined>` — First matching item or `undefined` if none found.
+
+### Description
+
+This method provides an async interface to `findOne()`, useful when:
+- Data needs to be loaded asynchronously.
+- Working with dynamic datasets.
+- Integrating with async data sources.
+
+### Example Usage
+
+```typescript
+import { Finder } from 'toolbox-x';
+
+const userFinder = new Finder<any>([]);
+
+// Basic Async Search
+const result = await userFinder.findOneAsync(
+  async () => [
+    { id: 1, name: 'Alice', role: 'admin' },
+    { id: 2, name: 'Bob', role: 'user' }
+  ],
+  'admin',
+  'role'
+);
+console.log(result);
+```
+
+```typescript
+import { Finder } from 'toolbox-x';
+
+const userFinder = new Finder<any>([]);
+
+// With Caching
+const user = await userFinder.findOneAsync(
+  async () => [
+    { id: 1, name: 'Alice', email: 'alice@example.com' },
+    { id: 2, name: 'Bob', email: 'bob@example.com' }
+  ],
+  'alice@example.com',
+  'email',
+  { cacheKey: 'alice-search' }
+);
+console.log(user);
+```
+
+### Notes
+
+- Inherits all search behaviors from `findOne()`.
+- Supports same caching and matching options.
+- Automatically awaits data before searching.
+- Rejects if supplier throws an error.

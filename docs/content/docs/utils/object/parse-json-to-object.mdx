@@ -1,0 +1,64 @@
+---
+title: Parse JSON To Object
+description: Safely parses a JSON string into an object with optional primitive value conversion.
+---
+
+## parseJsonToObject
+
+The `parseJsonToObject` function safely parses a JSON string into a JavaScript object. It optionally converts stringified primitive values (like `"true"`, `"42"`) into their actual primitive types (`true`, `42`).
+
+### Function Signature
+
+```typescript
+function parseJsonToObject<T extends GenericObject = GenericObject>(
+  value: string,
+  parsePrimitives?: boolean
+): T
+```
+
+### Parameters
+
+- **`value`** (`string`): The JSON string to parse.
+- **`parsePrimitives`** (`boolean`, optional): When `true`, automatically parses string values into primitives. Defaults to `true`.
+
+### Return Value
+
+- **`T`**: The parsed object. If parsing fails, or if the parsed root is not a plain object, it returns an empty object `{}`.
+
+### Example Usage
+
+```ts pg tab="Default (With Primitive Conversion)"
+import { parseJsonToObject } from 'toolbox-x';
+
+const jsonString = '{"num":"42","bool":"true","text":"hello"}';
+const result = parseJsonToObject(jsonString);
+console.log(result);
+// Output: { num: 42, bool: true, text: "hello" }
+```
+
+```ts pg tab="Without Primitive Conversion"
+import { parseJsonToObject } from 'toolbox-x';
+
+const jsonString = '{"num":"42","valid":true}';
+const result = parseJsonToObject(jsonString, false);
+console.log(result);
+// Output: { num: "42", valid: true }
+```
+
+```ts pg tab="Handling Invalid JSON"
+import { parseJsonToObject } from 'toolbox-x';
+
+console.log(parseJsonToObject('invalid json'));    // Output: {}
+console.log(parseJsonToObject('"just a string"')); // Output: {}
+console.log(parseJsonToObject('null'));             // Output: {}
+```
+
+### Notes
+
+- This function validates that the parsed value is a plain object. Roots like strings, numbers, arrays, or `null` are rejected and return `{}`.
+- Internally uses `parseObjectValues` to perform recursive primitive conversions on the object.
+
+### See Also
+
+- [parseObjectValues](./parse-object-values) - The utility used to convert object property values.
+- [parseJSON](../misc/parse-json) - For parsing general JSON (which can return arrays, numbers, booleans, or null).

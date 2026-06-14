@@ -1,0 +1,180 @@
+---
+title: Handle Bangla Digits
+description: Utilities for converting between Bangla digits and Latin digits.
+---
+
+## Overview
+
+The digit conversion utilities provide seamless conversion between Bangla (Bengali) digits (`০-৯`) and Latin (Arabic) digits (`0-9`). These functions are essential for applications that need to handle multilingual numeric representations, particularly in Bengali-language interfaces.
+
+---
+
+## banglaToDigit
+
+Converts Bangla digits to Latin digits with flexible output options.
+
+### Function Signature
+
+```typescript
+function banglaToDigit<Force extends boolean = true>(bnDigit: string, forceNumber?: Force): BnDigitResult<Force>
+```
+
+### Parameters
+
+- **`bnDigit`** (`string`): A string containing Bangla digits (`০-৯`).
+- **`forceNumber`** (`Force`):
+  - `true` (default): Returns a `number` (strips non-digit characters).
+  - `false`: Returns a `string` (preserves non-digit characters).
+
+### Return Value
+
+- When `forceNumber = true`: `number` (or `0` or `NaN` if no digits found).
+- When `forceNumber = false`: `string`.
+
+### Behavior
+
+| Input                       | `forceNumber = true`         | `forceNumber = false`                |
+| --------------------------- | ---------------------------- | ------------------------------------ |
+| Contains only Bangla digits | Returns converted number     | Returns converted string             |
+| Contains mixed characters   | Returns number (digits only) | Returns string with converted digits |
+| Empty string                | Returns `NaN`                | Returns empty string                 |
+| No digits in string         | Returns `0` or `NaN`         | Returns the input string             |
+
+### Examples
+
+```ts pg tab="Default (Force Number)"
+import { banglaToDigit } from 'toolbox-x';
+
+console.log(banglaToDigit('১২৩'));        // → 123
+console.log(banglaToDigit('৪৫৬৭'));      // → 4567
+console.log(banglaToDigit('১২৩abc'));     // → 123
+console.log(banglaToDigit('abc'));        // → 0
+console.log(banglaToDigit(''));           // → NaN
+```
+
+```ts pg tab="Force String Output"
+import { banglaToDigit } from 'toolbox-x';
+
+console.log(banglaToDigit('১২৩', false));        // → "123"
+console.log(banglaToDigit('১২৩abc', false));     // → "123abc"
+console.log(banglaToDigit('৪৫৬৭', false));       // → "4567"
+console.log(banglaToDigit('abc', false));        // → "abc"
+console.log(banglaToDigit('', false));           // → ""
+```
+
+```ts pg tab="Complex Text"
+import { banglaToDigit } from 'toolbox-x';
+
+console.log(banglaToDigit('আমার বয়স ২৫ বছর'));      // → 25
+console.log(banglaToDigit('ফোন: ০১৭১২৩৪৫৬৭৮', false)); // → "ফোন: 01712345678"
+```
+
+### Use Cases
+
+- Parsing numeric input from Bengali users.
+- Converting database values stored in Bangla digits to numbers for calculations.
+- Processing multilingual forms that accept Bangla numbers.
+- Localization utilities for Bengali applications.
+
+---
+
+## digitToBangla
+
+Converts Latin digits to Bangla digits with optional non-digit preservation.
+
+### Function Signature
+
+```typescript
+function digitToBangla(digit: number | string, preserveNonDigit?: boolean): string
+```
+
+### Parameters
+
+- **`digit`** (`number | string`): A number or string containing Latin digits (`0-9`).
+- **`preserveNonDigit`** (`boolean`):
+  - `true` (default): Preserves non-digit characters in output.
+  - `false`: Strips non-numeric characters from output.
+
+### Return Value
+
+- **`string`**: Converted Bangla digit string (or empty string for invalid input).
+
+### Behavior
+
+| Input                        | `preserveNonDigit = true`         | `preserveNonDigit = false`     |
+| ---------------------------- | --------------------------------- | ------------------------------ |
+| Number                       | Returns Bangla digits             | Returns Bangla digits          |
+| String with only digits      | Returns Bangla digits             | Returns Bangla digits          |
+| String with mixed characters | Converts digits, preserves others | Converts digits, strips others |
+| Empty string                 | Returns empty string              | Returns empty string           |
+| Non-numeric string           | Returns original string           | Returns empty string           |
+
+### Examples
+
+```ts pg tab="Default (Preserve Non-Digit)"
+import { digitToBangla } from 'toolbox-x';
+
+console.log(digitToBangla(123));                 // → "১২৩"
+console.log(digitToBangla(4567));                // → "৪৫৬৭"
+console.log(digitToBangla('123'));               // → "১২৩"
+console.log(digitToBangla('12ab34'));            // → "১২ab৩৪"
+console.log(digitToBangla('abc'));               // → "abc"
+console.log(digitToBangla(''));                  // → ""
+```
+
+```ts pg tab="Strip Non-Digits"
+import { digitToBangla } from 'toolbox-x';
+
+console.log(digitToBangla('12ab34', false));     // → "১২৩৪"
+console.log(digitToBangla('abc', false));        // → ""
+console.log(digitToBangla('১২৩', false));        // → "১২৩"
+console.log(digitToBangla('', false));           // → ""
+```
+
+```ts pg tab="Complex Text"
+import { digitToBangla } from 'toolbox-x';
+
+console.log(digitToBangla('Phone: 01712345678')); // → "Phone: ০১৭১২৩৪৫৬৭৮"
+console.log(digitToBangla('আমার বয়স 25 বছর'));    // → "আমার বয়স ২৫ বছর"
+console.log(digitToBangla('Price: $99.99', false)); // → "৯৯৯৯"
+```
+
+### Use Cases
+
+- Displaying numbers in Bengali interfaces.
+- Formatting prices, quantities, and measurements in Bengali.
+- Generating multilingual receipts and invoices.
+- Localizing numeric data for Bengali users.
+
+---
+
+## Type Definitions
+
+### BanglaDigit
+
+```typescript
+type BanglaDigit = '০' | '১' | '২' | '৩' | '৪' | '৫' | '৬' | '৭' | '৮' | '৯';
+```
+
+### BnDigitResult
+
+```typescript
+type BnDigitResult<Force extends boolean> = Force extends true ? number : string;
+```
+
+---
+
+<Callout type="info" title="Best Practices">
+- **Use `banglaToDigit()` with `forceNumber = true`** when you need to perform calculations.
+- **Use `banglaToDigit()` with `forceNumber = false`** when you need to preserve text formatting.
+- **Use `digitToBangla()` with `preserveNonDigit = true`** for displaying formatted text.
+- **Use `digitToBangla()` with `preserveNonDigit = false`** for generating clean numeric strings.
+- **Always validate input** before conversion to handle edge cases.
+</Callout>
+
+---
+
+## Related Utilities
+
+- [`isNumericString()`](/docs/guards/primitive/numeric#isnumericstring) - Check if a string contains only digits
+- [`isNonEmptyString()`](/docs/guards/primitive/composite#isnonemptystring) - Check if a string is not empty

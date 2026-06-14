@@ -1,0 +1,63 @@
+---
+title: Extract New Fields
+description: Extracts only the new fields that exist in an updated object but not in a base object, recursively including nested fields.
+---
+
+## extractNewFields
+
+The `extractNewFields` function recursively compares an updated object with a base object and returns a new object containing only the fields that were introduced in the updated object.
+
+### Function Signature
+
+```typescript
+function extractNewFields<T extends GenericObject, U extends GenericObject>(
+  baseObject: T,
+  updatedObject: U
+): FlattenPartial<U>
+```
+
+### Parameters
+
+- **`baseObject`** (`T`): The original object used as the baseline for comparison.
+- **`updatedObject`** (`U`): The new version of the object containing potential new fields.
+
+### Return Value
+
+- **`FlattenPartial<U>`**: A new object containing only the fields that did not exist in the `baseObject`.
+
+### Example Usage
+
+```ts pg tab="Basic Comparison"
+import { extractNewFields } from 'toolbox-x';
+
+const original = { name: 'John' };
+const updated = { name: 'John', age: 30 };
+
+const newFields = extractNewFields(original, updated);
+console.log(newFields); 
+// Output: { age: 30 }
+```
+
+```ts pg tab="Deep Nested Objects"
+import { extractNewFields } from 'toolbox-x';
+
+const configV1 = { theme: { dark: true } };
+const configV2 = { theme: { dark: true, colors: ['blue'] } };
+
+const changes = extractNewFields(configV1, configV2);
+console.log(changes);
+// Output: { theme: { colors: ['blue'] } }
+```
+
+### Notes
+
+- This function does **not** detect changes in the values of existing keys; use `extractUpdatedFields` or `extractUpdatedAndNewFields` for that purpose.
+- Returns a new object without mutating either input.
+
+### Types
+
+#### `FlattenPartial<T>`
+
+```typescript
+type FlattenPartial<T> = Partial<{ [K in keyof T]: T[K] }>;
+```

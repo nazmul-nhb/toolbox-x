@@ -1,0 +1,57 @@
+---
+title: Count Object Fields
+description: Counts the number of enumerable own properties in an object.
+---
+
+## countObjectFields
+
+The `countObjectFields` function counts the number of enumerable own properties in a given object. It safely handles `null` and `undefined` inputs by returning `0`.
+
+### Function Signature
+
+```typescript
+function countObjectFields<T>(obj: T): number
+```
+
+### Parameters
+
+- **`obj`** (`T`): The object to count properties of.
+
+### Return Value
+
+- **`number`**: The count of enumerable own properties, or `0` if the object is `null`, `undefined`, or not a valid object.
+
+### Example Usage
+
+```ts pg tab="Basic Object"
+import { countObjectFields } from 'toolbox-x';
+
+const user = {
+  id: 1,
+  name: 'John Doe',
+  email: 'john@example.com'
+};
+
+console.log(countObjectFields(user)); 
+// Output: 3
+```
+
+```ts pg tab="Empty Object"
+import { countObjectFields } from 'toolbox-x';
+
+console.log(countObjectFields({})); 
+// Output: 0
+```
+
+```ts pg tab="Edge Cases"
+import { countObjectFields } from 'toolbox-x';
+
+console.log(countObjectFields(null));      // Output: 0
+console.log(countObjectFields(undefined)); // Output: 0
+```
+
+### Notes
+
+- This function only counts enumerable own properties (identical behavior to `Object.keys()`).
+- Inherited properties from the prototype chain are not counted.
+- Symbol-keyed properties are not counted.

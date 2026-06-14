@@ -1,0 +1,39 @@
+---
+title: Slugify String
+description: Converts a string into a URL-friendly slug by lowercasing and replacing non-alphanumeric characters with dashes.
+---
+
+## slugifyString
+
+The `slugifyString` function converts a string into a URL-friendly, lowercase `slug`. It replaces non-alphanumeric characters with dashes and trims excess separators.
+
+### Function Signature
+
+```typescript
+function slugifyString(input: string): Lowercase<string>
+```
+
+### Parameters
+
+- **`input`** (`string`): The string to convert.
+
+### Return Value
+
+- **`Lowercase<string>`**: The slugified version of the string.
+
+### Example Usage
+
+```ts pg
+import { slugifyString } from 'toolbox-x';
+
+console.log(slugifyString('Hello World!')); 
+// Output: 'hello-world'
+
+console.log(slugifyString('  Some String With Spaces  ')); 
+// Output: 'some-string-with-spaces'
+```
+
+### Notes
+
+- The input is trimmed of leading and trailing whitespace before processing.
+- Ideal for generating SEO-friendly URLs or route paths.

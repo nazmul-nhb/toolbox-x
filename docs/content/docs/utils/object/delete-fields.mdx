@@ -1,0 +1,87 @@
+---
+title: Delete Object Fields
+description: Creates a new object by removing specified properties from a source object.
+---
+
+## deleteFields
+
+The `deleteFields` function creates a new object by removing specified properties from a source object, preserving accurate TypeScript types.
+
+### Function Signature
+
+```typescript
+function deleteFields<T extends GenericObject, U extends keyof T>(
+  source: T,
+  keys: readonly U[]
+): { [K in Exclude<keyof T, U>]: T[K] }
+```
+
+### Parameters
+
+- **`source`** (`T`): The source object to copy.
+- **`keys`** (`readonly U[]`): An array of property keys to exclude from the cloned object.
+
+### Return Value
+
+- **`{ [K in Exclude<keyof T, U>]: T[K] }`**: A new object excluding the specified properties.
+
+### Example Usage
+
+```ts pg tab="Basic Deletion"
+import { deleteFields } from 'toolbox-x';
+
+const user = {
+  id: 1,
+  name: 'John',
+  email: 'john@example.com',
+  age: 30
+};
+
+const filtered = deleteFields(user, ['email', 'age']);
+console.log(filtered); 
+// Output: { id: 1, name: 'John' }
+```
+
+```ts pg tab="Nested Object (Top-Level Only)"
+import { deleteFields } from 'toolbox-x';
+
+const book = {
+  title: 'Clean Code',
+  author: 'Robert Martin',
+  details: {
+    pages: 464,
+    publisher: 'Prentice Hall'
+  }
+};
+
+const result = deleteFields(book, ['author']);
+console.log(result);
+/*
+Output:
+{
+  title: 'Clean Code',
+  details: { pages: 464, publisher: 'Prentice Hall' }
+}
+*/
+```
+
+### Notes
+
+- This function operates on **top-level** properties only. It does not support deep deletion or dot-notation paths.
+- It is non-destructive and returns a new object without mutating the original `source`.
+
+### Aliases
+
+The following aliases can be used for the `deleteFields` function:
+
+- `omitFields`
+- `omitObjectFields`
+- `deleteObjectFields`
+- `removeFields`
+- `removeObjectFields`
+
+### See Also
+
+- [pickFields](./pick-fields) - Select specific object fields.
+- [pickFieldsByCondition](./pick-fields-by-condition) - Conditionally select object fields.
+- [remapFields](./remap-fields) - Rename object keys.

@@ -1,0 +1,186 @@
+---
+title: Fibonacci Number(s)
+description: Utilities for working with the Fibonacci sequence, generating series, fetching term values, or iterating lazily.
+---
+
+## Overview
+
+Multiple utilities are offered for working with the Fibonacci sequence:
+
+- Generate full sequences (iteratively or recursively with memoization)
+- Fetch a specific Fibonacci term by index
+- Lazily iterate using a generator
+- Supports aliases for convenient use
+
+All inputs are coerced and validated using `Number()`.
+
+---
+
+## getFibonacciSeries
+
+Generates the first `limit` Fibonacci numbers iteratively.
+
+### Function Signature
+
+```ts
+function getFibonacciSeries(limit: Numeric): number[]
+```
+
+### Parameters
+
+- **`limit`** (`Numeric`): Number of Fibonacci numbers to generate.
+
+### Returns
+
+- **`number[]`**: An array of Fibonacci numbers from `index 0` to `limit - 1`. If the input is invalid or non-positive, an empty array is returned.
+
+### Example
+
+```ts pg
+import { getFibonacciSeries } from 'toolbox-x';
+
+console.log(getFibonacciSeries(7)); 
+// Output: [0, 1, 1, 2, 3, 5, 8]
+```
+
+### Aliases
+
+- `getFibonacci`
+- `getFibonacciNumbers`
+
+---
+
+## getFibonacciSeriesMemo
+
+Generates the first `limit` Fibonacci numbers using recursion with memoization.
+
+### Function Signature
+
+```ts
+function getFibonacciSeriesMemo(limit: Numeric): number[]
+```
+
+### Parameters
+
+- **`limit`** (`Numeric`): Number of Fibonacci numbers to generate.
+
+### Returns
+
+- **`number[]`**: An array of Fibonacci numbers from `index 0` to `limit - 1`. Invalid input returns an empty array.
+
+### Example
+
+```ts pg
+import { getFibonacciSeriesMemo } from 'toolbox-x';
+
+console.log(getFibonacciSeriesMemo(7)); 
+// Output: [0, 1, 1, 2, 3, 5, 8]
+```
+
+### Aliases
+
+- `getMemoizedFibonacci`
+- `getMemoizedFibonacciSeries`
+
+---
+
+## fibonacciGenerator
+
+A lazy generator that yields Fibonacci numbers up to a given `limit`.
+
+### Function Signature
+
+```ts
+function* fibonacciGenerator(
+  limit: Numeric,
+  onYield?: (value: number, index: number) => void
+): Generator<number, void, void>
+```
+
+### Parameters
+
+- **`limit`** (`Numeric`): Number of Fibonacci values to yield.
+- **`onYield`** (_optional_): Callback called on each yield with `(value, index)`.
+
+### Returns
+
+- **`Generator<number, void, void>`**: A generator that yields Fibonacci numbers one by one up to the specified `limit`.
+
+### Examples
+
+```ts pg tab="Generator Loop"
+import { fibonacciGenerator } from 'toolbox-x';
+
+const result = [];
+for (const value of fibonacciGenerator(5)) {
+  result.push(value);
+}
+console.log(result);
+// Output: [0, 1, 1, 2, 3]
+```
+
+```ts pg tab="With Callback"
+import { fibonacciGenerator } from 'toolbox-x';
+
+// Using onYield callback
+const gen = fibonacciGenerator(3, (val, idx) => {
+  console.log(`Index ${idx} => ${val}`);
+});
+
+// Run generator
+Array.from(gen);
+// Output:
+// Index 0 => 0
+// Index 1 => 1
+// Index 2 => 1
+```
+
+### Aliases
+
+- `generateFibonacci`
+
+---
+
+## getNthFibonacci
+
+Returns the Fibonacci number at the specified term `index`.
+
+### Function Signature
+
+```ts
+function getNthFibonacci(index: Numeric): number
+```
+
+### Parameters
+
+- **`index`** (`Numeric`): Index (0-based) of the Fibonacci term to retrieve.
+
+### Returns
+
+- **`number`**: The Fibonacci number at the given `index`.
+
+### Example
+
+```ts pg
+import { getNthFibonacci } from 'toolbox-x';
+
+console.log(getNthFibonacci(8)); 
+// Output: 21
+```
+
+---
+
+## Summary of Aliases
+
+| Function                  | Aliases                                              |
+|---------------------------|------------------------------------------------------|
+| `getFibonacciSeries`      | `getFibonacci`, `getFibonacciNumbers`                |
+| `getFibonacciSeriesMemo`  | `getMemoizedFibonacci`, `getMemoizedFibonacciSeries` |
+| `getNthFibonacci`         | *None*                                               |
+| `fibonacciGenerator`      | `generateFibonacci`                                  |
+
+### Notes & Limitations
+
+- The recursive memoized version `getFibonacciSeriesMemo()` is not tail-call optimized and can hit stack limits on very high values.
+- `getNthFibonacci()` uses an efficient iterative approach.
+- Floating-point limits apply at high index values (`n > 70`).

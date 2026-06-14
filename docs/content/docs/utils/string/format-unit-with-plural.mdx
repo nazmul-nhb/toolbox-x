@@ -1,0 +1,61 @@
+---
+title: Format Unit With Plural
+description: Formats a grammatically correct unit string (using basic 's' suffix rules) based on a count.
+---
+
+## formatUnitWithPlural
+
+The `formatUnitWithPlural` function returns a basic unit string formatted for singular or plural forms (by appending `'s'` if the count is not `1`). It can optionally prefix the unit with the number.
+
+> [!TIP]
+> - This function uses a simple approach of appending `'s'` to the unit.
+> - For complex English grammar rules and irregular plurals (e.g. `child` $\rightarrow$ `children`), use [Pluralizer Class](/docs/classes/Pluralizer) instead.
+
+### Function Signature
+
+```typescript
+function formatUnitWithPlural(count: number, unit: string, withNumber?: boolean): string
+```
+
+### Parameters
+
+- **`count`** (`number`): The numeric value used to determine singular vs plural.
+- **`unit`** (`string`): The base unit name (e.g., `"day"`, `"hour"`).
+- **`withNumber`** (`boolean`, optional): Whether to prefix the result with the count. Defaults to `true`.
+
+### Return Value
+
+- **`string`**: The formatted string (e.g., `"1 day"` or `"2 days"` if `withNumber` is true, or `"day"` or `"days"` if false).
+
+### Example Usage
+
+```ts pg tab="With Number"
+import { formatUnitWithPlural } from 'toolbox-x';
+
+console.log(formatUnitWithPlural(1, 'hour')); 
+// Output: "1 hour"
+
+console.log(formatUnitWithPlural(3, 'day'));  
+// Output: "3 days"
+```
+
+```ts pg tab="Without Number"
+import { formatUnitWithPlural } from 'toolbox-x';
+
+console.log(formatUnitWithPlural(1, 'minute', false)); 
+// Output: "minute"
+
+console.log(formatUnitWithPlural(5, 'month', false));  
+// Output: "months"
+```
+
+### Notes
+
+- Absolute count is checked: any count other than `1` or `-1` defaults to the plural form.
+
+### Aliases
+
+The following aliases can be used for the `formatUnitWithPlural` function:
+
+- `formatNumberWithPluralUnit`
+- `formatWithPlural`

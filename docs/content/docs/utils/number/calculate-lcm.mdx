@@ -1,0 +1,50 @@
+---
+title: Calculate LCM (LCD)
+description: Calculates the least common multiple of multiple numbers.
+---
+
+## calculateLCM
+
+The `calculateLCM` function calculates the least common multiple (LCM), also known as the least common divisor (LCD), of multiple provided numbers.
+
+### Function Signature
+
+```typescript
+function calculateLCM(...numbers: Numeric[]): number
+```
+
+### Parameters
+
+- **`numbers`** (`Numeric[]`): A list of numbers or numeric strings for which the LCM/LCD is to be calculated.
+
+### Return Value
+
+- **`number`**: The LCM/LCD of the provided numbers. If no valid numbers are provided, it returns `0`.
+
+### Example Usage
+
+```ts pg
+import { calculateLCM } from 'toolbox-x';
+
+console.log(calculateLCM(12, 15, 18)); // → 180
+console.log(calculateLCM(5, 10));      // → 10
+console.log(calculateLCM(7));          // → 7
+console.log(calculateLCM());           // → 0
+```
+
+### Notes
+
+- The function works by progressively finding the LCM of pairs of numbers.
+- If no valid numbers are provided, it returns `0` as the LCM/LCD.
+- The LCM of a single number is the number itself.
+- Only integer values are considered valid for calculating LCM/LCD.
+
+### Aliases
+
+- `calculateLCD`
+
+### See Also
+
+- [`calculateHCF`](./calculate-hcf)
+- [`factorial`](./factorial)
+- [`getFactors`](./get-factors)

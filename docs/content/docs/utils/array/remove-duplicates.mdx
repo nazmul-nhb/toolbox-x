@@ -1,0 +1,62 @@
+---
+title: Remove Duplicates
+description: Removes duplicate values from an array.
+---
+
+## removeDuplicatesFromArray
+
+The `removeDuplicatesFromArray` function removes duplicate values from an array using deep equality checks, ensuring that complex objects and nested arrays are properly compared.
+
+### Function Signature
+
+```typescript
+function removeDuplicatesFromArray<T>(array: T[]): T[]
+```
+
+### Parameters
+
+- **`array`** (`T[]`): The array from which duplicates will be removed. The array can contain primitive values (strings, numbers, booleans) or objects/arrays that will be compared deeply.
+
+### Return Value
+
+- **`T[]`**: A new array with all duplicates removed, preserving the original order of unique elements.
+
+### Example Usage
+
+```ts pg tab="Numbers"
+import { removeDuplicatesFromArray } from 'toolbox-x';
+
+const numbers = [1, 2, 3, 2, 1];
+const uniqueNumbers = removeDuplicatesFromArray(numbers);
+console.log(uniqueNumbers); 
+// Output: [1, 2, 3]
+```
+
+```ts pg tab="Objects"
+import { removeDuplicatesFromArray } from 'toolbox-x';
+
+const objects = [
+  { id: 1, name: 'Item A' },
+  { id: 2, name: 'Item B' },
+  { id: 1, name: 'Item A' },
+];
+
+const uniqueObjects = removeDuplicatesFromArray(objects);
+console.log(uniqueObjects);
+// Output: [
+//   { id: 1, name: 'Item A' },
+//   { id: 2, name: 'Item B' }
+// ]
+```
+
+### Notes
+
+- The function uses deep equality checks ([`isDeepEqual`](/docs/guards/checkers/is-deep-equal)) to compare objects and arrays, ensuring that duplicate objects or arrays with identical contents are removed.
+- The order of elements in the original array is preserved, and only unique items remain in the returned array.
+- Does **not mutate** the original array.
+
+### Aliases
+
+The following aliases can be used for the `removeDuplicatesFromArray` function:
+
+- `removeDuplicates`

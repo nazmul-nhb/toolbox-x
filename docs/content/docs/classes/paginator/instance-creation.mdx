@@ -1,0 +1,121 @@
+---
+title: Instance Creation Methods
+description: Methods for creating new Paginator instances with modified parameters.
+---
+
+## withPage()
+
+### Signature
+
+```typescript
+withPage(page: number): Paginator
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `page` | `number` | New current page number. |
+
+### Returns
+
+- **`Paginator`**: New instance with updated page. Clamps page between 1 and the last page. The original instance remains unchanged.
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+const paginator = new Paginator({ totalItems: 100 });
+const page5 = paginator.withPage(5); // New instance on page 5
+```
+
+---
+
+## withPerPage()
+
+### Signature
+
+```typescript
+withPerPage(perPage: number): Paginator
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `perPage` | `number` | New items per page value. |
+
+### Returns
+
+- **`Paginator`**: New instance with updated items per page. Clamps value to minimum 1. Automatically adjusts current page if needed.
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+const paginator = new Paginator({ totalItems: 100 });
+const updated = paginator.withPerPage(20); // New instance with 20 items/page
+```
+
+---
+
+## withTotalItems()
+
+### Signature
+
+```typescript
+withTotalItems(totalItems: number): Paginator
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `totalItems` | `number` | New total items count. |
+
+### Returns
+
+- **`Paginator`**: New instance with updated total. Clamps value to minimum 0. Automatically adjusts current page if needed.
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+const paginator = new Paginator({ totalItems: 100 });
+const updated = paginator.withTotalItems(200); // New instance with 200 total items
+```
+
+---
+
+## withOptions()
+
+### Signature
+
+```typescript
+withOptions(options: Partial<PaginatorOptions>): Paginator
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `options` | `Partial<PaginatorOptions>` | Partial options to override. |
+
+### Returns
+
+- **`Paginator`**: New instance with merged options. Applies the same clamping rules as the constructor. Only provided values are updated.
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+const paginator = new Paginator({ totalItems: 100 });
+const updated = paginator.withOptions({
+  itemsPerPage: 25,
+  currentPage: 2
+});
+```

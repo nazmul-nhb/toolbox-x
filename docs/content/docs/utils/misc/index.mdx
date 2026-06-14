@@ -1,0 +1,39 @@
+---
+title: Miscellaneous Utilities
+description: General-purpose utilities for common programming tasks, including JSON parsing, prototyping, debouncing, throttling, country phone lookups, and console styling.
+icon: HelpCircle
+---
+
+## Overview
+
+A collection of general-purpose utilities. These include tools for action debouncing/throttling, safe JSON stringifying/parsing, prototype extension, country phone lookup, class method inspection, HTTP status helpers, and console log styling.
+
+## Categories
+
+### Action Utilities
+
+- [debounceAction](./debounce-action) — Delays function execution until after a specified wait time has elapsed.
+- [throttleAction](./throttle-action) — Limits the rate at which a function is executed.
+
+### Data & JSON Utilities
+
+- [convertArrayToString](./convert-array-to-string) — Converts array values to readable strings with customization.
+- [deepParsePrimitives](./deep-parse-primitives) — Recursively parses all string values in an object to their actual types.
+- [jsonStringify](./json-stringify) — Stable, sorted, and circular-safe JSON stringifier.
+- [parseJSON](./parse-json) — Safe JSON parser that never throws and optionally parses primitives.
+
+### Class & Prototype Utilities
+
+- [classMethods](./class-methods) — Introspects class names, instance methods, and static methods.
+- [definePrototypeMethod](./define-prototype-method) — Safe utility to extend JavaScript prototypes.
+
+### Specialized Singletons
+
+- [getCountryByPhone](./get-country-by-phone) — Identifies country and formats phone numbers by dial code.
+- [httpStatus](./http-status) — A singleton instance of `HttpStatus` providing status code checks and text lookup.
+- [stylog](./stylog) — A singleton instance of `LogStyler` to format console logs with styles.
+- [stylogUtils](./stylog-utils) — Supporting utilities for console logging.
+
+---
+
+Continue reading for detailed API documentation or search for functions using `ctrl+k`.

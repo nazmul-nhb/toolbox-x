@@ -1,0 +1,45 @@
+---
+title: Clamp Number
+description: Restricts a number to fall within a specified minimum and maximum range.
+---
+
+## clampNumber
+
+The `clampNumber` function restricts a number to fall within a specified range. If the number is lower than the minimum, it returns the minimum; if higher than the maximum, it returns the maximum; otherwise, it returns the original number.
+
+### Function Signature
+
+```typescript
+function clampNumber(value: number, min: number, max: number): number
+```
+
+### Parameters
+
+- **`value`** (`number`): The number to be clamped.
+- **`min`** (`number`): The lower bound of the range (inclusive).
+- **`max`** (`number`): The upper bound of the range (inclusive).
+
+### Return Value
+
+- **`number`**:
+  - `min` if `value` < `min`
+  - `max` if `value` > `max`
+  - `value` if it's between `min` and `max`
+
+### Example Usage
+
+```ts pg
+import { clampNumber } from 'toolbox-x';
+
+console.log(clampNumber(15, 10, 20)); // → 15 (within range)
+console.log(clampNumber(5, 10, 20));  // → 10 (below minimum)
+console.log(clampNumber(25, 10, 20)); // → 20 (above maximum)
+console.log(clampNumber(10, 10, 20)); // → 10 (equal to min)
+console.log(clampNumber(20, 10, 20)); // → 20 (equal to max)
+```
+
+### Notes
+
+- **Order Matters**: If `min` > `max`, the function will return `min` (due to the internal structure of `Math.max(min, Math.min(value, max))`).
+- **Type Safety**: Only accepts `number` type.
+- **Performance**: Uses native `Math.max` and `Math.min` for optimal performance.

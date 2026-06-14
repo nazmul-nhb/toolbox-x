@@ -1,0 +1,80 @@
+---
+title: Deep Parse Primitive Values
+description: Recursively parses any input structure and converts stringified primitives into their actual JavaScript types.
+---
+
+## deepParsePrimitives
+
+Recursively parses an input (object, array, or primitive) and converts stringified numbers, booleans, `null`, and `undefined` to their proper JavaScript types throughout the structure.
+
+### Function Signature
+
+```typescript
+function deepParsePrimitives<T = unknown>(input: unknown): T
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `input` | `unknown` | Any value: array, object, primitive, etc. to parse. |
+
+### Returns
+
+- **`T`**: The parsed value with converted primitives.
+
+---
+
+### Example Usage
+
+```ts pg tab="Objects"
+import { deepParsePrimitives } from 'toolbox-x';
+
+const result = deepParsePrimitives({
+  user: {
+    age: "30",
+    flags: ["true", "false", "null"]
+  },
+  data: "undefined"
+});
+console.log(result);
+// → { user: { age: 30, flags: [true, false, null] }, data: undefined }
+```
+
+```ts pg tab="Arrays"
+import { deepParsePrimitives } from 'toolbox-x';
+
+const result = deepParsePrimitives(["true", "5", ["42", "null"]]);
+console.log(result);
+// → [true, 5, [42, null]]
+```
+
+---
+
+## Behavior Details
+
+- **Deep Traversal**: Recursively scans and transforms arrays, objects, and nested objects.
+- **Conversion Rules**:
+  - `"true"` → `true`
+  - `"false"` → `false`
+  - `"null"` → `null`
+  - `"undefined"` → `undefined`
+  - Numeric string (e.g. `"123"`) → `123`
+- **Already Typed Values**: Leaves non-string primitives, functions, objects, and arrays untouched (except traversing inside them).
+
+---
+
+## Aliases
+
+This function can also be imported under the following name:
+
+| Alias | Import Path |
+| :--- | :--- |
+| `parsePrimitivesDeep` | `toolbox-x` |
+
+---
+
+## Related Functions
+
+- [parseJSON](./parse-json) — Safely parses any JSON string with deep primitive parsing.
+- [parseJsonToObject](../object/parse-json-to-object) — Parses JSON strings strictly into objects, converting primitives.

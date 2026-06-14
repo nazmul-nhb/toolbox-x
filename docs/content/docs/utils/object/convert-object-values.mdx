@@ -1,0 +1,133 @@
+---
+title: Convert Object Values
+description: Converts specified values in objects or arrays of objects between string and number types, supporting nested properties via dot notation.
+---
+
+## convertObjectValues
+
+The `convertObjectValues` function converts specified values in objects or arrays of objects between `string` and `number` types. It supports nested properties via dot notation.
+
+### Function Signatures
+
+```typescript
+// For Single Object
+function convertObjectValues<
+  T extends GenericObject,
+  Key extends NumericDotKey<T>,
+  C extends 'string' | 'number',
+>(data: T, options: ConvertObjectOptions<T, Key, C>): ConvertedObject<T, Key, C>
+
+// For Array of Objects
+function convertObjectValues<
+  T extends GenericObject,
+  Key extends NumericDotKey<T>,
+  C extends 'string' | 'number',
+>(data: Array<T>, options: ConvertObjectOptions<T, Key, C>): Array<ConvertedObject<T, Key, C>>
+```
+
+### Parameters
+
+- **`data`** (`T | T[]`): A single object or an array of objects.
+- **`options`** (`ConvertObjectOptions`): The options for conversion:
+  - **`keys`** (`Key[]`): An array of dot-notation keys (properties) to convert.
+  - **`convertTo`** (`'string' | 'number'`): The target type to convert selected keys to.
+
+### Return Value
+
+- A new object or array of objects with the specified keys converted to the target type, with accurate TypeScript return types.
+
+### Example Usage
+
+```ts pg tab="Object: Convert to Numbers"
+import { convertObjectValues } from 'toolbox-x';
+
+const product = {
+  id: "123",
+  price: "99.99",
+  meta: { weight: "1.5" }
+};
+
+const result = convertObjectValues(product, {
+  keys: ['price', 'meta.weight'],
+  convertTo: 'number'
+});
+console.log(result);
+// Output: { id: "123", price: 99.99, meta: { weight: 1.5 } }
+```
+
+```ts pg tab="Object: Convert to Strings"
+import { convertObjectValues } from 'toolbox-x';
+
+const user = {
+  id: 456,
+  profile: { age: 30 }
+};
+
+const result = convertObjectValues(user, {
+  keys: ['id', 'profile.age'],
+  convertTo: 'string'
+});
+console.log(result);
+// Output: { id: "456", profile: { age: "30" } }
+```
+
+```ts pg tab="Array: Convert to Numbers"
+import { convertObjectValues } from 'toolbox-x';
+
+const items = [
+  { sku: "A100", price: "25" },
+  { sku: "B200", price: "50" }
+];
+
+const result = convertObjectValues(items, {
+  keys: ['price'],
+  convertTo: 'number'
+});
+console.log(result);
+// Output: [ { sku: "A100", price: 25 }, { sku: "B200", price: 50 } ]
+```
+
+```ts pg tab="Nested Object Paths"
+import { convertObjectValues } from 'toolbox-x';
+
+const order = {
+  id: "1001",
+  total: "199.99",
+  customer: {
+    id: 5001,
+    loyaltyPoints: "1000"
+  }
+};
+
+const result = convertObjectValues(order, {
+  keys: ['total', 'customer.loyaltyPoints'],
+  convertTo: 'number'
+});
+console.log(result);
+/*
+Output:
+{
+  id: "1001",
+  total: 199.99,
+  customer: {
+    id: 5001,
+    loyaltyPoints: 1000
+  }
+}
+*/
+```
+
+### Types
+
+#### `ConvertObjectOptions`
+
+```typescript
+interface ConvertObjectOptions<
+  T extends GenericObject,
+  Key extends NumericDotKey<T>,
+  C extends 'string' | 'number'
+> {
+  keys: ValidArray<Key>;
+  convertTo: C;
+}
+```

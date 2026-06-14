@@ -1,0 +1,64 @@
+---
+title: Convert Color Code
+description: Converts between solid or alpha-channel color formats, returning all other equivalent formats.
+---
+
+## convertColorCode
+
+The `convertColorCode` function converts between color formats (HEX, RGB, HSL) and their alpha-channel variants (HEX8, RGBA, HSLA). It parses the input format and returns an object containing all other equivalent color representations.
+
+### Function Signatures
+
+```typescript
+function convertColorCode(color: Hex6): { rgb: RGB; hsl: HSL }
+function convertColorCode(color: RGB): { hex: Hex6; hsl: HSL }
+function convertColorCode(color: HSL): { hex: Hex6; rgb: RGB }
+
+function convertColorCode(color: Hex8): { rgba: RGBA; hsla: HSLA }
+function convertColorCode(color: RGBA): { hex8: Hex8; hsla: HSLA }
+function convertColorCode(color: HSLA): { hex8: Hex8; rgba: RGBA }
+```
+
+### Parameters
+
+- **`color`** (`ColorType`): The solid or alpha-channel color string to convert.
+
+### Return Value
+
+- An object with keys for all equivalent formats *excluding* the input format (e.g. converting a `Hex6` returns `{ rgb, hsl }`).
+
+### Example Usage
+
+```ts pg tab="Solid: Hex6 to RGB/HSL"
+import { convertColorCode, Hex6 } from 'toolbox-x/colors';
+
+const result = convertColorCode('#3C6945' as Hex6);
+console.log(result);
+// Output: { rgb: "rgb(60, 105, 69)", hsl: "hsl(130, 27%, 32%)" }
+```
+
+```ts pg tab="Solid: RGB to Hex6/HSL"
+import { convertColorCode } from 'toolbox-x/colors';
+
+const result = convertColorCode('rgb(60, 105, 69)');
+console.log(result);
+// Output: { hex: "#3C6945", hsl: "hsl(130, 27%, 32%)" }
+```
+
+```ts pg tab="Alpha: Hex8 to RGBA/HSLA"
+import { convertColorCode, Hex8 } from 'toolbox-x/colors';
+
+const result = convertColorCode('#3C694580' as Hex8);
+console.log(result);
+// Output: { rgba: "rgba(60, 105, 69, 0.5)", hsla: "hsla(130, 27%, 32%, 0.5)" }
+```
+
+### Notes
+
+- String inputs that represent branded types (like `Hex6` and `Hex8`) might require type casting (e.g. `as Hex6`).
+- Throws an error if the color string is malformed or invalid.
+
+### See Also
+
+- [Color converters](./color-converters) - Direct conversion functions between specific formats.
+- [Color class](/docs/classes/Color) - Object-oriented class wrapper for advanced color management.

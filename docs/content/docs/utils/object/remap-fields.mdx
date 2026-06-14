@@ -1,0 +1,80 @@
+---
+title: Remap Object Fields
+description: Transforms an object's structure by mapping properties to new names according to a provided field mapping.
+---
+
+## remapFields
+
+The `remapFields` function maps properties of an object to new key names based on a mapping schema, preserving value types in the returned object.
+
+### Function Signature
+
+```typescript
+function remapFields<Source extends GenericObject, Target extends Record<string, keyof Source>>(
+  source: Source,
+  fieldMap: Target
+): { [K in keyof Target]: Source[Target[K]] }
+```
+
+### Parameters
+
+- **`source`** (`Source`): The source object to remap.
+- **`fieldMap`** (`Target`): An object mapping new target keys (as keys of `fieldMap`) to existing keys in `source` (as values of `fieldMap`).
+
+### Return Value
+
+- **`{ [K in keyof Target]: Source[Target[K]] }`**: A new object structured with the keys of `fieldMap` and the corresponding values from `source`.
+
+### Example Usage
+
+```ts pg tab="Basic Renaming"
+import { remapFields } from 'toolbox-x';
+
+const user = {
+  userId: 123,
+  fullName: 'John Doe',
+  emailAddress: 'john@example.com'
+};
+
+const mappedUser = remapFields(user, {
+  id: 'userId',
+  name: 'fullName',
+  email: 'emailAddress'
+});
+console.log(mappedUser);
+// Output: { id: 123, name: 'John Doe', email: 'john@example.com' }
+```
+
+```ts pg tab="Selective Remapping"
+import { remapFields } from 'toolbox-x';
+
+const product = {
+  prodId: 'P100',
+  productName: 'Laptop',
+  price: 999,
+  inStock: true
+};
+
+const inventoryItem = remapFields(product, {
+  id: 'prodId',
+  name: 'productName'
+});
+console.log(inventoryItem);
+// Output: { id: 'P100', name: 'Laptop' }
+```
+
+### Notes
+
+- This function performs a **shallow** transformation only.
+- Keys omitted from `fieldMap` will not exist in the returned object.
+
+### Aliases
+
+The following aliases can be used for the `remapFields` function:
+
+- `remapObjectFields`
+
+### See Also
+
+- [pickFields](./pick-fields) - Select specific object fields without renaming.
+- [deleteFields](./delete-fields) - Exclude specific object fields.

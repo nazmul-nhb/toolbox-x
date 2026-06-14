@@ -1,0 +1,66 @@
+---
+title: Generate Anagrams
+description: Generates unique anagrams of a given word, with support for limits and dictionary filtering.
+---
+
+## generateAnagrams
+
+The `generateAnagrams` function generates unique anagrams of a given word. It returns an array of lowercase anagrams, with the original word (lowercased) as the first element.
+
+### Function Signature
+
+```typescript
+function generateAnagrams(word: string, options?: AnagramOptions): Lowercase<string>[]
+```
+
+### Parameters
+
+- **`word`** (`string`): The word to generate anagrams for.
+- **`options`** (`AnagramOptions`, optional): Configuration options:
+  - **`limit`** (`number | 'all'`): Maximum number of anagrams to generate. Defaults to `100`.
+  - **`dictionary`** (`string[] | false`): If provided, only anagrams present in this list are returned (case-insensitive). Defaults to `false`.
+
+### Types
+
+#### `AnagramOptions`
+
+```typescript
+interface AnagramOptions {
+  limit?: number | 'all';
+  dictionary?: false | string[];
+}
+```
+
+### Return Value
+
+- **`Lowercase<string>[]`**: An array of unique, lowercase anagrams. The original word (lowercased) is always the first element.
+
+### Example Usage
+
+```ts pg tab="Default Limit"
+import { generateAnagrams } from 'toolbox-x';
+
+const word = 'cat';
+const anagrams = generateAnagrams(word);
+console.log(anagrams);
+// Output: ['cat', 'act', 'tac', 'atc', 'cta', 'tca']
+```
+
+```ts pg tab="Dictionary Filtering"
+import { generateAnagrams } from 'toolbox-x';
+
+const word = 'tone';
+const anagrams = generateAnagrams(word, {
+  dictionary: ['tone', 'note', 'one'],
+  limit: 'all',
+});
+console.log(anagrams);
+// Output: ['tone', 'note']
+```
+
+### Notes
+
+- Single character words return a single-item array containing the lowercase character.
+- An empty string returns an empty array.
+- For a pre-built dictionary of English words, you can fetch [english-words.json](https://github.com/nazmul-nhb/toolbox-x/blob/main/__dump__/english-words.json) and pass its array format to `options.dictionary`.
+- Anagram generation scales factorially with word length; use `limit` when dealing with longer words to avoid freezing the execution thread.

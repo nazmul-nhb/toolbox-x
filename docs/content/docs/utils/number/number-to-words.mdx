@@ -1,0 +1,63 @@
+---
+title: Number to Words (Cardinal)
+description: Converts a numeric value into its English word representation.
+---
+
+## numberToWords
+
+The `numberToWords` function converts a numeric value (integer or numeric string) into its English word representation. It supports values up to `10e19` or `10^20` (one hundred quintillion).
+
+> [!WARNING]
+> - Supports only values up to `10e19` (`10^20`) (one hundred quintillion).
+> - Decimal values are ignored; only the integer part is processed.
+
+### Function Signature
+
+```typescript
+function numberToWords(number: Numeric): string
+```
+
+### Parameters
+
+- **`number`** (`Numeric`): The numeric value (integer or numeric string) to convert.
+
+### Return Value
+
+- **`string`**: The English word representation of the integer portion of the input.
+
+### Example Usage
+
+```ts pg
+import { numberToWords } from 'toolbox-x';
+
+console.log(numberToWords(42));
+// Output: "forty-two"
+
+console.log(numberToWords(-1506));
+// Output: "minus one thousand five hundred and six"
+
+console.log(numberToWords("123456789"));
+// Output: "one hundred twenty-three million four hundred fifty-six thousand seven hundred eighty-nine"
+
+console.log(numberToWords(0.987));
+// Output: "zero"
+
+console.log(numberToWords(1e21));
+// Output: "Number exceeds supported range (max is 10e19 aka 10^20)"
+```
+
+### Notes
+
+- The function uses predefined constants for ones, teens, tens, and large denominations to construct the word form.
+- Negative numbers are correctly prefixed with `"minus"`.
+
+### Aliases
+
+The following aliases can be used for the `numberToWords` function:
+
+- `convertNumberToWords`
+
+### See Also
+
+- [numberToWordsOrdinal](./number-to-words-ordinal) - For ordinal word representation of numbers.
+- [wordsToNumber](./words-to-number) - For converting English word numbers back to digits.

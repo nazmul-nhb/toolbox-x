@@ -1,0 +1,39 @@
+---
+title: Static Methods
+description: Static factory methods for creating Paginator instances.
+---
+
+## fromMeta()
+
+### Signature
+
+```typescript
+static fromMeta(meta: FromMetaOptions): Paginator
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `meta` | `FromMetaOptions` | Pagination metadata to create from. |
+
+```typescript
+type FromMetaOptions = Pick<PaginatorMeta, 'totalItems' | 'itemsPerPage' | 'currentPage'>;
+```
+
+### Returns
+
+- **`Paginator`**: New instance from meta object.
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+const paginator = Paginator.fromMeta({
+  totalItems: 100,
+  itemsPerPage: 10,
+  currentPage: 3
+});
+console.log(paginator.getMeta().offset); // → 20
+```

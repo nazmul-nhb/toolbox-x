@@ -1,0 +1,50 @@
+---
+title: Sum Digits
+description: Calculates the sum of all digits in a given number, ignoring the sign.
+---
+
+## sumDigits
+
+The `sumDigits` function calculates the sum of all digits in a given number or numeric string, ignoring the negative sign.
+
+### Function Signature
+
+```typescript
+function sumDigits(num: Numeric): number
+```
+
+### Parameters
+
+- **`num`** (`Numeric`): The number (or numeric string) whose digits will be summed.
+
+### Return Value
+
+- **`number`**: The sum of all digits in the number.
+
+### Example Usage
+
+```ts pg tab="Positive Number"
+import { sumDigits } from 'toolbox-x';
+
+console.log(sumDigits(123));  
+// Output: 6 (1 + 2 + 3)
+```
+
+```ts pg tab="Negative Number"
+import { sumDigits } from 'toolbox-x';
+
+console.log(sumDigits(-456));  
+// Output: 15 (4 + 5 + 6)
+```
+
+```ts pg tab="Numeric String"
+import { sumDigits } from 'toolbox-x';
+
+console.log(sumDigits('789'));  
+// Output: 24 (7 + 8 + 9)
+```
+
+### Notes
+
+- Uses `Math.abs` internally to ignore the sign of negative numbers.
+- Non-digit characters (except decimals) are ignored during parsing.

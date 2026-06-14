@@ -1,0 +1,37 @@
+---
+title: Extract Emails
+description: Extracts all email addresses from a given input string.
+---
+
+## extractEmails
+
+The `extractEmails` function scans an input string and extracts all email addresses found within it using a regular expression.
+
+### Function Signature
+
+```typescript
+function extractEmails(str: string): string[]
+```
+
+### Parameters
+
+- **`str`** (`string`): The input string to parse.
+
+### Return Value
+
+- **`string[]`**: An array of email address strings found in the input. If none are found, returns an empty array.
+
+### Example Usage
+
+```ts pg
+import { extractEmails } from 'toolbox-x';
+
+const text = 'Contact us at support@example.com or admin@domain.org';
+const emails = extractEmails(text);
+console.log(emails); 
+// Output: ['support@example.com', 'admin@domain.org']
+```
+
+### Notes
+
+- Domain names are not validated for authenticity; the function only checks that the formatting matches a generic email pattern.

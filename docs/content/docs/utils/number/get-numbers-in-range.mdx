@@ -1,0 +1,120 @@
+---
+title: Get Numbers In Range
+description: Generates a sequence of numbers within a specified range, with various filtering and formatting options.
+---
+
+## getNumbersInRange
+
+The `getNumbersInRange` function generates a sequence of numbers within a specified range, with various filtering and formatting options. It can produce different types of number sequences (primes, odds, evens, etc.) and return them either as an array or a formatted string.
+
+### Function Signature
+
+```typescript
+function getNumbersInRange<T extends boolean = false>(
+  type?: NumberType,
+  options?: RangeOptions<T>
+): RangedNumbers<T>
+```
+
+### Parameters
+
+#### `type` (optional)
+
+Specifies the type of numbers to generate:
+
+- `'any'`: All numbers in range (default)
+- `'natural'`: Natural numbers (≥1)
+- `'odd'`: Odd numbers
+- `'even'`: Even numbers
+- `'prime'`: Prime numbers
+- `'random'`: Random numbers within each step
+
+#### `options` (optional)
+
+Configuration object with these properties:
+
+| Property | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `min` | `number` | `0` | Range minimum |
+| `max` | `number` | `100` | Range maximum |
+| `includeMin` | `boolean` | `true` | Include minimum value |
+| `includeMax` | `boolean` | `true` | Include maximum value |
+| `multiplesOf` | `number` | `undefined` | Filter for multiples of this number |
+| `getAsString` | `boolean` | `false` | Output format |
+| `separator` | `string` | `','` | String separator (only available when `getAsString=true`) |
+
+### Return Value
+
+- **`number[]`** when `getAsString` is `false` (default).
+- **`string`** when `getAsString` is `true`.
+
+### Examples
+
+```ts pg tab="Basic Range"
+import { getNumbersInRange } from 'toolbox-x';
+
+// Get all numbers from 1 to 10
+console.log(getNumbersInRange('any', { min: 1, max: 10 }));
+// Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
+```ts pg tab="Primes in Range"
+import { getNumbersInRange } from 'toolbox-x';
+
+// Get primes between 10 and 30 as a string
+console.log(getNumbersInRange('prime', { 
+  min: 10, 
+  max: 30, 
+  getAsString: true 
+}));
+// Output: "11,13,17,19,23,29"
+```
+
+```ts pg tab="Even Multiples of 5"
+import { getNumbersInRange } from 'toolbox-x';
+
+// Get even multiples of 5 from 0 to 100 with a custom separator
+console.log(getNumbersInRange('even', {
+  min: 0,
+  max: 100,
+  multiplesOf: 5,
+  getAsString: true,
+  separator: ' | '
+}));
+// Output: "0 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100"
+```
+
+### Notes & Special Cases
+
+- **Range Handling**: Automatically swaps `min`/`max` if provided in reverse order. Respects `includeMin`/`includeMax` boundaries.
+- **`multiplesOf`**: Multiples filtering is ignored when type is `'prime'`.
+- **`'natural'`**: Forces minimum to be `1` or greater.
+- **`'random'`**: Shuffles the generated number sequence.
+
+### Types
+
+#### `NumberType`
+
+```typescript
+type NumberType = 'any' | 'natural' | 'odd' | 'even' | 'prime' | 'random';
+```
+
+#### `RangeOptions<T>`
+
+```typescript
+interface RangeOptions<T extends boolean = false> {
+  min?: number;
+  max?: number;
+  includeMin?: boolean;
+  includeMax?: boolean;
+  multiplesOf?: number;
+  getAsString?: T;
+  separator?: string;
+}
+```
+
+#### `RangedNumbers<T>`
+
+```typescript
+type RangedNumbers<T extends boolean = false> = T extends true ? string : number[];
+```

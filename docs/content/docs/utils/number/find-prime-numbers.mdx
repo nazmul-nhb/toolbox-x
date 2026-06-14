@@ -1,0 +1,42 @@
+---
+title: Find Prime Numbers
+description: Returns all prime numbers within a specified numeric range.
+---
+
+## findPrimeNumbers
+
+Finds all prime numbers between the `start` and `end` values (inclusive). If `start > end`, the range is automatically normalized.
+
+### Function Signature
+
+```ts
+function findPrimeNumbers(start?: number, end?: number): number[]
+```
+
+### Parameters
+
+- **`start`** (`number`, optional): The start of the range. Defaults to `1`.
+- **`end`** (`number`, optional): The end of the range. Defaults to `1000`.
+
+### Returns
+
+- **`number[]`**: An array of prime numbers within the specified range.
+
+### Examples
+
+```ts pg
+import { findPrimeNumbers } from 'toolbox-x';
+
+console.log(findPrimeNumbers(10, 30));   // → [11, 13, 17, 19, 23, 29]
+console.log(findPrimeNumbers(30, 10));   // → [11, 13, 17, 19, 23, 29] (auto-normalized)
+console.log(findPrimeNumbers(100, 105)); // → [101, 103]
+```
+
+### Notes
+
+- Automatically corrects ranges where `start > end`.
+- Performance is optimal for small-to-medium ranges.
+
+### Aliases
+
+- `getPrimeNumbers`

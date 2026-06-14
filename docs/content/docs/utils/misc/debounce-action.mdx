@@ -1,0 +1,72 @@
+---
+title: Debounce Function/Action
+description: Creates a debounced version of a callback that delays its execution until after a specified period of inactivity.
+---
+
+## debounceAction
+
+Creates a debounced version of a callback that delays its execution until after a specified period of inactivity. Useful for search, auto-complete, resize, and other rapid trigger scenarios.
+
+### Function Signature
+
+```typescript
+function debounceAction<T extends VoidFn>(
+  callback: T,
+  delay?: number
+): DelayedFn<T>
+```
+
+### Parameters
+
+| Parameter | Type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `callback` | `VoidFn` | The function to debounce. | — |
+| `delay` | `number` (optional) | Delay in milliseconds. | `300` |
+
+### Returns
+
+- **`DelayedFn<T>`**: A debounced version of the callback function.
+
+---
+
+### Example Usage
+
+```ts pg tab="Search Query"
+import { debounceAction } from 'toolbox-x';
+
+const debouncedSearch = debounceAction((query: string) => {
+  console.log(`Searching for: ${query}`);
+}, 300);
+
+// Only the last call triggers after 300ms of inactivity
+debouncedSearch('l');
+debouncedSearch('la');
+debouncedSearch('lap');
+```
+
+```ts pg tab="Form Input Listener"
+import { debounceAction } from 'toolbox-x';
+
+const onInputChange = debounceAction((value: string) => {
+  console.log('Validating input:', value);
+}, 250);
+
+const input = document.createElement('input');
+input.oninput = (e) => {
+  const target = e.target as HTMLInputElement;
+  onInputChange(target.value);
+};
+```
+
+---
+
+## Behavior Details
+
+- **Delay resetting**: Each invocation of the debounced function clears the previous timer and sets a new one. The callback is only executed when the delay period passes without any new calls.
+- **Arguments Preservation**: Arguments passed to the debounced function are forwarded directly to the callback during execution.
+
+---
+
+## Related Functions
+
+- [throttleAction](./throttle-action) — Limits the execution rate of a function.

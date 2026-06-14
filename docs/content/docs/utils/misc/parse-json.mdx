@@ -1,0 +1,107 @@
+---
+title: Parse Any JSON
+description: Parse any JSON string into a structured value, with optional deep parsing of stringified primitives.
+---
+
+## parseJSON
+
+Parses any valid JSON string (including arrays, primitives, or objects) and optionally converts stringified primitives in nested arrays or objects. This utility is ideal when the root value of the JSON could be anything, not just an object.
+
+---
+
+## Example Usage
+
+```ts pg tab="Object"
+import { parseJSON } from 'toolbox-x';
+
+const result = parseJSON('{ "a": "1", "b": 2 }');
+console.log(result); // → { a: 1, b: 2 }
+```
+
+```ts pg tab="Array"
+import { parseJSON } from 'toolbox-x';
+
+const result = parseJSON('[ "1", "2", 3 ]');
+console.log(result); // → [1, 2, 3]
+```
+
+```ts pg tab="Primitive Root"
+import { parseJSON } from 'toolbox-x';
+
+const result = parseJSON('"42"');
+console.log(result); // → 42
+```
+
+```ts pg tab="No Primitive Conversion"
+import { parseJSON } from 'toolbox-x';
+
+const result = parseJSON('{"x":"false"}', false);
+console.log(result); // → { x: "false" }
+```
+
+```ts pg tab="Malformed JSON"
+import { parseJSON } from 'toolbox-x';
+
+const result = parseJSON("{ key: 'value' }");
+console.log(result); // → {}
+```
+
+---
+
+## Function Signature
+
+```typescript
+function parseJSON<T = unknown>(value: string, parsePrimitives?: boolean): T
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `value` | `string` | The JSON string to parse. |
+| `parsePrimitives` | `boolean` (optional) | If true (default), recursively converts stringified primitives. |
+
+### Returns
+
+- **`T`**: The parsed JSON value (typed as `T`), which may be an object, array, string, number, or boolean. Returns `{}` if the input is not valid JSON.
+
+---
+
+## Key Features
+
+1. **Flexible Root:** Accepts any valid JSON root (object, array, primitive).
+2. **Recursive Primitive Conversion:** Converts stringified numbers, booleans, `null`—deeply (see [deepParsePrimitives](./deep-parse-primitives)).
+3. **Safe Fallback:** Malformed or invalid JSON always returns an empty object.
+4. **Type-safe Generic:** Infer and enforce types with `<T>`.
+
+---
+
+## Aliases
+
+Also exported as:
+- `parseJsonDeep`
+
+---
+
+## Limitations
+
+1. **Invalid input returns `{}`:** May mask input errors—double-check your sources.
+2. **Only JSON-safe types:** Non-JSON, circular, or function values will not parse.
+3. **No Reviver Support:** Doesn't expose a custom reviver function like `JSON.parse`.
+4. **Single Quoted Strings Not Supported:** Must be valid JSON (double quotes).
+
+---
+
+## Notes
+
+- For strict object parsing (root must be an object), use [`parseJsonToObject`](../object/parse-json-to-object).
+- For deep primitive conversion logic, see [`deepParsePrimitives`](./deep-parse-primitives).
+- Malformed JSON, such as single-quoted or badly formatted strings, will **not** throw but will result in `{}`.
+
+---
+
+## Recommended Use Cases
+
+- Parsing unpredictable API or config data.
+- Accepting JSON from user input, file uploads, or dynamic sources.
+- Applications handling both primitive and complex JSON shapes.

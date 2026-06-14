@@ -1,0 +1,64 @@
+---
+title: Get Duplicates
+description: Finds duplicate values in an array.
+---
+
+## getDuplicates
+
+Finds duplicate values in an array and performs a deep comparison for objects and arrays to detect duplicates.
+
+### Function Signature
+
+```typescript
+function getDuplicates<T>(array: T[]): T[]
+```
+
+### Parameters
+
+- **`array`** (`T[]`): The array in which to find duplicates.
+
+### Returns
+
+- **`T[]`**: An array containing all duplicate entries. Each duplicate entry is only returned once.
+
+### Example Usage
+
+```ts pg tab="Primitives"
+import { getDuplicates } from 'toolbox-x';
+
+const numbers = [1, 2, 2, 3, 3, 3, 4];
+const duplicates = getDuplicates(numbers);
+console.log(duplicates);
+// Output: [2, 3]
+```
+
+```ts pg tab="Objects (Deep Comparison)"
+import { getDuplicates } from 'toolbox-x';
+
+const objects = [
+  { id: 1, name: 'Apple' },
+  { id: 2, name: 'Banana' },
+  { id: 1, name: 'Apple' },
+  { id: 3, name: 'Orange' },
+  { id: 2, name: 'Banana' }
+];
+
+const duplicates = getDuplicates(objects);
+console.log(duplicates);
+// Output: [{ id: 1, name: 'Apple' }, { id: 2, name: 'Banana' }]
+```
+
+### Aliases
+
+The following aliases can be used for the `getDuplicates` function:
+
+- `extractDuplicates`
+- `extractDuplicatesFromArray`
+- `getDuplicatesFromArray`
+
+### Notes
+
+- The function depends on the [`isDeepEqual`](/docs/guards/checkers/is-deep-equal) utility to compare values deeply.
+- **Data Validation**: Check if there are duplicate entries in input data or user selections.
+- **Filtering Data**: Use it for eliminating duplicate records in a dataset before processing or displaying them.
+- **Data Synchronization**: Useful in cases where you need to ensure that items in an array are unique, particularly in systems where deep equality matters.

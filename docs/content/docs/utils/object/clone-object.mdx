@@ -1,0 +1,69 @@
+---
+title: Clone Object
+description: Creates a deep clone of an object using structuredClone or deterministic JSON serialization.
+---
+
+## cloneObject
+
+The `cloneObject` function creates a deep clone of an object. By default, it uses the browser/runtime's built-in `structuredClone` API. It can also force deterministic JSON serialization.
+
+### Function Signature
+
+```typescript
+function cloneObject<T extends GenericObject>(obj: T, serialize?: boolean): T
+```
+
+### Parameters
+
+- **`obj`** (`T`): The object to clone.
+- **`serialize`** (`boolean`, optional): When `true`, forces deterministic JSON serialization with sorted keys. Defaults to `false`.
+
+### Return Value
+
+- **`T`**: A new object that is a deep clone of the input.
+
+### Example Usage
+
+```ts pg tab="Structured Clone (Default)"
+import { cloneObject } from 'toolbox-x';
+
+const original = { 
+  name: 'John',
+  address: { city: 'New York' },
+  date: new Date('2023-01-01'),
+  map: new Map([['key', 'value']])
+};
+
+const cloned = cloneObject(original);
+console.log(cloned === original);         // Output: false
+console.log(cloned.date instanceof Date); // Output: true
+console.log(cloned.map instanceof Map);   // Output: true
+```
+
+```ts pg tab="Forced Serialization"
+import { cloneObject } from 'toolbox-x';
+
+const original = { 
+  name: 'John',
+  date: new Date('2023-01-01'),
+  map: new Map([['key', 'value']])
+};
+
+const serializedClone = cloneObject(original, true);
+console.log(typeof serializedClone.date); // Output: "string" (serialized to string)
+console.log(serializedClone.map);         // Output: {} (Map converted to empty object)
+```
+
+### Behavior Details
+
+- **Default Mode (`serialize = false`)**: Uses `structuredClone` if available. This preserves circular references, `Date` objects, `Map`, `Set`, `RegExp`, and Typed Arrays.
+- **Serialization Mode (`serialize = true`)**: Uses `stableStringify` internally. All object keys are sorted alphabetically. `undefined` values are converted to `null`.
+- **Safety Fallback**: If both methods fail (e.g. circular references in JSON mode), it returns a shallow clone (`{ ...obj }`) instead of throwing an error.
+
+### Types
+
+#### `GenericObject`
+
+```typescript
+type GenericObject = Record<string, any>;
+```

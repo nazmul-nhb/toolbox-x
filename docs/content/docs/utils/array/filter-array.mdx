@@ -1,0 +1,51 @@
+---
+title: Filter Array of Objects
+description: Filters an array of objects based on multiple conditions.
+---
+
+## filterArrayOfObjects
+
+<Callout type="warn" title="Deprecated">
+Please use the [`findAll`](/docs/classes/Finder#findall) instance method from the [`Finder`](/docs/classes/Finder) class for more advanced filtering and searching.
+</Callout>
+
+Filters an array of objects based on multiple conditions for specified keys.
+
+### Function Signature
+
+```typescript
+function filterArrayOfObjects<T extends GenericObject>(
+  array: T[],
+  conditions: { [K in keyof T]?: (value: Maybe<T[K]>) => boolean }
+): T[]
+```
+
+### Parameters
+
+- **`array`** (`T[]`): The array of objects to filter.
+- **`conditions`** (`{ [K in keyof T]?: (value: Maybe<T[K]>) => boolean }`): An object where keys represent property names and values are functions defining filter conditions.
+
+### Returns
+
+- **`T[]`**: The filtered array of objects.
+
+### Example
+
+```ts pg
+import { filterArrayOfObjects } from 'toolbox-x';
+
+const data = [
+  { name: 'Alice', age: 25, active: true },
+  { name: 'Bob', age: 30, active: false },
+  { name: 'Charlie', age: 35, active: true },
+];
+
+const conditions = {
+  age: (age: number | undefined) => (age ?? 0) > 28,
+  active: (active: boolean | undefined) => active === true,
+};
+
+const filteredData = filterArrayOfObjects(data, conditions);
+console.log(filteredData);
+// Output: [{ name: 'Charlie', age: 35, active: true }]
+```

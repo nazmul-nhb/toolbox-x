@@ -1,0 +1,84 @@
+---
+title: Manage Noun Forms
+description: Shared pre-configured instance of the Pluralizer class for English noun singular/plural conversions.
+---
+
+## pluralizer
+
+The **`pluralizer`** is a **default shared instance** of the [`Pluralizer`](/docs/classes/Pluralizer) class. It comes **preloaded with standard English rules**, irregular forms, and uncountable nouns.
+
+<Callout type="info" title="Acknowledgement">
+This utility is **heavily inspired** by [Blake Embrey](https://github.com/blakeembrey)’s excellent [pluralize](https://www.npmjs.com/package/pluralize) package.
+</Callout>
+
+<Callout type="info" title="When to Use">
+- **Use this instance when you don’t need multiple configurations.**
+- If you need isolated or custom rules, you can instantiate the class directly as [`new Pluralizer()`](/docs/classes/Pluralizer).
+</Callout>
+
+### Features
+
+- Convert words between **singular** and **plural** forms.
+- Built-in support for **irregular forms** (e.g. `child` → `children`).
+- Handles **uncountable nouns** (e.g. `fish`, `information`).
+- Modify rules dynamically at runtime:
+  - Add pluralization or singularization rules.
+  - Add irregular forms.
+  - Add uncountable words or regex patterns.
+
+---
+
+### Example Usage
+
+```ts pg tab="Pluralize"
+import { pluralizer } from 'toolbox-x';
+
+console.log(pluralizer.pluralize('child')); // → "children"
+console.log(pluralizer.pluralize('category', { count: 3 })); // → "categories"
+console.log(pluralizer.pluralize('child', { count: 1, inclusive: true })); // → "1 child"
+```
+
+```ts pg tab="Singularize"
+import { pluralizer } from 'toolbox-x';
+
+console.log(pluralizer.toSingular('geese'));    // → "goose"
+console.log(pluralizer.toSingular('children')); // → "child"
+```
+
+```ts pg tab="Check Noun Form"
+import { pluralizer } from 'toolbox-x';
+
+console.log(pluralizer.isPlural('children')); // → true
+console.log(pluralizer.isSingular('child'));   // → true
+console.log(pluralizer.isPlural('fish'));      // → true (uncountable)
+```
+
+---
+
+### Extending Rules
+
+Since `pluralizer` is a shared instance, modifications to it at runtime affect all consumers:
+
+```ts pg
+import { pluralizer } from 'toolbox-x';
+
+// Add a custom plural rule
+pluralizer.addPluralRule(/(foo)$/i, '$1bars');
+
+// Add a custom singular rule
+pluralizer.addSingularRule(/(bars)$/i, '$1');
+
+// Add an uncountable noun
+pluralizer.addUncountable('luggage');
+
+// Add an irregular word
+pluralizer.addIrregular('cactus', 'cacti');
+```
+
+---
+
+### See Also
+
+- [**Pluralizer class**](/docs/classes/Pluralizer) — low‑level API for custom instances.
+- [**formatUnitWithPlural**](./format-unit-with-plural) — Simple utility for formatting units with pluralization with just `"s"`.
+- [**verbalizer**](./verbalizer) - Similar utility for *verb form* manipulation.

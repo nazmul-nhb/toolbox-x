@@ -1,0 +1,124 @@
+---
+title: Inspect Class & Its Methods
+description: Introspect and summarize the instance/static methods and getters of JavaScript/TypeScript classes.
+---
+
+## Overview
+
+Powerful utilities for examining and summarizing the instance/static methods and getters of JavaScript/TypeScript classes. Analyze class APIs, count methods/getters, and get comprehensive breakdowns—great for meta-programming, documentation tooling, and runtime validation.
+
+---
+
+## Example Usage
+
+```ts pg tab="Setup Class"
+// Setup class fixture
+export class Example {
+  constructor() {}
+  foo() {}
+  bar() {}
+  static zap() {}
+  static zip() {}
+  
+  get instanceProp() { return 42; }
+  static get staticProp() { return 42; }
+}
+```
+
+```ts pg tab="Inspect Methods"
+import { Example } from './Example'; // using the setup class
+import {
+  getInstanceMethodNames,
+  getStaticMethodNames,
+  getInstanceGetterNames,
+  getStaticGetterNames
+} from 'toolbox-x';
+
+console.log(getInstanceMethodNames(Example)); // → ['bar', 'foo']
+console.log(getStaticMethodNames(Example));    // → ['zap', 'zip']
+console.log(getInstanceGetterNames(Example)); // → ['instanceProp']
+console.log(getStaticGetterNames(Example));    // → ['staticProp']
+```
+
+```ts pg tab="Get Details"
+import { Example } from './Example'; // using the setup class
+import { getClassDetails } from 'toolbox-x';
+
+const details = getClassDetails(Example);
+console.log(details);
+/*
+→ {
+  instanceMethods: ['bar', 'foo'],
+  staticMethods: ['zap', 'zip'],
+  instanceGetters: ['instanceProp'],
+  staticGetters: ['staticProp'],
+  instanceCount: 2,
+  staticCount: 2,
+  totalGetters: 2,
+  totalMethods: 4
+}
+*/
+```
+
+---
+
+## Function Signatures
+
+### `getInstanceMethodNames`
+
+```typescript
+function getInstanceMethodNames(cls: Constructor): string[]
+```
+
+Returns alphabetical names of instance methods defined directly on the class prototype (excluding constructor and getters).
+
+### `getStaticMethodNames`
+
+```typescript
+function getStaticMethodNames(cls: Constructor): string[]
+```
+
+Returns alphabetical names of static methods defined directly on the class itself.
+
+### `getInstanceGetterNames`
+
+```typescript
+function getInstanceGetterNames(cls: Constructor): string[]
+```
+
+Returns alphabetical names of instance getters defined directly on the class prototype.
+
+### `getStaticGetterNames`
+
+```typescript
+function getStaticGetterNames(cls: Constructor): string[]
+```
+
+Returns alphabetical names of static getters defined directly on the class itself.
+
+### `getClassDetails`
+
+```typescript
+function getClassDetails(cls: Constructor): ClassDetails
+```
+
+Returns a structured summary object containing method names, getter names, and their respective counts.
+
+---
+
+## Types
+
+### `ClassDetails`
+
+```typescript
+interface ClassDetails {
+  instanceMethods: string[];
+  staticMethods: string[];
+  instanceGetters: string[];
+  staticGetters: string[];
+  instanceCount: number;
+  staticCount: number;
+  totalGetters: number;
+  totalMethods: number;
+}
+```

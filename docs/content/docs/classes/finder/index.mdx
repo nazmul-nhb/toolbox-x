@@ -1,0 +1,91 @@
+---
+title: Finder
+description: Optimized searching utility with support for binary search, fuzzy matching, and smart caching.
+---
+
+## `Finder`
+
+The `Finder` class is an optimized searching utility designed for high-performance lookups. It features automatic caching, support for binary search, fuzzy matching, and smart TTL-based caching.
+
+### Import
+
+```typescript
+import { Finder } from 'toolbox-x';
+```
+
+---
+
+### Constructor
+
+Creates a new `Finder` instance with a static array or a dynamic supplier function.
+
+#### Signature
+
+```typescript
+constructor(data: T[] | (() => T[]), ttl?: number)
+```
+
+#### Parameters
+
+- `data`: Dataset array or a supplier function that returns the dataset.
+- `ttl` *(optional)*: Cache duration in milliseconds. Defaults to `300000` (5 minutes).
+
+#### Behavior
+
+- Accepts a generic type `T` which must extend `GenericObject` (an object with string/number keys and any value).
+- Automatically clears the internal search cache when the reference to the dataset changes.
+
+#### Example
+
+```ts pg
+import { Finder } from 'toolbox-x';
+
+const users = [
+  { id: 1, name: 'John Doe', role: 'admin' },
+  { id: 2, name: 'Jane Smith', role: 'user' },
+  { id: 3, name: 'Bob Johnson', role: 'user' }
+];
+
+const finder = new Finder(users);
+```
+
+---
+
+### Available Methods
+
+- [binarySearch()](./binary-search) — Performs binary search on sorted array using a custom key selector function.
+- [clearCache()](./clear-cache) — Manages and clears cached search results.
+- [findAll()](./find-all) — Finds all items matching specified criteria.
+- [findAllAsync()](./find-all-async) — Asynchronously retrieves all items matching the specified criteria.
+- [findOne()](./find-one) — Finds the first item matching specified criteria.
+- [findOneAsync()](./find-one-async) — Asynchronously finds the first matching item.
+- [fuzzySearch()](./fuzzy-search) — Performs a fuzzy search matching characters in sequence.
+
+---
+
+## Type Definitions
+
+### `FindOptions<T>`
+
+```typescript
+interface FindOptions<T extends GenericObject = {}> {
+  fuzzy?: boolean;          // Enable fuzzy matching
+  cacheKey?: string;        // Custom cache key
+  forceBinary?: boolean;    // Force binary search
+  caseInsensitive?: boolean;// Case-insensitive search
+  needSorting?: boolean;    // Auto-sort data
+  data?: T[] | (() => T[]); // Alternate data source override
+}
+```
+
+### `KeySelector<T>`
+
+```typescript
+type KeySelector<T> = Extract<OwnKeys<T>, string | number> | ((item: T) => string | number);
+```
+
+### `OwnKeys<T>`
+
+```typescript
+type OwnKeys<T> = { [K in keyof T]: {} extends Pick<T, K> ? never : K; }[keyof T];
+```

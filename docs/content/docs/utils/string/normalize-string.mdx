@@ -1,0 +1,39 @@
+---
+title: Normalize String
+description: Removes diacritics (accent marks) from characters to produce a normalized ASCII version of the string.
+---
+
+## normalizeString
+
+The `normalizeString` function removes diacritics (accent marks) from characters to produce a normalized ASCII-like version of the string.
+
+### Function Signature
+
+```typescript
+function normalizeString(str: string): string
+```
+
+### Parameters
+
+- **`str`** (`string`): The input string containing diacritics.
+
+### Return Value
+
+- **`string`**: The normalized string.
+
+### Example Usage
+
+```ts pg
+import { normalizeString } from 'toolbox-x';
+
+console.log(normalizeString('café')); 
+// Output: 'cafe'
+
+console.log(normalizeString('résumé')); 
+// Output: 'resume'
+```
+
+### Notes
+
+- Uses [Unicode Normalization Form D (NFD)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) to decompose characters.
+- Diacritical marks in the range `\u0300` to `\u036f` are stripped out.

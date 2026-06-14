@@ -1,0 +1,88 @@
+---
+title: JSON Stringify Helpers
+description: Utilities for stable JSON stringification and cleaning surrounding JSON garbage.
+---
+
+## stableStringify
+
+Creates a deterministic JSON string representation of any value with guaranteed sorted object keys.
+
+### Function Signature
+
+```typescript
+function stableStringify(obj: unknown): string
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `obj` | `unknown` | The value to convert to a stable JSON string. |
+
+### Returns
+
+- **`string`**: A deterministic JSON string with alphabetically sorted keys.
+
+### Example Usage
+
+```ts pg
+import { stableStringify } from 'toolbox-x';
+
+const obj1 = { b: 2, a: 1, c: { z: 26, y: 25 } };
+const obj2 = { a: 1, b: 2, c: { y: 25, z: 26 } };
+
+// Even with different key order, the output string is identical
+console.log(stableStringify(obj1));
+// → '{"a":1,"b":2,"c":{"y":25,"z":26}}'
+
+console.log(stableStringify(obj1) === stableStringify(obj2)); // → true
+
+// Preserves dates and maps undefined to null
+const data = {
+  timestamp: new Date('2023-01-01T00:00:00.000Z'),
+  value: undefined
+};
+console.log(stableStringify(data));
+// → '{"timestamp":"2023-01-01T00:00:00.000Z","value":null}'
+```
+
+---
+
+## stripJsonEdgeGarbage
+
+Removes leading or trailing garbage characters from strings that wrap `JSON` objects or arrays.
+
+### Function Signature
+
+```typescript
+function stripJsonEdgeGarbage(str: string): string
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `str` | `string` | The input string containing a JSON payload with potential surrounding garbage. |
+
+### Returns
+
+- **`string`**: A sanitized string containing only the JSON object or array content.
+
+### Example Usage
+
+```ts pg
+import { stripJsonEdgeGarbage } from 'toolbox-x';
+
+console.log(stripJsonEdgeGarbage('noise{"a":1,"b":2}noise'));
+// → '{"a":1,"b":2}'
+
+console.log(stripJsonEdgeGarbage('prefix[1,2,3]suffix'));
+// → '[1,2,3]'
+```
+
+---
+
+## Behavior Details
+
+- **Stable Stringification**: Uses deep recursion to sort all nested objects' keys. This is critical for hash generation, digital signatures, caching keys, or performing reliable deep equality checks.
+- **Edge Garbage Cleanup**: Scans the input string to locate the outermost boundaries (`{}` or `[]`) and extracts the content between them. If no JSON structure boundaries are found, it returns the original string.

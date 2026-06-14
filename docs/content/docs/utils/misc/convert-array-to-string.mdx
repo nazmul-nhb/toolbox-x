@@ -1,0 +1,84 @@
+---
+title: Convert Array to String
+description: Joins elements of a primitive array or extracts and joins nested object fields into a single string.
+---
+
+## convertArrayToString
+
+Joins elements of an array of primitive values or array of objects into a single string using a custom separator.
+
+### Function Signatures
+
+```typescript tab="Array of Primitives"
+function convertArrayToString<T extends Primitive>(
+  array: T[] | undefined,
+  options?: {
+    separator?: string;
+  }
+): string;
+```
+
+```typescript tab="Array of Objects"
+function convertArrayToString<T extends GenericObject>(
+  array: T[] | undefined,
+  options: {
+    target: NestedPrimitiveKey<T>;
+    separator?: string;
+  }
+): string;
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `array` | `T[] \| undefined` | The array of primitives or objects to convert. |
+| `options.separator` | `string` (optional) | The character or string used to separate values. Defaults to `", "`. |
+| `options.target` | `string` | **Required for object arrays**. The dot-notation path to the primitive property to extract. |
+
+### Returns
+
+- **`string`**: The joined string, or `""` if the array is empty or undefined.
+
+---
+
+### Example Usage
+
+```ts pg tab="Primitives"
+import { convertArrayToString } from 'toolbox-x';
+
+const result1 = convertArrayToString(['a', 'b', 'c']);
+console.log(result1); // → "a, b, c"
+
+const result2 = convertArrayToString([1, 2, 3], { separator: ' - ' });
+console.log(result2); // → "1 - 2 - 3"
+```
+
+```ts pg tab="Objects"
+import { convertArrayToString } from 'toolbox-x';
+
+const users = [
+  { user: { name: 'Alice' } },
+  { user: { name: 'Bob' } }
+];
+
+const names = convertArrayToString(users, { target: 'user.name', separator: ' & ' });
+console.log(names); // → "Alice & Bob"
+```
+
+---
+
+## Behavior Details
+
+- **Safe Handling**: If the input is not a valid array, is `undefined`, or is empty, the function returns `""` instead of throwing.
+- **Deep Target Resolution**: For arrays of objects, the target path is resolved recursively using dot-notation. TypeScript guarantees compilation checks that the target path resolves to a primitive type (such as `string`, `number`, or `boolean`).
+
+---
+
+## Aliases
+
+This function can also be imported under the following name:
+
+| Alias | Import Path |
+| :--- | :--- |
+| `joinArrayElements` | `toolbox-x` |

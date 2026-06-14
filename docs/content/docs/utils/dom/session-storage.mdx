@@ -1,0 +1,150 @@
+---
+title: Session Storage Utilities
+description: Safely and conveniently interact with the browser's Session Storage API with full type safety and custom serialization.
+---
+
+## Overview
+
+A simple set of utilities to interact safely with the browser's [Session Storage API](https://developer.mozilla.org/Web/API/Window/sessionStorage). Handles storing, retrieving, and removing typed items scoped to a browser tab session.
+
+---
+
+## getFromSessionStorage
+
+Retrieves a value from session storage, parsing it back into its original type.
+
+### Function Signature
+
+```typescript
+function getFromSessionStorage<T>(
+  key: string,
+  deserialize?: Deserializer<T>
+): T | null
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `key` | `string` | The key of the item. |
+| `deserialize` | `Deserializer<T>` (optional) | Custom deserialization function. Defaults to `JSON.parse`. |
+
+### Returns
+
+- **`T | null`**: The parsed value of type `T`, or `null` if the key does not exist or parsing fails.
+
+### Example Usage
+
+```ts pg tab="String Value"
+import { getFromSessionStorage } from 'toolbox-x/dom';
+
+const color = getFromSessionStorage<string>('color');
+console.log(color); // → e.g. 'blue'
+```
+
+```ts pg tab="Object Value"
+import { getFromSessionStorage } from 'toolbox-x/dom';
+
+const cart = getFromSessionStorage<{ total: number; items: number }>('cart');
+console.log(cart?.total); // → 30
+```
+
+```ts pg tab="Custom Deserialization"
+import { getFromSessionStorage } from 'toolbox-x/dom';
+
+interface AuthSession {
+  token: string;
+  expiresAt: Date;
+}
+
+const session = getFromSessionStorage<AuthSession>('auth-session', (value) => {
+  const parsed = JSON.parse(value);
+  return {
+    ...parsed,
+    expiresAt: new Date(parsed.expiresAt)
+  };
+});
+```
+
+---
+
+## saveToSessionStorage
+
+Stores a value in session storage, automatically stringifying objects/arrays.
+
+### Function Signature
+
+```typescript
+function saveToSessionStorage<T>(
+  key: string,
+  value: T,
+  serialize?: Serializer<T>
+): void
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `key` | `string` | The key under which to store the value. |
+| `value` | `T` | The value to store. |
+| `serialize` | `Serializer<T>` (optional) | Custom serialization function. Defaults to `JSON.stringify`. |
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { saveToSessionStorage } from 'toolbox-x/dom';
+
+saveToSessionStorage('count', 10);
+saveToSessionStorage('profile', { id: 7, username: 'user7' });
+```
+
+```ts pg tab="Custom Serialization"
+import { saveToSessionStorage } from 'toolbox-x/dom';
+
+saveToSessionStorage(
+  'session-data',
+  { 
+    userId: 123, 
+    loginTime: new Date(),
+    permissions: new Set(['read', 'write'])
+  },
+  (value) => JSON.stringify({
+    ...value,
+    loginTime: value.loginTime.toISOString(),
+    permissions: Array.from(value.permissions)
+  })
+);
+```
+
+---
+
+## removeFromSessionStorage
+
+Removes an item from session storage.
+
+### Function Signature
+
+```typescript
+function removeFromSessionStorage(key: string): void
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `key` | `string` | The key of the item to remove. |
+
+### Example Usage
+
+```ts pg
+import { removeFromSessionStorage } from 'toolbox-x/dom';
+
+removeFromSessionStorage('cart');
+```
+
+---
+
+## Related Utilities
+
+- [localStorage](./local-storage) — Scopes equivalent utility operations to the browser's persistent storage.

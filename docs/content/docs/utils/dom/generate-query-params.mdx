@@ -1,0 +1,73 @@
+---
+title: Generate Query Parameters
+description: Generates a URL-encoded query string from an object, flattening nested fields and supporting arrays, booleans, and various primitive types.
+---
+
+## generateQueryParams
+
+The `generateQueryParams` function generates a URL-encoded query string from a parameter object. It automatically flattens nested objects, handles arrays by repeating keys, and filters out nullish or empty string values.
+
+### Function Signature
+
+```typescript
+function generateQueryParams<T extends QueryObject>(params?: T): QueryString
+```
+
+### Parameters
+
+- **`params`** (`QueryObject`, optional): The object containing query keys and values.
+
+### Return Value
+
+- **`QueryString`**: A URL-encoded string (e.g. `"?key1=value1&key2=42"`). If the input is empty or contains only nullish values, it returns an empty string `""`.
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { generateQueryParams } from 'toolbox-x/dom';
+
+console.log(generateQueryParams({ key1: 'value1', key2: 42 }));
+// Output: "?key1=value1&key2=42"
+```
+
+```ts pg tab="Arrays & Booleans"
+import { generateQueryParams } from 'toolbox-x/dom';
+
+console.log(generateQueryParams({ key1: ['value1', 'value2'], key2: true }));
+// Output: "?key1=value1&key1=value2&key2=true"
+```
+
+```ts pg tab="Nested Objects"
+import { generateQueryParams } from 'toolbox-x/dom';
+
+console.log(generateQueryParams({ filters: { category: 'laptop', price: 1000 } }));
+// Output: "?category=laptop&price=1000"
+```
+
+```ts pg tab="Nullish & Empty Filtering"
+import { generateQueryParams } from 'toolbox-x/dom';
+
+console.log(generateQueryParams({ key1: '', key2: null, key3: undefined }));
+// Output: ""
+```
+
+### Notes
+
+- Nested fields are extracted to top-level keys. If nested keys collide, the last processed key overrides previous ones.
+- Array values generate repeated keys (e.g., `?key=a&key=b`) rather than array bracket notations (`?key[]=a`).
+
+### Aliases
+
+The following aliases can be used for the `generateQueryParams` function:
+
+- `createQueryParams`
+- `formatQueryParams`
+
+### Types
+
+```typescript
+type Primitive = string | number | boolean | null | undefined;
+type QueryObjectValue = Primitive | Primitive[] | QueryObject;
+type QueryObject = { [key: string]: QueryObjectValue };
+type QueryString = string;
+```

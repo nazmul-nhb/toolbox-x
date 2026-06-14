@@ -1,0 +1,74 @@
+---
+title: Find Missing Elements
+description: Finds elements in one array that are missing from another array.
+---
+
+## findMissingElements
+
+Performs a deep comparison between two arrays and returns elements missing from one array relative to the other. It allows you to specify the direction of comparison to extract missing values from either array.
+
+### Function Signature
+
+```typescript
+function findMissingElements<T, U>(
+  array1: T[],
+  array2: U[],
+  missingFrom: 'from-first' | 'from-second'
+): (T | U)[]
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `array1` | `T[]` | First array to compare |
+| `array2` | `U[]` | Second array to compare |
+| `missingFrom` | `'from-first' \| 'from-second'` | Direction of comparison: <br/> - `'from-first'`: Finds elements in `array1` missing from `array2` <br/> - `'from-second'`: Finds elements in `array2` missing from `array1` |
+
+### Returns
+
+- **`(T | U)[]`**: An array containing elements present in the source array but missing in the target array (based on deep equality comparison).
+
+### Example Usage
+
+```ts pg tab="Find Missing from First"
+import { findMissingElements } from 'toolbox-x';
+
+const array1 = [{ id: 1 }, { id: 2 }, { id: 3 }];
+const array2 = [{ id: 1 }, { id: 3 }, { id: 4 }];
+
+// Find elements in array1 missing from array2
+const missing = findMissingElements(array1, array2, 'from-first');
+console.log(missing);
+// Output: [{ id: 2 }]
+```
+
+```ts pg tab="Find Missing from Second"
+import { findMissingElements } from 'toolbox-x';
+
+const array1 = [{ id: 1 }, { id: 2 }, { id: 3 }];
+const array2 = [{ id: 1 }, { id: 3 }, { id: 4 }];
+
+// Find elements in array2 missing from array1
+const missing = findMissingElements(array1, array2, 'from-second');
+console.log(missing);
+// Output: [{ id: 4 }]
+```
+
+### Notes
+
+- Performs deep equality comparison (handles objects and nested structures) using [`isDeepEqual`](/docs/guards/checkers/is-deep-equal).
+- Preserves original element references.
+- Returns empty array if no differences found.
+- Works with arrays of different types (`T` and `U`).
+
+### Comparison Logic
+
+1. **`'from-first'` mode**:
+   ```typescript
+   array1.filter(item => !array2.some(item2 => isDeepEqual(item, item2)))
+   ```
+2. **`'from-second'` mode**:
+   ```typescript
+   array2.filter(item => !array1.some(item1 => isDeepEqual(item, item1)))
+   ```

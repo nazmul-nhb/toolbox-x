@@ -1,0 +1,139 @@
+---
+title: Sanitize Data
+description: Cleans and normalizes strings, arrays, and objects by trimming whitespace, removing empty values, and applying customizable filters.
+---
+
+## sanitizeData
+
+The `sanitizeData` function is a versatile utility for cleaning, trimming, and filtering data structures (strings, arrays, and objects). It can strip out nullish values, empty objects/arrays, falsy values, or exclude specific keys based on dot notation.
+
+### Function Signatures
+
+```typescript
+// For String
+function sanitizeData(input: string): string
+
+// For String Array
+function sanitizeData(input: string[]): string[]
+
+// For Object
+function sanitizeData<
+  Data extends GenericObject,
+  Ignored extends DotNotationKey<Data> = never,
+  PoR extends PartialOrRequired = 'required',
+>(
+  object: Data,
+  options?: SanitizeOptions<Data, Ignored>,
+  _return?: PoR
+): SanitizedData<Data, Ignored, PoR>
+
+// For Object Array
+function sanitizeData<
+  Data extends GenericObject,
+  Ignored extends DotNotationKey<Data> = never,
+  PoR extends PartialOrRequired = 'required',
+>(
+  array: Data[],
+  options?: SanitizeOptions<Data, Ignored>,
+  _return?: PoR
+): Array<SanitizedData<Data, Ignored, PoR>>
+```
+
+### Parameters
+
+- **`input` / `object` / `array`**: The data structure to sanitize.
+- **`options`** (`SanitizeOptions`, optional): Configuration options for the sanitization behavior:
+  - **`keysToIgnore`** (`Ignored[]`): Array of dot-notation keys to exclude.
+  - **`trimStrings`** (`boolean`): If `true`, trims whitespace from string values. Defaults to `true`.
+  - **`ignoreNullish`** (`boolean`): If `true`, excludes `null` and `undefined` properties. Defaults to `false`.
+  - **`ignoreFalsy`** (`boolean`): If `true`, excludes falsy values (`false`, `0`, `""`, `null`, `undefined`). Defaults to `false`.
+  - **`ignoreEmpty`** (`boolean`): If `true`, excludes empty objects (`{}`) and empty arrays (`[]`). Defaults to `false`.
+  - **`requiredKeys`** (`"*" | DotNotationKey<T>[]`): Array of key paths that must always be preserved, bypassing filters. Defaults to `undefined`.
+- **`_return`** (`'partial' | 'required'`, optional): Determines if the returned TypeScript type should be deeply partial or maintain original property requirements. Defaults to `'required'`.
+
+### Return Value
+
+- The sanitized version of the input, with types aligned according to the `_return` configuration.
+
+### Example Usage
+
+```ts pg tab="String & Array"
+import { sanitizeData } from 'toolbox-x';
+
+console.log(sanitizeData("  hello  world  "));
+// Output: "hello world"
+
+console.log(sanitizeData(["  foo ", "bar  ", "  baz  "]));
+// Output: ["foo", "bar", "baz"]
+```
+
+```ts pg tab="Object Sanitization"
+import { sanitizeData } from 'toolbox-x';
+
+const user = {
+  name: "  John Doe  ",
+  age: null,
+  address: { city: "  NYC  ", zip: "" },
+  tags: []
+};
+
+// Ignore nullish and empty values
+const result = sanitizeData(user, { ignoreNullish: true, ignoreEmpty: true });
+console.log(result);
+// Output: { name: "John Doe", address: { city: "NYC" } }
+```
+
+```ts pg tab="Advanced Filtering"
+import { sanitizeData } from 'toolbox-x';
+
+const config = {
+  apiKey: "  secret  ",
+  debug: " false ",
+  settings: {
+    timeout: " 30 ",
+    nullValue: null,
+    emptyObj: {}
+  },
+  ignored: "should not appear"
+};
+
+const result = sanitizeData(config, {
+  keysToIgnore: ['ignored'],
+  trimStrings: true,
+  ignoreNullish: true,
+  ignoreEmpty: true,
+  requiredKeys: ['apiKey']
+});
+console.log(result);
+/*
+Output:
+{
+  apiKey: "secret",
+  debug: false,
+  settings: {
+    timeout: 30
+  }
+}
+*/
+```
+
+### Types
+
+#### `SanitizeOptions`
+
+```typescript
+interface SanitizeOptions<T, Ignored extends DotNotationKey<T>> {
+  keysToIgnore?: Ignored[];
+  trimStrings?: boolean;
+  ignoreNullish?: boolean;
+  ignoreFalsy?: boolean;
+  ignoreEmpty?: boolean;
+  requiredKeys?: '*' | DotNotationKey<T>[];
+}
+```
+
+#### `PartialOrRequired`
+
+```typescript
+type PartialOrRequired = 'partial' | 'required';
+```

@@ -1,0 +1,140 @@
+---
+title: Generate Random Color
+description: Generates unique random colors in HEX, RGB, or HSL format, ensuring visual distinctness.
+---
+
+## generateRandomColor
+
+The `generateRandomColor` function generates a random, perceptually unique color in one of three formats: `Hex6`, `RGB`, or `HSL`. It tracks previously generated values to prevent duplicates and keep colors visually distinct.
+
+### Function Signature
+
+```typescript
+function generateRandomColor<C extends $ColorType = "hex">(
+  options?: RandomColorOptions<C>
+): RandomColor<C>
+```
+
+### Parameters
+
+- **`options`** (`RandomColorOptions`, optional): Configuration options:
+  - **`colorType`** (`'hex' | 'rgb' | 'hsl'`): The format of the returned color. Defaults to `'hex'`.
+  - **`maxColors`** (`number`): The maximum number of recent colors tracked in memory. Defaults to `16`.
+
+### Return Value
+
+- **`Hex6 | RGB | HSL`**: The randomly generated color string.
+
+### Example Usage
+
+```ts pg tab="Hex (Default)"
+import { generateRandomColor } from 'toolbox-x/colors';
+
+const color = generateRandomColor();
+console.log(color); 
+// Output example: "#34E2EF"
+```
+
+```ts pg tab="RGB format"
+import { generateRandomColor } from 'toolbox-x/colors';
+
+const color = generateRandomColor({ colorType: 'rgb' });
+console.log(color); 
+// Output example: "rgb(235, 159, 45)"
+```
+
+```ts pg tab="HSL format"
+import { generateRandomColor } from 'toolbox-x/colors';
+
+const color = generateRandomColor({ colorType: 'hsl', maxColors: 32 });
+console.log(color); 
+// Output example: "hsl(223, 96%, 53%)"
+```
+
+### Aliases
+
+The following aliases can be used for the `generateRandomColor` function:
+
+- `getRandomColor`
+
+---
+
+## generateRandomHSLColor
+
+Generates a unique random color specifically in `HSL` format.
+
+### Function Signature
+
+```typescript
+function generateRandomHSLColor(maxColors?: number): HSL
+```
+
+### Parameters
+
+- **`maxColors`** (`number`, optional): Maximum number of recent colors to track. Defaults to `16`.
+
+### Example Usage
+
+```ts pg
+import { generateRandomHSLColor } from 'toolbox-x/colors';
+
+const color = generateRandomHSLColor();
+console.log(color); 
+// Output example: "hsl(42, 85%, 65%)"
+```
+
+### Aliases
+
+The following aliases can be used for the `generateRandomHSLColor` function:
+
+- `generateRandomHSL`
+- `getRandomHSL`
+
+---
+
+## generateRandomColorInHexRGB
+
+> [!CAUTION]
+> **Deprecated**: Use `generateRandomColor` instead.
+
+Generates a unique random color and returns it in both HEX and RGB formats.
+
+### Function Signature
+
+```typescript
+function generateRandomColorInHexRGB(maxColors?: number): RandomHexRGB
+```
+
+### Example Usage
+
+```ts pg
+import { generateRandomColorInHexRGB } from 'toolbox-x/colors';
+
+const result = generateRandomColorInHexRGB();
+console.log(result);
+// Output example: { hex: "#F2C14E", rgb: "rgb(242, 193, 78)" }
+```
+
+---
+
+### Types
+
+```typescript
+type $ColorType = 'hex' | 'rgb' | 'hsl';
+
+interface RandomColorOptions<C extends $ColorType | undefined> {
+  colorType?: C;
+  maxColors?: number;
+}
+
+type RandomColor<C extends $ColorType | undefined = undefined> =
+  C extends undefined | 'hex' ? Hex6
+  : C extends 'hsl' ? HSL
+  : C extends 'rgb' ? RGB
+  : Hex6;
+
+type RandomHexRGB = {
+  hex: Hex6;
+  rgb: RGB;
+};
+```

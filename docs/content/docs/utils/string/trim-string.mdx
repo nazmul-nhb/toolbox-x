@@ -1,0 +1,49 @@
+---
+title: Trim String or Array of Strings
+description: Removes unnecessary spaces from a string or an array of strings.
+---
+
+## trimString
+
+The `trimString` function removes unnecessary leading, trailing, and multiple consecutive inner spaces from a string or recursively from an array of strings.
+
+### Function Signatures
+
+```typescript
+function trimString(input: string): string
+function trimString(input: string[]): string[]
+```
+
+### Parameters
+
+- **`input`** (`string | string[]`): A string or an array of strings to trim.
+
+### Return Value
+
+- **`string | string[]`**: The trimmed string or array of strings.
+
+### Example Usage
+
+```ts pg tab="Single String"
+import { trimString } from 'toolbox-x';
+
+console.log(trimString("   Hello   World!   "));
+// Output: "Hello World!"
+```
+
+```ts pg tab="Array of Strings"
+import { trimString } from 'toolbox-x';
+
+console.log(trimString(["  Hello   ", "   World!  "]));
+// Output: ["Hello", "World!"]
+```
+
+```ts pg tab="Empty Input"
+import { trimString } from 'toolbox-x';
+
+console.log(trimString(""));
+// Output: ""
+
+console.log(trimString([]));
+// Output: []
+```

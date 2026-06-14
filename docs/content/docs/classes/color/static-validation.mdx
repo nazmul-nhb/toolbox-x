@@ -1,0 +1,248 @@
+---
+title: Static Validation Checks
+description: Validate CSS named colors and hex, RGB, and HSL formats using the Color class.
+---
+
+## Color Format Checkers
+
+<Callout type="info" title="Note">
+Please refer to the color types here: [`Color Types`](./#type-definitions) to understand the color types used in the examples below.
+</Callout>
+
+For individual checker functions, consider using the standalone [**Checker Functions**](../../utils/color/color-checkers).
+
+### `isHex6()`
+
+Validates if a string is a valid 6-character hex color.
+
+#### Signature
+
+```typescript
+static isHex6(color: string): color is Hex6
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `color` | `string` | The string to validate. |
+
+#### Returns
+
+- **`boolean`**: `true` if valid Hex6.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+console.log(Color.isHex6("#ff5733")); // → true
+console.log(Color.isHex6("#ff573"));  // → false
+```  
+
+---
+
+### `isHex8()`
+
+Validates if a string is a valid 8-character hex color (with alpha channel).
+
+#### Signature
+
+```typescript
+static isHex8(color: string): color is Hex8
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `color` | `string` | The string to validate. |
+
+#### Returns
+
+- **`boolean`**: `true` if valid Hex8.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+console.log(Color.isHex8("#ff573380")); // → true
+console.log(Color.isHex8("#ff5733"));   // → false
+```  
+
+---
+
+### `isRGB()`
+
+Validates if a string matches the standard solid `rgb()` color format.
+
+#### Signature
+
+```typescript
+static isRGB(color: string): color is RGB
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `color` | `string` | The string to validate. |
+
+#### Returns
+
+- **`boolean`**: `true` if valid RGB.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+console.log(Color.isRGB("rgb(255, 87, 51)")); // → true
+console.log(Color.isRGB("rgb(256, 87, 51)")); // → false (invalid red value)
+```  
+
+---
+
+### `isRGBA()`
+
+Validates if a string matches the alpha `rgba()` color format.
+
+#### Signature
+
+```typescript
+static isRGBA(color: string): color is RGBA
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `color` | `string` | The string to validate. |
+
+#### Returns
+
+- **`boolean`**: `true` if valid RGBA.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+console.log(Color.isRGBA("rgba(255, 87, 51, 0.5)")); // → true
+console.log(Color.isRGBA("rgba(255, 87, 51, 1.5)")); // → false (invalid alpha)
+```  
+
+---
+
+### `isHSL()`
+
+Validates if a string matches the standard solid `hsl()` color format.
+
+#### Signature
+
+```typescript
+static isHSL(color: string): color is HSL
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `color` | `string` | The string to validate. |
+
+#### Returns
+
+- **`boolean`**: `true` if valid HSL.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+console.log(Color.isHSL("hsl(14, 100%, 60%)")); // → true
+console.log(Color.isHSL("hsl(14, 150%, 60%)")); // → false (invalid saturation)
+```  
+
+---
+
+### `isHSLA()`
+
+Validates if a string matches the alpha `hsla()` color format.
+
+#### Signature
+
+```typescript
+static isHSLA(color: string): color is HSLA
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `color` | `string` | The string to validate. |
+
+#### Returns
+
+- **`boolean`**: `true` if valid HSLA.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+console.log(Color.isHSLA("hsla(14, 100%, 60%, 0.5)")); // → true
+console.log(Color.isHSLA("hsla(14, 100%, 60%, 2)"));   // → false (invalid alpha)
+```  
+
+---
+
+### Validation Rules
+
+#### Hex Formats
+
+- **Hex6**: Exactly 6 hexadecimal characters after `#`.
+- **Hex8**: Exactly 8 hexadecimal characters after `#` (includes alpha).
+
+#### RGB/RGBA Formats
+
+- **Red, Green, Blue**: Must be between 0-255 (inclusive).
+- **Alpha**: Must be between 0-1 (inclusive).
+
+#### HSL/HSLA Formats
+
+- **Hue**: Must be between 0-360 (inclusive).
+- **Saturation**: Must be between 0-100% (inclusive).
+- **Lightness**: Must be between 0-100% (inclusive).
+- **Alpha**: Must be between 0-1 (inclusive).
+
+---
+
+## `isCSSColor()`
+
+Validates if a string is a valid CSS named color.
+
+### Signature
+
+```typescript
+static isCSSColor(color: string): color is CSSColor
+```  
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `color` | `string` | The string to validate. |
+
+### Returns
+
+- **`boolean`**: `true` if a valid CSS color name.
+
+### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+console.log(Color.isCSSColor("rebeccapurple")); // → true
+console.log(Color.isCSSColor("#ff5733"));        // → false
+```  

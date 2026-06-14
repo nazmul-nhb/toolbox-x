@@ -1,0 +1,110 @@
+---
+title: Create Controlled FormData
+description: Converts JavaScript objects, nested structures, and files into standard FormData with comprehensive formatting options.
+---
+
+## createFormData
+
+Converts JavaScript objects into `FormData` with extensive configuration options for handling nested structures, files, and case transformations.
+
+### Function Signature
+
+```typescript
+function createFormData<T extends GenericObject>(
+  data: T,
+  configs?: FormDataConfigs<T>
+): FormData
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `data` | `T` | The source object to convert to FormData. |
+| `configs` | `FormDataConfigs<T>` (optional) | Configuration options controlling serialization. |
+
+### Returns
+
+- **`FormData`**: A standard `FormData` instance containing the mapped inputs.
+
+---
+
+### Example Usage
+
+```ts pg
+import { createFormData } from 'toolbox-x/dom';
+
+const file = new File(['hello'], 'hello.txt', { type: 'text/plain' });
+
+const data = {
+  user: {
+    name: ' John Doe ',
+    age: 30,
+    preferences: { theme: 'dark' }
+  },
+  files: [file]
+};
+
+const formData = createFormData(data, {
+  trimStrings: true,
+  lowerCaseValues: ['user.name'],
+  dotNotateNested: ['user'],
+  breakArray: ['files']
+});
+
+// Resulting FormData values:
+// user.name -> "john doe" (trimmed and lowercased)
+// user.age -> "30"
+// user.preferences.theme -> "dark" (flattened via dotNotateNested)
+// files[0] -> File object (individual key due to breakArray)
+```
+
+---
+
+## Behavior Details
+
+### Nested Objects
+
+- By default, nested objects are JSON-stringified (`JSON.stringify`) which is standard for modern API submissions.
+- Pass keys to `dotNotateNested` to flatten them recursively into dot-notated parameters (e.g. `user.address.zip`).
+
+### File Uploads
+
+- Automatically handles standard `File`, `Blob`, `FileList`, and file-upload formats from common UI Component Libraries (such as Ant Design).
+
+### Case & Whitespace Control
+
+- Trims all string values when `trimStrings` is `true`.
+- Converts specific key paths or values to lowercase using `lowerCaseKeys` and `lowerCaseValues`.
+
+> [!WARNING]
+> **Server-Side Rendering (SSR)**: This utility is designed for browser environments and may fail or produce unexpected results when run inside server-side environments (such as Next.js Server Components) due to server-side `FormData` limitations.
+
+---
+
+## Aliases
+
+This function can also be imported under the following name:
+
+| Alias | Import Path |
+| :--- | :--- |
+| `convertToFormData` | `toolbox-x/dom` |
+
+---
+
+## Types
+
+### `FormDataConfigs`
+
+```typescript
+interface FormDataConfigs<T> {
+  ignoreKeys?: DotNotationKey<T>[];
+  requiredKeys?: '*' | DotNotationKey<T>[];
+  lowerCaseKeys?: '*' | DotNotationKey<T>[];
+  lowerCaseValues?: '*' | NestedKeyString<T>[];
+  dotNotateNested?: '*' | KeyForObject<T>[];
+  stringifyNested?: '*' | KeyForObject<T>[];
+  breakArray?: '*' | KeyForArray<T>[];
+  trimStrings?: boolean;
+}
+```

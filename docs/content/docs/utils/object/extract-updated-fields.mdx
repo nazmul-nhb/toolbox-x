@@ -1,0 +1,64 @@
+---
+title: Extract Updated Fields
+description: Extracts only the fields that have changed between two objects, recursively including deep/nested changes.
+---
+
+## extractUpdatedFields
+
+The `extractUpdatedFields` function recursively compares an updated object with a base object and returns a new object containing only the fields whose values have changed.
+
+### Function Signature
+
+```typescript
+function extractUpdatedFields<T extends GenericObject>(
+  baseObject: T,
+  updatedObject: FlattenPartial<T>
+): FlattenPartial<T>
+```
+
+### Parameters
+
+- **`baseObject`** (`T`): The original reference object.
+- **`updatedObject`** (`FlattenPartial<T>`): An object containing potential updates for fields of the base object.
+
+### Return Value
+
+- **`FlattenPartial<T>`**: A new object containing only the properties that have changed values.
+
+### Example Usage
+
+```ts pg tab="Basic Comparison"
+import { extractUpdatedFields } from 'toolbox-x';
+
+const original = { name: 'John', age: 30 };
+const updated = { name: 'John', age: 31 };
+
+const changes = extractUpdatedFields(original, updated); 
+console.log(changes);
+// Output: { age: 31 }
+```
+
+```ts pg tab="Partial Configuration Updates"
+import { extractUpdatedFields } from 'toolbox-x';
+
+const oldConfig = { theme: 'dark', timeout: 30 };
+const newConfig = { theme: 'light', timeout: 30 };
+
+const changes = extractUpdatedFields(oldConfig, newConfig);
+console.log(changes);
+// Output: { theme: 'light' }
+```
+
+### Notes
+
+- This function does **not** detect newly added keys (use `extractNewFields` or `extractUpdatedAndNewFields` for that).
+- Arrays are treated as atomic values; their items are not recursively diffed.
+- Returns a new object without mutating either input.
+
+### Types
+
+#### `FlattenPartial<T>`
+
+```typescript
+type FlattenPartial<T> = Partial<{ [K in keyof T]: T[K] }>;
+```

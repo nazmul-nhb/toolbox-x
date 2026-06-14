@@ -1,0 +1,164 @@
+---
+title: Color Format Checkers
+description: A collection of type guards to validate color formats like HEX, RGB, RGBA, HSL, and HSLA.
+---
+
+## Overview
+
+These functions are TypeScript type guards that check whether a given color string conforms to a specific color format and lies within valid value ranges.
+
+---
+
+## isHex6
+
+Checks if a color is in 6-digit HEX format (e.g., `#FF5733`).
+
+### Function Signature
+
+```typescript
+function isHex6(color: string): color is Hex6
+```
+
+### Parameters
+
+- **`color`** (`string`): The color string to check.
+
+### Return Value
+
+- **`boolean`**: `true` if valid `Hex6`, `false` otherwise.
+
+### Example Usage
+
+```ts pg
+import { isHex6 } from 'toolbox-x/colors';
+
+console.log(isHex6('#FF5733'));    // Output: true
+console.log(isHex6('#FF573'));     // Output: false (5 characters)
+console.log(isHex6('rgb(255,0,0)')); // Output: false
+```
+
+---
+
+## isHex8
+
+Checks if a color is in 8-digit HEX format, which includes the alpha channel (e.g., `#FF573380`).
+
+### Function Signature
+
+```typescript
+function isHex8(color: string): color is Hex8
+```
+
+### Example Usage
+
+```ts pg
+import { isHex8 } from 'toolbox-x/colors';
+
+console.log(isHex8('#FF573380')); // Output: true
+console.log(isHex8('#FF5733'));   // Output: false (6 characters)
+```
+
+---
+
+## isRGB
+
+Checks if a color is in `rgb(...)` format and components are within $0 \dots 255$.
+
+### Function Signature
+
+```typescript
+function isRGB(color: string): color is RGB
+```
+
+### Example Usage
+
+```ts pg
+import { isRGB } from 'toolbox-x/colors';
+
+console.log(isRGB('rgb(255, 87, 51)'));     // Output: true
+console.log(isRGB('rgb(255, 87, 51, 0.5)')); // Output: false (contains alpha)
+console.log(isRGB('rgb(300, 87, 51)'));      // Output: false (out of range)
+```
+
+---
+
+## isRGBA
+
+Checks if a color is in `rgba(...)` format, including a valid alpha value between $0 \dots 1$.
+
+### Function Signature
+
+```typescript
+function isRGBA(color: string): color is RGBA
+```
+
+### Example Usage
+
+```ts pg
+import { isRGBA } from 'toolbox-x/colors';
+
+console.log(isRGBA('rgba(255, 87, 51, 0.5)')); // Output: true
+console.log(isRGBA('rgba(255, 87, 51, 1.5)')); // Output: false (alpha out of range)
+```
+
+---
+
+## isHSL
+
+Checks if a color is in `hsl(...)` format, validating hue ($0 \dots 360$) and saturation/lightness percentages ($0 \dots 100\%$).
+
+### Function Signature
+
+```typescript
+function isHSL(color: string): color is HSL
+```
+
+### Example Usage
+
+```ts pg
+import { isHSL } from 'toolbox-x/colors';
+
+console.log(isHSL('hsl(120, 100%, 50%)')); // Output: true
+console.log(isHSL('hsl(400, 100%, 50%)')); // Output: false (hue out of range)
+```
+
+---
+
+## isHSLA
+
+Checks if a color is in `hsla(...)` format, validating HSL parameters and the alpha channel.
+
+### Function Signature
+
+```typescript
+function isHSLA(color: string): color is HSLA
+```
+
+### Example Usage
+
+```ts pg
+import { isHSLA } from 'toolbox-x/colors';
+
+console.log(isHSLA('hsla(120, 100%, 50%, 0.5)')); // Output: true
+```
+
+---
+
+### Type Guards and Narrowing
+
+Because these functions are type guards, TypeScript will automatically narrow the type in conditional blocks:
+
+```typescript
+import { isHex6, Hex6 } from 'toolbox-x/colors';
+
+const input: string = '#FF5733';
+
+if (isHex6(input)) {
+  const hex: Hex6 = input; // No type error
+}
+```
+
+### See Also
+
+- [Color converters](./color-converters) - Convert between HEX, RGB, and HSL formats.
+- [Color class](/docs/classes/Color) - Deep OOP-based color manipulation class.

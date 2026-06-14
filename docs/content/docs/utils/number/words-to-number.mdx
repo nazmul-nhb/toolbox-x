@@ -1,0 +1,76 @@
+---
+title: Convert Words to Number
+description: Converts an English cardinal or ordinal word string into its numeric value.
+---
+
+## wordsToNumber
+
+The `wordsToNumber` function converts an English cardinal or ordinal word string into its numeric value.
+
+> [!WARNING]
+> - For very large numbers (quintillion and beyond), results may not always be correct due to numeric precision limits.
+> - Mixed words with non-numeric tokens (e.g., "seventy-seven cats") will return `NaN`.
+
+### Function Signature
+
+```typescript
+function wordsToNumber(word: string): number
+```
+
+### Parameters
+
+- **`word`** (`string`): The English word representation of a number to convert (cardinal or ordinal).
+
+### Return Value
+
+- **`number`**: The numeric value of the input, or `NaN` if the input cannot be parsed.
+
+### Example Usage
+
+```ts pg
+import { wordsToNumber } from 'toolbox-x';
+
+console.log(wordsToNumber('forty-two')); 
+// Output: 42
+
+console.log(wordsToNumber('one hundred and seven')); 
+// Output: 107
+
+console.log(wordsToNumber('two thousand three hundred')); 
+// Output: 2300
+
+console.log(wordsToNumber('twenty-first')); 
+// Output: 21
+
+console.log(wordsToNumber('negative five')); 
+// Output: -5
+
+console.log(wordsToNumber('one hundred quintillion')); 
+// Output: 1e20
+
+console.log(wordsToNumber('one zillion')); 
+// Output: NaN
+```
+
+### Supported Features
+
+- **Cardinal numbers**: `"one"`, `"two"`, ..., `"one hundred"`, etc.
+- **Ordinal numbers**: `"first"`, `"second"`, ..., `"twenty-first"`, etc.
+- **Large scales**: `"thousand"`, `"million"`, ..., `"quintillion"` (up to $10^{20}$).
+- **Negative numbers**: prefixed with `"minus"` or `"negative"`.
+- **Hyphenated or spaced numbers**: `"forty-two"` or `"forty two"`.
+- **"And" in numbers**: `"one hundred and one"`.
+- **Numeric strings**: `"1,234"`, `"042"`, `"3.14"`.
+
+### Aliases
+
+The following aliases can be used for the `wordsToNumber` function:
+
+- `convertWordsToNumber`
+- `wordToNumber`
+- `convertWordToNumber`
+
+### See Also
+
+- [numberToWords](./number-to-words) - For cardinal word representation of numbers.
+- [numberToWordsOrdinal](./number-to-words-ordinal) - For ordinal word representation of numbers.

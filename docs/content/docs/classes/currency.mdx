@@ -1,0 +1,287 @@
+---
+title: Currency Class
+description: Currency class for locale-specific currency formatting and Frankfurter API-based currency conversion.
+---
+
+## `Currency`
+
+The `Currency` class provides utilities for handling currency operations including formatting and conversion. It supports locale-specific formatting and uses the Frankfurter API for currency conversion with automatic rate caching.
+
+### Import
+
+```ts
+import { Currency } from 'toolbox-x';
+```
+
+### Constructor
+
+Creates a new `Currency` instance with specified amount and currency code.
+
+#### Signature
+
+```typescript
+constructor<Code extends CurrencyCode>(amount: Numeric, code: Code): Currency<Code>
+```
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `amount` | `Numeric` | Numeric value (number or string) representing the currency amount. |
+| `code` | `Code` | ISO 4217 currency code (e.g., `'USD'`, `'EUR'`). |
+
+#### Behavior
+
+- Converts amount to a number.
+- Stores a pre-formatted currency string using the `'en-US'` locale.
+
+#### Example
+
+```ts pg
+import { Currency } from 'toolbox-x';
+
+const usd = new Currency(100, 'USD');
+console.log(usd.currency); // → "$100.00"
+```
+
+---
+
+### Available Methods
+
+- **Instance Methods**
+  - [format](#format)
+  - [convert](#convert)
+  - [convertSync](#convertsync)
+
+- **Static Methods**
+  - [clearRateCache](#clearratecache)
+
+---
+
+### Properties
+
+#### `currency`
+
+```typescript
+readonly currency: string
+```
+
+Pre-formatted currency string using the `'en-US'` locale.
+
+---
+
+### Examples
+
+#### Basic Usage
+
+```ts pg
+import { Currency } from 'toolbox-x';
+
+const usd = new Currency(100, 'USD');
+console.log(usd.currency); // → "$100.00"
+console.log(usd.format('ja-JP', 'JPY')); // → "￥100"
+```
+
+#### Currency Conversion
+
+```ts pg
+import { Currency } from 'toolbox-x';
+
+const usd = new Currency(100, 'USD');
+const converted = await usd.convert('EUR', {
+  fallbackRate: 0.85
+});
+console.log(converted.currency); // → Current EUR equivalent
+```
+
+#### Error Handling
+
+```ts pg
+import { Currency } from 'toolbox-x';
+
+try {
+  const converted = await new Currency(100, 'USD').convert('XYZ' as any);
+} catch (error: any) {
+  console.error('Conversion failed:', error.message);
+}
+```
+
+---
+
+## API Reference for Currency
+
+### `format()`
+
+Formats the currency amount according to specified locale rules.
+
+#### Signature
+
+```ts
+format(locale?: LocaleCode, code?: CurrencyCode): string
+```
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `locale` | `LocaleCode` (optional) | BCP 47 locale code (e.g., `'de-DE'`). |
+| `code` | `CurrencyCode` (optional) | ISO 4217 currency code (e.g., `'USD'`, `'EUR'`) used solely for formatting purposes. *This does not alter the internal currency code set during instantiation.* |
+
+#### Return Value
+
+- **`string`**: Formatted currency string.
+
+#### Example
+
+```ts pg
+import { Currency } from 'toolbox-x';
+
+console.log(new Currency(1000, 'EUR').format('de-DE')); // → "1.000,00 €"
+console.log(new Currency(1000, 'EUR').format('de-DE', 'GBP')); // → "1.000,00 £"
+```
+
+---
+
+### `convert()`
+
+Converts the current currency amount to a target currency using **real-time exchange rates** from [api.frankfurter.app](https://api.frankfurter.app/latest).  
+Includes automatic caching, error fallback handling, and support for manually defined rates. Refer to [convertSync](#convertsync) for a synchronous and network-independent solution with a manual exchange rate.
+
+#### Signature
+
+```ts
+async convert<To extends FrankFurterCurrency>(to: To, options?: ConvertOptions): Promise<Currency<To>>
+```
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `to` | `To` | Target currency code to convert to. Must be a valid [Supported Currency](#supported-currencies), e.g., `'EUR'`, `'USD'`. |
+| `options` | `ConvertOptions` (optional) | Configuration options. |
+
+#### Return Value
+
+- **`Promise<Currency<To>>`**: A **new `Currency`** instance containing the converted amount in the target currency.
+
+#### Throws
+
+Throws an `error` if:
+- The API call fails **and**
+- No `fallbackRate` is provided in `options`.
+
+#### Behavior Details
+
+- Caches conversion rates internally to avoid redundant API requests.
+- Respects `forceRefresh` to bypass the cache when needed.
+- Falls back to the provided `fallbackRate` if the live API fails or the currency is unsupported.
+- Logs a warning in the console when falling back to a manual rate.
+
+#### Supported Currencies
+
+Only the following fiat currencies are supported by the live API:
+
+```text
+AUD, BGN, BRL, CAD, CHF, CNY, CZK, DKK, EUR, GBP, HKD, HUF,
+IDR, ILS, INR, ISK, JPY, KRW, MXN, MYR, NOK, NZD, PHP, PLN,
+RON, SEK, SGD, THB, TRY, USD, ZAR
+```
+
+<Callout type="info">
+Use the [convertSync](#convertsync) method to convert to other currencies using custom exchange rates.
+</Callout>
+
+#### Example
+
+```ts pg
+import { Currency } from 'toolbox-x';
+
+const usd = new Currency(100, 'USD');
+
+// Convert to EUR using live rates
+const eur = await usd.convert('EUR');
+
+// Convert with fallback if API fails
+const inr = await usd.convert('INR', {
+  fallbackRate: 83.12,
+});
+```
+
+---
+
+### `convertSync()`
+
+Converts currency *synchronously* using either a cached rate or a manually provided exchange rate.  
+*No network requests are made.*
+
+#### Signature
+
+```ts
+convertSync<To extends CurrencyCode>(to: To, rate: number): Currency<To>
+```
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `to` | `To` | Target currency code. |
+| `rate` | `number` | Manual exchange rate to use. |
+
+#### Return Value
+
+- **`Currency<To>`**: A new `Currency` instance with the converted amount.
+- If no cached rate is found, the given manual rate is used.
+- If no exchange rate is valid, returns the original currency instance.
+
+#### Example
+
+```ts pg
+import { Currency } from 'toolbox-x';
+
+const eur = new Currency(100, 'USD').convertSync('EUR', 0.92);
+```
+
+---
+
+### `clearRateCache()`
+
+Clears all cached exchange rates to force fresh API calls.
+
+#### Signature
+
+```ts
+static clearRateCache(): void
+```
+
+#### Example
+
+```ts pg
+import { Currency } from 'toolbox-x';
+
+Currency.clearRateCache();
+```
+
+---
+
+### Type Definitions
+
+#### LocaleCode
+
+Supported BCP 47 locale codes for formatting.
+
+#### CurrencyCode
+
+Union of all supported currency codes in your system, including ISO 4217 and custom mappings.
+
+#### FrankFurterCurrency
+
+Subset of `CurrencyCode` that are officially supported by the Frankfurter API.
+
+#### ConvertOptions
+
+```ts
+interface ConvertOptions {
+  fallbackRate?: number;
+  forceRefresh?: boolean;
+}
+```

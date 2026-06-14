@@ -1,0 +1,38 @@
+---
+title: Truncate a String
+description: Shortens a string to a specified maximum length and appends an ellipsis if truncation occurs.
+---
+
+## truncateString
+
+The `truncateString` function shortens a string to a specified maximum length and appends an ellipsis (`...`) if it exceeds that length.
+
+### Function Signature
+
+```typescript
+function truncateString(str: string, maxLength: number): string
+```
+
+### Parameters
+
+- **`str`** (`string`): The string to truncate.
+- **`maxLength`** (`number`): The maximum allowed length before truncation.
+
+### Return Value
+
+- **`string`**: The truncated string with an appended ellipsis (`...`), or the original string if its length is less than or equal to `maxLength`.
+
+### Example Usage
+
+```ts pg
+import { truncateString } from 'toolbox-x';
+
+console.log(truncateString('Hello, this is a long sentence.', 10));
+// Output: 'Hello, thi...'
+
+console.log(truncateString('Short', 10));
+// Output: 'Short'
+
+console.log(truncateString('', 5));
+// Output: ''
+```

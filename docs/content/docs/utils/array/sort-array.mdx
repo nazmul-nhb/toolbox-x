@@ -1,0 +1,113 @@
+---
+title: Sort Array
+description: Sorts an array of various data types based on the provided sorting options.
+---
+
+## sortAnArray
+
+The `sortAnArray` function sorts an array of various data types (strings, numbers, booleans, or objects) based on the provided sorting options.
+
+### Function Signatures
+
+```typescript
+function sortAnArray<T extends GenericObject>(array: T[], options: SortByOption<T>): T[]
+function sortAnArray<T extends string | number | boolean>(array: T[], options?: OrderOption): T[]
+```
+
+### Parameters
+
+- **`array`**: The array to sort, which can contain:
+  - Strings
+  - Numbers
+  - Booleans
+  - Objects (with specified fields for sorting)
+- **`options`**: Sorting options (optional). The available options are:
+  - `sortOrder` (optional): Defines the order to sort the array:
+    - `'asc'` (default): Sort in ascending order.
+    - `'desc'`: Sort in descending order.
+  - `sortByField` (optional for object arrays): The field of the object to sort by.
+
+### Return Value
+
+- **`T[]`**: Returns the sorted array (a shallow copy of the original).
+  - If the array contains strings, it sorts them alphabetically using natural sort.
+  - If the array contains numbers, it sorts them numerically.
+  - If the array contains booleans, it sorts them by their boolean value (`false` < `true`).
+  - If the array contains objects, it sorts them by the specified field.
+
+### Example Usage
+
+```ts pg tab="Strings"
+import { sortAnArray } from 'toolbox-x';
+
+const strings = ['banana', 'apple', 'cherry'];
+const sortedStrings = sortAnArray(strings, { sortOrder: 'asc' });
+console.log(sortedStrings); 
+// Output: ['apple', 'banana', 'cherry']
+```
+
+```ts pg tab="Numbers"
+import { sortAnArray } from 'toolbox-x';
+
+const numbers = [5, 3, 8, 1];
+const sortedNumbers = sortAnArray(numbers, { sortOrder: 'desc' });
+console.log(sortedNumbers); 
+// Output: [8, 5, 3, 1]
+```
+
+```ts pg tab="Booleans"
+import { sortAnArray } from 'toolbox-x';
+
+const booleans = [true, false, true];
+const sortedBooleans = sortAnArray(booleans, { sortOrder: 'asc' });
+console.log(sortedBooleans); 
+// Output: [false, true, true]
+```
+
+```ts pg tab="Objects"
+import { sortAnArray } from 'toolbox-x';
+
+const objects = [
+  { id: 2, name: 'Item B' },
+  { id: 1, name: 'Item A' },
+  { id: 3, name: 'Item C' },
+];
+
+const sortedObjects = sortAnArray(objects, { sortByField: 'name', sortOrder: 'asc' });
+console.log(sortedObjects);
+// Output: [{ id: 1, name: 'Item A' }, { id: 2, name: 'Item B' }, { id: 3, name: 'Item C' }]
+```
+
+### Error Handling
+
+- If the array is empty or not an array, the function will return the array unchanged.
+- When sorting objects, ensure the `sortByField` option is provided. If the field is invalid or not resolved, it will position those items at the end.
+
+### Notes
+
+- A shallow copy of the input array is created to ensure the original array remains unmodified.
+- The function sorts strings using a natural sorting order. See [naturalSort](../string/natural-sort).
+
+### Types
+
+#### `OrderOption`
+
+```typescript
+interface OrderOption {
+  sortOrder?: 'asc' | 'desc';
+}
+```
+
+#### `SortByOption<T>`
+
+```typescript
+interface SortByOption<T extends GenericObject> extends OrderOption {
+  sortByField: NestedPrimitiveKey<T>;
+}
+```
+
+#### `SortOptions<T>`
+
+```typescript
+type SortOptions<T> = T extends GenericObject ? SortByOption<T> : OrderOption;
+```

@@ -1,0 +1,107 @@
+---
+title: Contrast & Accessibility
+description: Check WCAG ratings, contrast ratios, and color brightness using the Color class.
+---
+
+## Contrast & Accessibility Methods
+
+### `contrastRatio()`
+
+Calculates the contrast ratio between the current color and another color based on the WCAG formula.
+
+#### Signature
+
+```typescript
+contrastRatio(other: ColorType | CSSColor): number
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `other` | `ColorType \| CSSColor` | The color to compare against. |
+
+#### Returns
+
+- **`number`**: The WCAG contrast ratio (rounded to 2 decimal places). Ranges from `1` (no contrast) to `21` (maximum contrast, e.g., black vs. white).
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+const black = new Color("#000000");
+const white = "#ffffff";
+console.log(black.contrastRatio(white)); // → 21
+```  
+
+---
+
+### `getWCAGRating()`
+
+Determines the WCAG readability rating (Fail, AA, AAA) for standard text.
+
+#### Signature
+
+```typescript
+getWCAGRating(other: ColorType | CSSColor): 'Fail' | 'AA' | 'AAA'
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `other` | `ColorType \| CSSColor` | The color to test against. |
+
+#### Returns
+
+- **`'Fail' | 'AA' | 'AAA'`**: 
+  - `"Fail"` (Ratio < 4.5)
+  - `"AA"` (Ratio ≥ 4.5)
+  - `"AAA"` (Ratio ≥ 7)
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+const text = "#333333";
+const background = new Color("#f0f0f0");
+console.log(background.getWCAGRating(text)); // → "AAA"
+```  
+
+---
+
+### `isLightColor()`
+
+Checks if the color's perceived brightness exceeds a given threshold, indicating a light color.
+
+#### Signature
+
+```typescript
+isLightColor(threshold?: number): boolean
+```
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `threshold` | `number` (optional) | Perceived brightness cutoff value (`0–255`). Defaults to `127.5`. Values outside the range are clamped. |
+
+#### Returns
+
+- **`boolean`**: `true` if perceived brightness exceeds the threshold; otherwise `false`.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+console.log(new Color("#ffffff").isLightColor());        // → true
+console.log(new Color("#000000").isLightColor());        // → false
+console.log(new Color("#888888").isLightColor(140));     // → false
+
+// Invalid thresholds are safely clamped
+console.log(new Color("#ffffff").isLightColor(999));     // → false (treated as 255)
+console.log(new Color("#000000").isLightColor(-50));     // → false (treated as 0)
+```

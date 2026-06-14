@@ -1,0 +1,32 @@
+---
+title: Utility Methods
+description: Utility methods for validating page numbers.
+---
+
+## isPageValid()
+
+### Signature
+
+```typescript
+isPageValid(page: number): boolean
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `page` | `number` | Page number to validate. |
+
+### Returns
+
+- **`boolean`**: Whether the page is within the valid range.
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+const p = new Paginator({ totalItems: 100 });
+console.log(p.isPageValid(5));  // → true
+console.log(p.isPageValid(15)); // → false
+```

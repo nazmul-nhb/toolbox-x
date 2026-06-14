@@ -1,0 +1,154 @@
+---
+title: String Diff Utilities
+description: Line-based and character-level text diffing utilities for comparing strings and highlighting differences.
+---
+
+## Overview
+
+These functions provide both line-level diffs (similar to `git diff`) and character-level highlighting for granular change visualization using the Longest Common Subsequence (LCS) algorithm.
+
+---
+
+## computeTextDiff
+
+Computes a line-based text diff between two strings.
+
+### Function Signature
+
+```typescript
+function computeTextDiff(originalText: string, modifiedText: string): DiffResult
+```
+
+### Parameters
+
+- **`originalText`** (`string`): The original (before) text.
+- **`modifiedText`** (`string`): The modified (after) text.
+
+### Return Value
+
+- **`DiffResult`**: An object containing the array of line differences and summary statistics.
+
+### Example Usage
+
+```ts pg
+import { computeTextDiff } from 'toolbox-x';
+
+const result = computeTextDiff('hello\nworld', 'hello\nearth');
+console.log(result);
+/*
+Output:
+{
+  lines: [
+    {
+      type: 'unchanged',
+      original: 'hello',
+      modified: 'hello',
+      originalLineNum: 1,
+      modifiedLineNum: 1
+    },
+    { type: 'removed', original: 'world', originalLineNum: 2 },
+    { type: 'added', modified: 'earth', modifiedLineNum: 2 }
+  ],
+  stats: {
+    linesAdded: 1,
+    linesRemoved: 1,
+    linesChanged: 0,
+    linesUnchanged: 1
+  }
+}
+*/
+```
+
+### Notes
+
+- Lines are classified as `added`, `removed`, `modified`, or `unchanged`.
+- Detects and pairs similar `removed` and `added` lines as `modified` when similarity is $\ge 60\%$. Similarity is calculated using [Levenshtein distance](./get-levenshtein-distance).
+
+---
+
+## getCharacterDifferences
+
+Highlights character-level differences between two strings.
+
+### Function Signature
+
+```typescript
+function getCharacterDifferences(original: string, modified: string): CharDiffResult
+```
+
+### Parameters
+
+- **`original`** (`string`): The original string to compare from.
+- **`modified`** (`string`): The modified string to compare to.
+
+### Return Value
+
+- **`CharDiffResult`**: An object containing annotated character arrays for both strings.
+
+### Example Usage
+
+```ts pg
+import { getCharacterDifferences } from 'toolbox-x';
+
+const diff = getCharacterDifferences('cat', 'car');
+console.log(diff);
+/*
+Output:
+{
+  original: [
+    { text: 'c', highlighted: false },
+    { text: 'a', highlighted: false },
+    { text: 't', highlighted: true }
+  ],
+  modified: [
+    { text: 'c', highlighted: false },
+    { text: 'a', highlighted: false },
+    { text: 'r', highlighted: true }
+  ]
+}
+*/
+```
+
+---
+
+### Types
+
+#### `DiffResult`
+
+```typescript
+interface DiffResult {
+  lines: DiffLine[];
+  stats: {
+    linesAdded: number;
+    linesRemoved: number;
+    linesChanged: number;
+    linesUnchanged: number;
+  };
+}
+```
+
+#### `DiffLine`
+
+```typescript
+interface DiffLine {
+  type: 'added' | 'removed' | 'unchanged' | 'modified';
+  original?: string;
+  modified?: string;
+  originalLineNum?: number;
+  modifiedLineNum?: number;
+}
+```
+
+#### `CharDiffResult`
+
+```typescript
+interface CharDiffResult {
+  original: HighlightedText[];
+  modified: HighlightedText[];
+}
+
+type HighlightedText = {
+  text: string;
+  highlighted: boolean;
+};
+```

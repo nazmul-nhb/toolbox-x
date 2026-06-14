@@ -1,0 +1,82 @@
+---
+title: Unit - Convert Between Units
+description: A comprehensive unit conversion utility supporting conversions between various measurement systems including length, mass, temperature, volume, area, speed, time, digital storage, power, energy, pressure, and frequency.
+---
+
+The `Unit` class is a comprehensive unit conversion utility that supports conversions between various measurement systems.
+
+## Constructor
+
+```typescript
+constructor(value: number, unit?: UnitKey)
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `value` | `number` | Numeric value to convert. |
+| `unit` | `UnitKey` (optional) | Unit type (e.g., `'kg'`, `'m'`, `'kb'`). |
+
+### Example
+
+```ts pg
+import { Unit } from 'toolbox-x';
+
+const weight = new Unit(100, 'kg'); // 100 kilograms
+const temp = new Unit(32, 'F');     // 32 degrees Fahrenheit
+```
+
+## Sub-pages
+
+Explore the conversion methods by category:
+
+- [Instance Methods](unit/instance-methods) — `toString()`, `convertByPrefix()`, `convertFromTo()`, `convert()`
+- [Length Conversions](unit/length-conversions) — meters, feet, km, miles, cm, mm
+- [Mass & Weight Conversions](unit/mass-weight) — kg, lbs, grams, ounces
+- [Temperature Conversions](unit/temperature-conversions) — Celsius, Fahrenheit, Kelvin
+- [Volume Conversions](unit/volume-conversions) — ml, liters, gallons
+- [Area Conversions](unit/area-conversions) — sq. meters, sq. feet, sq. km, sq. inches
+- [Speed Conversions](unit/speed-conversions) — km/h, mph
+- [Time Conversions](unit/time-conversions) — seconds, minutes, hours, days
+- [Digital Storage Conversions](unit/digital-storage) — bytes, KB, MB, GB, TB
+- [Power Conversions](unit/power-conversions) — watts, kilowatts
+- [Energy Conversions](unit/energy-conversions) — joules, calories, kilojoules
+- [Pressure Conversions](unit/pressure-conversions) — atm, pascal, bar
+- [Frequency Conversions](unit/frequency-conversions) — Hz, kHz, MHz
+
+## Type Definitions
+
+### UnitKey
+
+```typescript
+type UnitKey = keyof typeof UNITS;
+```
+
+Supported unit abbreviations (e.g., `'kg'`, `'m'`, `'F'`).
+
+### UnitLabel
+
+```typescript
+type UnitLabel = (typeof UNITS)[UnitKey];
+```
+
+Full names of units (e.g., `'Kilogram'`, `'Meter'`).
+
+### SIPrefix
+
+```typescript
+type SIPrefix = keyof typeof PREFIX_MULTIPLIERS;
+```
+
+Scientific prefixes (e.g., `'k'`, `'m'`, `'M'`).
+
+### UnitNumberMethods
+
+```typescript
+type UnitNumberMethods = {
+  [K in keyof typeof Unit]: (typeof Unit)[K] extends (
+    (value: number) => number
+  ) ? K : never;
+}[keyof typeof Unit];
+```
+
+Type-safe names of static conversion methods.

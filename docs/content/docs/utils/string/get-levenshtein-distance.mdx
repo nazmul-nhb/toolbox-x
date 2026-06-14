@@ -1,0 +1,48 @@
+---
+title: Get Levenshtein Distance
+description: Computes the Levenshtein distance between two strings.
+---
+
+## getLevenshteinDistance
+
+The `getLevenshteinDistance` function computes the Levenshtein distance between two strings, measuring the difference between them based on the minimum number of single-character insertions, deletions, or substitutions required to transform one string into the other.
+
+### Function Signature
+
+```typescript
+function getLevenshteinDistance(str1: string, str2: string): number
+```
+
+### Parameters
+
+- **`str1`** (`string`): First string to compare.
+- **`str2`** (`string`): Second string to compare.
+
+### Return Value
+
+- **`number`**: The Levenshtein distance.
+
+### Example Usage
+
+```ts pg
+import { getLevenshteinDistance } from 'toolbox-x';
+
+const distance = getLevenshteinDistance('kitten', 'sitting');
+console.log(distance); 
+// Output: 3
+```
+
+### Notes
+
+- The comparison is case-sensitive (e.g. `"kitten"` and `"Kitten"` have a distance of `1`).
+- The implementation is space-optimized, using $O(\min(\text{len}(str1), \text{len}(str2)))$ space.
+
+### Aliases
+
+The following aliases can be used for the `getLevenshteinDistance` function:
+
+- `levenshteinDistance`
+
+### See Also
+
+- [String Diff](./string-diff) - For a visual diff tool comparing two strings.

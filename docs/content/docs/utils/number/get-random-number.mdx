@@ -1,0 +1,83 @@
+---
+title: Get Random Number
+description: Generates a random number within a specified range, with flexible options for including or excluding boundaries.
+---
+
+## getRandomNumber
+
+The `getRandomNumber` function generates a random number within a specified range, with flexible options for including or excluding the boundary values. It defaults to generating a number between `0` and `100`.
+
+### Function Signature
+
+```typescript
+function getRandomNumber(options?: RandomNumberOptions): number
+```
+
+### Parameters
+
+- **`options`** (`RandomNumberOptions`, optional): Configuration object for the random number generation.
+  - **`min`** (`number`, optional): The minimum value of the range (inclusive). Defaults to `0`.
+  - **`max`** (`number`, optional): The maximum value of the range (inclusive). Defaults to `100`.
+  - **`includeMin`** (`boolean`, optional): Whether to include the minimum value. Defaults to `true`.
+  - **`includeMax`** (`boolean`, optional): Whether to include the maximum value. Defaults to `true`.
+
+### Return Value
+
+- **`number`**:
+  - Returns a randomly generated number based on the provided options.
+  - The number will be within the specified range, with boundaries determined by the `includeMin` and `includeMax` flags.
+
+### Example Usage
+
+```ts pg tab="Default Range"
+import { getRandomNumber } from 'toolbox-x';
+
+// Random number between 0 and 100
+console.log(getRandomNumber());
+```
+
+```ts pg tab="Custom Range"
+import { getRandomNumber } from 'toolbox-x';
+
+// Random number between 1 and 10, inclusive
+console.log(getRandomNumber({ min: 1, max: 10 }));
+```
+
+```ts pg tab="Exclusive Boundaries"
+import { getRandomNumber } from 'toolbox-x';
+
+// Random number between 2 and 9
+console.log(getRandomNumber({ min: 1, max: 10, includeMin: false, includeMax: false }));
+```
+
+```ts pg tab="Automatic Swap"
+import { getRandomNumber } from 'toolbox-x';
+
+// Random number between 5 and 10 (automatically swaps min/max)
+console.log(getRandomNumber({ min: 10, max: 5 }));
+```
+
+### Notes
+
+- If `min` is greater than `max`, the function automatically swaps the values before generating the random number.
+- Supports multiple combinations of inclusive and exclusive boundaries to give complete control over the generated range.
+- If both `min` and `max` are equal, the function will simply return the `min` value as the random number.
+
+### Types
+
+#### `RandomNumberOptions`
+
+```typescript
+interface RandomNumberOptions {
+  min?: number;
+  max?: number;
+  includeMin?: boolean;
+  includeMax?: boolean;
+}
+```
+
+### Aliases
+
+The following aliases can be used for the `getRandomNumber` function:
+
+- `getRandomInt`

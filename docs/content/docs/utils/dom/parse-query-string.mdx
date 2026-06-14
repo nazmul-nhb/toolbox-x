@@ -1,0 +1,103 @@
+---
+title: Parse Query String into Object
+description: Parses query strings into objects, optionally converting primitive values or inferring strict literal types.
+---
+
+## parseQueryString
+
+The `parseQueryString` function parses a URL query string (with or without a leading `?`) into a JavaScript object. It supports arrays for repeated keys and can convert numeric, boolean, or nullish strings into their actual primitive types.
+
+### Function Signature
+
+```typescript
+function parseQueryString<QParams extends ParsedQueryGeneric>(
+  query: string,
+  parsePrimitives?: boolean
+): QParams
+```
+
+### Parameters
+
+- **`query`** (`string`): The query string to parse.
+- **`parsePrimitives`** (`boolean`, optional): When `true`, converts numeric, boolean, and nullish strings to their primitive types. Defaults to `true`.
+
+### Return Value
+
+- **`QParams`**: A JavaScript object mapping keys to values (primitive, array of primitives, or string).
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { parseQueryString } from 'toolbox-x/dom';
+
+console.log(parseQueryString('a=1&b=hello'));
+// Output: { a: 1, b: 'hello' }
+```
+
+```ts pg tab="Arrays & Special Values"
+import { parseQueryString } from 'toolbox-x/dom';
+
+console.log(parseQueryString('?tag=js&tag=ts&active=true&opt=null'));
+// Output: { tag: ['js', 'ts'], active: true, opt: null }
+```
+
+```ts pg tab="Disable Primitive Conversion"
+import { parseQueryString } from 'toolbox-x/dom';
+
+console.log(parseQueryString('n=10&x=true', false));
+// Output: { n: '10', x: 'true' }
+```
+
+### Aliases
+
+The following aliases can be used for the `parseQueryString` function:
+
+- `getQueryStringAsObject`
+- `queryStringToObject`
+
+---
+
+## parseQueryStringLiteral
+
+Parses a literal query string type into a strictly typed JavaScript object. This utility is designed specifically for literal string types to provide compile-time type safety.
+
+### Function Signature
+
+```typescript
+function parseQueryStringLiteral<Q extends string>(query: Q): ParsedQuery<Q>
+```
+
+### Parameters
+
+- **`query`** (`Q`): The literal query string to parse (supports `as const`).
+
+### Return Value
+
+- **`ParsedQuery<Q>`**: A strictly typed object matching the literal properties parsed from `query`. All values are inferred as string literals or arrays of string literals.
+
+### Example Usage
+
+```ts pg
+import { parseQueryStringLiteral } from 'toolbox-x/dom';
+
+const query = 'status=active&role=admin' as const;
+const result = parseQueryStringLiteral(query);
+console.log(result);
+// Output: { status: 'active', role: 'admin' }
+// Type is inferred exactly as: { status: 'active'; role: 'admin' }
+```
+
+### Aliases
+
+The following aliases can be used for the `parseQueryStringLiteral` function:
+
+- `literalQueryStringToObject`
+
+---
+
+### Types
+
+```typescript
+type ParsedQueryGeneric = Record<string, NormalPrimitive | NormalPrimitive[]>;
+type NormalPrimitive = string | number | boolean | null | undefined;
+```

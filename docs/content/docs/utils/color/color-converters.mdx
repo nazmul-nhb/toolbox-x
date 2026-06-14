@@ -1,0 +1,167 @@
+---
+title: Color Converters
+description: Comprehensive tools for converting between HEX, RGB, HSL, and their alpha-channel variants.
+---
+
+## Overview
+
+The color converter utilities provide tools for converting between various color formats including HEX, RGB, HSL, and their alpha-channel variants (HEX8, RGBA, HSLA).
+
+---
+
+## HSL and RGB Conversion
+
+### convertHslToRgb
+Converts HSL values to an `RGB` format string.
+```typescript
+function convertHslToRgb(h: number, s: number, l: number): RGB
+```
+```ts pg
+import { convertHslToRgb } from 'toolbox-x/colors';
+
+console.log(convertHslToRgb(130, 27, 32)); 
+// Output: "rgb(60, 105, 69)"
+```
+
+### convertRgbToHsl
+Converts RGB values to an `HSL` format string.
+```typescript
+function convertRgbToHsl(r: number, g: number, b: number): HSL
+```
+```ts pg
+import { convertRgbToHsl } from 'toolbox-x/colors';
+
+console.log(convertRgbToHsl(60, 105, 69)); 
+// Output: "hsl(130, 27%, 32%)"
+```
+
+---
+
+## HSL and HEX Conversion
+
+### convertHslToHex
+Converts HSL values to a `Hex6` format string.
+```typescript
+function convertHslToHex(h: number, s: number, l: number): Hex6
+```
+```ts pg
+import { convertHslToHex } from 'toolbox-x/colors';
+
+console.log(convertHslToHex(130, 27, 32)); 
+// Output: "#3C6945"
+```
+
+### convertHexToHsl
+Converts a Hex string to an `HSL` format string.
+```typescript
+function convertHexToHsl(hex: Hex6 | Hex): HSL
+```
+```ts pg
+import { convertHexToHsl } from 'toolbox-x/colors';
+
+console.log(convertHexToHsl('#3C6945')); 
+// Output: "hsl(130, 27%, 32%)"
+```
+
+---
+
+## RGB and HEX Conversion
+
+### convertRgbToHex
+Converts RGB values to a `Hex6` format string.
+```typescript
+function convertRgbToHex(r: number, g: number, b: number): Hex6
+```
+```ts pg
+import { convertRgbToHex } from 'toolbox-x/colors';
+
+console.log(convertRgbToHex(60, 105, 69)); 
+// Output: "#3C6945"
+```
+
+### convertHexToRgb
+Converts a Hex string to an `RGB` format string.
+```typescript
+function convertHexToRgb(hex: Hex6 | Hex): RGB
+```
+```ts pg
+import { convertHexToRgb } from 'toolbox-x/colors';
+
+console.log(convertHexToRgb('#3C6945')); 
+// Output: "rgb(60, 105, 69)"
+```
+
+---
+
+## Alpha-Channel Conversions
+
+### convertRgbToRgba
+```typescript
+function convertRgbToRgba(r: number, g: number, b: number, a?: number): RGBA
+```
+
+### convertRgbaToHex8
+```typescript
+function convertRgbaToHex8(r: number, g: number, b: number, a?: number): Hex8
+```
+
+### convertHex8ToRgba
+```typescript
+function convertHex8ToRgba(hex8: Hex8): RGBA
+```
+
+### convertHslaToRgba
+```typescript
+function convertHslaToRgba(h: number, s: number, l: number, a?: number): RGBA
+```
+
+### convertRgbaToHsla
+```typescript
+function convertRgbaToHsla(r: number, g: number, b: number, a?: number): HSLA
+```
+
+### convertHslaToHex8
+```typescript
+function convertHslaToHex8(h: number, s: number, l: number, a?: number): Hex8
+```
+
+### convertHex8ToHsla
+```typescript
+function convertHex8ToHsla(hex8: Hex8): HSLA
+```
+
+---
+
+## Helper Utilities
+
+### percentToHex
+Converts a percentage value ($0 \dots 100$) to a 2-digit hex string.
+```typescript
+function percentToHex(percent: Percent): string
+```
+
+### applyOpacityToHex
+Applies an opacity value to a hex color string, returning a `Hex8` format.
+```typescript
+function applyOpacityToHex(color: Hex, opacity: Percent | string): Hex8
+```
+```ts pg
+import { applyOpacityToHex } from 'toolbox-x/colors';
+
+console.log(applyOpacityToHex("#FF5733", 50));   // Output: "#FF573380"
+console.log(applyOpacityToHex("#FF573380", 25)); // Output: "#FF573340"
+```
+
+---
+
+### Type Definitions
+
+```typescript
+type Hex = `#${string}`;
+type Hex6 = Branded<`#${string}`, 'Hex6'>;
+type Hex8 = Branded<`#${string}`, 'Hex8'>;
+type RGB = `rgb(${number}, ${number}, ${number})`;
+type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+type HSL = `hsl(${number}, ${number}%, ${number}%)`;
+type HSLA = `hsla(${number}, ${number}%, ${number}%, ${number})`;
+```

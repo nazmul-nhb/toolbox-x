@@ -1,0 +1,63 @@
+---
+title: Merge And Flatten Objects
+description: Deeply merges multiple objects and flattens the resulting structure using dot notation.
+---
+
+## mergeAndFlattenObjects
+
+The `mergeAndFlattenObjects` function deeply merges multiple objects and flattens the resulting structure using dot notation for nested keys. Duplicate keys are resolved with last-in-wins behavior.
+
+### Function Signature
+
+```typescript
+function mergeAndFlattenObjects<T extends GenericObject>(...objects: T[]): FlattenDotValue<MergeAll<T>>
+```
+
+### Parameters
+
+- **`...objects`** (`T[]`): The objects to merge (variadic arguments).
+
+### Return Value
+
+- **`FlattenDotValue<MergeAll<T>>`**: A single merged object with dot-notation keys.
+
+### Example Usage
+
+```ts pg tab="Basic Merging"
+import { mergeAndFlattenObjects } from 'toolbox-x';
+
+const obj1 = { a: 1, b: { c: 2 } };
+const obj2 = { b: { d: 3 }, e: 4 };
+
+const result = mergeAndFlattenObjects(obj1, obj2);
+console.log(result);
+// Output: { 'a': 1, 'b.c': 2, 'b.d': 3, 'e': 4 }
+```
+
+```ts pg tab="Multiple Objects & Conflicts"
+import { mergeAndFlattenObjects } from 'toolbox-x';
+
+const defaults = { theme: { color: 'blue' } };
+const userPrefs = { theme: { size: 'large' } };
+const session = { theme: { color: 'red' } };
+
+const result = mergeAndFlattenObjects(defaults, userPrefs, session);
+console.log(result);
+/*
+Output:
+{
+  'theme.color': 'red',
+  'theme.size': 'large'
+}
+*/
+```
+
+### Notes
+
+- **Arrays**: Arrays are treated as terminal values and are overwritten, not recursively merged.
+- Returns a new object without mutating the input objects.
+
+### Comparison
+
+- **`mergeAndFlattenObjects`**: Outputs a single-level flat object with dot-separated keys.
+- **[mergeObjects](./merge-objects)**: Outputs a deeply nested merged object structure.

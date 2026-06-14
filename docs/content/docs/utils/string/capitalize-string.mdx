@@ -1,0 +1,72 @@
+---
+title: Capitalize a String
+description: Converts the first letter of a given string to uppercase while keeping the rest lowercase (unless otherwise specified).
+---
+
+## capitalizeString
+
+The `capitalizeString` function converts the first letter of a given string to uppercase while keeping the rest lowercase. It provides options to capitalize each word's first letter, capitalize the entire string, or preserve the casing of the rest of the string.
+
+### Function Signature
+
+```typescript
+function capitalizeString(string: string, options?: CapitalizeOptions): string
+```
+
+### Parameters
+
+- **`string`** (`string`): The string to capitalize.
+- **`options`** (`CapitalizeOptions`, optional): Customization options:
+  - `capitalizeEachFirst` (`boolean`): Capitalizes the first letter of each word. Defaults to `false`.
+  - `capitalizeAll` (`boolean`): Converts the entire string to uppercase. Defaults to `false`.
+  - `lowerCaseRest` (`boolean`): Ensures all characters except the first are lowercase. Defaults to `true`.
+
+### Return Value
+
+- **`string`**: The capitalized string.
+
+### Example Usage
+
+```ts pg tab="Basic"
+import { capitalizeString } from 'toolbox-x';
+
+console.log(capitalizeString('hello world')); 
+// Output: 'Hello world'
+```
+
+```ts pg tab="Each Word"
+import { capitalizeString } from 'toolbox-x';
+
+console.log(capitalizeString('hello world', { capitalizeEachFirst: true }));
+// Output: 'Hello World'
+```
+
+```ts pg tab="Capitalize All"
+import { capitalizeString } from 'toolbox-x';
+
+console.log(capitalizeString('hello world', { capitalizeAll: true }));
+// Output: 'HELLO WORLD'
+```
+
+```ts pg tab="Keep Rest Case"
+import { capitalizeString } from 'toolbox-x';
+
+console.log(capitalizeString('hello WORLD', { lowerCaseRest: false }));
+// Output: 'Hello WORLD'
+```
+
+### Types
+
+#### `CapitalizeOptions`
+
+```typescript
+interface CapitalizeOptions {
+  capitalizeEachFirst?: boolean;
+  capitalizeAll?: boolean;
+  lowerCaseRest?: boolean;
+}
+```
+
+### See Also
+
+- [convertStringCase](./convert-string-case) - For more string case conversion options.

@@ -1,0 +1,58 @@
+---
+title: Number to Words (Ordinal)
+description: Converts a number, numeric string, or cardinal word string into its ordinal word representation.
+---
+
+## numberToWordsOrdinal
+
+The `numberToWordsOrdinal` function converts a number, numeric string, or cardinal word string into its **ordinal word** representation (e.g. `"first"`, `"twenty-third"` etc.).
+
+> [!WARNING]
+> - Supports only values up to `10e19` (`10^20`) (one hundred quintillion).
+> - Decimal values are ignored; only the integer part is processed.
+
+### Function Signature
+
+```typescript
+function numberToWordsOrdinal(number: Numeric | string): string
+```
+
+### Parameters
+
+- **`number`** (`Numeric | string`): A number (e.g. `42`), numeric string (e.g. `"42"`), or cardinal word string (e.g. `"forty-two"`).
+
+### Return Value
+
+- **`string`**: The ordinal word version of the input, always in lowercase.
+
+### Example Usage
+
+```ts pg
+import { numberToWordsOrdinal } from 'toolbox-x';
+
+console.log(numberToWordsOrdinal(1));              
+// Output: "first"
+
+console.log(numberToWordsOrdinal("23"));           
+// Output: "twenty-third"
+
+console.log(numberToWordsOrdinal("twenty-three")); 
+// Output: "twenty-third"
+```
+
+### Notes
+
+- Case-insensitive input handling (`"Twenty-Three"` also works).
+- Internally uses [numberToWords](./number-to-words) to convert a numeric value to cardinal words before resolving the ordinal form.
+
+### Aliases
+
+The following aliases can be used for the `numberToWordsOrdinal` function:
+
+- `cardinalWordsToOrdinal`
+- `convertNumberToWordsOrdinal`
+
+### See Also
+
+- [numberToWords](./number-to-words) - For cardinal word representation of numbers.
+- [wordsToNumber](./words-to-number) - For converting English word numbers back to digits.

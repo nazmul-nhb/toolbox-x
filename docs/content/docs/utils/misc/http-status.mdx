@@ -1,0 +1,68 @@
+---
+title: HTTP Status Codes Utility
+description: A preloaded shared instance of HttpStatus providing HTTP status code information and lookup helpers.
+---
+
+## httpStatus
+
+The **`httpStatus`** is a **default shared instance** of the [`HttpStatus`](/docs/classes/HttpStatus) class. It comes preloaded with all standard HTTP status codes and their metadata sourced from MDN documentation.
+
+### Import
+
+```typescript
+import { httpStatus } from 'toolbox-x/http-status';
+// or from main entry
+import { httpStatus } from 'toolbox-x';
+```
+
+---
+
+### Example Usage
+
+```ts pg tab="Lookup"
+import { httpStatus } from 'toolbox-x/http-status';
+
+// Look up by status code number
+const notFound = httpStatus.getByCode(404);
+console.log(notFound?.readableName); // → "Not Found"
+console.log(notFound?.message);      // → "Not Found"
+
+// Look up by name
+const forbidden = httpStatus.getByName('FORBIDDEN');
+console.log(forbidden?.code); // → 403
+```
+
+```ts pg tab="List & Filter"
+import { httpStatus } from 'toolbox-x/http-status';
+
+// List all status codes
+const allCodes = httpStatus.list();
+console.log(`Preloaded codes: ${allCodes.length}`);
+
+// Filter by server errors only
+const serverErrors = httpStatus.list('serverError');
+console.log(serverErrors.map(e => `${e.code}: ${e.readableName}`));
+```
+
+```ts pg tab="Modify Runtime Messages"
+import { httpStatus } from 'toolbox-x/http-status';
+
+// Override default status message
+httpStatus.setMessage(404, 'The requested resource was not found on this server.');
+
+const updated = httpStatus.getByCode(404);
+console.log(updated?.message); // → "The requested resource was not found on this server."
+```
+
+---
+
+## Behavior Details
+
+- **Instance Extension**: Since `httpStatus` is an instance of `HttpStatus`, you can dynamically add codes or override messages at runtime. These modifications will propagate to all consumers of the shared instance.
+- **Custom Configs**: If you need an isolated registry of status codes without mutating the shared global instance, instantiate the class directly via `new HttpStatus()`.
+
+---
+
+## Related Documents
+
+- [HttpStatus Class](/docs/classes/HttpStatus) — Low-level class details and method documentation.

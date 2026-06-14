@@ -1,0 +1,65 @@
+---
+title: Throttle Function/Action
+description: Creates a throttled version of a callback that ensures it executes at most once every specified interval.
+---
+
+## throttleAction
+
+Creates a throttled version of a callback that ensures it executes at most once every specified interval. Ideal for controlling calls on rapid, repeat events like scrolling or resizing.
+
+### Function Signature
+
+```typescript
+function throttleAction<T extends VoidFn>(
+  callback: T,
+  delay?: number
+): DelayedFn<T>
+```
+
+### Parameters
+
+| Parameter | Type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `callback` | `VoidFn` | The function to throttle. | — |
+| `delay` | `number` (optional) | Delay interval in milliseconds. | `150` |
+
+### Returns
+
+- **`DelayedFn<T>`**: A throttled version of the callback function.
+
+---
+
+### Example Usage
+
+```ts pg tab="Resize Handler"
+import { throttleAction } from 'toolbox-x';
+
+const throttledResize = throttleAction(() => {
+  console.log('Window resized!');
+}, 300);
+
+window.addEventListener('resize', throttledResize);
+```
+
+```ts pg tab="Scroll Listener"
+import { throttleAction } from 'toolbox-x';
+
+const throttledScroll = throttleAction((e: Event) => {
+  console.log('Scroll position:', window.scrollY);
+}, 200);
+
+window.addEventListener('scroll', throttledScroll);
+```
+
+---
+
+## Behavior Details
+
+- **Interval Execution**: Once triggered, the function will execute immediately (leading edge), and ignore subsequent invocations until the specified `delay` interval has elapsed.
+- **Performance Protection**: Helps prevent high-frequency event listeners (like scroll, mousemove, or resize) from blocking the browser's rendering thread.
+
+---
+
+## Related Functions
+
+- [debounceAction](./debounce-action) — Delays execution until inactivity.

@@ -1,0 +1,92 @@
+---
+title: Pick Object Fields By Condition
+description: Creates a new object containing only the properties that satisfy a given condition.
+---
+
+## pickObjectFieldsByCondition
+
+The `pickObjectFieldsByCondition` function filters an object's properties by evaluating a predicate function (condition) against each key-value pair.
+
+### Function Signature
+
+```typescript
+function pickObjectFieldsByCondition<T extends GenericObject>(
+  source: T,
+  condition: (key: keyof T, value: T[keyof T]) => boolean
+): Partial<T>
+```
+
+### Parameters
+
+- **`source`** (`T`): The source object to filter.
+- **`condition`** (`(key: keyof T, value: T[keyof T]) => boolean`): A function evaluated for each property. Return `true` to keep the property, or `false` to omit it.
+
+### Return Value
+
+- **`Partial<T>`**: A new object containing only the properties that satisfy the condition.
+
+### Example Usage
+
+```ts pg tab="Filter by Type"
+import { pickObjectFieldsByCondition } from 'toolbox-x';
+
+const user = {
+  id: 1,
+  name: 'John',
+  email: 'john@example.com',
+  age: 30,
+  isAdmin: false
+};
+
+// Pick only string fields
+const stringFields = pickObjectFieldsByCondition(
+  user,
+  (key, value) => typeof value === 'string'
+);
+console.log(stringFields); 
+// Output: { name: 'John', email: 'john@example.com' }
+```
+
+```ts pg tab="Filter Nullish Values"
+import { pickObjectFieldsByCondition } from 'toolbox-x';
+
+const data = {
+  title: 'Document',
+  content: null,
+  author: 'Jane',
+  createdAt: undefined
+};
+
+const clean = pickObjectFieldsByCondition(data, (key, value) => value != null);
+console.log(clean); 
+// Output: { title: 'Document', author: 'Jane' }
+```
+
+```ts pg tab="Filter by Key Name"
+import { pickObjectFieldsByCondition } from 'toolbox-x';
+
+const config = {
+  apiUrl: 'https://api.example.com',
+  timeout: 5000,
+  retryCount: 3,
+  debugMode: false
+};
+
+const result = pickObjectFieldsByCondition(
+  config,
+  (key) => key.toString().endsWith('Count') || key.toString().endsWith('Mode')
+);
+console.log(result); 
+// Output: { retryCount: 3, debugMode: false }
+```
+
+### Notes
+
+- This function operates on **top-level** properties only. It does not recursively inspect nested objects.
+- It is non-destructive and returns a new object without mutating the original `source`.
+
+### Aliases
+
+The following aliases can be used for the `pickObjectFieldsByCondition` function:
+
+- `pickFieldsByCondition`

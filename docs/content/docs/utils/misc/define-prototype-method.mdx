@@ -1,0 +1,86 @@
+---
+title: Define Prototype Method
+description: Safely defines methods on JavaScript prototypes (including built-ins) in an idempotent and non-enumerable manner.
+---
+
+## definePrototypeMethod
+
+Safely defines methods on JavaScript prototypes (including built-in prototypes like `String.prototype`, `Array.prototype`, etc.) in an idempotent manner. The defined method is non-enumerable by default and will not overwrite existing methods unless explicitly configured to do so.
+
+### Function Signature
+
+```typescript
+function definePrototypeMethod<Proto extends object, Name extends keyof Proto>(
+  proto: Proto,
+  name: Name, 
+  impl: (...args: unknown[]) => unknown,
+  options?: ProtoMethodOptions
+): void
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `proto` | `Proto` | The target prototype object (e.g. `String.prototype`). |
+| `name` | `Name` | The method name to define on the prototype. |
+| `impl` | `Function` | The function implementation of the method. |
+| `options` | `ProtoMethodOptions` (optional) | Property descriptor settings and overwrite options. |
+
+---
+
+### Example Usage
+
+```ts pg
+import { definePrototypeMethod } from 'toolbox-x';
+
+// 1. Declare global TypeScript interface augmentation (if extending built-ins)
+declare global {
+  interface String {
+    toBang(): string;
+  }
+}
+
+// 2. Define the method safely
+definePrototypeMethod(String.prototype, 'toBang', function(this: string) {
+  return this.toString().concat('!');
+});
+
+console.log("Hello".toBang()); // → "Hello!"
+
+// 3. Attempting to redefine without 'overwrite: true' is ignored
+definePrototypeMethod(String.prototype, 'toBang', () => 'ignored');
+console.log("Hello".toBang()); // → "Hello!"
+
+// 4. Force redefinition with overwrite option
+definePrototypeMethod(
+  String.prototype,
+  'toBang', 
+  function(this: string) { return this + '!!!'; },
+  { overwrite: true }
+);
+console.log("Hello".toBang()); // → "Hello!!!"
+```
+
+---
+
+## Behavior Details
+
+### Non-Enumerable by Default
+
+By default, the defined method is marked non-enumerable (`enumerable: false`). This guarantees that it behaves exactly like native prototype methods and won't leak or appear during property iterations like `for...in` loops or `Object.keys()`.
+
+---
+
+## Types
+
+### `ProtoMethodOptions`
+
+```typescript
+interface ProtoMethodOptions {
+  overwrite?: boolean;     // Defaults to false. If true, overrides existing properties.
+  enumerable?: boolean;    // Defaults to false. If true, makes property enumerable.
+  configurable?: boolean;  // Defaults to false.
+  writable?: boolean;      // Defaults to true.
+}
+```

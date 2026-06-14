@@ -1,0 +1,231 @@
+---
+title: Pluralizer - Manage Noun Forms
+description: Low-level API for English noun pluralization and singularization with support for irregular forms, uncountable nouns, and custom rules.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+The **`Pluralizer`** class provides a low‑level API to handle English word (noun) pluralization and singularization. It supports **irregular forms**, **uncountable nouns**, and allows you to **extend or customize** the behavior by adding new rules.
+
+<Callout type="info" title="Acknowledgement">
+This class is **heavily inspired** by [Blake Embrey](https://github.com/blakeembrey)'s excellent [pluralize](https://www.npmjs.com/package/pluralize) package.
+
+Many of the **core regular expressions**, **irregular word mappings**, and **uncountable word lists** were studied and adapted from the original implementation. Additional improvements, extensions, and refactoring were made to fit the needs of this project.
+</Callout>
+
+<Callout type="info" title="When to Use">
+- You need **multiple independent configurations**.
+- You want to **add or override rules** without affecting the shared `pluralizer` instance.
+</Callout>
+
+## Features
+
+- ✅ Convert words between **singular** and **plural** forms.
+- ✅ Built‑in **default rules** loaded on construction.
+- ✅ Manage rules dynamically: `addPluralRule()`, `addSingularRule()`, `addIrregular()`, `addUncountable()`.
+- ✅ Automatically handles **irregular words** (e.g. `child → children`).
+- ✅ Detects **uncountable nouns** (e.g. `fish`).
+
+<Callout type="warn" title="Alert">
+All methods return the trimmed word if the input has trailing spaces.
+</Callout>
+
+## Import
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+```
+
+## Usage
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+
+console.log(myPluralizer.pluralize('child'));    // → "children"
+console.log(myPluralizer.toSingular('geese'));   // → "goose"
+console.log(myPluralizer.isPlural('fish'));       // → true (uncountable)
+```
+
+## Extending Rules
+
+You can modify your instance without affecting others:
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+
+// Add a custom plural rule
+myPluralizer.addPluralRule(/(foo)$/i, '$1bars');
+
+// Add a custom singular rule
+myPluralizer.addSingularRule(/(bars)$/i, '$1');
+
+// Add an uncountable
+myPluralizer.addUncountable('luggage');
+
+// Add an irregular form
+myPluralizer.addIrregular('cactus', 'cacti');
+```
+
+---
+
+## API Reference
+
+### constructor()
+
+Initializes with built‑in rules, irregular forms, and uncountables.
+
+---
+
+### pluralize(word, options?)
+
+Get the proper singular or plural form based on an optional count.
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+
+console.log(myPluralizer.pluralize('category', { count: 3 }));
+// → "categories"
+
+console.log(myPluralizer.pluralize('child', { count: 1, inclusive: true }));
+// → "1 child"
+
+console.log(myPluralizer.pluralize('analysis'));
+// → "analyses"
+```
+
+#### PluralizeOptions
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `count` | `Numeric` | Determines whether to use singular or plural form. If omitted, always returns the plural form. |
+| `inclusive` | `boolean` | Whether to include the count in the returned string. Works only if `count` is provided. |
+
+<Callout type="info" title="Note">
+Any number (`count`) which is not `1` is considered plural. `count` can be a number (`3`) or a numeric string (`"3"`).
+</Callout>
+
+---
+
+### toPlural(word)
+
+Convert a word to its plural form.
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+console.log(myPluralizer.toPlural('analysis')); // → "analyses"
+```
+
+---
+
+### toSingular(word)
+
+Convert a word to its singular form.
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+console.log(myPluralizer.toSingular('geese')); // → "goose"
+```
+
+---
+
+### isPlural(word)
+
+Check if a word is plural.
+
+<Callout type="info" title="Note">
+Always returns `true` for uncountable nouns.
+</Callout>
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+console.log(myPluralizer.isPlural('children')); // → true
+```
+
+---
+
+### isSingular(word)
+
+Check if a word is singular.
+
+<Callout type="info" title="Note">
+Always returns `true` for uncountable nouns.
+</Callout>
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+console.log(myPluralizer.isSingular('child')); // → true
+```
+
+---
+
+### addPluralRule(rule, replacement)
+
+Add a new pluralization rule.
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+myPluralizer.addPluralRule(/(quiz)$/i, '$1zes');
+```
+
+---
+
+### addSingularRule(rule, replacement)
+
+Add a new singularization rule.
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+myPluralizer.addSingularRule(/(matr)ices$/i, '$1ix');
+```
+
+---
+
+### addIrregular(single, plural)
+
+Add an irregular word pair.
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+myPluralizer.addIrregular('person', 'people');
+```
+
+---
+
+### addUncountable(word)
+
+Add a word or pattern that should never change.
+
+```ts pg
+import { Pluralizer } from 'toolbox-x';
+
+const myPluralizer = new Pluralizer();
+myPluralizer.addUncountable('information');
+myPluralizer.addUncountable(/pok[eé]mon$/i);
+```
+
+---
+
+## See Also
+
+- [**formatUnitWithPlural**](/docs/utils/string/format-unit-with-plural) — Simple utility for formatting units with pluralization.
+- [**Verbalizer class**](/docs/classes/verbalizer) — Similar class for _verb form_ manipulation.

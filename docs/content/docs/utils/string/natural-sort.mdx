@@ -1,0 +1,65 @@
+---
+title: Natural Sort
+description: Compares two strings using natural sorting order.
+---
+
+## naturalSort
+
+The `naturalSort` function compares two strings using a natural sorting order (e.g., `"file2" < "file10"`). It optionally supports `case-insensitive` and `locale-aware string chunk comparisons`.
+
+Although it compares strings, it was mainly developed for array sorting.
+
+### Function Signature
+
+```typescript
+function naturalSort(a: string, b: string, options?: SortNature): number
+```
+
+### Parameters
+
+- **`a`** (`string`): The first string to compare.
+- **`b`** (`string`): The second string to compare.
+- **`options`** (`SortNature`): Optional settings to configure comparison behavior:
+  - `caseInsensitive` (default: `true`): If `true`, compares string chunks without case sensitivity.
+  - `localeAware` (default: `false`): If `true`, uses `localeCompare` for string chunk comparisons.
+
+### Return Value
+
+- **`number`**:
+  - A negative number if `a` comes before `b`.
+  - A positive number if `a` comes after `b`.
+  - `0` if the strings are equal.
+
+### Example Usage
+
+```ts pg
+import { naturalSort } from 'toolbox-x';
+
+const result = naturalSort("file2", "file10");
+console.log(result); 
+// Output: -1 (meaning "file2" comes before "file10")
+
+const items = ["item10", "item2", "item1"];
+const sorted = items.sort((a, b) => naturalSort(a, b));
+console.log(sorted);
+// Output: ["item1", "item2", "item10"]
+```
+
+### Types
+
+#### `SortNature`
+
+```typescript
+interface SortNature {
+  caseInsensitive?: boolean;
+  localeAware?: boolean;
+}
+```
+
+### Aliases
+
+The following aliases can be used for the `naturalSort` function:
+
+- `compareNaturally`
+- `naturalSortForString`
+- `compareSorter`

@@ -1,0 +1,94 @@
+---
+title: Convert String Cases
+description: Converts a string into common case styles (camelCase, snake_case, PascalCase, etc.) with advanced handling.
+---
+
+## convertStringCase
+
+The `convertStringCase` function converts a string into common case styles, including unicode-aware tokenization, preservation of leading/trailing punctuation, and optional acronym preservation.
+
+### Function Signature
+
+```typescript
+function convertStringCase(value: string, format: CaseFormat, options?: StringCaseOptions): string
+```
+
+### Parameters
+
+- **`value`** (`string`): The input string to convert.
+- **`format`** (`CaseFormat`): The target case format.
+- **`options`** (`StringCaseOptions`, optional): Customization options.
+  - **`preserveAcronyms`** (`boolean`): If `true`, preserves acronym-like tokens (e.g. `API`). Defaults to `false`.
+
+### Types
+
+#### `CaseFormat`
+
+```typescript
+type CaseFormat =
+  | 'camelCase'
+  | 'snake_case'
+  | 'kebab-case'
+  | 'PascalCase'
+  | 'Title Case'
+  | 'Sentence case'
+  | 'UPPERCASE'
+  | 'lowercase';
+```
+
+#### `StringCaseOptions`
+
+```typescript
+interface StringCaseOptions {
+  preserveAcronyms?: boolean;
+}
+```
+
+### Example Usage
+
+```ts pg tab="Basic Conversions"
+import { convertStringCase } from 'toolbox-x';
+
+console.log(convertStringCase('my-example_string', 'camelCase'));   // Output: 'myExampleString'
+console.log(convertStringCase('my-example_string', 'snake_case'));  // Output: 'my_example_string'
+console.log(convertStringCase('my-example_string', 'kebab-case'));  // Output: 'my-example-string'
+console.log(convertStringCase('my-example_string', 'PascalCase'));  // Output: 'MyExampleString'
+```
+
+```ts pg tab="Title & Sentence"
+import { convertStringCase } from 'toolbox-x';
+
+console.log(convertStringCase('my example string', 'Title Case'));     // Output: 'My Example String'
+console.log(convertStringCase('xml-http_request', 'Title Case'));       // Output: 'Xml-http Request'
+console.log(convertStringCase('my example string', 'Sentence case'));   // Output: 'My example string'
+```
+
+```ts pg tab="Acronym Preservation"
+import { convertStringCase } from 'toolbox-x';
+
+console.log(convertStringCase('get API response', 'camelCase', { preserveAcronyms: true }));
+// Output: 'getAPIResponse'
+
+console.log(convertStringCase('get API response', 'camelCase', { preserveAcronyms: false }));
+// Output: 'getApiResponse'
+
+console.log(convertStringCase('get API response', 'PascalCase', { preserveAcronyms: true }));
+// Output: 'GetAPIResponse'
+```
+
+```ts pg tab="Punctuation Preserved"
+import { convertStringCase } from 'toolbox-x';
+
+console.log(convertStringCase('++hello_world++', 'PascalCase'));
+// Output: '++HelloWorld++'
+```
+
+### Notes
+
+- **Unicode-aware**: Treats letters from any script correctly using Unicode properties.
+- **Title Case Rules**: Common short words (articles, prepositions, conjunctions) are lowercased unless they appear at the start or end. Dashes (`-`) are treated as part of words rather than word separators for Title Case.
+
+### See Also
+
+- [capitalizeString](./capitalize-string) - For simple capitalization.
+- [Typed Case Converters](./typed-case-converters) - For typed string literal case conversions.

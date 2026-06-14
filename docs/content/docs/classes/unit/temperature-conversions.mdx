@@ -1,0 +1,68 @@
+---
+title: Temperature Conversions
+description: Static methods for converting between temperature units — Celsius, Fahrenheit, and Kelvin.
+---
+
+## celsiusToFahrenheit()
+
+Formula: `(c * 9/5) + 32`
+
+```ts pg
+import { Unit } from 'toolbox-x';
+console.log(Unit.celsiusToFahrenheit(0)); // → 32
+```
+
+---
+
+## fahrenheitToCelsius()
+
+Formula: `(f - 32) * 5/9`
+
+```ts pg
+import { Unit } from 'toolbox-x';
+console.log(Unit.fahrenheitToCelsius(32)); // → 0
+```
+
+---
+
+## celsiusToKelvin()
+
+Formula: `c + 273.15`
+
+```ts pg
+import { Unit } from 'toolbox-x';
+console.log(Unit.celsiusToKelvin(0)); // → 273.15
+```
+
+---
+
+## kelvinToCelsius()
+
+Formula: `k - 273.15`
+
+```ts pg
+import { Unit } from 'toolbox-x';
+console.log(Unit.kelvinToCelsius(273.15)); // → 0
+```
+
+---
+
+## fahrenheitToKelvin()
+
+Formula: `((f - 32) * 5/9) + 273.15`
+
+```ts pg
+import { Unit } from 'toolbox-x';
+console.log(Unit.fahrenheitToKelvin(32)); // → 273.15
+```
+
+---
+
+## kelvinToFahrenheit()
+
+Formula: `((k - 273.15) * 9/5) + 32`
+
+```ts pg
+import { Unit } from 'toolbox-x';
+console.log(Unit.kelvinToFahrenheit(273.15)); // → 32
+```

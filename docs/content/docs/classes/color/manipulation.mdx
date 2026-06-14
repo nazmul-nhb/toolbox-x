@@ -1,0 +1,198 @@
+---
+title: Color Manipulation Methods
+description: Learn how to darken, lighten, desaturate, and blend colors with the Color class.
+---
+
+## Color Manipulation Methods
+
+### `applyOpacity()`
+
+Applies the specified opacity percentage to the color, returning a new `Color` instance.
+
+#### Signature
+
+```typescript
+applyOpacity(opacity: Percent): Color
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `opacity` | `Percent` | The opacity percentage (`0–100`) to apply. |
+
+#### Returns
+
+- **`Color`**: A new `Color` instance with the modified opacity. If the original color has no alpha channel, it is added. If it already has one, it is updated.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+const red = new Color("#ff0000");
+const semiTransparentRed = red.applyOpacity(50); // 50% opacity
+console.log(semiTransparentRed.rgba); // → "rgba(255, 0, 0, 0.5)"
+```  
+
+---
+
+### `applyDarkness()`
+
+Darkens the color by the specified percentage.
+
+#### Signature
+
+```typescript
+applyDarkness(percent: Percent): Color
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `percent` | `Percent` | Darken percentage (`0–100`). |
+
+#### Returns
+
+- **`Color`**: A new darkened `Color` instance. Reduces lightness in HSL space, clamping to `0%` if the result would be negative.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+const blue = new Color("#0000ff");
+const darkerBlue = blue.applyDarkness(20); // 20% darker
+console.log(darkerBlue.hsl); // → "hsl(240, 100%, 30%)" (was "hsl(240, 100%, 50%)")
+```  
+
+---
+
+### `applyBrightness()`
+
+Lightens the color by the specified percentage.
+
+#### Signature
+
+```typescript
+applyBrightness(percent: Percent): Color
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `percent` | `Percent` | Lighten percentage (`0–100`). |
+
+#### Returns
+
+- **`Color`**: A new lightened `Color` instance. Increases lightness in HSL space, clamping to `100%` if the result exceeds it.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+const green = new Color("#008000");
+const lighterGreen = green.applyBrightness(30); // 30% lighter
+console.log(lighterGreen.hsl); // → "hsl(120, 100%, 55.1%)" (was "hsl(120, 100%, 25.1%)")
+```  
+
+---
+
+### `applyDullness()`
+
+Desaturates the color by the specified percentage.
+
+#### Signature
+
+```typescript
+applyDullness(percent: Percent): Color
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `percent` | `Percent` | Desaturate percentage (`0–100`). |
+
+#### Returns
+
+- **`Color`**: A new desaturated `Color` instance. Reduces saturation in HSL space, clamping to `0%` if the result would be negative.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+const pink = new Color("#ff69b4");
+const dullPink = pink.applyDullness(50); // 50% less saturated
+console.log(dullPink.hsl); // → "hsl(330, 50%, 70.59%)" (was "hsl(330, 100%, 70.59%)")
+```  
+
+---
+
+### `applyWhiteShade()`
+
+Softens the color toward white, creating a pastel effect.
+
+#### Signature
+
+```typescript
+applyWhiteShade(percent: Percent): Color
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `percent` | `Percent` | Soften percentage (`0–100`). |
+
+#### Returns
+
+- **`Color`**: A new softened `Color` instance. Internally reduces saturation and increases lightness.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+const purple = new Color("#800080");
+const softPurple = purple.applyWhiteShade(40); // 40% softer
+console.log(softPurple.hsl); // → "hsl(300, 60%, 55.06%)" (was "hsl(300, 100%, 25.1%)")
+```  
+
+---
+
+### `blendWith()`
+
+Blends the current color with another color by a given weight.
+
+#### Signature
+
+```typescript
+blendWith(other: ColorType | CSSColor, weight?: number): Color
+```  
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `other` | `ColorType \| CSSColor` | The color to blend with. |
+| `weight` | `number` (optional) | The influence of the other color (`0–1`, default `0.5`). |
+
+#### Returns
+
+- **`Color`**: A new blended `Color` instance. A weight of `0` returns the original color, `1` returns the other color, and `0.5` is an equal mix.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x';
+
+const red = new Color("#ff0000");
+const blue = "#0000ff";
+const blendedColor = red.blendWith(blue); // Equal blend
+console.log(blendedColor.hex); // → "#7f007f" (purple)
+```  

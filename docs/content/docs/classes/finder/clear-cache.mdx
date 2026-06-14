@@ -1,0 +1,94 @@
+---
+title: clearCache()
+description: Manages the internal cache of search results by either clearing a specific cache entry or purging all cached data.
+---
+
+## `clearCache()`
+
+Manages the internal cache of search results by either clearing a specific cache entry or purging all cached data.
+
+### Signature
+
+```typescript
+clearCache(key?: string): void
+```
+
+### Parameters
+
+| Parameter | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `key` | `string` | Optional | The specific cache key to remove. When omitted, clears all cached results. |
+
+### Description
+
+The `clearCache` method provides control over the Finder instance's caching mechanism. It allows you to:
+- Clear all cached search results (global cache clearance).
+- Remove a specific cache entry by its key (targeted clearance).
+- Maintain optimal memory usage by removing stale cache entries.
+
+Cache management is particularly useful when:
+- The underlying dataset changes and cached results become invalid.
+- You need to free up memory by removing cached data.
+- Implementing time-sensitive data updates.
+
+### Example Usage
+
+```ts pg tab="Clearing All Cached Results"
+import { Finder } from 'toolbox-x';
+
+const products = [
+  { id: 1, name: "Laptop" },
+  { id: 2, name: "Phone" }
+];
+
+const productFinder = new Finder(products);
+// ... perform several searches ...
+
+// Clear entire cache when products update
+productFinder.clearCache();
+```
+
+```ts pg tab="Removing Specific Cache Entry"
+import { Finder } from 'toolbox-x';
+
+const users = [
+  { id: 1, name: "Alice", role: "admin" },
+  { id: 2, name: "Bob", role: "user" }
+];
+
+const userFinder = new Finder(users);
+
+// Search with specific cache key
+userFinder.findAll('admin', 'role', { cacheKey: 'admin-users' });
+
+// Later, clear just this cached result
+userFinder.clearCache('admin-users');
+```
+
+```ts pg tab="Cache Management Pattern"
+import { Finder } from 'toolbox-x';
+
+class DataService {
+  private finder = new Finder<{id: number; val: string}>([]);
+  
+  async refreshData(newData: any[]) {
+    // Clear cache before updating
+    this.finder.clearCache();
+    this.finder = new Finder(newData);
+  }
+}
+```
+
+### Performance Notes
+
+- **Clearing by key**: $O(1)$ operation.
+- **Clearing all**: $O(n)$ operation (where $n$ is the number of cache entries).
+- **Memory Impact**: Immediately frees memory used by cleared cache entries.
+- **Thread Safety**: Cache operations are synchronous and thread-safe.
+
+### Best Practices
+
+1. Use specific cache keys when you need granular control over cache invalidation.
+2. Prefer targeted clearance over global clearance when possible.
+3. Consider automatic cache clearing when the underlying data changes.
+4. For long-running applications, implement periodic cache clearance.

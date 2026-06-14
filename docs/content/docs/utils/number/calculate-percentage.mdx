@@ -1,0 +1,184 @@
+---
+title: Calculate Percentage
+description: Performs various percentage-related calculations based on the specified mode.
+---
+
+## calculatePercentage
+
+The `calculatePercentage` function performs various percentage-related calculations based on the specified mode and input values. It supports operations such as computing percentages, values from percentages, original values, percentage changes, applying percentage changes, percentage differences, and inverse percentages.
+
+### Function Signature
+
+```typescript
+function calculatePercentage(options: PercentageOptions): number
+```
+
+### Parameters
+
+- **`options`** (`PercentageOptions`): An object specifying the calculation mode, the necessary input values, and an optional rounding precision.
+
+### Modes & Parameters (Options)
+
+All modes support an optional **`roundTo`** (`number`) property, which determines the number of decimal places to round the result to if it's a float. Defaults to `3`.
+
+---
+
+### Examples by Mode
+
+```ts pg tab="Get Percentage"
+import { calculatePercentage } from 'toolbox-x';
+
+// Calculates what percentage the part is of the total
+const percent = calculatePercentage({
+  mode: 'get-percent',
+  part: 25,
+  total: 200,
+});
+console.log(percent);
+// Output: 12.5
+```
+
+```ts pg tab="Get Value"
+import { calculatePercentage } from 'toolbox-x';
+
+// Calculates the value from a given percentage of a total
+const value = calculatePercentage({
+  mode: 'get-value',
+  percentage: 20,
+  total: 150,
+});
+console.log(value);
+// Output: 30
+```
+
+```ts pg tab="Get Original Value"
+import { calculatePercentage } from 'toolbox-x';
+
+// Calculates the original value from a known value and percentage
+const original = calculatePercentage({
+  mode: 'get-original',
+  percentage: 25,
+  value: 50,
+});
+console.log(original);
+// Output: 200
+```
+
+```ts pg tab="Get Change Percentage"
+import { calculatePercentage } from 'toolbox-x';
+
+// Calculates the percentage increase or decrease from oldValue to newValue
+const changePercent = calculatePercentage({
+  mode: 'get-change-percent',
+  oldValue: 100,
+  newValue: 120,
+});
+console.log(changePercent);
+// Output: 20
+```
+
+```ts pg tab="Apply Percentage Change"
+import { calculatePercentage } from 'toolbox-x';
+
+// Applies an increase or decrease by percentage to baseValue
+const appliedChange = calculatePercentage({
+  mode: 'apply-percent-change',
+  baseValue: 100,
+  percentage: -10,
+});
+console.log(appliedChange);
+// Output: 90
+```
+
+```ts pg tab="Get Percentage Difference"
+import { calculatePercentage } from 'toolbox-x';
+
+// Calculates the absolute percentage difference between two values
+const percentDifference = calculatePercentage({
+  mode: 'get-percent-difference',
+  value1: 100,
+  value2: 120,
+  roundTo: 2,
+});
+console.log(percentDifference);
+// Output: 18.18 (instead of 18.182)
+```
+
+```ts pg tab="Inverse Percentage"
+import { calculatePercentage } from 'toolbox-x';
+
+// Calculates what percentage the total is of the part
+const inverse = calculatePercentage({
+  mode: 'inverse-percent',
+  part: 50,
+  total: 200,
+});
+console.log(inverse);
+// Output: 400
+```
+
+---
+
+### Type Definitions
+
+```typescript
+type PercentageOptions = (
+  | GetPercentOptions
+  | GetValueOptions
+  | GetOriginalOptions
+  | GetChangeOptions
+  | ApplyChangeOptions
+  | GetDifferenceOptions
+  | InversePercentageOptions
+) & {
+  roundTo?: number;
+};
+
+interface GetPercentOptions {
+  mode: 'get-percent';
+  part: number;
+  total: number;
+}
+
+interface GetValueOptions {
+  mode: 'get-value';
+  percentage: number;
+  total: number;
+}
+
+interface GetOriginalOptions {
+  mode: 'get-original';
+  percentage: number;
+  value: number;
+}
+
+interface GetChangeOptions {
+  mode: 'get-change-percent';
+  oldValue: number;
+  newValue: number;
+}
+
+interface ApplyChangeOptions {
+  mode: 'apply-percent-change';
+  baseValue: number;
+  percentage: number;
+}
+
+interface GetDifferenceOptions {
+  mode: 'get-percent-difference';
+  value1: number;
+  value2: number;
+}
+
+interface InversePercentageOptions {
+  mode: 'inverse-percent';
+  part: number;
+  total: number;
+}
+```
+
+### Notes
+
+- The function ensures that inputs are valid numbers before performing calculations.
+- For percentage change calculations, if the `oldValue` is zero, the function returns `NaN` to avoid division by zero.
+- It assumes that all input values are finite numbers; passing `Infinity` or `NaN` as inputs will result in `NaN` outputs.

@@ -1,0 +1,596 @@
+---
+title: Stylog Console Styling
+description: Chainable wrapper around LogStyler for styled console output supporting ANSI-16, HEX, RGB, and HSL colors.
+---
+
+## Stylog
+
+<Callout type="info" title="Acknowledgement">
+This utility is inspired by [`chalk`](https://www.npmjs.com/package/chalk).  
+It is neither a *fork* nor *direct derivative* but rather *a simple alternative* with *a distinct philosophy and implementation*.
+</Callout>
+
+The **`Stylog`** is a **chainable wrapper** around the [`LogStyler`](../../classes/log-styler) class that provides a fluent API for styling console output. It supports method chaining with style properties for all available colors and text effects.
+
+<Callout type="info" title="When to Use">
+- **Use this when you want fluent, chainable styling**
+- Perfect for one-off styled console messages
+- Great for quick debugging with colored output
+- If you need custom reusable style configurations, use [`LogStyler`](../../classes/log-styler) directly
+</Callout>
+
+---
+
+### Features
+
+- **Fluent chainable API** - `Stylog.red.bold.bgBlue.log()`
+- **Type-safe** autocomplete for all styles
+- **Cross-platform** (Node.js `ANSI` + Browser `CSS`)
+- **Multiple color formats** - `ANSI-16`, `HEX`, `RGB`, `HSL`
+- **No configuration needed** - just import and use
+
+---
+
+### Import
+
+```ts
+import { Stylog } from 'toolbox-x';
+```
+
+---
+
+### Quick Usage
+
+```ts pg tab="Simple"
+import { Stylog } from 'toolbox-x';
+
+// Basic coloring
+Stylog.red.log('Error message');
+Stylog.green.log('Success message');
+Stylog.blue.log('Info message');
+```
+
+```ts pg tab="Complex"
+import { Stylog } from 'toolbox-x';
+
+// Multiple styles
+Stylog.red.bold.bgYellow.log('Warning!');
+
+// With object stringification
+Stylog.green.italic.log({ data: 'value' }, true);
+
+// Advanced color formats
+Stylog.hex('#FF5733').bgRGB(50, 100, 150).bold.log('Custom colors');
+```
+
+```ts pg tab="Reusable Bases"
+import { Stylog } from 'toolbox-x';
+
+// Create reusable style bases
+const error = Stylog.red.bold;
+const warning = Stylog.yellow.bgDark.italic;
+const success = Stylog.green.bold;
+
+error.log('Database connection failed');
+warning.log('API response slow');
+success.log('Operation completed');
+
+// Custom color bases
+const brandColor = Stylog.hex('#1E88E5');
+brandColor.log('Brand colored message');
+```
+
+---
+
+### Available Style Properties
+
+#### Foreground Colors
+
+All CSS color names as properties: `.red`, `.blue`, `.green`, `.yellow`, `.purple`, `.aqua`, `.cornflowerblue`, etc.
+
+<Callout type="info">
+Please refer to [`CSS_COLORS`](../../types/constants#available-constants) for more details.
+</Callout>
+
+#### Background Colors
+
+Prefixed with `bg`: `.bgRed`, `.bgBlue`, `.bgGreen`, `.bgYellow`, `.bgDark`, etc.
+
+#### Text Effects
+
+- `.bold`, `.bolder` - Bold text
+- `.dim` - Dimmed text
+- `.italic` - Italic text
+- `.underline` - Underlined text
+- `.strikethrough` - Strikethrough text
+- `.inverse` - Inverted colors
+
+---
+
+### Methods
+
+#### `.style(style)`
+
+Add a style and return a new `LogStyler` instance for chaining.
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+const newStyler = Stylog.style('blue').style('italic');
+```
+
+<Callout type="info" title="Notes">
+- When chaining similar styles, only the last one(s) takes effect.
+- All colors applied through `style()` method are `truecolor` in form, to apply `ANSI-16` colors, use `ansi16()` method.
+</Callout>
+
+---
+
+#### `.ansi16(color)`
+
+Apply `ANSI 16-color` styling to the text.
+
+##### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `color` | `Ansi16Color` | `ANSI 16-color` name (e.g., `'red'`, `'cyanBright'`) |
+
+##### Returns
+
+- **`StylogChain`**: A new chainable instance with the `ANSI 16-color` style applied.
+
+<Callout type="info" title="Notes">
+- Only one argument (color) can be passed on a single call.
+- Color applied through `ansi16()` method is truecolor in form.
+- For background ANSI colors, use `bg` prefix (e.g., 'bgRed').
+</Callout>
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+// Basic usage
+Stylog.ansi16('red').log('Error message');
+Stylog.ansi16('greenBright').log('Success message');
+
+// Background colors
+Stylog.ansi16('bgRed').log('Red background');
+Stylog.ansi16('bgGreenBright').log('Bright green background');
+
+// Chaining with other styles
+Stylog.ansi16('redBright').bold.italic.log('Bright red bold italic');
+```
+
+---
+
+#### `.hex(code)`
+
+Apply a HEX color to the text foreground.
+
+##### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `code` | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`) |
+
+##### Returns
+
+- **`StylogChain`**: A new chainable instance with the HEX color applied.
+
+<Callout type="info" title="Notes">
+- Accepts both formats: with hash prefix (`#4682B4`) or without (`4682B4`).
+- Invalid HEX codes will be ignored (no error thrown).
+</Callout>
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+// With hash prefix
+Stylog.hex('#4682B4').log('Steel blue text');
+Stylog.hex('#FF0000').bold.log('Red bold text');
+
+// Without hash prefix
+Stylog.hex('4682B4').log('Steel blue text');
+Stylog.hex('00FF00').underline.log('Green underlined text');
+```
+
+---
+
+#### `.bgHex(code)`
+
+Apply a HEX color to the text background.
+
+##### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `code` | `string` | HEX color string (e.g., `'#4682B4'` or `'4682B4'`) |
+
+##### Returns
+
+- **`StylogChain`**: A new chainable instance with the HEX background color applied.
+
+<Callout type="info" title="Notes">
+- Accepts both formats: with hash prefix (`#4682B4`) or without (`4682B4`).
+- Invalid HEX codes will be ignored (no error thrown).
+</Callout>
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+// With hash prefix
+Stylog.bgHex('#4682B4').log('Steel blue background');
+Stylog.white.bgHex('#000000').log('White text on black background');
+
+// Without hash prefix
+Stylog.bgHex('4682B4').log('Steel blue background');
+Stylog.bgHex('FF0000').bold.log('Bold text on red background');
+```
+
+---
+
+#### `.rgb(code)` | `.rgb(red, green, blue)`
+
+Apply an RGB color to the text foreground.
+
+##### Parameters (String version)
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `code` | `string` | RGB color string (e.g., `'rgb(11, 45, 1)'` or `'11, 45, 1'`) |
+
+##### Parameters (Component version)
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `red` | `number` | Red component (`0-255`) |
+| `green` | `number` | Green component (`0-255`) |
+| `blue` | `number` | Blue component (`0-255`) |
+
+##### Returns
+
+- **`StylogChain`**: A new chainable instance with the RGB color applied.
+
+<Callout type="info" title="Notes">
+- Accepts multiple formats: full `rgb()` syntax or comma-separated values.
+- Invalid RGB values will be ignored (no error thrown).
+</Callout>
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+// Full rgb() syntax
+Stylog.rgb('rgb(11, 45, 1)').log('Dark green text');
+Stylog.rgb('rgb(255, 0, 0)').bold.log('Red bold text');
+
+// Comma-separated values
+Stylog.rgb('11, 45, 1').log('Dark green text');
+Stylog.rgb('255, 0, 0').bold.log('Red bold text');
+
+// Individual components
+Stylog.rgb(255, 0, 0).log('Red text');
+Stylog.rgb(0, 255, 0).underline.log('Green underlined text');
+```
+
+---
+
+#### `.bgRGB(code)` | `.bgRGB(red, green, blue)`
+
+Apply an RGB color to the text background.
+
+##### Parameters (String version)
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `code` | `string` | RGB color string (e.g., `'rgb(225, 169, 196)'` or `'225, 169, 196'`) |
+
+##### Parameters (Component version)
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `red` | `number` | Red component (`0-255`) |
+| `green` | `number` | Green component (`0-255`) |
+| `blue` | `number` | Blue component (`0-255`) |
+
+##### Returns
+
+- **`StylogChain`**: A new chainable instance with the RGB background color applied.
+
+<Callout type="info" title="Notes">
+- Accepts multiple formats: full `rgb()` syntax or comma-separated values.
+- Invalid RGB values will be ignored (no error thrown).
+</Callout>
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+// Full rgb() syntax
+Stylog.bgRGB('rgb(225, 169, 196)').log('Pink background');
+Stylog.bgRGB('rgb(0, 0, 255)').bold.log('Bold text on blue background');
+
+// Comma-separated values
+Stylog.bgRGB('225, 169, 196').log('Pink background');
+Stylog.bgRGB('0, 0, 255').bold.log('Bold text on blue background');
+
+// Individual components
+Stylog.bgRGB(0, 0, 255).log('Blue background');
+Stylog.black.bgRGB(255, 255, 255).log('Black text on white background');
+```
+
+---
+
+#### `.hsl(code)` | `.hsl(hue, saturation, lightness)`
+
+Apply an HSL color to the text foreground.
+
+##### Parameters (String version)
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `code` | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`) |
+
+##### Parameters (Component version)
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `hue` | `number` | Hue component (`0-360`) |
+| `saturation` | `number` or `string` | Saturation component (`0-100 or 0-100%`) |
+| `lightness` | `number` or `string` | Lightness component (`0-100 or 0-100%`) |
+
+##### Returns
+
+- **`StylogChain`**: A new chainable instance with the HSL color applied.
+
+<Callout type="info" title="Notes">
+- Accepts multiple formats: standard HSL syntax or comma-separated values.
+- Internally converts HSL to RGB for rendering.
+- Invalid HSL values will be ignored (no error thrown).
+</Callout>
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+// Standard HSL syntax
+Stylog.hsl('hsl(50 80.5% 40%)').log('Gold text');
+Stylog.hsl('hsl(120, 100%, 50%)').italic.log('Green italic text');
+
+// With commas
+Stylog.hsl('50, 80.5%, 40%').log('Gold text');
+Stylog.hsl('120, 100%, 50%').italic.log('Green italic text');
+
+// Individual components
+Stylog.hsl(0, 100, 50).log('Red text');
+Stylog.hsl(240, 100, 50).log('Blue text');
+```
+
+---
+
+#### `.bgHSL(code)` | `.bgHSL(hue, saturation, lightness)`
+
+Apply an HSL color to the text background.
+
+##### Parameters (String version)
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `code` | `string` | HSL color string (e.g., `'hsl(50 80.5% 40%)'` or `'50, 80.5%, 40%'`) |
+
+##### Parameters (Component version)
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `hue` | `number` | Hue component (`0-360`) |
+| `saturation` | `number` or `string` | Saturation component (`0-100 or 0-100%`) |
+| `lightness` | `number` or `string` | Lightness component (`0-100 or 0-100%`) |
+
+##### Returns
+
+- **`StylogChain`**: A new chainable instance with the HSL background color applied.
+
+<Callout type="info" title="Notes">
+- Accepts multiple formats: standard HSL syntax or comma-separated values.
+- Internally converts HSL to RGB for rendering.
+- Invalid HSL values will be ignored (no error thrown).
+</Callout>
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+// Standard HSL syntax
+Stylog.bgHSL('hsl(50 80.5% 40%)').log('Gold background');
+Stylog.bgHSL('hsl(0, 100%, 50%)').bold.log('Bold text on red background');
+
+// With commas
+Stylog.bgHSL('50, 80.5%, 40%').log('Gold background');
+Stylog.bgHSL('0, 100%, 50%').bold.log('Bold text on red background');
+
+// Individual components
+Stylog.bgHSL(120, 100, 50).log('Green background');
+Stylog.white.bgHSL(0, 100, 50).log('White text on red background');
+```
+
+---
+
+#### `.toANSI(input, stringify?)`
+
+Returns the input as a styled string with ANSI escape codes.
+
+##### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `input` | `unknown` | Input to style before printing in the shell |
+| `stringify` | `boolean` (optional) | Whether to apply `JSON.stringify()` before styling. Defaults to `false` |
+
+##### Returns
+
+- **`string`**: The styled string with ANSI escape codes.
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+const dataText = Stylog.green.toANSI({ value: 42 }, true);
+const errorMessage = Stylog.red.bold.toANSI('Error occurred, using Stylog');
+
+// Use in console
+console.error(errorMessage);
+console.info(Stylog.red.bold.toANSI('I support ANSI!'));
+
+// With custom color formats
+const hexMessage = Stylog.hex('#FF5733').toANSI('Custom hex color');
+const rgbMessage = Stylog.rgb(255, 100, 50).toANSI('Custom RGB color');
+```
+
+<Callout type="info" title="Note">
+The `.toANSI()` method always returns ANSI-formatted strings, making it suitable for contexts where you need the styled string rather than direct console output.
+</Callout>
+
+---
+
+#### `.toCSS(input, stringify?)`
+
+Chainable method that returns a styled tuple `[format, cssList]` for browser environments.
+
+##### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `input` | `unknown` | Input to style before printing in the console |
+| `stringify` | `boolean` (optional) | Whether to stringify objects. Defaults to `false` |
+
+##### Returns
+
+- **`[string, string[]]`**: Tuple with formatted string and CSS styles.
+
+<Callout type="info" title="When to Use">
+Use this method for browser-specific styling needs, UI framework integration, or custom output handling.
+</Callout>
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+// Basic usage in browser
+const styler = Stylog.red.bold;
+const [format, cssList] = styler.toCSS('Error message');
+// format: "%cError message"
+// cssList: ["color: #FF0000", "font-weight: bold"]
+
+// Custom browser output handling
+const styled = Stylog.blue.bgYellow.italic;
+const [formatWarning, styles] = styled.toCSS('Warning', true);
+
+// Use with custom logging function
+function customLog(formatted: string, styles: string[]) {
+  const styleString = styles.join('; ');
+  console.log(formatted, styleString);
+}
+
+customLog(formatWarning, styles);
+
+// With object stringification
+const dataOutput = Stylog.green.toCSS({ id: 123 }, true);
+// format: "%c{\"id\":123}"
+// cssList: ["color: #008000"]
+```
+
+---
+
+#### `.log(input, stringify?)`
+
+Print the styled message to console.
+
+##### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `input` | `unknown` | Value to print to console/shell |
+| `stringify` | `boolean` (optional) | Whether to apply `JSON.stringify()` before printing. Defaults to `false` |
+
+##### Examples
+
+```ts pg
+import { Stylog } from 'toolbox-x';
+
+// Basic usage
+Stylog.red.bold.log('Error message');
+
+// With object stringification
+Stylog.green.log({ data: 'value' }, true);
+
+// With custom color formats
+Stylog.hex('#FF5733').log('Custom hex color');
+Stylog.rgb(255, 100, 50).log('Custom RGB color');
+Stylog.hsl(120, 100, 50).log('Custom HSL color');
+
+// Complex combinations
+Stylog.hex('#FF5733').bgRGB(50, 100, 150).bold.italic.log('Complex styling');
+```
+
+---
+
+### Cross-Platform Support
+
+```ts pg tab="Node.js"
+import { Stylog } from 'toolbox-x';
+
+// Uses ANSI escape codes for true-color support
+Stylog.red.bold.log('Node.js styled output');
+
+// Custom color formats also work
+Stylog.hex('#FF5733').log('Custom hex in Node.js');
+Stylog.rgb(255, 100, 50).log('Custom RGB in Node.js');
+```
+
+```ts pg tab="Browser"
+import { Stylog } from 'toolbox-x';
+
+// Uses CSS styles via %c formatting
+Stylog.red.bold.log('Browser styled output');
+
+// Custom color formats also work
+Stylog.hex('#FF5733').log('Custom hex in browser');
+Stylog.rgb(255, 100, 50).log('Custom RGB in browser');
+```
+
+---
+
+### Need more control?
+
+If you need programmatic control or isolated instances, use the `LogStyler` class directly:
+
+```ts pg
+import { LogStyler } from 'toolbox-x';
+
+const customStyler = new LogStyler(['red', 'bold']);
+
+// You can also use the advanced color methods
+customStyler.hex('#FF5733').bgRGB(50, 100, 150).log('Custom styling');
+```
+
+See the [`LogStyler` class docs](../../classes/log-styler) for full details.
+
+---
+
+### See also
+
+- [**LogStyler class**](../../classes/log-styler) - Low-level API for custom instances
+- [**Style Utilities**](./stylog-utils) - Helper functions for style validation
+- [**Color Conversion**](../color/color-converters) - Functions for color format conversion

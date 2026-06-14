@@ -1,0 +1,111 @@
+---
+title: Calculation Methods
+description: Methods for calculating pagination offsets, total pages, and metadata.
+---
+
+## offset() / getOffset() / skipCount()
+
+### Signature
+
+```typescript
+offset(): number
+getOffset(): number // alias
+skipCount(): number // alias
+```
+
+### Returns
+
+- **`number`**: Items to skip for current page.
+
+### Formula
+
+`(currentPage - 1) * itemsPerPage`
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+// For page 3 with 10 items/page:
+console.log(new Paginator({ totalItems: 100, currentPage: 3 }).offset()); // → 20
+```
+
+---
+
+## totalPages()
+
+### Signature
+
+```typescript
+totalPages(): number
+```
+
+### Returns
+
+- **`number`**: Total page count.
+
+### Formula
+
+`Math.ceil(totalItems / itemsPerPage)`
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+console.log(new Paginator({ totalItems: 100 }).totalPages()); // → 10
+```
+
+---
+
+## getMeta()
+
+### Signature
+
+```typescript
+getMeta(): PaginatorMeta
+```
+
+### Returns
+
+- **`PaginatorMeta`**: Complete pagination metadata.
+
+```typescript
+interface PaginatorMeta {
+  totalItems: number;
+  currentPage: number;
+  itemsPerPage: number;
+  totalPages: number;
+  hasPrev: boolean;
+  hasNext: boolean;
+  isFirst: boolean;
+  isLast: boolean;
+  offset: number;
+}
+```
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+const meta = new Paginator({
+  totalItems: 100,
+  currentPage: 3
+}).getMeta();
+
+console.log(meta);
+/*
+→ {
+  totalItems: 100,
+  currentPage: 3,
+  itemsPerPage: 10,
+  totalPages: 10,
+  hasPrev: true,
+  hasNext: true,
+  isFirst: false,
+  isLast: false,
+  offset: 20
+}
+*/
+```

@@ -1,0 +1,87 @@
+---
+title: Round A Number
+description: Rounds a number or numeric string to a specified number of decimal or integer places.
+---
+
+## roundNumber
+
+The `roundNumber` function provides flexible rounding capabilities, allowing rounding to both positive (right of decimal) and negative (left of decimal) decimal places. This makes it useful for both fractional rounding and whole number rounding scenarios.
+
+### Function Signature
+
+```typescript
+function roundNumber(number: Numeric, roundTo?: number): number
+```
+
+### Parameters
+
+- **`number`** (`Numeric`): The number or numeric string to round.
+- **`roundTo`** (`number`, optional):
+  - Positive values: Number of decimal places to round to (default: `2`).
+  - Negative values: Rounds to the left of the decimal (e.g., `-1` = tens, `-2` = hundreds).
+  - `0`: Rounds to the nearest integer.
+
+### Return Value
+
+- **`number`**: The rounded number.
+
+### Example Usage
+
+```ts pg tab="Decimal Rounding"
+import { roundNumber } from 'toolbox-x';
+
+console.log(roundNumber(3.14159));       
+// Output: 3.14
+
+console.log(roundNumber(3.14159, 3));    
+// Output: 3.142
+
+console.log(roundNumber(1.005, 2));   
+// Output: 1.01
+```
+
+```ts pg tab="Whole Number Rounding"
+import { roundNumber } from 'toolbox-x';
+
+console.log(roundNumber(1234.56, -1));   
+// Output: 1230
+
+console.log(roundNumber(1234.56, -2));   
+// Output: 1200
+
+console.log(roundNumber(1234.56, -3));   
+// Output: 1000
+```
+
+```ts pg tab="Edge Cases"
+import { roundNumber } from 'toolbox-x';
+
+console.log(roundNumber("123.456"));     
+// Output: 123.46 (string input)
+
+console.log(roundNumber(123.456, 0));    
+// Output: 123
+
+console.log(roundNumber(123.456, -4));   
+// Output: 0
+```
+
+### Comparison with Similar Functions
+
+| Feature | `roundNumber` | [convertToDecimal](./convert-to-decimal) | [roundToNearest](./round-to-nearest) |
+| :--- | :---: | :---: | :---: |
+| **Decimal places** | ✓ | ✓ | ✗ |
+| **Negative places** | ✓ | ✗ | ✗ |
+| **String output option** | ✗ | ✓ | ✗ |
+| **Arbitrary intervals** | ✗ | ✗ | ✓ |
+
+### Aliases
+
+The following aliases can be used for the `roundNumber` function:
+
+- `roundToDecimal`
+
+### See Also
+
+- [convertToDecimal](./convert-to-decimal) - For fixed decimal place formatting.
+- [roundToNearest](./round-to-nearest) - For rounding to arbitrary intervals (like nearest 5, 0.5, etc.).

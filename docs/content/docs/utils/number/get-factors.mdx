@@ -1,0 +1,51 @@
+---
+title: Factors of a Number
+description: Efficiently computes all positive integer factors (divisors) of a number.
+---
+
+## getFactors
+
+The `getFactors` function efficiently computes all positive integer factors (divisors) of a number.
+
+### Function Signature
+
+```typescript
+function getFactors(int: Numeric | undefined): number[]
+```
+
+### Parameters
+
+- **`int`** (`Numeric | undefined`): A numeric value or numeric string to find factors for. Can also be `undefined`.
+
+### Return Value
+
+- **`number[]`**: An array of positive integer factors in ascending order for valid input, or an empty array for invalid inputs (e.g. non-integers, negative numbers, or `undefined`).
+
+### Example Usage
+
+```ts pg
+import { getFactors } from 'toolbox-x';
+
+console.log(getFactors(12));        // → [1, 2, 3, 4, 6, 12]
+console.log(getFactors(7));         // → [1, 7]
+console.log(getFactors(1));         // → [1]
+console.log(getFactors(-4));        // → []
+console.log(getFactors(undefined)); // → []
+console.log(getFactors(6.6));       // → []
+```
+
+### Notes
+
+- Uses the *square root method* for optimal performance (`O(√n)` complexity).
+- Factors are always returned in ascending order.
+
+### Aliases
+
+- `factorsOf`
+- `getDivisors`
+
+### See Also
+
+- [`calculateHCF`](./calculate-hcf)
+- [`calculateLCM`](./calculate-lcm)
+- [`factorial`](./factorial)

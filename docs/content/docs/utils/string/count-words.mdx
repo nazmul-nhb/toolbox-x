@@ -1,0 +1,49 @@
+---
+title: Count Words in String
+description: Counts the number of words in a string, supporting multiple languages and scripts.
+---
+
+## countWords
+
+The `countWords` function counts the number of words in a string, using Unicode-aware patterns to accurately count words across different scripts and writing systems.
+
+### Function Signature
+
+```typescript
+function countWords(text: string): number
+```
+
+### Parameters
+
+- **`text`** (`string`): The input string to count words from.
+
+### Return Value
+
+- **`number`**: The number of word-like tokens found in the string.
+
+### Example Usage
+
+```ts pg
+import { countWords } from 'toolbox-x';
+
+console.log(countWords('Hello world!')); 
+// Output: 2
+
+console.log(countWords('これはテストです')); 
+// Output: 1
+
+console.log(countWords('123 apples, 456 oranges')); 
+// Output: 4
+```
+
+### Notes
+
+- This function is Unicode-aware, supporting letters with diacritics, punctuation like apostrophes, and hyphenated words.
+- Numeric sequences (e.g. `"123"`) are counted as words.
+
+### Aliases
+
+The following aliases can be used for the `countWords` function:
+
+- `countWordsInString`
+- `wordCount`

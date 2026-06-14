@@ -1,0 +1,77 @@
+---
+title: Country Details By Phone
+description: Identifies matching countries and extracts details based on the country dial code prefix in a phone number.
+---
+
+## getCountryByPhone
+
+Gets country details by matching the country code in the given phone number.
+
+### Function Signature
+
+```typescript
+function getCountryByPhone(phone: number | string): CountryDetails[]
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `phone` | `number \| string` | The phone number to look up. |
+
+### Returns
+
+- **`CountryDetails[]`**: An array of matching country details. Returns an empty array `[]` if no matches are found or input is invalid.
+
+---
+
+### Example Usage
+
+```ts pg tab="Basic Lookup"
+import { getCountryByPhone } from 'toolbox-x';
+
+const countries = getCountryByPhone('+8801623732187');
+console.log(countries);
+/*
+→ [
+  {
+    country_name: 'Bangladesh',
+    country_code: '880',
+    iso_code_short: 'BD',
+    iso_code: 'BGD'
+  }
+]
+*/
+```
+
+```ts pg tab="Shared Country Codes"
+import { getCountryByPhone } from 'toolbox-x';
+
+// Shared country code '1' (USA, Canada, etc.)
+const countries = getCountryByPhone('+1-555-123-4567');
+console.log(countries.map(c => c.country_name));
+// → ['Canada', 'United States', ...]
+```
+
+---
+
+## Behavior Details
+
+- **Normalization**: Automatically strips all non-digit characters (`+`, `-`, spaces, parentheses) before matching.
+- **Hyphenated Country Codes**: Safely processes and matches country dialing codes that are stored with hyphens (e.g. `'1-242'` for Bahamas).
+- **Ambiguous Codes**: Since multiple countries can share the same dialing prefix, the function returns an array containing all matching countries.
+
+---
+
+## Types
+
+### `CountryDetails`
+
+```typescript
+type CountryDetails = Readonly<{
+  country_name: string;
+  country_code: string;
+  iso_code_short: string;
+  iso_code: string;
+}>;
+```

@@ -1,0 +1,172 @@
+---
+title: Page Navigation Methods
+description: Methods for navigating between pages, checking boundaries, and generating page lists.
+---
+
+## nextPage()
+
+```typescript
+nextPage(): number | null
+```
+
+Returns the next page number, or `null` if already on the last page.
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+console.log(new Paginator({ totalItems: 100, currentPage: 5 }).nextPage());  // → 6
+console.log(new Paginator({ totalItems: 100, currentPage: 10 }).nextPage()); // → null
+```
+
+---
+
+## prevPage()
+
+```typescript
+prevPage(): number | null
+```
+
+Returns the previous page number, or `null` if already on the first page.
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+console.log(new Paginator({ totalItems: 100, currentPage: 5 }).prevPage()); // → 4
+console.log(new Paginator({ totalItems: 100, currentPage: 1 }).prevPage()); // → null
+```
+
+---
+
+## isFirstPage()
+
+```typescript
+isFirstPage(): boolean
+```
+
+Returns whether the current page is the first page.
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+console.log(new Paginator({ totalItems: 100, currentPage: 1 }).isFirstPage()); // → true
+```
+
+---
+
+## isLastPage()
+
+```typescript
+isLastPage(): boolean
+```
+
+Returns whether the current page is the last page.
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+console.log(new Paginator({ totalItems: 100, currentPage: 10 }).isLastPage()); // → true
+```
+
+---
+
+## hasPrevPage()
+
+```typescript
+hasPrevPage(): boolean
+```
+
+Returns whether a previous page exists.
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+console.log(new Paginator({ totalItems: 100, currentPage: 2 }).hasPrevPage()); // → true
+```
+
+---
+
+## hasNextPage()
+
+```typescript
+hasNextPage(): boolean
+```
+
+Returns whether a next page exists.
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+console.log(new Paginator({ totalItems: 100, currentPage: 9 }).hasNextPage()); // → true
+```
+
+---
+
+## firstPage()
+
+```typescript
+firstPage(): number
+```
+
+Returns the first page number (always `1`).
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+console.log(new Paginator({ totalItems: 100 }).firstPage()); // → 1
+```
+
+---
+
+## lastPage()
+
+```typescript
+lastPage(): number
+```
+
+Returns the last page number.
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+console.log(new Paginator({ totalItems: 100 }).lastPage()); // → 10
+```
+
+---
+
+## pageList()
+
+```typescript
+pageList(options?: PageListOptions): number[]
+```
+
+Generates an array of page numbers for UI display.
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `options` | `PageListOptions` (optional) | Configuration for page list generation. |
+
+```typescript
+interface PageListOptions {
+  edgeCount?: number; // default: 1
+  siblingCount?: number; // default: 1
+}
+```
+
+### Behavior
+
+- Always shows first/last `edgeCount` pages.
+- Shows `siblingCount` pages around current page.
+- Merges overlapping ranges.
+
+### Example
+
+```ts pg
+import { Paginator } from 'toolbox-x';
+
+// For 10 total pages, current page 5:
+const pages = new Paginator({ totalItems: 100, currentPage: 5 })
+  .pageList({ edgeCount: 1, siblingCount: 1 });
+console.log(pages); // → [1, 4, 5, 6, 10]
+```

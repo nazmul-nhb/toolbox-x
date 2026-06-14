@@ -1,0 +1,78 @@
+---
+title: Format Currency
+description: Formats a number or numeric string as a locale-aware currency string.
+---
+
+## formatCurrency
+
+The `formatCurrency` function formats a number or numeric string as a locale-aware currency string, automatically handling symbol placement, decimal separators, and grouping. It uses the built-in `Intl.NumberFormat` API for accurate localization.
+
+### Function Signature
+
+```typescript
+function formatCurrency(
+  value: Numeric,
+  currency?: CurrencyCode,
+  locale?: LocaleCode
+): string
+```
+
+### Parameters
+
+- **`value`** (`Numeric`): The number or numeric string to format (e.g., `42` or `"42.50"`).
+- **`currency`** (`CurrencyCode`, optional): ISO 4217 currency code. Defaults to `'USD'`.
+- **`locale`** (`LocaleCode`, optional): BCP 47 locale code. Defaults to auto-detected based on currency.
+
+### Example Usage
+
+```ts pg tab="Basic (USD Default)"
+import { formatCurrency } from 'toolbox-x';
+
+console.log(formatCurrency(1234.56)); // → "$1,234.56" (en-US locale)
+```
+
+```ts pg tab="Different Currencies"
+import { formatCurrency } from 'toolbox-x';
+
+console.log(formatCurrency(99.99, 'EUR')); // → "99,99 €" (de-DE locale)
+console.log(formatCurrency("5000", 'JPY')); // → "￥5,000" (ja-JP locale)
+console.log(formatCurrency("5000", 'BDT')); // → "৫,০০০.০০৳" (bn-BD locale)
+```
+
+```ts pg tab="Custom Locale Override"
+import { formatCurrency } from 'toolbox-x';
+
+console.log(formatCurrency(1500, 'EUR', 'fr-FR')); // → "1 500,00 €"
+console.log(formatCurrency(1500, 'EUR', 'de-DE')); // → "1.500,00 €"
+console.log(formatCurrency(1500, 'BDT', 'en-US')); // → "BDT 1,500.00"
+```
+
+### Notes
+
+- **Automatic Locale Detection**: If no locale is provided, it uses a mapping (e.g., `USD` → `en-US`, `EUR` → `de-DE`, `BDT` → `bn-BD`).
+- **Negative Values**: Formats negative numbers according to the specified locale (e.g., `-42` → `-$42.00`).
+- **Numeric Strings**: Gracefully accepts and coerces numeric string values.
+
+### Types
+
+#### `Numeric`
+
+```typescript
+type Numeric = number | `${number}`;
+```
+
+#### `CurrencyCode`
+
+```typescript
+type CurrencyCode = keyof typeof CURRENCY_LOCALES | (typeof CURRENCY_CODES)[number];
+```
+
+#### `LocaleCode`
+
+```typescript
+type LocaleCode = (typeof CURRENCY_LOCALES)[keyof typeof CURRENCY_LOCALES] | (typeof LOCALE_CODES)[number];
+```
+
+### Aliases
+
+- `convertNumberToCurrency`

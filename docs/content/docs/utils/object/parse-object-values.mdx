@@ -1,0 +1,113 @@
+---
+title: Parse Object Values
+description: Recursively converts stringified primitive values within objects and arrays to their proper types (boolean, number, null, etc.).
+---
+
+## parseObjectValues
+
+The `parseObjectValues` function recursively scans an object or array and converts stringified primitive values (e.g., `"true"`, `"42"`, `"null"`, `"undefined"`) or valid JSON strings into their actual JavaScript types.
+
+### Function Signature
+
+```typescript
+function parseObjectValues<T>(object: T, parseNested?: boolean): { [K in keyof T]: any }
+```
+
+### Parameters
+
+- **`object`** (`T`): The object or array containing stringified values to parse.
+- **`parseNested`** (`boolean`, optional): Whether to recursively parse nested objects or arrays. Defaults to `true`.
+
+### Return Value
+
+- **`{ [K in keyof T]: any }`**: A new object with parsed values.
+
+### Example Usage
+
+```ts pg tab="Basic Conversion"
+import { parseObjectValues } from 'toolbox-x';
+
+const config = {
+  debug: "true",
+  port: "3000",
+  title: "My App",
+  nullable: "null"
+};
+
+const result = parseObjectValues(config);
+console.log(result);
+/*
+Output:
+{
+  debug: true,
+  port: 3000,
+  title: "My App",
+  nullable: null
+}
+*/
+```
+
+```ts pg tab="Nested Parsing"
+import { parseObjectValues } from 'toolbox-x';
+
+const userData = {
+  id: "123",
+  preferences: JSON.stringify({
+    darkMode: "true",
+    fontSize: "14"
+  }),
+  history: [
+    { date: "2023-01-01", count: "1" }
+  ]
+};
+
+const result = parseObjectValues(userData);
+console.log(result);
+/*
+Output:
+{
+  id: 123,
+  preferences: {
+    darkMode: true,
+    fontSize: 14
+  },
+  history: [
+    { date: "2023-01-01", count: 1 }
+  ]
+}
+*/
+```
+
+```ts pg tab="Disable Nested Parsing"
+import { parseObjectValues } from 'toolbox-x';
+
+const nested = {
+  value: "42",
+  children: JSON.stringify([{ val: "10" }])
+};
+
+const result = parseObjectValues(nested, false);
+console.log(result);
+/*
+Output:
+{
+  value: 42,
+  children: '[{"val":"10"}]' // Remains a JSON string
+}
+*/
+```
+
+### Conversion Rules
+
+- `"true"` $\rightarrow$ `true`
+- `"false"` $\rightarrow$ `false`
+- `"null"` $\rightarrow$ `null`
+- `"undefined"` $\rightarrow$ `undefined`
+- Numeric strings (e.g. `"42"`) $\rightarrow$ `42`
+- JSON strings (e.g. `'{"a":1}'`) $\rightarrow$ `{ a: 1 }`
+
+### Aliases
+
+The following aliases can be used for the `parseObjectValues` function:
+
+- `parseStringifiedObjectValues`

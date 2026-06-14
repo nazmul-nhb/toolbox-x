@@ -1,0 +1,93 @@
+---
+title: Instance Methods
+description: Instance methods for the Unit class including string representation, prefix conversion, and generic unit conversion.
+---
+
+## toString()
+
+```typescript
+toString(): string
+```
+
+Returns a formatted `"value unit"` string. Omits unit if not provided in constructor.
+
+```ts pg
+import { Unit } from 'toolbox-x';
+
+console.log(new Unit(100, 'kg').toString()); // → "100 kg"
+console.log(new Unit(100).toString());       // → "100"
+```
+
+---
+
+## convertByPrefix()
+
+```typescript
+convertByPrefix(fromPrefix: SIPrefix, toPrefix: SIPrefix): number
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `fromPrefix` | `SIPrefix` | Source SI prefix (e.g., `'k'`, `'m'`). |
+| `toPrefix` | `SIPrefix` | Target SI prefix (e.g., `'M'`, `''`). |
+
+### Returns
+
+- **`number`**: Converted value.
+
+```ts pg
+import { Unit } from 'toolbox-x';
+
+console.log(new Unit(1000).convertByPrefix('', 'k')); // → 1 (1000 → 1k)
+```
+
+---
+
+## convertFromTo()
+
+```typescript
+convertFromTo(from: string, to: string): number
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `from` | `string` | Source unit with prefix (e.g., `'kg'`, `'cm'`). |
+| `to` | `string` | Target unit with prefix (e.g., `'g'`, `'m'`). |
+
+### Returns
+
+- **`number`**: Converted value. Units must be of same type (e.g., both length).
+
+```ts pg
+import { Unit } from 'toolbox-x';
+
+console.log(new Unit(1).convertFromTo('km', 'm')); // → 1000
+```
+
+---
+
+## convert()
+
+```typescript
+convert(methodName: UnitNumberMethods): number
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `methodName` | `UnitNumberMethods` | Name of static conversion method. |
+
+### Returns
+
+- **`number`**: Converted value with type-safe method selection.
+
+```ts pg
+import { Unit } from 'toolbox-x';
+
+console.log(new Unit(100, 'kg').convert('kgToLbs')); // → 220.462
+```

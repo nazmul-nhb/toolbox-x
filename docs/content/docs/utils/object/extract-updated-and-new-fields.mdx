@@ -1,0 +1,63 @@
+---
+title: Extract Updated & New Fields
+description: Identifies both changed and newly added fields between two objects, recursively including deep/nested changes.
+---
+
+## extractUpdatedAndNewFields
+
+The `extractUpdatedAndNewFields` function recursively compares an updated object with a base object and returns a new object containing both modified values and newly added fields.
+
+### Function Signature
+
+```typescript
+function extractUpdatedAndNewFields<T extends GenericObject, U extends GenericObject>(
+  baseObject: T,
+  updatedObject: U
+): FlattenPartial<T> & FlattenPartial<U>
+```
+
+### Parameters
+
+- **`baseObject`** (`T`): The original baseline reference object.
+- **`updatedObject`** (`U`): The modified object containing potential updates and new fields.
+
+### Return Value
+
+- **`FlattenPartial<T> & FlattenPartial<U>`**: A combined object containing all updated values and new keys.
+
+### Example Usage
+
+```ts pg tab="Basic Comparison"
+import { extractUpdatedAndNewFields } from 'toolbox-x';
+
+const original = { name: 'John', age: 30 };
+const updated = { name: 'Jane', age: 30, role: 'admin' };
+
+const changes = extractUpdatedAndNewFields(original, updated);
+console.log(changes);
+// Output: { name: 'Jane', role: 'admin' }
+```
+
+```ts pg tab="Nested Objects"
+import { extractUpdatedAndNewFields } from 'toolbox-x';
+
+const v1 = { user: { id: 1 }, settings: {} };
+const v2 = { user: { id: 1, name: 'Alice' }, settings: { darkMode: true } };
+
+const changes = extractUpdatedAndNewFields(v1, v2);
+console.log(changes);
+// Output: { user: { name: 'Alice' }, settings: { darkMode: true } }
+```
+
+### Notes
+
+- **Arrays**: Arrays are treated as atomic values (not recursively diffed).
+- Returns a new object without mutating either input.
+
+### Types
+
+#### `FlattenPartial<T>`
+
+```typescript
+type FlattenPartial<T> = Partial<{ [K in keyof T]: T[K] }>;
+```

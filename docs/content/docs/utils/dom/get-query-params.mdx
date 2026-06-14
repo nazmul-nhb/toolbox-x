@@ -1,0 +1,46 @@
+---
+title: Get Query Parameters as Object
+description: Retrieves URL query parameters and converts them into a standard JavaScript object.
+---
+
+## getQueryParams
+
+The `getQueryParams` function extracts query parameters directly from the browser's current URL (`window.location.search`) and converts them into a standard key-value object.
+
+### Function Signature
+
+```typescript
+function getQueryParams<QParams extends Record<string, string>>(): QParams
+```
+
+### Return Value
+
+- **`QParams`**: A key-value object of query parameter names and their string values (automatically decoded). Returns `{}` if no query parameters exist.
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+// If current URL is: https://example.com/?user=alex&role=admin
+
+import { getQueryParams } from 'toolbox-x/dom';
+
+const params = getQueryParams<{ user: string; role: string }>();
+console.log(params);
+// Output: { user: "alex", role: "admin" }
+```
+
+```ts pg tab="Encoded Values"
+// If current URL is: https://example.com/?q=hello%20world
+
+import { getQueryParams } from 'toolbox-x/dom';
+
+const params = getQueryParams();
+console.log(params);
+// Output: { q: "hello world" }
+```
+
+### Notes
+
+- **Browser Context**: This utility is only available in browser environments as it relies on `window.location.search`.
+- **String Types**: All values are returned as string types. Numbers or boolean flags in the URL remain stringified.
+- **Multiple Keys**: If a query parameter key appears multiple times in the URL, only the last value is preserved.

@@ -1,0 +1,48 @@
+---
+title: Replace All in String
+description: Replaces all occurrences of a specified substring or pattern in an input string.
+---
+
+## replaceAllInString
+
+The `replaceAllInString` function replaces all occurrences of a specified substring or RegExp pattern in a given input string.
+
+### Function Signature
+
+```typescript
+function replaceAllInString(input: string, find: string | RegExp, replace: string): string
+```
+
+### Parameters
+
+- **`input`** (`string`): The input string to perform replacements in.
+- **`find`** (`string | RegExp`): The substring or pattern to search for. If a string is passed, it is converted to a global RegExp. If a RegExp is passed, the global (`g`) flag is verified and added if missing.
+- **`replace`** (`string`): The replacement string.
+
+### Return Value
+
+- **`string`**: The modified string with all occurrences replaced.
+
+### Example Usage
+
+```ts pg tab="String Replacement"
+import { replaceAllInString } from 'toolbox-x';
+
+const input = '  Hello world, hello again!  ';
+const output = replaceAllInString(input, 'hello', 'hi');
+console.log(output); 
+// Output: 'Hello world, hi again!'
+```
+
+```ts pg tab="RegExp Replacement"
+import { replaceAllInString } from 'toolbox-x';
+
+const input = ' 123, 456, 789, 123 ';
+const output = replaceAllInString(input, /\d+/g, 'X');
+console.log(output); 
+// Output: 'X, X, X, X'
+```
+
+### Notes
+
+- The function trims leading and trailing whitespace from the `input` string before executing the replacement.

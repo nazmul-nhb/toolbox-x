@@ -1,0 +1,29 @@
+{
+	"title": "String Utilities",
+	"icon": "Type",
+	"pages": [
+		"index",
+		"natural-sort",
+		"capitalize-string",
+		"convert-string-case",
+		"count-words",
+		"extract-emails",
+		"extract-numbers",
+		"extract-urls",
+		"format-unit-with-plural",
+		"generate-anagrams",
+		"generate-random-id",
+		"get-levenshtein-distance",
+		"mask-string",
+		"normalize-string",
+		"pluralizer",
+		"replace-all-in-string",
+		"reverse-string",
+		"slugify-string",
+		"string-diff",
+		"trim-string",
+		"truncate-string",
+		"typed-case-converters",
+		"verbalizer"
+	]
+}

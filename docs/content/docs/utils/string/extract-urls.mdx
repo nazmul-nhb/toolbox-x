@@ -1,0 +1,38 @@
+---
+title: Extract URLs
+description: Extracts all HTTP and HTTPS web URLs from a given input string.
+---
+
+## extractURLs
+
+The `extractURLs` function extracts all HTTP/HTTPS URLs from a given input string using a regular expression.
+
+### Function Signature
+
+```typescript
+function extractURLs(str: string): string[]
+```
+
+### Parameters
+
+- **`str`** (`string`): The input string to parse.
+
+### Return Value
+
+- **`string[]`**: An array of URL strings found in the input. If none are found, returns an empty array.
+
+### Example Usage
+
+```ts pg
+import { extractURLs } from 'toolbox-x';
+
+const text = 'Check out https://example.com and http://another.com/page';
+const urls = extractURLs(text);
+console.log(urls); 
+// Output: ['https://example.com', 'http://another.com/page']
+```
+
+### Notes
+
+- Designed to match common HTTP and HTTPS schemes.
+- Does not validate the active availability or validity of the extracted links.

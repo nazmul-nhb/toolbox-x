@@ -1,0 +1,54 @@
+---
+title: Mask String
+description: Masks a portion of a string for privacy while allowing specified characters at the beginning and/or end to remain visible.
+---
+
+## maskString
+
+The `maskString` function masks a portion of a string for privacy, replacing characters with a mask character while preserving a visible prefix and suffix.
+
+### Function Signature
+
+```typescript
+function maskString(input: string, options?: MaskOptions): string
+```
+
+### Parameters
+
+- **`input`** (`string`): The string to mask.
+- **`options`** (`MaskOptions`, optional): Configuration options:
+  - **`start`** (`number`): Number of characters to keep visible at the start. Defaults to `1`.
+  - **`end`** (`number`): Number of characters to keep visible at the end. Defaults to `1`.
+  - **`maskCharacter`** (`string`): Character used to mask the string. Defaults to `'*'`.
+
+### Types
+
+#### `MaskOptions`
+
+```typescript
+interface MaskOptions {
+  start?: number;
+  end?: number;
+  maskCharacter?: string;
+}
+```
+
+### Return Value
+
+- **`string`**: The masked string. If the string is too short to apply the start and end retention options, it is fully masked.
+
+### Example Usage
+
+```ts pg
+import { maskString } from 'toolbox-x';
+
+const email = 'hello@example.com';
+const masked = maskString(email, { start: 2, end: 4 });
+console.log(masked); 
+// Output: 'he***********.com'
+```
+
+### Notes
+
+- The input string is trimmed of leading and trailing whitespace before masking.
+- Ideal for obfuscating sensitive fields like emails, phone numbers, or tokens.

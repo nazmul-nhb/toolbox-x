@@ -1,0 +1,48 @@
+---
+title: Extract Numbers
+description: Extracts all numeric substrings from a given string and returns them as an array of numbers.
+---
+
+## extractNumbersFromString
+
+The `extractNumbersFromString` function extracts all numeric substrings from a given string and returns them as an array of numbers.
+
+### Function Signature
+
+```typescript
+function extractNumbersFromString(input: string): number[]
+```
+
+### Parameters
+
+- **`input`** (`string`): The string to extract numbers from.
+
+### Return Value
+
+- **`number[]`**: An array of numbers extracted from the input string. If no numbers are found, returns an empty array.
+
+### Example Usage
+
+```ts pg
+import { extractNumbersFromString } from 'toolbox-x';
+
+console.log(extractNumbersFromString('There are 3 cats and 25 dogs')); 
+// Output: [3, 25]
+
+console.log(extractNumbersFromString('100 apples, zero oranges'));     
+// Output: [100]
+
+console.log(extractNumbersFromString('No digits here.'));              
+// Output: []
+```
+
+### Notes
+
+- This function only matches unsigned integers (whole digits). It does not extract floating-point numbers or negative signs.
+
+### Aliases
+
+The following aliases can be used for the `extractNumbersFromString` function:
+
+- `extractNumbers`
+- `parseNumbersFromText`

@@ -1,0 +1,61 @@
+---
+title: Toggle Full Screen Mode
+description: Toggles the browser's full-screen mode for a given element or the entire page.
+---
+
+## toggleFullScreen
+
+Toggles the browser's full-screen mode for a given element, or the entire document by default. Handles vendor prefixes (including WebKit/Safari) under the hood.
+
+### Function Signature
+
+```typescript
+function toggleFullScreen(element?: HTMLElement): void
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `element` | `HTMLElement` (optional) | The element to display in fullscreen. Defaults to the root element (`document.documentElement`). |
+
+### Returns
+
+- **`void`**: This function does not return a value.
+
+---
+
+### Example Usage
+
+```ts pg tab="Document Fullscreen"
+import { toggleFullScreen } from 'toolbox-x/dom';
+
+// Toggles fullscreen mode for the entire webpage
+const button = document.createElement('button');
+button.innerText = 'Go Fullscreen';
+button.onclick = () => {
+  toggleFullScreen();
+};
+```
+
+```ts pg tab="Element Fullscreen"
+import { toggleFullScreen } from 'toolbox-x/dom';
+
+// Toggles fullscreen for a specific container/video player
+const player = document.getElementById('video-player');
+const fullscreenButton = document.getElementById('fs-btn');
+
+if (player && fullscreenButton) {
+  fullscreenButton.onclick = () => {
+    toggleFullScreen(player);
+  };
+}
+```
+
+---
+
+## Behavior Details
+
+- **Smart Toggle**: If the document is already in fullscreen mode, calling this function will exit fullscreen. If not, it requests fullscreen for the specified element.
+- **User Gesture Required**: Browsers strictly restrict fullscreen request APIs. This function must be called inside a user-triggered event handler (e.g. `onclick` or `onkeydown`) to succeed.
+- **Browser Compatibility**: Automatically handles standard `requestFullscreen`/`exitFullscreen` and WebKit-prefixed alternatives (`webkitRequestFullscreen`/`webkitExitFullscreen` for Safari).

@@ -1,0 +1,71 @@
+---
+title: Get Color For Initial
+description: Generates consistent hex colors based on the first character of strings or numbers.
+---
+
+## getColorForInitial
+
+The `getColorForInitial` function generates consistent, predictable hex colors based on the first character of a string or number. It supports single values, arrays, and nested arrays with optional opacity control.
+
+### Function Signatures
+
+```typescript
+// Single input version
+function getColorForInitial(input: string | number, opacity?: Percent): Hex8
+
+// Array input version
+function getColorForInitial(input: ColorInputArray, opacity?: Percent): Hex8[]
+```
+
+### Parameters
+
+- **`input`** (`ColorInput | ColorInputArray`): A single value or a nested array of values to generate colors for.
+- **`opacity`** (`Percent`, optional): Opacity percentage ($0 \dots 100$). Defaults to `100` (fully opaque).
+
+### Return Value
+
+- **`Hex8 | Hex8[]`**: A single 8-digit HEX color string or an array of color strings.
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { getColorForInitial } from 'toolbox-x/colors';
+
+// Single string
+console.log(getColorForInitial('Apple')); 
+// Output: '#00094CFF' (color for 'A')
+
+// Single number 
+console.log(getColorForInitial(42)); 
+// Output: '#3B543BFF' (color for '4')
+
+// With opacity
+console.log(getColorForInitial('Banana', 50)); 
+// Output: '#00376E80' (50% opacity)
+```
+
+```ts pg tab="Arrays"
+import { getColorForInitial } from 'toolbox-x/colors';
+
+// Simple array
+console.log(getColorForInitial(['Cat', 42, 'Dog']));
+// Output: [ '#005600FF', '#3B543BFF', '#024647FF' ]
+
+// Nested array (will be flattened)
+console.log(getColorForInitial([['A'], ['B', [3]]]));
+// Output: [ '#00094CFF', '#00376EFF', '#8A1D33FF' ]
+```
+
+### Notes
+
+- **Palettes**: Pre-allocates 26 colors for A-Z and 10 colors for 0-9 to guarantee color consistency for identical starting characters.
+- **Fallback**: Returns `"#010514FF"` (dark blue) for empty values, non-alphanumeric characters, or `NaN`.
+- **Empty Array**: If passed an empty array `[]`, returns the entire 36-color palette.
+
+### Types
+
+```typescript
+type ColorInput = string | number;
+type ColorInputArray = Array<ColorInput | ColorInputArray>;
+type Percent = number; // 0-100 integer
+```

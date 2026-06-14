@@ -1,0 +1,10 @@
+{
+  "title": "Form Utilities",
+  "icon": "ClipboardList",
+  "pages": [
+    "index",
+    "create-form-data",
+    "parse-form-data",
+    "serialize-form"
+  ]
+}

@@ -1,0 +1,155 @@
+---
+title: Local Storage Utilities
+description: Safely and conveniently interact with the browser's Local Storage API, supporting typed items and custom serialization.
+---
+
+## Overview
+
+A simple set of utilities to interact with the browser's [Local Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). Handles storing, retrieving, and removing typed items.
+
+### Import
+
+```typescript
+import {
+  getFromLocalStorage,
+  saveToLocalStorage,
+  removeFromLocalStorage
+} from 'toolbox-x/dom';
+```
+
+---
+
+## getFromLocalStorage
+
+Retrieves and parses an item from local storage, with optional custom deserialization.
+
+### Function Signature
+
+```typescript
+function getFromLocalStorage<T>(key: string, deserialize?: Deserializer<T>): T | null
+```
+
+### Parameters
+
+- **`key`** (`string`): The key for the local storage item.
+- **`deserialize`** (`Deserializer<T>`, optional): A function to convert the stored string back to type `T`. Defaults to `JSON.parse`.
+
+### Return Value
+
+- **`T | null`**: The parsed value, or `null` if the key does not exist or parsing fails.
+
+### Example Usage
+
+```ts pg tab="String Value"
+import { getFromLocalStorage } from 'toolbox-x/dom';
+
+// Given: localStorage.setItem('theme', JSON.stringify('dark'))
+const theme = getFromLocalStorage<string>('theme');
+console.log(theme); // Output: 'dark'
+```
+
+```ts pg tab="Object Value"
+import { getFromLocalStorage } from 'toolbox-x/dom';
+
+// Given: localStorage.setItem('user', JSON.stringify({ id: 1, name: 'Jane'}))
+const user = getFromLocalStorage<{ id: number; name: string }>('user');
+console.log(user); // Output: { id: 1, name: 'Jane' }
+```
+
+```ts pg tab="Custom Deserializer"
+import { getFromLocalStorage } from 'toolbox-x/dom';
+
+// Correctly hydrate Date objects
+const user = getFromLocalStorage<{ name: string; createdAt: Date }>(
+  'user',
+  (value: string) => {
+    const parsed = JSON.parse(value);
+    return {
+      ...parsed,
+      createdAt: new Date(parsed.createdAt)
+    };
+  }
+);
+```
+
+---
+
+## saveToLocalStorage
+
+Stores a value in local storage, with optional custom serialization.
+
+### Function Signature
+
+```typescript
+function saveToLocalStorage<T>(key: string, value: T, serialize?: Serializer<T>): void
+```
+
+### Parameters
+
+- **`key`** (`string`): The key under which to store the value.
+- **`value`** (`T`): The value to store.
+- **`serialize`** (`Serializer<T>`, optional): A function to stringify the value. Defaults to `JSON.stringify`.
+
+### Example Usage
+
+```ts pg tab="Store Primitive"
+import { saveToLocalStorage } from 'toolbox-x/dom';
+
+saveToLocalStorage('count', 5);
+```
+
+```ts pg tab="Store Object"
+import { saveToLocalStorage } from 'toolbox-x/dom';
+
+saveToLocalStorage('session', { token: 'abc', expires: 123456 });
+```
+
+```ts pg tab="Custom Serializer"
+import { saveToLocalStorage } from 'toolbox-x/dom';
+
+saveToLocalStorage(
+  'user',
+  { name: 'John', createdAt: new Date('2023-01-01') },
+  (value) => JSON.stringify({
+    ...value,
+    createdAt: value.createdAt.toISOString()
+  })
+);
+```
+
+---
+
+## removeFromLocalStorage
+
+Removes an item from local storage.
+
+### Function Signature
+
+```typescript
+function removeFromLocalStorage(key: string): void
+```
+
+### Parameters
+
+- **`key`** (`string`): The key to remove.
+
+### Example Usage
+
+```ts pg
+import { removeFromLocalStorage } from 'toolbox-x/dom';
+
+removeFromLocalStorage('theme');
+```
+
+---
+
+### Types
+
+```typescript
+type Serializer<T> = (value: T) => string;
+type Deserializer<T> = (value: string) => T;
+```
+
+### See Also
+
+- [Session Storage Utilities](./session-storage) - For session-scoped browser storage.

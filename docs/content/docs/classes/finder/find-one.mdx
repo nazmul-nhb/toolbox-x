@@ -1,0 +1,92 @@
+---
+title: findOne()
+description: Finds the first item matching specified criteria using optimized search strategies.
+---
+
+## `findOne()`
+
+Finds the first item matching specified criteria using optimized search strategies.
+
+### Signature
+
+```typescript
+findOne(
+  matcher: string | number,
+  keySelector: KeySelector<T>,
+  options?: FindOptions<T>
+): T | undefined
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `matcher` | `string \| number` | Value to match against. |
+| `keySelector` | `KeySelector<T>` | Property name or value extractor function. |
+| `options` | `FindOptions<T>` | Search configuration options. |
+
+### Returns
+
+`T | undefined` — First matching item or `undefined` if none found.
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { Finder } from 'toolbox-x';
+
+const users = [
+  { id: 1, name: 'John Doe', email: 'john@example.com' },
+  { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
+];
+
+const userFinder = new Finder(users);
+const admin = userFinder.findOne('john@example.com', 'email');
+console.log(admin); // → { id: 1, name: 'John Doe', email: 'john@example.com' }
+```
+
+```ts pg tab="With Options"
+import { Finder } from 'toolbox-x';
+
+const products = [
+  { id: 1, name: "Smartphone", category: "Electronics" },
+  { id: 2, name: "Camera", category: "Electronics" }
+];
+
+const productFinder = new Finder(products);
+const laptop = productFinder.findOne('electronics', 'category', {
+  fuzzy: true,
+  caseInsensitive: true
+});
+console.log(laptop);
+```
+
+```ts pg tab="Cached Search"
+import { Finder } from 'toolbox-x';
+
+const users = [
+  { id: 1, name: 'John Doe', email: 'john@example.com' },
+  { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
+];
+
+const userFinder = new Finder(users);
+const result = userFinder.findOne('john@example.com', 'email', {
+  cacheKey: 'john-search'
+});
+console.log(result);
+```
+
+### Behavior Details
+
+1. **Cache First**: Checks cache if `cacheKey` is provided.
+2. **Search Strategies**:
+   - Linear search for small datasets (less than 100 items).
+   - Binary search for larger sorted datasets.
+   - Fuzzy search when enabled and no exact match.
+3. **Result Caching**: Stores successful finds when `cacheKey` is specified.
+
+### Notes
+
+- **Performance**: Uses cache when available ($O(1)$ lookup). Falls back to linear search for small datasets ($O(n)$) or binary search for large sorted datasets ($O(\log n)$). Fuzzy search is $O(n)$ when enabled.
+- **Cache Behavior**: Cache entries expire after 5 minutes by default. Cache is automatically cleared when the dataset changes.
+- **String Matching**: Case-insensitive by default. Exact matching unless `fuzzy` is true.
+- **Sorting**: Sorts data automatically when `needSorting` is true. Skips sorting when data is already sorted.

@@ -1,0 +1,56 @@
+---
+title: Get Random Float
+description: Generates a random floating-point number within a specified range.
+---
+
+## getRandomFloat
+
+The `getRandomFloat` function generates a random floating-point number within a specified range (inclusive of min, exclusive of max). It's useful for simulations, statistical sampling, and any scenario requiring precise random decimal values.
+
+### Function Signature
+
+```typescript
+function getRandomFloat(min: Numeric, max: Numeric): number
+```
+
+### Parameters
+
+- **`min`** (`Numeric`): The lower bound (inclusive) - can be a number or numeric string.
+- **`max`** (`Numeric`): The upper bound (exclusive) - can be a number or numeric string.
+
+### Return Value
+
+- **`number`**: A random floating-point number where `min` ≤ value < `max`.
+
+### Example Usage
+
+```ts pg
+import { getRandomFloat } from 'toolbox-x';
+
+// Returns a float between 1.5 (inclusive) and 3.5 (exclusive)
+console.log(getRandomFloat(1.5, 3.5)); // → e.g. 2.84623
+
+// With Numeric Strings
+console.log(getRandomFloat("0.1", "0.5")); // → e.g. 0.37281
+
+// Negative Ranges
+console.log(getRandomFloat(-2.5, -1.0)); // → e.g. -1.76342
+```
+
+### Notes
+
+- **Inclusive/Exclusive**: The minimum is inclusive, while the maximum is exclusive (matching native `Math.random()` behavior).
+- **Numeric Conversion**: Automatically converts numeric strings to numbers.
+- **Edge Cases**: If `min` equals `max`, it returns `min`. If `min` > `max`, the values are swapped internally.
+
+### Types
+
+#### `Numeric`
+
+```typescript
+type Numeric = number | `${number}`;
+```
+
+### Aliases
+
+- `getRandomDecimal`

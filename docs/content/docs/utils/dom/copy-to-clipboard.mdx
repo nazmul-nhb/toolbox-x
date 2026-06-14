@@ -1,0 +1,53 @@
+---
+title: Copy Text to Clipboard
+description: Copies text to the user's clipboard using modern clipboard APIs when available, falling back to legacy methods for browser compatibility.
+---
+
+## copyToClipboard
+
+The `copyToClipboard` function copies a string of text to the clipboard. It uses modern clipboard APIs if available, and falls back to a legacy `<textarea>` method to ensure broad browser compatibility.
+
+### Function Signature
+
+```typescript
+function copyToClipboard(text: string): Promise<void>
+```
+
+### Parameters
+
+- **`text`** (`string`): The text to copy to the clipboard.
+
+### Return Value
+
+- **`Promise<void>`**: A promise that resolves when the text is successfully copied.
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { copyToClipboard } from 'toolbox-x/dom';
+
+await copyToClipboard('Hello, world!');
+console.log('Copied to clipboard!');
+```
+
+```ts pg tab="UI Button Integration"
+import { copyToClipboard } from 'toolbox-x/dom';
+
+const button = document.createElement('button');
+button.innerText = 'Copy';
+button.onclick = async () => {
+  try {
+    await copyToClipboard('Hello from toolbox-x!');
+    alert('Copied!');
+  } catch (err) {
+    console.error('Failed to copy', err);
+  }
+};
+document.body.appendChild(button);
+```
+
+### Notes
+
+- **Browser Context**: This utility is only available in browser environments. It will fail in server environments (like Node.js or SSR frameworks).
+- **User Interactions**: Browser security requires that clipboard operations occur inside user-initiated event handlers (e.g. click events).
+- **Fallback**: On older browsers or insecure origins, the function automatically creates a temporary hidden `<textarea>` element to perform the copy command.

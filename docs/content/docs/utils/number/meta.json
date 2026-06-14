@@ -1,0 +1,33 @@
+{
+	"title": "Number Utilities",
+	"icon": "Binary",
+	"pages": [
+		"index",
+		"bangla-digits",
+		"calculate-hcf",
+		"calculate-lcm",
+		"calculate-percentage",
+		"clamp-number",
+		"convert-to-decimal",
+		"factorial",
+		"fibonacci",
+		"find-prime-numbers",
+		"format-currency",
+		"get-average",
+		"get-factors",
+		"get-numbers-in-range",
+		"get-ordinal",
+		"get-random-float",
+		"get-random-number",
+		"normalize-number",
+		"number-to-words",
+		"number-to-words-ordinal",
+		"reverse-number",
+		"roman-numerals",
+		"round-number",
+		"round-to-nearest",
+		"sum-digits",
+		"sum-numbers",
+		"words-to-number"
+	]
+}

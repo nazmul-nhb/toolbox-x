@@ -1,0 +1,98 @@
+---
+title: Extract Color Values
+description: Utility functions to extract numeric component values from CSS RGB/RGBA/HSL/HSLA color strings.
+---
+
+## Overview
+
+These utility functions extract numeric component values from CSS functional notation color strings, providing strict validation and typed tuples as returns.
+
+---
+
+## extractSolidColorValues
+
+Extracts numeric values from solid color strings (RGB or HSL formats).
+
+### Function Signature
+
+```typescript
+function extractSolidColorValues(color: HSL | RGB): SolidValues
+```
+
+### Parameters
+
+- **`color`** (`HSL | RGB`): The CSS solid color string.
+
+### Return Value
+
+- **`SolidValues`**: A tuple of three numbers `[val1, val2, val3]` (representing RGB components $0 \dots 255$ or HSL components as degree/percentages). If validation fails, returns `[0, 0, 0]`.
+
+### Example Usage
+
+```ts pg tab="RGB Input"
+import { extractSolidColorValues } from 'toolbox-x/colors';
+
+const rgbValues = extractSolidColorValues('rgb(66, 103, 69)');
+console.log(rgbValues); 
+// Output: [66, 103, 69]
+```
+
+```ts pg tab="HSL Input"
+import { extractSolidColorValues } from 'toolbox-x/colors';
+
+const hslValues = extractSolidColorValues('hsl(120, 42.86%, 41.18%)');
+console.log(hslValues); 
+// Output: [120, 42.86, 41.18]
+```
+
+---
+
+## extractAlphaColorValues
+
+Extracts numeric values from colors that include an alpha channel (RGBA or HSLA formats).
+
+### Function Signature
+
+```typescript
+function extractAlphaColorValues(color: HSLA | RGBA): AlphaValues
+```
+
+### Parameters
+
+- **`color`** (`HSLA | RGBA`): The CSS alpha-enabled color string.
+
+### Return Value
+
+- **`AlphaValues`**: A tuple of four numbers `[val1, val2, val3, alpha]`. If validation fails, returns `[0, 0, 0, 0]`.
+
+### Example Usage
+
+```ts pg tab="RGBA Input"
+import { extractAlphaColorValues } from 'toolbox-x/colors';
+
+const rgbaValues = extractAlphaColorValues('rgba(66, 103, 69, 0.6)');
+console.log(rgbaValues); 
+// Output: [66, 103, 69, 0.6]
+```
+
+```ts pg tab="HSLA Input"
+import { extractAlphaColorValues } from 'toolbox-x/colors';
+
+const hslaValues = extractAlphaColorValues('hsla(120, 42.86%, 41.18%, 0.9)');
+console.log(hslaValues); 
+// Output: [120, 42.86, 41.18, 0.9]
+```
+
+---
+
+### Type Definitions
+
+```typescript
+type SolidValues = [number, number, number];
+type AlphaValues = [number, number, number, number];
+```
+
+### See Also
+
+- [Color checkers](./color-checkers) - Form validation checks.
+- [Color class](/docs/classes/Color) - OOP wrapper for color manipulation.

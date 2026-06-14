@@ -1,0 +1,56 @@
+---
+title: Calculate Factorial
+description: Computes the factorial of a non-negative numeric value.
+---
+
+## factorial
+
+The `factorial` function computes the *factorial* of *a non-negative numeric value* **recursively**.
+
+### Function Signature
+
+```typescript
+function factorial(int: Numeric | undefined): number | undefined
+```
+
+### Parameters
+
+- **`int`** (`Numeric | undefined`): A numeric input value or numeric string whose factorial should be calculated. Can also be `undefined`.
+
+### Return Value
+
+- **`number | undefined`**:
+  - The factorial result as a number if the input is valid.
+  - `undefined` if the input is negative, not numeric, non-integer, or `undefined`.
+
+### Example Usage
+
+```ts pg
+import { factorial } from 'toolbox-x';
+
+console.log(factorial(5));           // → 120
+console.log(factorial(0));           // → 1
+console.log(factorial(1));           // → 1
+console.log(factorial(-3));          // → undefined
+console.log(factorial(undefined));   // → undefined
+console.log(factorial(5.5));         // → undefined
+```
+
+### Notes
+
+- The function uses a recursive approach internally.
+- Input is normalized before computation.
+- Factorial of `0` and `1` is `1`.
+- It does not compute factorial for fractions (non-integer values).
+- Can return very large values quickly due to the rapid growth rate of factorial values.
+
+### Aliases
+
+- `getFactorial`
+- `calculateFactorial`
+
+### See Also
+
+- [`calculateHCF`](./calculate-hcf)
+- [`calculateLCM`](./calculate-lcm)
+- [`getFactors`](./get-factors)

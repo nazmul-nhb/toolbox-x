@@ -1,0 +1,56 @@
+---
+title: Normalize Numeric Value
+description: Safely converts a number or numeric string to a number.
+---
+
+## normalizeNumber
+
+The `normalizeNumber` function accepts either a number or a numeric string and safely converts it to a `number`. If the input is not a valid number or a numeric string, it returns `undefined`.
+
+> [!NOTE]
+> This is useful when accepting input from forms, query parameters, or external data sources where values might be stringified numbers.
+
+### Function Signature
+
+```typescript
+function normalizeNumber(num: unknown): number | undefined
+```
+
+### Parameters
+
+- **`num`** (`unknown`): A value that might be a number or a numeric string.
+
+### Return Value
+
+- **`number | undefined`**: A normalized number, or `undefined` if the input is not a valid number or numeric string.
+
+### Example Usage
+
+```ts pg
+import { normalizeNumber } from 'toolbox-x';
+
+console.log(normalizeNumber(42)); 
+// Output: 42
+
+console.log(normalizeNumber('123'));
+// Output: 123
+
+console.log(normalizeNumber('12.5'));
+// Output: 12.5
+
+console.log(normalizeNumber('abc'));
+// Output: undefined
+
+console.log(normalizeNumber(true));
+// Output: undefined
+```
+
+### Notes
+
+- Automatically handles both integers and floating-point numeric strings.
+- Uses `isNumber` and `isNumericString` internally to validate inputs.
+
+### See Also
+
+- [isNumber](/docs/guards/primitive/core#isnumber) - Guard check for basic numbers.
+- [isNumericString](/docs/guards/primitive/numeric#isnumericstring) - Guard check for numeric strings.

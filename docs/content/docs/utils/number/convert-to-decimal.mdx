@@ -1,0 +1,57 @@
+---
+title: Convert to Decimal
+description: Rounds a number to a specified number of decimal places and returns it as a number or string.
+---
+
+## convertToDecimal
+
+The `convertToDecimal` function rounds a number to a specified number of decimal places and returns it as either a `number` or `string`, based on the provided options.
+
+### Function Signature
+
+```typescript
+function convertToDecimal<T extends boolean | undefined = false>(
+  input: Numeric,
+  options?: DecimalOptions<T>
+): ConvertedDecimal<T>
+```
+
+### Parameters
+
+- **`input`** (`Numeric`): A number or a numeric string that needs to be rounded.
+- **`options`** (`DecimalOptions<T>`, optional): Configuration object to customize the rounding behavior.
+  - **`decimalPlaces`** (optional): The number of decimal places to round to. Defaults to `2`.
+  - **`isString`** (optional): If set to `true`, the result will be returned as a string. Defaults to `false`, which returns the result as a number.
+
+### Return Value
+
+- Returns the input number rounded to the specified decimal places.
+- The type of the return value depends on the `isString` option:
+  - If `isString` is `false` (default), the result is returned as a `number`.
+  - If `isString` is `true`, the result is returned as a `string`.
+
+### Example Usage
+
+```ts pg tab="Default (Returns Number)"
+import { convertToDecimal } from 'toolbox-x';
+
+console.log(convertToDecimal(3.14159));                         // → 3.14
+console.log(convertToDecimal(3.14159, { decimalPlaces: 3 }));    // → 3.142
+```
+
+```ts pg tab="With String Output"
+import { convertToDecimal } from 'toolbox-x';
+
+console.log(convertToDecimal(3.14159, { isString: true }));      // → "3.14"
+console.log(convertToDecimal(3.14159, { decimalPlaces: 3, isString: true }));  // → "3.142"
+```
+
+### Related Functions
+
+- **[`roundNumber`](./round-number)**: Use when you need rounding to specific decimal places (including negative places for whole number rounding) without string output options.
+- **[`roundToNearest`](./round-to-nearest)**: Use when you need to round to arbitrary intervals (like multiples of 5, 10, etc.) rather than decimal places.
+- For a comparison, see [`roundNumber#comparison-with-similar-functions`](./round-number#comparison-with-similar-functions).
+
+### Aliases
+
+- `convertToFixed`

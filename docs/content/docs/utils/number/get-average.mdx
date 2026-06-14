@@ -1,0 +1,43 @@
+---
+title: Get Average
+description: Calculates the average of a set of provided numbers, rounding the result to three decimal places.
+---
+
+## getAverage
+
+The `getAverage` function calculates the average of a set of provided numbers, rounding the result to three decimal places. It returns `NaN` if no valid numbers are provided.
+
+### Function Signature
+
+```typescript
+function getAverage(...numbers: Numeric[]): number
+```
+
+### Parameters
+
+- **`numbers`** (`Numeric[]`): A list of numbers or numeric strings to calculate the average.
+
+### Return Value
+
+- **`number`**: The average of the provided numbers, rounded to three decimal places. If no valid numbers are provided, it returns `NaN`.
+
+### Example Usage
+
+```ts pg
+import { getAverage } from 'toolbox-x';
+
+console.log(getAverage(1, 2, 3));   // → 2
+console.log(getAverage(5, 5, '5')); // → 5
+console.log(getAverage());          // → NaN
+```
+
+### Notes
+
+- Automatically skips invalid or non-numeric values.
+- Rounds the result to three decimal places.
+- Works with both `number` and numeric string types (e.g. `"5"`, `"10.2"`).
+
+### Aliases
+
+- `calculateAverage`
+- `getAverageOfNumbers`

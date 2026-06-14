@@ -1,0 +1,70 @@
+---
+title: Flatten Object Key Value
+description: Recursively flattens a nested object structure into a single-level object while preserving leaf values.
+---
+
+## flattenObjectKeyValue
+
+The `flattenObjectKeyValue` function recursively flattens a nested object structure into a single-level object containing all leaf properties.
+
+### Function Signature
+
+```typescript
+function flattenObjectKeyValue<T extends GenericObject>(
+  object: T
+): FlattenLeafValue<MergeAll<[T]>>
+```
+
+### Parameters
+
+- **`object`** (`T`): The nested object to flatten.
+
+### Return Value
+
+- **`FlattenLeafValue<MergeAll<[T]>>`**: A flat object with leaf values merged to the top level.
+
+### Example Usage
+
+```ts pg tab="Basic Nesting"
+import { flattenObjectKeyValue } from 'toolbox-x';
+
+const nested = { 
+  user: { 
+    details: { 
+      name: 'John',
+      age: 30 
+    } 
+  } 
+};
+
+const flat = flattenObjectKeyValue(nested);
+console.log(flat);
+// Output: { name: 'John', age: 30 }
+```
+
+```ts pg tab="Mixed Types"
+import { flattenObjectKeyValue } from 'toolbox-x';
+
+const data = {
+  meta: {
+    version: '1.0',
+    config: { debug: true }
+  },
+  items: ['a', 'b'] // Arrays are treated as terminal leaf values
+};
+
+const flat = flattenObjectKeyValue(data);
+console.log(flat);
+// Output: { version: '1.0', debug: true, items: ['a', 'b'] }
+```
+
+### Notes
+
+- **Key Collisions**: If nested levels contain properties with duplicate keys, the value from the deepest nested property will override the shallower keys.
+- **Arrays**: Arrays are treated as terminal/leaf values and are not flattened.
+- Returns a new object without mutating the original `object`.
+
+### Comparison with `flattenObjectDotNotation`
+
+- **`flattenObjectKeyValue`**: Merges keys directly to the root, discarding structural paths (e.g. `{ name: 'John' }`).
+- **[flattenObjectDotNotation](./flatten-object-dot-notation)**: Encodes structural paths into dot-separated keys (e.g. `{ 'user.details.name': 'John' }`).

@@ -1,0 +1,57 @@
+---
+title: Smooth Scroll to Element
+description: Smoothly scrolls the webpage to a target HTML element, with optional vertical pixel offset.
+---
+
+## smoothScrollTo
+
+Smoothly scrolls the webpage to a target HTML element, with optional vertical pixel offset for precise positioning (e.g. accounting for sticky headers).
+
+### Function Signature
+
+```typescript
+function smoothScrollTo(element: HTMLElement, offset?: number): void
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `element` | `HTMLElement` | The target DOM element to scroll to. |
+| `offset` | `number` (optional) | Vertical pixel offset (positive shifts viewport further down, negative shifts it up). |
+
+### Returns
+
+- **`void`**: This function does not return a value.
+
+---
+
+### Example Usage
+
+```ts pg tab="Basic Scroll"
+import { smoothScrollTo } from 'toolbox-x/dom';
+
+const section = document.getElementById('contact-us');
+if (section) {
+  smoothScrollTo(section);
+}
+```
+
+```ts pg tab="Header Offset"
+import { smoothScrollTo } from 'toolbox-x/dom';
+
+const faq = document.getElementById('faq');
+if (faq) {
+  // Scrolls to FAQ and positions it 80px below the viewport top
+  // (useful when you have an 80px high fixed navigation header)
+  smoothScrollTo(faq, -80);
+}
+```
+
+---
+
+## Behavior Details
+
+- **Native Animation**: Uses the browser's native `scrollIntoView({ behavior: 'smooth' })` when no offset is provided.
+- **Offset Handling**: When an offset is specified, the function calculates the target element's absolute Y-coordinate relative to the document and uses `window.scrollTo` with smooth behavior.
+- **Browser Only**: This function depends on DOM APIs and must only be executed client-side.

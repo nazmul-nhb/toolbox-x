@@ -1,0 +1,57 @@
+---
+title: Sum Numbers
+description: Calculates the total sum of a set of numbers or numeric strings.
+---
+
+## sumNumbers
+
+The `sumNumbers` function calculates the total sum of a set of numbers, accepting numeric values or numeric strings as rest parameters.
+
+### Function Signature
+
+```typescript
+function sumNumbers(...numbers: Numeric[]): number
+```
+
+### Parameters
+
+- **`numbers`** (`Numeric[]`): A list of numbers (or numeric strings) to sum up.
+
+### Return Value
+
+- **`number`**: The sum of all the provided numbers. If no numbers are provided, it returns `0`.
+
+### Example Usage
+
+```ts pg tab="Basic Summation"
+import { sumNumbers } from 'toolbox-x';
+
+console.log(sumNumbers(1, 2, 3));  
+// Output: 6
+```
+
+```ts pg tab="Numeric Strings"
+import { sumNumbers } from 'toolbox-x';
+
+console.log(sumNumbers('4', '5', '6'));  
+// Output: 15
+```
+
+```ts pg tab="Empty Inputs"
+import { sumNumbers } from 'toolbox-x';
+
+console.log(sumNumbers());  
+// Output: 0
+```
+
+### Notes
+
+- All input values are converted to numbers before summing.
+- If no inputs are passed, the return value is `0`.
+
+### Aliases
+
+The following aliases can be used for the `sumNumbers` function:
+
+- `getSumOfNumbers`
+- `sumOfNumbers`

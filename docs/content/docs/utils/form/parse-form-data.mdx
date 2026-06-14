@@ -1,0 +1,88 @@
+---
+title: Parse Form Data
+description: Converts FormData or query strings into structured JavaScript objects with optional primitive parsing.
+---
+
+## parseFormData
+
+Converts `FormData` or query strings into structured JavaScript objects, with optional primitive value parsing.
+
+### Function Signature
+
+```typescript
+function parseFormData<T extends FormData | string>(
+  data: T,
+  parsePrimitives?: boolean
+): ParsedFormData<T>
+```
+
+### Parameters
+
+| Parameter | Type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `data` | `FormData \| string` | Input data to parse. | — |
+| `parsePrimitives` | `boolean` (optional) | Whether to convert string values into actual types (booleans, numbers, arrays, objects). | `true` |
+
+### Returns
+
+- **`ParsedFormData<T>`**: A structured object containing the parsed inputs.
+
+---
+
+### Example Usage
+
+```ts pg tab="From FormData"
+import { parseFormData } from 'toolbox-x/dom';
+
+const formData = new FormData();
+formData.append('name', 'John');
+formData.append('age', '30');
+formData.append('active', 'true');
+
+const parsed = parseFormData(formData);
+console.log(parsed);
+// → { name: 'John', age: 30, active: true }
+```
+
+```ts pg tab="From Query String"
+import { parseFormData } from 'toolbox-x/dom';
+
+const query = 'name=John&age=30&active=true';
+const parsed = parseFormData(query);
+console.log(parsed);
+// → { name: 'John', age: 30, active: true }
+```
+
+```ts pg tab="With Files"
+import { parseFormData } from 'toolbox-x/dom';
+
+const formData = new FormData();
+const file = new File(['content'], 'avatar.png', { type: 'image/png' });
+formData.append('avatar', file);
+formData.append('tags', 'js');
+formData.append('tags', 'ts');
+
+const parsed = parseFormData(formData);
+console.log(parsed);
+// → { avatar: File, tags: ['js', 'ts'] }
+```
+
+---
+
+## Behavior Details
+
+- **Array Handling**: Duplicate keys or multi-value entries automatically get parsed into arrays.
+- **File Object Preservation**: File objects are preserved as-is when parsing `FormData`, maintaining original MIME types and binary content.
+- **Primitive Parsing**: When `parsePrimitives` is `true`, it uses [`parseObjectValues`](../object/parse-object-values) internally to parse string values.
+
+---
+
+## Types
+
+### `ParsedFormData`
+
+```typescript
+type ParsedFormData<T> = T extends string
+  ? Record<string, string | string[]>
+  : Record<string, string | string[] | File | File[]>;
+```

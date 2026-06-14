@@ -1,0 +1,82 @@
+---
+title: Manage Verb Forms
+description: Shared pre-configured instance of the Verbalizer class for English verb conjugations.
+---
+
+## `verbalizer`
+
+The **`verbalizer`** is a **default shared instance** of the [`Verbalizer`](/docs/classes/Verbalizer) class. It comes **preloaded with standard English conjugation rules** and irregular verbs.
+
+<Callout type="info" title="When to Use">
+- **Use this instance when you don't need multiple configurations.**
+- If you need isolated or custom rules, you can instantiate the class directly as [`new Verbalizer()`](/docs/classes/Verbalizer).
+</Callout>
+
+### Features
+
+- Convert verbs between **base**, **past tense**, and **past participle** forms.
+- Built-in support for **irregular verbs** (e.g. `go` → `went` → `gone`).
+- Preserves **case sensitivity** of input verbs.
+- Modify rules dynamically at runtime.
+
+---
+
+### Example Usage
+
+```ts pg tab="Past Tense"
+import { verbalizer } from 'toolbox-x';
+
+console.log(verbalizer.toPast('run'));  // → "ran"
+console.log(verbalizer.toPast('walk')); // → "walked"
+```
+
+```ts pg tab="Past Participle"
+import { verbalizer } from 'toolbox-x';
+
+console.log(verbalizer.toParticiple('go'));   // → "gone"
+console.log(verbalizer.toParticiple('walk')); // → "walked"
+```
+
+```ts pg tab="Base Form"
+import { verbalizer } from 'toolbox-x';
+
+console.log(verbalizer.toBase('went'));   // → "go"
+console.log(verbalizer.toBase('walked')); // → "walk"
+```
+
+```ts pg tab="Form Checks"
+import { verbalizer } from 'toolbox-x';
+
+console.log(verbalizer.isPast('ran'));        // → true
+console.log(verbalizer.isParticiple('gone')); // → true
+console.log(verbalizer.isBase('run'));        // → true
+```
+
+---
+
+### Extending Rules
+
+Since `verbalizer` is a shared instance, modifications to it at runtime affect all consumers:
+
+```ts pg
+import { verbalizer } from 'toolbox-x';
+
+// Add a custom base rule
+verbalizer.addBaseRule(/ied$/i, 'y');
+
+// Add a custom past tense rule
+verbalizer.addPastRule(/e$/i, 'ed');
+
+// Add a custom past participle rule
+verbalizer.addParticipleRule(/e$/i, 'ed');
+
+// Add an irregular verb
+verbalizer.addIrregular('swim', 'swam', 'swum');
+```
+
+---
+
+### See Also
+
+- [**Verbalizer class**](/docs/classes/Verbalizer) — low‑level API for custom instances.
+- [**pluralizer**](./pluralizer) — Utility for *noun pluralization*.

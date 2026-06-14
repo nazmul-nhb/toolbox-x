@@ -1,0 +1,468 @@
+---
+title: Unit Converter Class
+description: Converter class for robust, type-safe measurement conversion across time, length, data, temperature, mass, area, and volume.
+---
+
+## `Converter` & Unit Conversion Classes
+
+The **Unit Converter** system provides a comprehensive solution for converting values between different measurement units across multiple categories including **time**, **length**, **data**, **temperature**, **mass**, **area**, and **volume**.
+
+The system consists of a main `Converter` function and specialized converter classes that automatically handle unit detection and provide type-safe conversion methods.
+
+---
+
+### Features
+
+- **Automatic unit detection** based on input unit
+- **Type-safe conversions** with full TypeScript support
+- **Multiple output formats**: compact, scientific, and pluralized
+- **Mathematical operations**: add, subtract, multiply, divide
+- **Batch conversions** with `.toAll()` method
+- **Custom formatting** with decimal control
+- **Comprehensive unit support** across 7 categories
+- **Easy-to-use API** with intuitive methods
+- **Extensible architecture** for future unit categories *(More to come!)*
+
+---
+
+### Import
+
+```ts
+import { 
+  Converter, 
+  converter, // Alias for Converter
+  TimeConverter,
+  LengthConverter, 
+  DataConverter,
+  TemperatureConverter,
+  MassConverter,
+  AreaConverter,
+  VolumeConverter
+} from 'toolbox-x';
+```
+
+---
+
+### Usage Examples
+
+```ts pg
+import { converter, Converter } from 'toolbox-x';
+
+// Automatic unit detection
+const time = Converter(90, 'minute');
+console.log(time.to('hour')); // → 1.5
+
+const length = Converter(5, 'kilometer');
+console.log(length.to('mile')); // → 3.10686
+
+const temp = Converter(25, 'celsius');
+console.log(temp.to('fahrenheit')); // → 77
+
+// Using the alias
+const data = converter(1024, 'megabyte');
+console.log(data.to('gigabyte')); // → 1
+```
+
+---
+
+## `Converter` Function
+
+### `Converter(value, unit?)`
+
+The main converter function that automatically detects the unit category and returns the appropriate converter instance.
+
+```ts
+function Converter<U extends $Unit>(value: Numeric, unit?: U): Converted<U>
+```
+
+#### Parameters
+
+- **`value`** (`Numeric`): The numeric value to convert (number or numeric string).
+- **`unit`** (`$Unit`): The source unit (optional for base converter).
+
+#### Returns
+
+- Returns a specialized converter instance based on the unit category:
+  - `TimeConverter` for time units
+  - `LengthConverter` for length/distance units  
+  - `DataConverter` for data storage units
+  - `TemperatureConverter` for temperature units
+  - `MassConverter` for mass/weight units
+  - `AreaConverter` for area units
+  - `VolumeConverter` for volume units
+  - `BaseConverter` for unknown or no units
+
+#### Example
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const timeConv = Converter(3600, 'second');
+const lengthConv = Converter(100, 'meter');
+const tempConv = Converter(32, 'fahrenheit');
+
+console.log(timeConv.to('hour')); // → 1
+console.log(lengthConv.to('kilometer')); // → 0.1
+console.log(tempConv.to('celsius')); // → 0
+```
+
+---
+
+## Converter Classes
+
+All converter classes share common methods from the base class and provide category-specific conversion capabilities.
+
+### Available Classes
+
+- **`TimeConverter`** - Time units (seconds, minutes, hours, days, etc.)
+- **`LengthConverter`** - Length/distance units (meters, feet, miles, etc.)
+- **`DataConverter`** - Data storage units (bytes, kilobytes, megabytes, etc.)
+- **`TemperatureConverter`** - Temperature units (celsius, fahrenheit, kelvin)
+- **`MassConverter`** - Mass/weight units (grams, kilograms, pounds, etc.)
+- **`AreaConverter`** - Area units (square meters, acres, hectares, etc.)
+- **`VolumeConverter`** - Volume units (liters, gallons, cubic meters, etc.)
+
+---
+
+## Common Methods (All Converters)
+
+All converter instances inherit these methods from the base class:
+
+### `to(targetUnit)`
+
+Convert to a specific target unit.
+
+<Callout type="warn" title="Warning">
+Not available in `BaseConverter`
+</Callout>
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+console.log(Converter(60, 'minute').to('hour')); // → 1
+console.log(Converter(1000, 'meter').to('kilometer')); // → 1
+console.log(Converter(1024, 'kilobyte').to('megabyte')); // → 1
+```
+
+### `toAll()`
+
+Convert to all available units in the category.
+
+<Callout type="warn" title="Warning">
+Not available in `BaseConverter`
+</Callout>
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const time = Converter(90, 'minute');
+console.log(time.toAll());
+/*
+→ {
+  nanosecond: 5400000000000,
+  microsecond: 5400000000,
+  millisecond: 5400000,
+  second: 5400,
+  minute: 90,
+  hour: 1.5,
+  ...
+}
+*/
+```
+
+### `formatTo(targetUnit, options?)`
+
+<Callout type="warn" title="Warning">
+Not available in `BaseConverter`
+</Callout>
+
+Format the converted value with various styling options.
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const length = Converter(5.25, 'kilometer');
+
+console.log(length.formatTo('mile')); // → "3.26 miles"
+console.log(length.formatTo('mile', { style: 'compact' })); // → "3.26mi"
+console.log(length.formatTo('mile', { style: 'scientific', decimals: 4 })); // → "3.2622e+0 mile"
+```
+
+#### `FormatToOptions`
+
+| Property   | Type                                    | Description               | Default    |
+| :--------- | :-------------------------------------- | :------------------------ | :--------- |
+| `style`    | `'compact' \| 'scientific' \| 'plural'` | Output style.             | `'plural'` |
+| `decimals` | `number`                                | Number of decimal places. | `2`        |
+
+### `valueOf()` / `getValue()`
+
+Get the raw numeric value.
+
+<Callout type="info">
+Internally used by JS engines to coerce to number.
+</Callout>
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const conv = Converter(5, 'hour');
+console.log(conv.valueOf()); // → 5
+console.log(conv.getValue()); // → 5
+```
+
+### `getUnit()`
+
+Get the current unit.
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+console.log(Converter(5, 'hour').getUnit()); // → "hour"
+```
+
+### `toString()`
+
+Get formatted string with pluralization.
+
+<Callout type="info">
+Internally used by JS engines to coerce to string.
+</Callout>
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+console.log(Converter(2.5, 'hour').toString()); // → "2.5 hours"
+console.log(Converter(1, 'minute').toString()); // → "1 minute"
+```
+
+### `format(decimals?)`
+
+Format the current value with pluralization.
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+console.log(Converter(2.567, 'hour').format(1)); // → "2.6 hours"
+```
+
+### `supportedUnits(category?)`
+
+Get all supported units, optionally filtered by category.
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+// All units across all categories as array
+console.log(Converter(1, 'hour').supportedUnits().length);
+
+// Only time units
+console.log(Converter(1, 'hour').supportedUnits('time'));
+```
+
+### `toObject()`
+
+Get object representation.
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+console.log(Converter(2.5, 'hour').toObject()); // → { value: 2.5, unit: "hour" }
+```
+
+### `toJSON()`
+
+Get JSON string representation.
+
+<Callout type="info">
+Internally used by JS engines for JSON serialization.
+</Callout>
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+console.log(Converter(2.5, 'hour').toJSON()); // → '{"value":2.5,"unit":"hour"}'
+```
+
+### Mathematical Operations
+
+All converters support mathematical operations that return new instances:
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const time = Converter(1, 'hour');
+
+console.log(time.add(30).toString());      // → "31 hours" (assumes same unit)
+console.log(time.subtract(15).toString()); // → "14 hours"
+console.log(time.multiply(2).toString());  // → "2 hours"  
+console.log(time.divide(4).toString());    // → "0.25 hours"
+```
+
+#### `abs()`
+
+Get absolute value.
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+console.log(Converter(-5, 'hour').abs().toString()); // → "5 hours"
+```
+
+#### `round(decimals?)`
+
+Round to specified decimal places.
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+console.log(Converter(1.2345, 'hour').round(2).toString()); // → "1.23 hours"
+```
+
+### Comparison Methods
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const time = Converter(2, 'hour');
+
+console.log(time.gt(1)); // → true
+console.log(time.lt(3)); // → true  
+console.log(time.eq(2)); // → true
+```
+
+---
+
+## Category-Specific Details
+
+### `TimeConverter`
+
+- **Units**: `nanosecond`, `microsecond`, `millisecond`, `second`, `minute`, `hour`, `day`, `week`, `month`, `year`, `decade`, `century`, `millennium`
+- **Base Unit**: `second`
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const time = Converter(90, 'minute');
+console.log(time.to('hour')); // → 1.5
+console.log(time.formatTo('day', { style: 'compact' })); // → "0.06d"
+```
+
+### `LengthConverter`
+
+- **Units**: `millimeter`, `centimeter`, `meter`, `kilometer`, `inch`, `foot`, `yard`, `mile`, `nautical-mile`, `light-year` (both US and UK spellings)
+- **Base Unit**: `meter`
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const length = Converter(5, 'kilometer');
+console.log(length.to('mile')); // → 3.1068559611866697
+console.log(length.formatTo('foot', { style: 'plural' })); // → "16404.2 feet"
+```
+
+### `DataConverter`
+
+- **Units**: `bit`, `byte`, `kilobit`, `kilobyte`, `megabit`, `megabyte`, `gigabit`, `gigabyte`, `terabit`, `terabyte`, `petabit`, `petabyte`
+- **Base Unit**: `byte`
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const data = Converter(1024, 'kilobyte');
+console.log(data.to('megabyte')); // → 1
+console.log(data.formatTo('gigabyte', { style: 'compact' })); // → "0GB"
+```
+
+### `TemperatureConverter`
+
+- **Units**: `celsius`, `fahrenheit`, `kelvin`
+- **Special Notes**: Temperature conversions use specific formulas rather than multiplication factors.
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const temp = Converter(25, 'celsius');
+console.log(temp.to('fahrenheit')); // → 77
+console.log(temp.to('kelvin'));      // → 298.15
+console.log(temp.formatTo('fahrenheit', { style: 'compact' })); // → "77°F"
+```
+
+### `MassConverter`
+
+- **Units**: `microgram`, `milligram`, `gram`, `kilogram`, `tonne`, `ounce`, `pound`, `stone`, `short-ton`, `long-ton`
+- **Base Unit**: `kilogram`
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const mass = Converter(1, 'kilogram');
+console.log(mass.to('pound')); // → 2.2046226218487757
+console.log(mass.formatTo('ounce', { decimals: 0 })); // → "35 ounces"
+```
+
+### `AreaConverter`
+
+- **Units**: `square-millimeter`, `square-centimeter`, `square-meter`, `square-kilometer`, `square-inch`, `square-foot`, `square-yard`, `square-mile`, `hectare`, `acre` (both US and UK spellings)
+- **Base Unit**: `square-meter`
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const area = Converter(1, 'hectare');
+console.log(area.to('acre')); // → 2.471053814671653
+console.log(area.formatTo('square-meter', { style: 'scientific' })); // → "1.00e+4 square-meter"
+```
+
+### `VolumeConverter`
+
+- **Units**: `cubic-millimeter`, `cubic-centimeter`, `cubic-meter`, `cubic-kilometer`, `cubic-inch`, `cubic-foot`, `cubic-yard`, `liter`, `milliliter`, `gallon`, `quart`, `pint`, `cup`, `tablespoon`, `teaspoon` (both US and UK spellings)
+- **Base Unit**: `cubic-meter`
+
+```ts pg
+import { Converter } from 'toolbox-x';
+
+const volume = Converter(1, 'liter');
+console.log(volume.to('gallon')); // → 0.2641720523581484
+console.log(volume.formatTo('milliliter', { style: 'compact' })); // → "1000mL"
+```
+
+---
+
+## Type Definitions
+
+```ts
+type $Unit = LooseLiteral<UnitMap[Category]>;
+type FormatToOptions = {
+  style?: 'compact' | 'scientific' | 'plural';
+  decimals?: number;
+};
+```
+
+---
+
+## Notes & Limitations
+
+### Important Notes
+
+1. **Unit Detection**: The converter automatically detects the category based on the provided unit string. Unknown units will use the base converter.
+2. **Mathematical Operations**: Operations like `add()`, `subtract()`, etc. assume the same unit and return new instances rather than modifying the original.
+3. **Pluralization**: The automatic pluralization adds `"s"` for values > 1. For complex pluralization needs, consider using the shared [`pluralizer`](../utils/string/pluralizer) instance or [`Pluralizer`](./pluralizer) class.
+4. **Temperature Conversions**: Temperature uses special conversion formulas rather than multiplicative factors due to the different scales.
+5. **Precision**: Conversions may have minor precision limitations in few cases with very large or very small values due to floating-point arithmetic.
+
+### Best Practices
+
+- Use TypeScript for full type safety and autocomplete support.
+- Chain operations for complex calculations:
+  ```ts
+  Converter('90', 'minute').add('30').to('hour'); // 2
+  ```
+- Use `.toAll()` when you need multiple conversions for display purposes.
+- Prefer `.formatTo()` for user-facing outputs with proper labeling.
+
+### Error Handling
+
+- Invalid numeric values will be converted to `NaN`.
+- Unknown units will use the base converter with limited functionality.
+- Mathematical operations on `NaN` values will propagate the `NaN`.

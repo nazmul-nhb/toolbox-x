@@ -1,0 +1,216 @@
+---
+title: Verbalizer - Manage Verb Forms
+description: Low-level API for English verb conjugation between base, past tense, and past participle forms with support for irregular verbs and custom rules.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+The **`Verbalizer`** class provides a low‑level API to handle English verb conjugation between base, past tense, and past participle forms. It supports **irregular verbs**, **regular conjugation rules**, and allows you to **extend or customize** the behavior by adding new rules.
+
+<Callout type="info" title="When to Use">
+- You need **multiple independent configurations**.
+- You want to **add or override rules** without affecting the shared `verbalizer` instance.
+</Callout>
+
+## Features
+
+- ✅ Convert verbs between **base**, **past tense**, and **past participle** forms.
+- ✅ Built‑in **default rules** loaded on construction.
+- ✅ Manage rules dynamically: `addBaseRule()`, `addPastRule()`, `addParticipleRule()`, `addIrregular()`.
+- ✅ Automatically handles **irregular verbs** (e.g. `go → went → gone`).
+- ✅ Preserves **case sensitivity** of input verbs.
+
+<Callout type="warn" title="Alert">
+All methods return the trimmed verb if the input has trailing spaces.
+</Callout>
+
+## Import
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+```
+
+## Usage
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+
+console.log(myVerbalizer.toPast('run'));         // → "ran"
+console.log(myVerbalizer.toParticiple('go'));     // → "gone"
+console.log(myVerbalizer.toBase('went'));         // → "go"
+console.log(myVerbalizer.isPast('ran'));           // → true
+```
+
+## Extending Rules
+
+You can modify your instance without affecting others:
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+
+// Add a custom base rule
+myVerbalizer.addBaseRule(/ied$/i, 'y');
+
+// Add a custom past tense rule
+myVerbalizer.addPastRule(/e$/i, 'ed');
+
+// Add a custom past participle rule
+myVerbalizer.addParticipleRule(/e$/i, 'ed');
+
+// Add an irregular verb
+myVerbalizer.addIrregular('swim', 'swam', 'swum');
+```
+
+---
+
+## API Reference
+
+### constructor()
+
+Initializes with built‑in rules and irregular verbs.
+
+---
+
+### toPast(verb)
+
+Convert a verb to its past tense form.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+console.log(myVerbalizer.toPast('walk')); // → "walked"
+console.log(myVerbalizer.toPast('run'));  // → "ran"
+```
+
+---
+
+### toParticiple(verb)
+
+Convert a verb to its past participle form.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+console.log(myVerbalizer.toParticiple('walk')); // → "walked"
+console.log(myVerbalizer.toParticiple('go'));    // → "gone"
+```
+
+---
+
+### toBase(verb)
+
+Convert a verb to its base form.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+console.log(myVerbalizer.toBase('went'));   // → "go"
+console.log(myVerbalizer.toBase('walked')); // → "walk"
+```
+
+---
+
+### isPast(verb)
+
+Check if a verb is in past tense form.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+console.log(myVerbalizer.isPast('ran')); // → true
+console.log(myVerbalizer.isPast('run')); // → false
+```
+
+---
+
+### isParticiple(verb)
+
+Check if a verb is in past participle form.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+console.log(myVerbalizer.isParticiple('gone')); // → true
+console.log(myVerbalizer.isParticiple('go'));    // → false
+```
+
+---
+
+### isBase(verb)
+
+Check if a verb is in base form.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+console.log(myVerbalizer.isBase('run')); // → true
+console.log(myVerbalizer.isBase('ran')); // → false
+```
+
+---
+
+### addBaseRule(rule, replacement)
+
+Add a new base tense conjugation rule.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+myVerbalizer.addBaseRule(/ied$/i, 'y');
+```
+
+---
+
+### addPastRule(rule, replacement)
+
+Add a new past tense conjugation rule.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+myVerbalizer.addPastRule(/e$/i, 'ed');
+```
+
+---
+
+### addParticipleRule(rule, replacement)
+
+Add a new past participle conjugation rule.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+myVerbalizer.addParticipleRule(/e$/i, 'ed');
+```
+
+---
+
+### addIrregular(base, past, participle)
+
+Add an irregular verb.
+
+```ts pg
+import { Verbalizer } from 'toolbox-x';
+
+const myVerbalizer = new Verbalizer();
+myVerbalizer.addIrregular('swim', 'swam', 'swum');
+```
+
+---
+
+## See Also
+
+- [**Pluralizer**](/docs/classes/pluralizer) — Similar class for _noun pluralization_.

@@ -1,0 +1,109 @@
+---
+title: Handle Roman Numerals
+description: Convert between integers and Roman numerals (1-3999).
+---
+
+## convertToRomanNumerals
+
+Converts any valid integer from `1` to `3999` into its equivalent Roman numeral representation.
+
+### Function Signature
+
+```typescript
+function convertToRomanNumerals(value: Numeric): RomanCapital
+```
+
+### Parameters
+
+- **`value`** (`Numeric`): The numeric input (either `number` or numeric string) to be converted.
+
+### Return Value
+
+- **`RomanCapital`**: A string representing the uppercase Roman numeral form of the value.
+
+### Throws
+
+- **`RangeError`**: If the number is not an integer or is less than `1` or greater than `3999`.
+
+### Example Usage
+
+```ts pg
+import { convertToRomanNumerals } from 'toolbox-x';
+
+console.log(convertToRomanNumerals(29));      // Output: "XXIX"
+console.log(convertToRomanNumerals("1987"));  // Output: "MCMLXXXVII"
+console.log(convertToRomanNumerals(3999));    // Output: "MMMCMXCIX"
+```
+
+### Aliases
+
+The following aliases can be used for the `convertToRomanNumerals` function:
+
+- `toRoman`
+- `numberToRoman`
+- `arabicToRoman`
+- `integerToRoman`
+- `numericToRoman`
+- `toRomanNumeral`
+
+---
+
+## romanToInteger
+
+Converts any valid Roman numeral from `I` to `MMMCMXCIX` (`1`–`3999`) into its equivalent Arabic integer representation.
+
+### Function Signature
+
+```typescript
+function romanToInteger(roman: LooseRomanNumeral): number
+```
+
+### Parameters
+
+- **`roman`** (`LooseRomanNumeral`): The Roman numeral input (case-insensitive) to be converted.
+
+### Return Value
+
+- **`number`**: The integer form of the Roman numeral.
+
+### Throws
+
+- **`TypeError`**: If the input is not a non-empty string.
+- **`Error`**: If the Roman numeral contains invalid characters or is malformed.
+- **`RangeError`**: If the resulting number is less than `1` or greater than `3999`.
+
+### Example Usage
+
+```ts pg
+import { romanToInteger } from 'toolbox-x';
+
+console.log(romanToInteger("XXIX"));        // Output: 29
+console.log(romanToInteger("mcmlxxxvii"));  // Output: 1987
+console.log(romanToInteger("MMMCMXCIX"));   // Output: 3999
+```
+
+### Aliases
+
+The following aliases can be used for the `romanToInteger` function:
+
+- `romanToArabic`
+- `romanToNumeric`
+- `convertRomanToArabic`
+- `convertRomanToNumeric`
+- `convertRomanToInteger`
+
+---
+
+### Types
+
+#### `RomanCapital`
+
+```typescript
+type RomanCapital = string; // Uppercase Roman numeral representation
+```
+
+#### `LooseRomanNumeral`
+
+```typescript
+type LooseRomanNumeral = string; // String representing a Roman numeral
+```
