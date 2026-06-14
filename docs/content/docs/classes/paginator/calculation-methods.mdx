@@ -24,7 +24,7 @@ skipCount(): number // alias
 ### Example
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 // For page 3 with 10 items/page:
 console.log(new Paginator({ totalItems: 100, currentPage: 3 }).offset()); // → 20
@@ -51,7 +51,7 @@ totalPages(): number
 ### Example
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 console.log(new Paginator({ totalItems: 100 }).totalPages()); // → 10
 ```
@@ -87,7 +87,7 @@ interface PaginatorMeta {
 ### Example
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 const meta = new Paginator({
   totalItems: 100,

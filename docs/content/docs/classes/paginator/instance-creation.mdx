@@ -24,7 +24,7 @@ withPage(page: number): Paginator
 ### Example
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 const paginator = new Paginator({ totalItems: 100 });
 const page5 = paginator.withPage(5); // New instance on page 5
@@ -53,7 +53,7 @@ withPerPage(perPage: number): Paginator
 ### Example
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 const paginator = new Paginator({ totalItems: 100 });
 const updated = paginator.withPerPage(20); // New instance with 20 items/page
@@ -82,7 +82,7 @@ withTotalItems(totalItems: number): Paginator
 ### Example
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 const paginator = new Paginator({ totalItems: 100 });
 const updated = paginator.withTotalItems(200); // New instance with 200 total items
@@ -111,7 +111,7 @@ withOptions(options: Partial<PaginatorOptions>): Paginator
 ### Example
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 const paginator = new Paginator({ totalItems: 100 });
 const updated = paginator.withOptions({

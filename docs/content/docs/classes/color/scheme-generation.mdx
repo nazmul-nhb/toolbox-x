@@ -22,7 +22,7 @@ getComplementaryColor(): Color
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const yellow = new Color("#ffff00");
 const complementary = yellow.getComplementaryColor();
@@ -48,7 +48,7 @@ getAnalogousColors(): [Color, Color, Color]
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const orange = new Color("#ffa500");
 const analogous = orange.getAnalogousColors();
@@ -74,7 +74,7 @@ getTriadColors(): [Color, Color, Color]
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const red = new Color("#ff0000");
 const triad = red.getTriadColors();
@@ -100,7 +100,7 @@ getTetradColors(): [Color, Color, Color, Color]
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const teal = new Color("#008080");
 const tetrad = teal.getTetradColors();

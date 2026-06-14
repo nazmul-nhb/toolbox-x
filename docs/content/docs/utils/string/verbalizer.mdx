@@ -5,11 +5,11 @@ description: Shared pre-configured instance of the Verbalizer class for English 
 
 ## `verbalizer`
 
-The **`verbalizer`** is a **default shared instance** of the [`Verbalizer`](/docs/classes/Verbalizer) class. It comes **preloaded with standard English conjugation rules** and irregular verbs.
+The **`verbalizer`** is a **default shared instance** of the [`Verbalizer`](../../classes/verbalizer) class. It comes **preloaded with standard English conjugation rules** and irregular verbs.
 
 <Callout type="info" title="When to Use">
 - **Use this instance when you don't need multiple configurations.**
-- If you need isolated or custom rules, you can instantiate the class directly as [`new Verbalizer()`](/docs/classes/Verbalizer).
+- If you need isolated or custom rules, you can instantiate the class directly as [`new Verbalizer()`](../../classes/verbalizer).
 </Callout>
 
 ### Features
@@ -24,28 +24,28 @@ The **`verbalizer`** is a **default shared instance** of the [`Verbalizer`](/doc
 ### Example Usage
 
 ```ts pg tab="Past Tense"
-import { verbalizer } from 'toolbox-x';
+import { verbalizer } from 'toolbox-x/verbalizer';
 
 console.log(verbalizer.toPast('run'));  // → "ran"
 console.log(verbalizer.toPast('walk')); // → "walked"
 ```
 
 ```ts pg tab="Past Participle"
-import { verbalizer } from 'toolbox-x';
+import { verbalizer } from 'toolbox-x/verbalizer';
 
 console.log(verbalizer.toParticiple('go'));   // → "gone"
 console.log(verbalizer.toParticiple('walk')); // → "walked"
 ```
 
 ```ts pg tab="Base Form"
-import { verbalizer } from 'toolbox-x';
+import { verbalizer } from 'toolbox-x/verbalizer';
 
 console.log(verbalizer.toBase('went'));   // → "go"
 console.log(verbalizer.toBase('walked')); // → "walk"
 ```
 
 ```ts pg tab="Form Checks"
-import { verbalizer } from 'toolbox-x';
+import { verbalizer } from 'toolbox-x/verbalizer';
 
 console.log(verbalizer.isPast('ran'));        // → true
 console.log(verbalizer.isParticiple('gone')); // → true
@@ -59,7 +59,7 @@ console.log(verbalizer.isBase('run'));        // → true
 Since `verbalizer` is a shared instance, modifications to it at runtime affect all consumers:
 
 ```ts pg
-import { verbalizer } from 'toolbox-x';
+import { verbalizer } from 'toolbox-x/verbalizer';
 
 // Add a custom base rule
 verbalizer.addBaseRule(/ied$/i, 'y');
@@ -78,5 +78,5 @@ verbalizer.addIrregular('swim', 'swam', 'swum');
 
 ### See Also
 
-- [**Verbalizer class**](/docs/classes/Verbalizer) — low‑level API for custom instances.
+- [**Verbalizer class**](../../classes/verbalizer) — low‑level API for custom instances.
 - [**pluralizer**](./pluralizer) — Utility for *noun pluralization*.

@@ -28,7 +28,7 @@ applyOpacity(opacity: Percent): Color
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const red = new Color("#ff0000");
 const semiTransparentRed = red.applyOpacity(50); // 50% opacity
@@ -60,7 +60,7 @@ applyDarkness(percent: Percent): Color
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const blue = new Color("#0000ff");
 const darkerBlue = blue.applyDarkness(20); // 20% darker
@@ -92,7 +92,7 @@ applyBrightness(percent: Percent): Color
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const green = new Color("#008000");
 const lighterGreen = green.applyBrightness(30); // 30% lighter
@@ -124,7 +124,7 @@ applyDullness(percent: Percent): Color
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const pink = new Color("#ff69b4");
 const dullPink = pink.applyDullness(50); // 50% less saturated
@@ -156,7 +156,7 @@ applyWhiteShade(percent: Percent): Color
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const purple = new Color("#800080");
 const softPurple = purple.applyWhiteShade(40); // 40% softer
@@ -189,7 +189,7 @@ blendWith(other: ColorType | CSSColor, weight?: number): Color
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const red = new Color("#ff0000");
 const blue = "#0000ff";

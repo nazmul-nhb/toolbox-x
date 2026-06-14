@@ -33,13 +33,13 @@ All methods return the trimmed word if the input has trailing spaces.
 ## Import
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 ```
 
 ## Usage
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 
@@ -53,7 +53,7 @@ console.log(myPluralizer.isPlural('fish'));       // → true (uncountable)
 You can modify your instance without affecting others:
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 
@@ -85,7 +85,7 @@ Initializes with built‑in rules, irregular forms, and uncountables.
 Get the proper singular or plural form based on an optional count.
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 
@@ -117,7 +117,7 @@ Any number (`count`) which is not `1` is considered plural. `count` can be a num
 Convert a word to its plural form.
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 console.log(myPluralizer.toPlural('analysis')); // → "analyses"
@@ -130,7 +130,7 @@ console.log(myPluralizer.toPlural('analysis')); // → "analyses"
 Convert a word to its singular form.
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 console.log(myPluralizer.toSingular('geese')); // → "goose"
@@ -147,7 +147,7 @@ Always returns `true` for uncountable nouns.
 </Callout>
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 console.log(myPluralizer.isPlural('children')); // → true
@@ -164,7 +164,7 @@ Always returns `true` for uncountable nouns.
 </Callout>
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 console.log(myPluralizer.isSingular('child')); // → true
@@ -177,7 +177,7 @@ console.log(myPluralizer.isSingular('child')); // → true
 Add a new pluralization rule.
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 myPluralizer.addPluralRule(/(quiz)$/i, '$1zes');
@@ -190,7 +190,7 @@ myPluralizer.addPluralRule(/(quiz)$/i, '$1zes');
 Add a new singularization rule.
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 myPluralizer.addSingularRule(/(matr)ices$/i, '$1ix');
@@ -203,7 +203,7 @@ myPluralizer.addSingularRule(/(matr)ices$/i, '$1ix');
 Add an irregular word pair.
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 myPluralizer.addIrregular('person', 'people');
@@ -216,7 +216,7 @@ myPluralizer.addIrregular('person', 'people');
 Add a word or pattern that should never change.
 
 ```ts pg
-import { Pluralizer } from 'toolbox-x';
+import { Pluralizer } from 'toolbox-x/pluralizer';
 
 const myPluralizer = new Pluralizer();
 myPluralizer.addUncountable('information');
@@ -227,5 +227,5 @@ myPluralizer.addUncountable(/pok[eé]mon$/i);
 
 ## See Also
 
-- [**formatUnitWithPlural**](/docs/utils/string/format-unit-with-plural) — Simple utility for formatting units with pluralization.
-- [**Verbalizer class**](/docs/classes/verbalizer) — Similar class for _verb form_ manipulation.
+- [**formatUnitWithPlural**](../utils/string/format-unit-with-plural) — Simple utility for formatting units with pluralization.
+- [**Verbalizer class**](./verbalizer) — Similar class for _verb form_ manipulation.

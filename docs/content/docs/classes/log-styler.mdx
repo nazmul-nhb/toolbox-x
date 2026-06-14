@@ -32,7 +32,7 @@ The `LogStyler` class provides a low-level API to style console output with **AN
 ### Import
 
 ```ts
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 ```
 
 ---
@@ -40,7 +40,7 @@ import { LogStyler } from 'toolbox-x';
 ### Usage
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 // Simple usage
 const styler = new LogStyler(['red', 'bold']);
@@ -64,7 +64,7 @@ customStyler.log('Custom styled message');
 Initializes with an optional array of initial styles.
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler(['red', 'bold']);
 ```
@@ -76,7 +76,7 @@ const styler = new LogStyler(['red', 'bold']);
 Add one or more styles and return a new `StylogChain` instance for chaining.
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
 const newStyler = styler.style('blue').style('italic');
@@ -107,7 +107,7 @@ Apply `ANSI 16-color` styling to the text.
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
 styler.ansi16('red').log('Error message');
@@ -140,7 +140,7 @@ Apply a HEX color to the text foreground.
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
 styler.hex('#4682B4').log('Steel blue text');
@@ -166,7 +166,7 @@ Apply a HEX color to the text background.
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
 styler.bgHex('#4682B4').log('Steel blue background');
@@ -200,7 +200,7 @@ Apply an RGB color to the text foreground.
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
 styler.rgb('rgb(11, 45, 1)').log('Dark green text');
@@ -235,7 +235,7 @@ Apply an RGB color to the text background.
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
 styler.bgRGB('rgb(225, 169, 196)').log('Pink background');
@@ -270,7 +270,7 @@ Apply an HSL color to the text foreground.
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
 styler.hsl('hsl(50 80.5% 40%)').log('Gold text');
@@ -305,7 +305,7 @@ Apply an HSL color to the text background.
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler();
 styler.bgHSL('hsl(50 80.5% 40%)').log('Gold background');
@@ -333,7 +333,7 @@ Returns the input as a styled string with ANSI escape codes.
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler(['red', 'bold']);
 
@@ -376,7 +376,7 @@ Use this method when you need direct access to CSS styling for custom browser ou
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 // Basic usage in browser
 const styler = new LogStyler(['red', 'bold']);
@@ -412,7 +412,7 @@ Print styled input to the console.
 ##### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const styler = new LogStyler(['red', 'bold']);
 styler.log('Error message');
@@ -473,7 +473,7 @@ Prefixed with `bg`: `bgRed`, `bgBlue`, `bgGreen`, `bgYellow`, etc.
 ### Examples
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 // Simple error styling
 const errorStyler = new LogStyler(['red', 'bold']);

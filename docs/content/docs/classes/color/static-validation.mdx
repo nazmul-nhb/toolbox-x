@@ -34,7 +34,7 @@ static isHex6(color: string): color is Hex6
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 console.log(Color.isHex6("#ff5733")); // → true
 console.log(Color.isHex6("#ff573"));  // → false
@@ -65,7 +65,7 @@ static isHex8(color: string): color is Hex8
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 console.log(Color.isHex8("#ff573380")); // → true
 console.log(Color.isHex8("#ff5733"));   // → false
@@ -96,7 +96,7 @@ static isRGB(color: string): color is RGB
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 console.log(Color.isRGB("rgb(255, 87, 51)")); // → true
 console.log(Color.isRGB("rgb(256, 87, 51)")); // → false (invalid red value)
@@ -127,7 +127,7 @@ static isRGBA(color: string): color is RGBA
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 console.log(Color.isRGBA("rgba(255, 87, 51, 0.5)")); // → true
 console.log(Color.isRGBA("rgba(255, 87, 51, 1.5)")); // → false (invalid alpha)
@@ -158,7 +158,7 @@ static isHSL(color: string): color is HSL
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 console.log(Color.isHSL("hsl(14, 100%, 60%)")); // → true
 console.log(Color.isHSL("hsl(14, 150%, 60%)")); // → false (invalid saturation)
@@ -189,7 +189,7 @@ static isHSLA(color: string): color is HSLA
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 console.log(Color.isHSLA("hsla(14, 100%, 60%, 0.5)")); // → true
 console.log(Color.isHSLA("hsla(14, 100%, 60%, 2)"));   // → false (invalid alpha)
@@ -241,7 +241,7 @@ static isCSSColor(color: string): color is CSSColor
 ### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 console.log(Color.isCSSColor("rebeccapurple")); // → true
 console.log(Color.isCSSColor("#ff5733"));        // → false

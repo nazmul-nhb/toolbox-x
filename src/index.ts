@@ -189,6 +189,9 @@ export {
 	extractObjectKeys as extractKeys,
 	extractObjectKeysDeep as extractKeysDeep,
 	extractObjectKeys,
+	extractObjectEntries as extractEntries,
+	extractObjectEntries as objectEntries,
+	extractObjectEntries,
 	extractObjectKeysDeep,
 } from 'src/object/basics';
 

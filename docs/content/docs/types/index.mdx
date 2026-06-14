@@ -1,0 +1,46 @@
+---
+title: Types & Constants
+description: Comprehensive collection of TypeScript types and constants to accelerate your development workflow.
+icon: Blocks
+---
+
+## Types Included
+
+`toolbox-x` includes not only functional utilities but also a growing collection of **type-level utilities** designed to enhance type safety and developer ergonomics. These types are available through package subpaths: `'toolbox-x/types'` and/or `'toolbox-x/types/[some-path]'`. `stylog` module also exports some types: `'toolbox-x/stylog'`.
+
+### Import
+
+All types can be imported using this pattern:
+
+```ts
+import type { SomeType } from 'toolbox-x/types';
+// Or
+import type { SomeType } from 'toolbox-x/types/some-path';
+```
+
+### 1. [Utility Types](./utility-types)
+
+Type helpers for advanced type manipulation and new type creation:
+
+- Type transformations
+- Conditional types
+- Create new types
+
+### 2. [Common Types](./common-types)
+
+Ready-to-use types for common patterns:
+
+- Well-named, reusable aliases for primitive
+- Date/time and other types for quick use
+
+## [Constants](./constants)
+
+Along with type definitions, `toolbox-x` exports a collection of ready-to-use constants for common development needs. These constants are available through package subpath: `toolbox-x/constants`.
+
+### Import
+
+All (25+) [constants](./constants) can be imported using this pattern:
+
+```ts
+import { CONSTANT_NAME } from 'toolbox-x/constants';
+```

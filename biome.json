@@ -86,6 +86,7 @@
 			"suspicious": {
 				"noAsyncPromiseExecutor": "error",
 				"noCatchAssign": "error",
+				"noTsIgnore": "off",
 				"noClassAssign": "error",
 				"noCompareNegZero": "error",
 				"noConstantBinaryExpressions": "error",

@@ -12,7 +12,7 @@ nextPage(): number | null
 Returns the next page number, or `null` if already on the last page.
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 console.log(new Paginator({ totalItems: 100, currentPage: 5 }).nextPage());  // → 6
 console.log(new Paginator({ totalItems: 100, currentPage: 10 }).nextPage()); // → null
@@ -29,7 +29,7 @@ prevPage(): number | null
 Returns the previous page number, or `null` if already on the first page.
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 console.log(new Paginator({ totalItems: 100, currentPage: 5 }).prevPage()); // → 4
 console.log(new Paginator({ totalItems: 100, currentPage: 1 }).prevPage()); // → null
@@ -46,7 +46,7 @@ isFirstPage(): boolean
 Returns whether the current page is the first page.
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 console.log(new Paginator({ totalItems: 100, currentPage: 1 }).isFirstPage()); // → true
 ```
@@ -62,7 +62,7 @@ isLastPage(): boolean
 Returns whether the current page is the last page.
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 console.log(new Paginator({ totalItems: 100, currentPage: 10 }).isLastPage()); // → true
 ```
@@ -78,7 +78,7 @@ hasPrevPage(): boolean
 Returns whether a previous page exists.
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 console.log(new Paginator({ totalItems: 100, currentPage: 2 }).hasPrevPage()); // → true
 ```
@@ -94,7 +94,7 @@ hasNextPage(): boolean
 Returns whether a next page exists.
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 console.log(new Paginator({ totalItems: 100, currentPage: 9 }).hasNextPage()); // → true
 ```
@@ -110,7 +110,7 @@ firstPage(): number
 Returns the first page number (always `1`).
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 console.log(new Paginator({ totalItems: 100 }).firstPage()); // → 1
 ```
@@ -126,7 +126,7 @@ lastPage(): number
 Returns the last page number.
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 console.log(new Paginator({ totalItems: 100 }).lastPage()); // → 10
 ```
@@ -163,7 +163,7 @@ interface PageListOptions {
 ### Example
 
 ```ts pg
-import { Paginator } from 'toolbox-x';
+import { Paginator } from 'toolbox-x/paginator';
 
 // For 10 total pages, current page 5:
 const pages = new Paginator({ totalItems: 100, currentPage: 5 })

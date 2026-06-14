@@ -19,7 +19,7 @@ import {
   isBGColor, 
   isTextStyle, 
   detectColorSupport
-} from 'toolbox-x';
+} from 'toolbox-x/stylog';
 ```
 
 ---
@@ -31,7 +31,7 @@ import {
 Convert a HEX color to ANSI escape sequences.
 
 ```ts pg
-import { hexToAnsi } from 'toolbox-x';
+import { hexToAnsi } from 'toolbox-x/stylog';
 
 const [open, close] = hexToAnsi('#FF0000'); // red foreground
 const [bgOpen, bgClose] = hexToAnsi('#0000FF', true); // blue background
@@ -55,7 +55,7 @@ const [bgOpen, bgClose] = hexToAnsi('#0000FF', true); // blue background
 Convert RGB color components to ANSI escape sequences.
 
 ```ts pg
-import { rgbToAnsi } from 'toolbox-x';
+import { rgbToAnsi } from 'toolbox-x/stylog';
 
 const [open, close] = rgbToAnsi(255, 0, 0); // red foreground
 const [bgOpen, bgClose] = rgbToAnsi(0, 0, 255, true); // blue background
@@ -85,7 +85,7 @@ This is a basic level shell color detector. For more advanced cases, use the [`s
 </Callout>
 
 ```ts pg
-import { detectColorSupport } from 'toolbox-x';
+import { detectColorSupport } from 'toolbox-x/stylog';
 
 const supportLevel = detectColorSupport();
 // 0 = none, 1 = basic (16 colors), 2 = 256 colors, 3 = truecolor
@@ -106,7 +106,7 @@ const supportLevel = detectColorSupport();
 Check if a string is a valid CSS color name.
 
 ```ts pg
-import { isCSSColor } from 'toolbox-x';
+import { isCSSColor } from 'toolbox-x/stylog';
 
 console.log(isCSSColor('red')); // true
 console.log(isCSSColor('invalidColor')); // false
@@ -129,7 +129,7 @@ console.log(isCSSColor('invalidColor')); // false
 Check if a string is a valid background color (starts with "bg" + valid CSS color).
 
 ```ts pg
-import { isBGColor } from 'toolbox-x';
+import { isBGColor } from 'toolbox-x/stylog';
 
 console.log(isBGColor('bgRed')); // true
 console.log(isBGColor('red')); // false (missing bg prefix)
@@ -153,7 +153,7 @@ console.log(isBGColor('bgInvalid')); // false (invalid color)
 Check if a string is a valid text style.
 
 ```ts pg
-import { isTextStyle } from 'toolbox-x';
+import { isTextStyle } from 'toolbox-x/stylog';
 
 console.log(isTextStyle('bold')); // true
 console.log(isTextStyle('invalidStyle')); // false
@@ -223,7 +223,7 @@ import {
   isBGColor, 
   isTextStyle, 
   detectColorSupport 
-} from 'toolbox-x';
+} from 'toolbox-x/stylog';
 
 // Color conversion
 const [redOpen, redClose] = hexToAnsi('#FF0000');

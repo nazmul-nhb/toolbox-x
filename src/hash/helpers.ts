@@ -1,5 +1,5 @@
 import { isObjectWithKeys } from 'src/guards/non-primitives';
-import { isNonEmptyString, isString } from 'src/guards/primitives';
+import { isNonEmptyString, isString, isUndefined } from 'src/guards/primitives';
 import { isUUID } from 'src/guards/specials';
 import { randomHex } from 'src/hash/utils';
 import type { $UUIDOptionsV3V5, $UUIDVersion, UUID, UUIDVersion } from 'src/types/hash';
@@ -183,7 +183,8 @@ export function _randomNode48(): string {
  * @returns Random bytes. It also mutates the {@link bytes} argument.
  */
 export function _fillWithRandomValues(bytes: Uint8Array): Uint8Array {
-	if (crypto?.getRandomValues) {
+	if (!isUndefined(crypto) && crypto?.getRandomValues) {
+		// @ts-ignore TS only refer tp Node types but both DOM and Node types are needed here
 		crypto.getRandomValues(bytes);
 	} else {
 		for (let i = 0; i < bytes.length; i++) {

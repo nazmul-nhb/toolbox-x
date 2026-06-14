@@ -28,7 +28,7 @@ contrastRatio(other: ColorType | CSSColor): number
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const black = new Color("#000000");
 const white = "#ffffff";
@@ -63,7 +63,7 @@ getWCAGRating(other: ColorType | CSSColor): 'Fail' | 'AA' | 'AAA'
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 const text = "#333333";
 const background = new Color("#f0f0f0");
@@ -95,7 +95,7 @@ isLightColor(threshold?: number): boolean
 #### Example
 
 ```ts pg
-import { Color } from 'toolbox-x';
+import { Color } from 'toolbox-x/colors';
 
 console.log(new Color("#ffffff").isLightColor());        // → true
 console.log(new Color("#000000").isLightColor());        // → false

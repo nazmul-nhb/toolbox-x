@@ -34,7 +34,7 @@ The **`Stylog`** is a **chainable wrapper** around the [`LogStyler`](../../class
 ### Import
 
 ```ts
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 ```
 
 ---
@@ -42,7 +42,7 @@ import { Stylog } from 'toolbox-x';
 ### Quick Usage
 
 ```ts pg tab="Simple"
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Basic coloring
 Stylog.red.log('Error message');
@@ -51,7 +51,7 @@ Stylog.blue.log('Info message');
 ```
 
 ```ts pg tab="Complex"
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Multiple styles
 Stylog.red.bold.bgYellow.log('Warning!');
@@ -64,7 +64,7 @@ Stylog.hex('#FF5733').bgRGB(50, 100, 150).bold.log('Custom colors');
 ```
 
 ```ts pg tab="Reusable Bases"
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Create reusable style bases
 const error = Stylog.red.bold;
@@ -114,7 +114,7 @@ Prefixed with `bg`: `.bgRed`, `.bgBlue`, `.bgGreen`, `.bgYellow`, `.bgDark`, etc
 Add a style and return a new `LogStyler` instance for chaining.
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 const newStyler = Stylog.style('blue').style('italic');
 ```
@@ -149,7 +149,7 @@ Apply `ANSI 16-color` styling to the text.
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Basic usage
 Stylog.ansi16('red').log('Error message');
@@ -187,7 +187,7 @@ Apply a HEX color to the text foreground.
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // With hash prefix
 Stylog.hex('#4682B4').log('Steel blue text');
@@ -222,7 +222,7 @@ Apply a HEX color to the text background.
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // With hash prefix
 Stylog.bgHex('#4682B4').log('Steel blue background');
@@ -265,7 +265,7 @@ Apply an RGB color to the text foreground.
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Full rgb() syntax
 Stylog.rgb('rgb(11, 45, 1)').log('Dark green text');
@@ -312,7 +312,7 @@ Apply an RGB color to the text background.
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Full rgb() syntax
 Stylog.bgRGB('rgb(225, 169, 196)').log('Pink background');
@@ -360,7 +360,7 @@ Apply an HSL color to the text foreground.
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Standard HSL syntax
 Stylog.hsl('hsl(50 80.5% 40%)').log('Gold text');
@@ -408,7 +408,7 @@ Apply an HSL color to the text background.
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Standard HSL syntax
 Stylog.bgHSL('hsl(50 80.5% 40%)').log('Gold background');
@@ -443,7 +443,7 @@ Returns the input as a styled string with ANSI escape codes.
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 const dataText = Stylog.green.toANSI({ value: 42 }, true);
 const errorMessage = Stylog.red.bold.toANSI('Error occurred, using Stylog');
@@ -485,7 +485,7 @@ Use this method for browser-specific styling needs, UI framework integration, or
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Basic usage in browser
 const styler = Stylog.red.bold;
@@ -527,7 +527,7 @@ Print the styled message to console.
 ##### Examples
 
 ```ts pg
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Basic usage
 Stylog.red.bold.log('Error message');
@@ -549,7 +549,7 @@ Stylog.hex('#FF5733').bgRGB(50, 100, 150).bold.italic.log('Complex styling');
 ### Cross-Platform Support
 
 ```ts pg tab="Node.js"
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Uses ANSI escape codes for true-color support
 Stylog.red.bold.log('Node.js styled output');
@@ -560,7 +560,7 @@ Stylog.rgb(255, 100, 50).log('Custom RGB in Node.js');
 ```
 
 ```ts pg tab="Browser"
-import { Stylog } from 'toolbox-x';
+import { Stylog } from 'toolbox-x/stylog';
 
 // Uses CSS styles via %c formatting
 Stylog.red.bold.log('Browser styled output');
@@ -577,7 +577,7 @@ Stylog.rgb(255, 100, 50).log('Custom RGB in browser');
 If you need programmatic control or isolated instances, use the `LogStyler` class directly:
 
 ```ts pg
-import { LogStyler } from 'toolbox-x';
+import { LogStyler } from 'toolbox-x/stylog';
 
 const customStyler = new LogStyler(['red', 'bold']);
 

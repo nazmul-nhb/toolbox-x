@@ -38,7 +38,7 @@ import {
   MassConverter,
   AreaConverter,
   VolumeConverter
-} from 'toolbox-x';
+} from 'toolbox-x/converter';
 ```
 
 ---
@@ -46,7 +46,7 @@ import {
 ### Usage Examples
 
 ```ts pg
-import { converter, Converter } from 'toolbox-x';
+import { converter, Converter } from 'toolbox-x/converter';
 
 // Automatic unit detection
 const time = Converter(90, 'minute');
@@ -95,7 +95,7 @@ function Converter<U extends $Unit>(value: Numeric, unit?: U): Converted<U>
 #### Example
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const timeConv = Converter(3600, 'second');
 const lengthConv = Converter(100, 'meter');
@@ -137,7 +137,7 @@ Not available in `BaseConverter`
 </Callout>
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 console.log(Converter(60, 'minute').to('hour')); // → 1
 console.log(Converter(1000, 'meter').to('kilometer')); // → 1
@@ -153,7 +153,7 @@ Not available in `BaseConverter`
 </Callout>
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const time = Converter(90, 'minute');
 console.log(time.toAll());
@@ -179,7 +179,7 @@ Not available in `BaseConverter`
 Format the converted value with various styling options.
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const length = Converter(5.25, 'kilometer');
 
@@ -204,7 +204,7 @@ Internally used by JS engines to coerce to number.
 </Callout>
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const conv = Converter(5, 'hour');
 console.log(conv.valueOf()); // → 5
@@ -216,7 +216,7 @@ console.log(conv.getValue()); // → 5
 Get the current unit.
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 console.log(Converter(5, 'hour').getUnit()); // → "hour"
 ```
@@ -230,7 +230,7 @@ Internally used by JS engines to coerce to string.
 </Callout>
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 console.log(Converter(2.5, 'hour').toString()); // → "2.5 hours"
 console.log(Converter(1, 'minute').toString()); // → "1 minute"
@@ -241,7 +241,7 @@ console.log(Converter(1, 'minute').toString()); // → "1 minute"
 Format the current value with pluralization.
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 console.log(Converter(2.567, 'hour').format(1)); // → "2.6 hours"
 ```
@@ -251,7 +251,7 @@ console.log(Converter(2.567, 'hour').format(1)); // → "2.6 hours"
 Get all supported units, optionally filtered by category.
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 // All units across all categories as array
 console.log(Converter(1, 'hour').supportedUnits().length);
@@ -265,7 +265,7 @@ console.log(Converter(1, 'hour').supportedUnits('time'));
 Get object representation.
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 console.log(Converter(2.5, 'hour').toObject()); // → { value: 2.5, unit: "hour" }
 ```
@@ -279,7 +279,7 @@ Internally used by JS engines for JSON serialization.
 </Callout>
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 console.log(Converter(2.5, 'hour').toJSON()); // → '{"value":2.5,"unit":"hour"}'
 ```
@@ -289,7 +289,7 @@ console.log(Converter(2.5, 'hour').toJSON()); // → '{"value":2.5,"unit":"hour"
 All converters support mathematical operations that return new instances:
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const time = Converter(1, 'hour');
 
@@ -304,7 +304,7 @@ console.log(time.divide(4).toString());    // → "0.25 hours"
 Get absolute value.
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 console.log(Converter(-5, 'hour').abs().toString()); // → "5 hours"
 ```
@@ -314,7 +314,7 @@ console.log(Converter(-5, 'hour').abs().toString()); // → "5 hours"
 Round to specified decimal places.
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 console.log(Converter(1.2345, 'hour').round(2).toString()); // → "1.23 hours"
 ```
@@ -322,7 +322,7 @@ console.log(Converter(1.2345, 'hour').round(2).toString()); // → "1.23 hours"
 ### Comparison Methods
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const time = Converter(2, 'hour');
 
@@ -341,7 +341,7 @@ console.log(time.eq(2)); // → true
 - **Base Unit**: `second`
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const time = Converter(90, 'minute');
 console.log(time.to('hour')); // → 1.5
@@ -354,7 +354,7 @@ console.log(time.formatTo('day', { style: 'compact' })); // → "0.06d"
 - **Base Unit**: `meter`
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const length = Converter(5, 'kilometer');
 console.log(length.to('mile')); // → 3.1068559611866697
@@ -367,7 +367,7 @@ console.log(length.formatTo('foot', { style: 'plural' })); // → "16404.2 feet"
 - **Base Unit**: `byte`
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const data = Converter(1024, 'kilobyte');
 console.log(data.to('megabyte')); // → 1
@@ -380,7 +380,7 @@ console.log(data.formatTo('gigabyte', { style: 'compact' })); // → "0GB"
 - **Special Notes**: Temperature conversions use specific formulas rather than multiplication factors.
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const temp = Converter(25, 'celsius');
 console.log(temp.to('fahrenheit')); // → 77
@@ -394,7 +394,7 @@ console.log(temp.formatTo('fahrenheit', { style: 'compact' })); // → "77°F"
 - **Base Unit**: `kilogram`
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const mass = Converter(1, 'kilogram');
 console.log(mass.to('pound')); // → 2.2046226218487757
@@ -407,7 +407,7 @@ console.log(mass.formatTo('ounce', { decimals: 0 })); // → "35 ounces"
 - **Base Unit**: `square-meter`
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const area = Converter(1, 'hectare');
 console.log(area.to('acre')); // → 2.471053814671653
@@ -420,7 +420,7 @@ console.log(area.formatTo('square-meter', { style: 'scientific' })); // → "1.0
 - **Base Unit**: `cubic-meter`
 
 ```ts pg
-import { Converter } from 'toolbox-x';
+import { Converter } from 'toolbox-x/converter';
 
 const volume = Converter(1, 'liter');
 console.log(volume.to('gallon')); // → 0.2641720523581484

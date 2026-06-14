@@ -10,6 +10,7 @@
 		"remap-fields",
 		"extract-new-fields",
 		"extract-object-keys",
+		"extract-object-entries",
 		"extract-updated-and-new-fields",
 		"extract-updated-fields",
 		"flatten-object-dot-notation",

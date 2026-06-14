@@ -27,13 +27,13 @@ All methods return the trimmed verb if the input has trailing spaces.
 ## Import
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 ```
 
 ## Usage
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 
@@ -48,7 +48,7 @@ console.log(myVerbalizer.isPast('ran'));           // → true
 You can modify your instance without affecting others:
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 
@@ -80,7 +80,7 @@ Initializes with built‑in rules and irregular verbs.
 Convert a verb to its past tense form.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 console.log(myVerbalizer.toPast('walk')); // → "walked"
@@ -94,7 +94,7 @@ console.log(myVerbalizer.toPast('run'));  // → "ran"
 Convert a verb to its past participle form.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 console.log(myVerbalizer.toParticiple('walk')); // → "walked"
@@ -108,7 +108,7 @@ console.log(myVerbalizer.toParticiple('go'));    // → "gone"
 Convert a verb to its base form.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 console.log(myVerbalizer.toBase('went'));   // → "go"
@@ -122,7 +122,7 @@ console.log(myVerbalizer.toBase('walked')); // → "walk"
 Check if a verb is in past tense form.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 console.log(myVerbalizer.isPast('ran')); // → true
@@ -136,7 +136,7 @@ console.log(myVerbalizer.isPast('run')); // → false
 Check if a verb is in past participle form.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 console.log(myVerbalizer.isParticiple('gone')); // → true
@@ -150,7 +150,7 @@ console.log(myVerbalizer.isParticiple('go'));    // → false
 Check if a verb is in base form.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 console.log(myVerbalizer.isBase('run')); // → true
@@ -164,7 +164,7 @@ console.log(myVerbalizer.isBase('ran')); // → false
 Add a new base tense conjugation rule.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 myVerbalizer.addBaseRule(/ied$/i, 'y');
@@ -177,7 +177,7 @@ myVerbalizer.addBaseRule(/ied$/i, 'y');
 Add a new past tense conjugation rule.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 myVerbalizer.addPastRule(/e$/i, 'ed');
@@ -190,7 +190,7 @@ myVerbalizer.addPastRule(/e$/i, 'ed');
 Add a new past participle conjugation rule.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 myVerbalizer.addParticipleRule(/e$/i, 'ed');
@@ -203,7 +203,7 @@ myVerbalizer.addParticipleRule(/e$/i, 'ed');
 Add an irregular verb.
 
 ```ts pg
-import { Verbalizer } from 'toolbox-x';
+import { Verbalizer } from 'toolbox-x/verbalizer';
 
 const myVerbalizer = new Verbalizer();
 myVerbalizer.addIrregular('swim', 'swam', 'swum');
@@ -213,4 +213,4 @@ myVerbalizer.addIrregular('swim', 'swam', 'swum');
 
 ## See Also
 
-- [**Pluralizer**](/docs/classes/pluralizer) — Similar class for _noun pluralization_.
+- [**Pluralizer**](./pluralizer) — Similar class for _noun pluralization_.

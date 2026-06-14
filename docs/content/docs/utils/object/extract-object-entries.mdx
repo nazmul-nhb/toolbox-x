@@ -1,0 +1,56 @@
+---
+title: Extract Object Entries
+description: Extracts the top-level entries of an object as key-value pairs with proper typing.
+---
+
+## extractObjectEntries
+
+The `extractObjectEntries` function extracts the top-level entries of an object as an array of key-value pairs (tuples) with proper TypeScript typing. It safely handles `null` and `undefined` inputs by returning an empty array `[]`.
+
+### Function Signature
+
+```typescript
+function extractObjectEntries<T extends GenericObject>(obj: T): Array<ObjectEntry<T>>
+```
+
+### Parameters
+
+- **`obj`** (`T`): The object from which to extract entries.
+
+### Return Value
+
+- **`Array<ObjectEntry<T>>`**: An array of `[key, value]` tuples representing the enumerable own properties of the object. Returns an empty array if the input is `null`, `undefined` or non-object value.
+
+### Example Usage
+
+```ts pg tab="Basic Example"
+import { extractObjectEntries } from 'toolbox-x';
+
+const user = {
+  id: 1,
+  name: 'Alice',
+  role: 'admin'
+};
+
+const entries = extractObjectEntries(user);
+console.log(entries);
+// Output: [['id', 1], ['name', 'Alice'], ['role', 'admin']]
+```
+
+```ts pg tab="Edge Cases"
+import { extractObjectEntries } from 'toolbox-x';
+
+console.log(extractObjectEntries(null));      // Output: []
+console.log(extractObjectEntries(undefined)); // Output: []
+```
+
+<Callout type="info" title="Type Safety">
+Unlike standard `Object.entries(obj)`, which types the keys as `string[]` and values as `any[]`, `extractObjectEntries` preserves the literal keys of the object and types the values according to their specific keys using the `ObjectEntry<T>` utility type.
+</Callout>
+
+### Aliases
+
+The following aliases can be used for the `extractObjectEntries` function:
+
+- `extractEntries`
+- `objectEntries`
