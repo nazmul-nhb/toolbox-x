@@ -426,3 +426,6 @@ export interface RelativeDateFormatOptions extends Intl.RelativeTimeFormatOption
 	 */
 	locale?: LocalesArguments;
 }
+
+/** Record of TimeUnits and number values where at least one property is required. */
+export type UnitWithValue = RequireAtLeast<{ [U in TimeUnit]?: Numeric }, 1>;

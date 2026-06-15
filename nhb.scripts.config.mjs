@@ -65,7 +65,7 @@ import { ${camelTitle} } from 'toolbox-x';
 
 ### Signature
 
-\`\`\`
+\`\`\`ts
 ${camelTitle}()
 \`\`\`
 `,

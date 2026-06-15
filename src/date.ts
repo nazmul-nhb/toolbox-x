@@ -1,10 +1,10 @@
 // ! Date & Time Utilities
+export { addDate } from 'src/date/calculation';
 export {
 	getGreeting as generateGreeting,
 	getGreeting,
 	getGreeting as greet,
 } from 'src/date/greet';
-
 export { parseMSec as parseMs, parseMSec } from 'src/date/parse';
 
 // ! Other date/time utils
