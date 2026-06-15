@@ -1,6 +1,6 @@
 ---
 title: Color Scheme Methods
-description: Generate complementary, analogous, triadic, and tetradic color schemes with the Color class.
+description: Generate complementary, analogous, triadic, tetradic color schemes, and custom-sized palettes with the Color class.
 ---
 
 ## Color Scheme Methods
@@ -26,7 +26,7 @@ import { Color } from 'toolbox-x/colors';
 
 const yellow = new Color("#ffff00");
 const complementary = yellow.getComplementaryColor();
-console.log(complementary.hex); // → "#0000FF" (blue)
+console.log(complementary.hex);
 ```  
 
 ---
@@ -52,7 +52,7 @@ import { Color } from 'toolbox-x/colors';
 
 const orange = new Color("#ffa500");
 const analogous = orange.getAnalogousColors();
-console.log(analogous.map(c => c.hex)); // → [ '#FFA500', '#FF2600', '#D9FF00' ]
+console.log(analogous.map(c => c.hex));
 ```  
 
 ---
@@ -78,7 +78,7 @@ import { Color } from 'toolbox-x/colors';
 
 const red = new Color("#ff0000");
 const triad = red.getTriadColors();
-console.log(triad.map(c => c.hex)); // → [ '#FF0000', '#00FF00', '#0000FF' ]
+console.log(triad.map(c => c.hex));
 ```  
 
 ---
@@ -104,5 +104,43 @@ import { Color } from 'toolbox-x/colors';
 
 const teal = new Color("#008080");
 const tetrad = teal.getTetradColors();
-console.log(tetrad.map(c => c.hex)); // → [ '#008080', '#400080', '#800000', '#408000' ]
+console.log(tetrad.map(c => c.hex));
 ```  
+
+---
+
+### `generatePalette()`
+
+Generates a color palette of evenly distributed hues, preserving the current color's saturation, lightness, and alpha.
+
+#### Signature
+
+```typescript
+generatePalette(count?: NumberRange<1, 360>, step?: NumberRange<1, 360>): Array<Color>
+```  
+
+#### Parameters
+
+| Parameter | Type                   | Description                                                                                           |
+| :-------- | :--------------------- | :---------------------------------------------------------------------------------------------------- |
+| `count`   | `NumberRange<1, 360>`  | The number of colors to generate (clamped to `1–360`). Default: `7`.                                  |
+| `step`    | `NumberRange<1, 360>`  | The hue step in degrees between consecutive colors (clamped to `1–360`). Default: `360 / count`. |
+
+#### Returns
+
+- **`Array<Color>`**: An array of `Color` instances with the specified count.
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x/colors';
+
+const red = new Color("#ff0000");
+const palette = red.generatePalette(4);
+console.log(palette.map((c) => c.hex));
+
+// Custom step value
+const customPalette = red.generatePalette(3, 30);
+console.log(customPalette.map((c) => c.hex));
+```  
+

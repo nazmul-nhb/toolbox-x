@@ -9,6 +9,8 @@ description: Learn how to darken, lighten, desaturate, and blend colors with the
 
 Applies the specified opacity percentage to the color, returning a new `Color` instance.
 
+> This is an **absolute setter**: passing `50` means "set opacity to exactly 50%", regardless of the current opacity.
+
 #### Signature
 
 ```typescript
@@ -17,13 +19,13 @@ applyOpacity(opacity: Percent): Color
 
 #### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
+| Parameter | Type      | Description                                |
+| :-------- | :-------- | :----------------------------------------- |
 | `opacity` | `Percent` | The opacity percentage (`0–100`) to apply. |
 
 #### Returns
 
-- **`Color`**: A new `Color` instance with the modified opacity. If the original color has no alpha channel, it is added. If it already has one, it is updated.
+- **`Color`**: A new `Color` instance with the modified opacity. If the original color has no alpha channel, it is added. If it already has one, it is replaced.
 
 #### Example
 
@@ -32,14 +34,16 @@ import { Color } from 'toolbox-x/colors';
 
 const red = new Color("#ff0000");
 const semiTransparentRed = red.applyOpacity(50); // 50% opacity
-console.log(semiTransparentRed.rgba); // → "rgba(255, 0, 0, 0.5)"
+console.log(semiTransparentRed.rgba);
 ```  
 
 ---
 
 ### `applyDarkness()`
 
-Darkens the color by the specified percentage.
+Darkens the color by **subtracting** the given percentage points from the current lightness in HSL space.
+
+> This is a **relative adjustment**: passing `20` means "reduce lightness by 20 percentage points" from its current value.
 
 #### Signature
 
@@ -49,13 +53,13 @@ applyDarkness(percent: Percent): Color
 
 #### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `percent` | `Percent` | Darken percentage (`0–100`). |
+| Parameter | Type      | Description                                             |
+| :-------- | :-------- | :------------------------------------------------------ |
+| `percent` | `Percent` | Percentage points to subtract from lightness (`0–100`). |
 
 #### Returns
 
-- **`Color`**: A new darkened `Color` instance. Reduces lightness in HSL space, clamping to `0%` if the result would be negative.
+- **`Color`**: A new darkened `Color` instance. Reduces lightness in HSL space, clamping to `0%` if the result would be negative. The original alpha (opacity) is preserved.
 
 #### Example
 
@@ -64,14 +68,16 @@ import { Color } from 'toolbox-x/colors';
 
 const blue = new Color("#0000ff");
 const darkerBlue = blue.applyDarkness(20); // 20% darker
-console.log(darkerBlue.hsl); // → "hsl(240, 100%, 30%)" (was "hsl(240, 100%, 50%)")
+console.log(darkerBlue.hsl);
 ```  
 
 ---
 
 ### `applyBrightness()`
 
-Lightens the color by the specified percentage.
+Lightens the color by **adding** the given percentage points to the current lightness in HSL space.
+
+> This is a **relative adjustment**: passing `30` means "increase lightness by 30 percentage points" from its current value.
 
 #### Signature
 
@@ -81,13 +87,13 @@ applyBrightness(percent: Percent): Color
 
 #### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `percent` | `Percent` | Lighten percentage (`0–100`). |
+| Parameter | Type      | Description                                      |
+| :-------- | :-------- | :----------------------------------------------- |
+| `percent` | `Percent` | Percentage points to add to lightness (`0–100`). |
 
 #### Returns
 
-- **`Color`**: A new lightened `Color` instance. Increases lightness in HSL space, clamping to `100%` if the result exceeds it.
+- **`Color`**: A new lightened `Color` instance. Increases lightness in HSL space, clamping to `100%` if the result exceeds it. The original alpha (opacity) is preserved.
 
 #### Example
 
@@ -96,14 +102,16 @@ import { Color } from 'toolbox-x/colors';
 
 const green = new Color("#008000");
 const lighterGreen = green.applyBrightness(30); // 30% lighter
-console.log(lighterGreen.hsl); // → "hsl(120, 100%, 55.1%)" (was "hsl(120, 100%, 25.1%)")
+console.log(lighterGreen.hsl);
 ```  
 
 ---
 
 ### `applyDullness()`
 
-Desaturates the color by the specified percentage.
+Desaturates the color by **subtracting** the given percentage points from the current saturation in HSL space.
+
+> This is a **relative adjustment**: passing `50` means "reduce saturation by 50 percentage points" from its current value.
 
 #### Signature
 
@@ -113,13 +121,13 @@ applyDullness(percent: Percent): Color
 
 #### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `percent` | `Percent` | Desaturate percentage (`0–100`). |
+| Parameter | Type      | Description                                              |
+| :-------- | :-------- | :------------------------------------------------------- |
+| `percent` | `Percent` | Percentage points to subtract from saturation (`0–100`). |
 
 #### Returns
 
-- **`Color`**: A new desaturated `Color` instance. Reduces saturation in HSL space, clamping to `0%` if the result would be negative.
+- **`Color`**: A new desaturated `Color` instance. Reduces saturation in HSL space, clamping to `0%` if the result would be negative. The original alpha (opacity) is preserved.
 
 #### Example
 
@@ -128,14 +136,16 @@ import { Color } from 'toolbox-x/colors';
 
 const pink = new Color("#ff69b4");
 const dullPink = pink.applyDullness(50); // 50% less saturated
-console.log(dullPink.hsl); // → "hsl(330, 50%, 70.59%)" (was "hsl(330, 100%, 70.59%)")
+console.log(dullPink.hsl); 
 ```  
 
 ---
 
 ### `applyWhiteShade()`
 
-Softens the color toward white, creating a pastel effect.
+Softens the color toward white by **proportionally** reducing saturation and increasing lightness.
+
+> This is a **proportional blend**: passing `40` means "move 40% of the *remaining distance* toward pure white". Unlike `applyBrightness` or `applyDullness`, the effect scales relative to the current distance from white, producing a natural pastel/tint effect.
 
 #### Signature
 
@@ -145,13 +155,13 @@ applyWhiteShade(percent: Percent): Color
 
 #### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
+| Parameter | Type      | Description                  |
+| :-------- | :-------- | :--------------------------- |
 | `percent` | `Percent` | Soften percentage (`0–100`). |
 
 #### Returns
 
-- **`Color`**: A new softened `Color` instance. Internally reduces saturation and increases lightness.
+- **`Color`**: A new softened `Color` instance. Internally reduces saturation and increases lightness proportionally. The original alpha (opacity) is preserved.
 
 #### Example
 
@@ -160,7 +170,7 @@ import { Color } from 'toolbox-x/colors';
 
 const purple = new Color("#800080");
 const softPurple = purple.applyWhiteShade(40); // 40% softer
-console.log(softPurple.hsl); // → "hsl(300, 60%, 55.06%)" (was "hsl(300, 100%, 25.1%)")
+console.log(softPurple.hsl);
 ```  
 
 ---
@@ -177,10 +187,10 @@ blendWith(other: ColorType | CSSColor, weight?: number): Color
 
 #### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `other` | `ColorType \| CSSColor` | The color to blend with. |
-| `weight` | `number` (optional) | The influence of the other color (`0–1`, default `0.5`). |
+| Parameter | Type                    | Description                                              |
+| :-------- | :---------------------- | :------------------------------------------------------- |
+| `other`   | `ColorType \| CSSColor` | The color to blend with.                                 |
+| `weight`  | `number` (optional)     | The influence of the other color (`0–1`, default `0.5`). |
 
 #### Returns
 
@@ -194,5 +204,5 @@ import { Color } from 'toolbox-x/colors';
 const red = new Color("#ff0000");
 const blue = "#0000ff";
 const blendedColor = red.blendWith(blue); // Equal blend
-console.log(blendedColor.hex); // → "#7f007f" (purple)
+console.log(blendedColor.hex);
 ```  

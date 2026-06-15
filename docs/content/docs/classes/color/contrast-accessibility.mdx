@@ -17,9 +17,9 @@ contrastRatio(other: ColorType | CSSColor): number
 
 #### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `other` | `ColorType \| CSSColor` | The color to compare against. |
+| Parameter | Type                    | Description                   |
+| :-------- | :---------------------- | :---------------------------- |
+| `other`   | `ColorType \| CSSColor` | The color to compare against. |
 
 #### Returns
 
@@ -32,7 +32,7 @@ import { Color } from 'toolbox-x/colors';
 
 const black = new Color("#000000");
 const white = "#ffffff";
-console.log(black.contrastRatio(white)); // → 21
+console.log(black.contrastRatio(white));
 ```  
 
 ---
@@ -49,9 +49,9 @@ getWCAGRating(other: ColorType | CSSColor): 'Fail' | 'AA' | 'AAA'
 
 #### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `other` | `ColorType \| CSSColor` | The color to test against. |
+| Parameter | Type                    | Description                |
+| :-------- | :---------------------- | :------------------------- |
+| `other`   | `ColorType \| CSSColor` | The color to test against. |
 
 #### Returns
 
@@ -67,7 +67,7 @@ import { Color } from 'toolbox-x/colors';
 
 const text = "#333333";
 const background = new Color("#f0f0f0");
-console.log(background.getWCAGRating(text)); // → "AAA"
+console.log(background.getWCAGRating(text));
 ```  
 
 ---
@@ -84,8 +84,8 @@ isLightColor(threshold?: number): boolean
 
 #### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
+| Parameter   | Type                | Description                                                                                             |
+| :---------- | :------------------ | :------------------------------------------------------------------------------------------------------ |
 | `threshold` | `number` (optional) | Perceived brightness cutoff value (`0–255`). Defaults to `127.5`. Values outside the range are clamped. |
 
 #### Returns

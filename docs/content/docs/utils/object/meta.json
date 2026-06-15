@@ -8,17 +8,15 @@
 		"pick-fields",
 		"pick-fields-by-condition",
 		"remap-fields",
-		"extract-new-fields",
 		"extract-object-keys",
 		"extract-object-entries",
-		"extract-updated-and-new-fields",
+		"extract-new-fields",
 		"extract-updated-fields",
+		"extract-updated-and-new-fields",
 		"flatten-object-dot-notation",
 		"flatten-object-key-value",
-		"merge-and-flatten-objects",
 		"merge-objects",
-		"parse-json-to-object",
-		"parse-object-values",
+		"merge-and-flatten-objects",
 		"..."
 	]
 }

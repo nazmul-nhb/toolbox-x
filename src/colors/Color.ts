@@ -8,6 +8,7 @@ import {
 	percentToHex,
 } from 'src/colors/utils';
 import { isNonEmptyString } from 'src/guards/primitives';
+import { clampNumber } from 'src/number/utilities';
 import type {
 	AlphaColors,
 	Analogous,
@@ -23,7 +24,7 @@ import type {
 	Tetrad,
 	Triad,
 } from 'src/types/colors';
-import type { Percent } from 'src/types/number';
+import type { NumberRange, Percent } from 'src/types/number';
 
 /**
  * @class Represents a color in {@link Hex6 Hex}, {@link Hex8}, {@link RGB}, {@link RGBA}, {@link HSL}, and {@link HSLA} formats.
@@ -248,6 +249,22 @@ export class Color {
 	}
 
 	/**
+	 * Allows the color to be used in string and number contexts.
+	 * @param hint The hint to determine the conversion type.
+	 */
+	[Symbol.toPrimitive](hint: string) {
+		if (hint === 'string') {
+			return this.hex8;
+		} else if (hint === 'number') {
+			const hex = this.hex8.endsWith('FF') ? this.hex : this.hex8;
+
+			return parseInt(hex.replace('#', '0x'), 16);
+		}
+
+		return this;
+	}
+
+	/**
 	 * @private Convert `Hex6` color format to `Hex8` by applying `100%` opacity.
 	 * @param hex `Hex6` color to convert to `Hex8`.
 	 */
@@ -274,11 +291,12 @@ export class Color {
 	}
 
 	/**
-	 * @instance Applies or modifies the opacity of a color and returns a new instance.
+	 * @instance Sets the opacity of this color to the given **absolute** percentage and returns a new instance.
 	 *
 	 * @remarks
+	 * - This is an **absolute setter**: passing `50` means "set opacity to exactly 50%", regardless of the current opacity.
 	 * - For solid colors ({@link Hex6}/{@link RGB}/{@link HSL}): Adds an alpha channel with the specified opacity.
-	 * - For alpha colors ({@link Hex8}/{@link RGBA}/{@link HSLA}): Updates the existing alpha channel.
+	 * - For alpha colors ({@link Hex8}/{@link RGBA}/{@link HSLA}): Replaces the existing alpha channel.
 	 *
 	 * @param opacity - A number between `0-100` representing the opacity percentage.
 	 * @returns A new instance of `Color` containing all color formats with the applied opacity.
@@ -300,9 +318,20 @@ export class Color {
 	}
 
 	/**
-	 * @instance Darkens the color by reducing the lightness by the given percentage.
-	 * @param percent - The percentage to darken (`0–100`).
-	 * @returns A new `Color` instance with the modified darkness.
+	 * @instance Darkens the color by **subtracting** the given percentage points from the current lightness in HSL space.
+	 *
+	 * @remarks
+	 * - This is a **relative adjustment**: passing `20` means "reduce lightness by 20 percentage points" from its current value.
+	 * - Lightness is clamped to `0%` at minimum.
+	 * - The original alpha (opacity) is preserved in the returned color.
+	 *
+	 * @param percent - The percentage points to subtract from lightness (`0–100`).
+	 * @returns A new `Color` instance with the reduced lightness.
+	 *
+	 * @example
+	 * const blue = new Color("#0000ff"); // hsl(240, 100%, 50%)
+	 * const darkerBlue = blue.applyDarkness(20);
+	 * console.log(darkerBlue.hsl); // hsl(240, 100%, 30%)
 	 */
 	applyDarkness(percent: Percent): Color {
 		const [h, s, l, a] = extractAlphaColorValues(this.hsla);
@@ -315,9 +344,20 @@ export class Color {
 	}
 
 	/**
-	 * @instance Lightens the color by increasing the lightness by the given percentage.
-	 * @param percent - The percentage to brighten (`0–100`).
-	 * @returns A new `Color` instance with the modified lightness.
+	 * @instance Lightens the color by **adding** the given percentage points to the current lightness in HSL space.
+	 *
+	 * @remarks
+	 * - This is a **relative adjustment**: passing `30` means "increase lightness by 30 percentage points" from its current value.
+	 * - Lightness is clamped to `100%` at maximum.
+	 * - The original alpha (opacity) is preserved in the returned color.
+	 *
+	 * @param percent - The percentage points to add to lightness (`0–100`).
+	 * @returns A new `Color` instance with the increased lightness.
+	 *
+	 * @example
+	 * const green = new Color("#008000"); // hsl(120, 100%, 25.1%)
+	 * const lighterGreen = green.applyBrightness(30);
+	 * console.log(lighterGreen.hsl); // hsl(120, 100%, 55.1%)
 	 */
 	applyBrightness(percent: Percent): Color {
 		const [h, s, l, a] = extractAlphaColorValues(this.hsla);
@@ -330,9 +370,20 @@ export class Color {
 	}
 
 	/**
-	 * @instance Reduces the saturation of the color to make it appear duller.
-	 * @param percent - The percentage to reduce saturation (`0–100`).
-	 * @returns A new `Color` instance with the modified saturation.
+	 * @instance Desaturates the color by **subtracting** the given percentage points from the current saturation in HSL space.
+	 *
+	 * @remarks
+	 * - This is a **relative adjustment**: passing `50` means "reduce saturation by 50 percentage points" from its current value.
+	 * - Saturation is clamped to `0%` at minimum (fully desaturated / grayscale).
+	 * - The original alpha (opacity) is preserved in the returned color.
+	 *
+	 * @param percent - The percentage points to subtract from saturation (`0–100`).
+	 * @returns A new `Color` instance with the reduced saturation.
+	 *
+	 * @example
+	 * const pink = new Color("#ff69b4"); // hsl(330, 100%, 70.59%)
+	 * const dullPink = pink.applyDullness(50);
+	 * console.log(dullPink.hsl); // hsl(330, 50%, 70.59%)
 	 */
 	applyDullness(percent: Percent): Color {
 		const [h, s, l, a] = extractAlphaColorValues(this.hsla);
@@ -345,13 +396,21 @@ export class Color {
 	}
 
 	/**
-	 * @instance Softens the color toward white by reducing saturation and increasing lightness based on a percentage.
+	 * @instance Softens the color toward white by **proportionally** reducing saturation and increasing lightness.
 	 *
 	 * @remarks
-	 * This creates a soft UI-like white shade effect (similar to some UI libraries' light color scale).
+	 * - This is a **proportional blend**: passing `40` means "move 40% of the *remaining distance* toward pure white".
+	 * - Unlike {@link applyBrightness} or {@link applyDullness}, the effect scales relative to the current distance from white, producing a natural pastel/tint effect.
+	 * - This creates a soft UI-like white shade effect (similar to some UI libraries' light color scale).
+	 * - The original alpha (opacity) is preserved in the returned color.
 	 *
 	 * @param percent - Value from `0` to `100` representing how far to push the color toward white.
 	 * @returns A new `Color` instance shifted toward white.
+	 *
+	 * @example
+	 * const purple = new Color("#800080"); // hsl(300, 100%, 25.1%)
+	 * const softPurple = purple.applyWhiteShade(40);
+	 * console.log(softPurple.hsl); // hsl(300, 60%, 55.06%)
 	 */
 	applyWhiteShade(percent: Percent): Color {
 		const [h, s, l, a] = extractAlphaColorValues(this.hsla);
@@ -381,20 +440,20 @@ export class Color {
 	blendWith(other: ColorType | CSSColor, weight = 0.5): Color {
 		const w = Math.max(0, Math.min(1, weight));
 
-		const converted = Color.isCSSColor(other) ? new Color(other) : new Color(other);
+		const converted = new Color(other);
 
-		const [r1, b1, g1, a1] = extractAlphaColorValues(this.rgba);
-		const [r2, b2, g2, a2] = extractAlphaColorValues(converted.rgba);
+		const [r1, g1, b1, a1] = extractAlphaColorValues(this.rgba);
+		const [r2, g2, b2, a2] = extractAlphaColorValues(converted.rgba);
 
 		const alpha = Math.round((a1 * (1 - w) + a2 * w) * 100) / 100;
 
-		const blendChannel = (c1: number, c2: number): number => {
+		const _blendChannel = (c1: number, c2: number): number => {
 			return Math.round((c1 * a1 * (1 - w) + c2 * a2 * w) / alpha);
 		};
 
-		const r = blendChannel(r1, r2);
-		const g = blendChannel(g1, g2);
-		const b = blendChannel(b1, b2);
+		const r = _blendChannel(r1, r2);
+		const g = _blendChannel(g1, g2);
+		const b = _blendChannel(b1, b2);
 
 		const blended = `rgba(${r}, ${g}, ${b}, ${alpha})`;
 
@@ -407,7 +466,7 @@ export class Color {
 	 * @returns A number representing the contrast ratio (rounded to 2 decimal places).
 	 */
 	contrastRatio(other: ColorType | CSSColor): number {
-		const newColor = Color.isCSSColor(other) ? new Color(other) : new Color(other);
+		const newColor = new Color(other);
 
 		const luminance = (rgb: RGB): number => {
 			const [r, g, b] = extractSolidColorValues(rgb).map((v) => {
@@ -502,6 +561,43 @@ export class Color {
 	}
 
 	/**
+	 * @instance Generates a color palette of evenly distributed hues based on the current color's saturation, lightness, and alpha.
+	 *
+	 * @remarks
+	 * - Colors are spaced evenly around the color wheel (`360° / count` apart), starting from the current hue.
+	 * - Saturation, lightness, and alpha from the source color are preserved across all generated colors.
+	 *
+	 * @typeParam N - A literal number type representing the palette size.
+	 * @param count - The number of colors to generate in the palette (must be a positive integer ≥ `1`). Default: `7`.
+	 * @param step - The step value (degree) to be added to the hue of the previous color. Default: `360 / count`.
+	 * @returns Array of `Color` instances with the specified count.
+	 *
+	 * @example
+	 * const red = new Color("#ff0000");
+	 * const palette = red.generatePalette(4);
+	 * console.log(palette.map((color) => color.hex));
+	 * // ['#FF0000', '#80FF00', '#00FFFF', '#8000FF']
+	 */
+	generatePalette(count?: NumberRange<1, 360>, step?: NumberRange<1, 360>): Array<Color> {
+		const [h, s, l, a] = extractAlphaColorValues(this.hsla);
+
+		const clampedCount = clampNumber(count ?? 7, 1, 360);
+		const calculatedStep = step ? clampNumber(step, 1, 360) : 360 / clampedCount;
+
+		const colors: Color[] = [];
+
+		for (let i = 0; i < clampedCount; i++) {
+			const newHue = (h + calculatedStep * i) % 360;
+			const newHSL = `hsl(${newHue}, ${s}%, ${l}%)` as HSL;
+			const color = new Color(newHSL).applyOpacity((a * 100) as Percent);
+
+			colors.push(color);
+		}
+
+		return colors;
+	}
+
+	/**
 	 * @instance Gets the `WCAG` accessibility rating between this and another color.
 	 * @param other - The other color to test contrast against.
 	 * @returns `'Fail'`, `'AA'`, or `'AAA'` based on `WCAG 2.1` contrast standards.
@@ -526,6 +622,30 @@ export class Color {
 		const brightness = (r * 299 + g * 587 + b * 114) / 1000;
 
 		return brightness > Math.min(255, Math.max(0, threshold));
+	}
+
+	/**
+	 * @instance Convert the color to string.
+	 * @returns The `Hex8` representation of the color.
+	 *
+	 * @remarks
+	 * - Called by `String()`, `Object.prototype.toString()` or in template literals.
+	 * - Uses the same implementation as `toJSON()`.
+	 */
+	toString() {
+		return this.hex8;
+	}
+
+	/**
+	 * @instance Convert the color to JSON.
+	 * @returns The `Hex8` representation of the color.
+	 *
+	 * @remarks
+	 * - Called by `JSON.stringify()`.
+	 * - It uses the same implementation as `toString()`.
+	 */
+	toJSON() {
+		return this.hex8;
 	}
 
 	/**

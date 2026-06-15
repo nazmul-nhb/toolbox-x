@@ -1,0 +1,116 @@
+---
+title: Protocol Methods
+description: Built-in protocol methods for string coercion, JSON serialization, and primitive conversion of Color instances.
+---
+
+## Protocol Methods
+
+These methods implement JavaScript's built-in protocols, enabling `Color` instances to behave naturally in string interpolation, JSON serialization, and type coercion contexts.
+
+---
+
+### `toString()`
+
+Returns the `Hex8` representation of the color. Automatically invoked in string contexts.
+
+#### Signature
+
+```typescript
+toString(): string
+```  
+
+#### Returns
+
+- **`string`**: The `Hex8` representation of the color (e.g., `#FF0000FF`).
+
+#### Invoked By
+
+- `String(color)`
+- Template literals: `` `${color}` ``
+- `Object.prototype.toString()`
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x/colors';
+
+const red = new Color("#ff0000");
+console.log(`The color is ${red}`);
+console.log(String(red)); 
+```  
+
+---
+
+### `toJSON()`
+
+Returns the `Hex8` representation for JSON serialization. Automatically invoked by `JSON.stringify()`.
+
+#### Signature
+
+```typescript
+toJSON(): string
+```  
+
+#### Returns
+
+- **`string`**: The `Hex8` representation of the color (e.g., `#FF0000FF`).
+
+#### Invoked By
+
+- `JSON.stringify()`
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x/colors';
+
+const red = new Color("#ff0000");
+console.log(JSON.stringify(red));
+
+const palette = { primary: red, secondary: new Color("blue") };
+console.log(JSON.stringify(palette));
+```  
+
+---
+
+### `[Symbol.toPrimitive]()`
+
+Handles type coercion when the engine needs a primitive value. Returns different representations based on the requested hint.
+
+#### Signature
+
+```typescript
+[Symbol.toPrimitive](hint: string): string | number | Color
+```  
+
+#### Parameters
+
+| Parameter | Type     | Description                                                    |
+| :-------- | :------- | :------------------------------------------------------------- |
+| `hint`    | `string` | The coercion hint: `"string"`, `"number"`, or `"default"`. |
+
+#### Returns
+
+| Hint        | Return Type | Value                                                                                         |
+| :---------- | :---------- | :-------------------------------------------------------------------------------------------- |
+| `"string"`  | `string`    | The `Hex8` representation.                                                                    |
+| `"number"`  | `number`    | Integer parsed from the hex value (`Hex6` if fully opaque, `Hex8` otherwise).                 |
+| `"default"` | `Color`     | The `Color` instance itself.                                                                  |
+
+#### Example
+
+```ts pg
+import { Color } from 'toolbox-x/colors';
+
+const red = new Color("#ff0000");
+
+// String hint
+console.log(`${red}`);
+
+// Number hint
+console.log(+red); 
+
+// With alpha
+const semi = new Color("rgba(255, 0, 0, 0.5)");
+console.log(+semi); 
+```  

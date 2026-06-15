@@ -5,7 +5,6 @@
 		"sort-array",
 		"split-array",
 		"find-missing",
-		"flatten-array",
 		"get-duplicates",
 		"remove-duplicates",
 		"get-last-element",
