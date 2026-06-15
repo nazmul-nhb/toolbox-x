@@ -22,9 +22,9 @@ import type {
 	TIME_ZONES,
 	TIME_ZONES_NATIVE,
 } from 'src/date/timezone';
-import type { Maybe } from 'src/types/index';
+import type { Maybe, Numeric } from 'src/types/index';
 import type { Enumerate, LocaleCode, NumberRange } from 'src/types/number';
-import type { LooseLiteral, Split } from 'src/types/utils';
+import type { LooseLiteral, RequireAtLeast, Split } from 'src/types/utils';
 
 /** - Minute in numeric string from `00` to `23` */
 export type ClockHour = `0${Enumerate<10>}` | `${NumberRange<10, 23>}`;
