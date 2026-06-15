@@ -1,8 +1,3 @@
 {
-  "pages": [
-    "utility-types",
-    "common-types",
-    "constants",
-    "..."
-  ]
+	"pages": ["utility-types", "common-types", "constants", "..."]
 }

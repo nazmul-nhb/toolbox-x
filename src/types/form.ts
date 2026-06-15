@@ -1,3 +1,5 @@
+import type { TypeOrArray } from 'src/types/array';
+import type { NormalPrimitive } from 'src/types/index';
 import type {
 	DotNotationKey,
 	KeyForArray,
@@ -120,6 +122,9 @@ export type SerializedForm<T extends boolean> = T extends false
 	: QueryString;
 
 /** * Represents the parsed form data. */
-export type ParsedFormData<T> = T extends string
-	? Record<string, string | string[]>
-	: Record<string, string | string[] | File | File[]>;
+export type ParsedFormData<T extends FormData | string, P extends boolean> = T extends string
+	? Record<string, P extends true ? TypeOrArray<NormalPrimitive> : TypeOrArray<string>>
+	: Record<
+			string,
+			P extends true ? TypeOrArray<NormalPrimitive | File> : TypeOrArray<string | File>
+		>;

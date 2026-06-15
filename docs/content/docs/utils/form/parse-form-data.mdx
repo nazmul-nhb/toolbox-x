@@ -10,10 +10,7 @@ Converts `FormData` or query strings into structured JavaScript objects, with op
 ### Function Signature
 
 ```typescript
-function parseFormData<T extends FormData | string>(
-  data: T,
-  parsePrimitives?: boolean
-): ParsedFormData<T>
+function parseFormData<D, P>(data: D, parsePrimitives?: P): ParsedFormData<D, P>
 ```
 
 ### Parameters
@@ -77,12 +74,17 @@ console.log(parsed);
 
 ---
 
-## Types
-
-### `ParsedFormData`
+## Type Definitions
 
 ```typescript
-type ParsedFormData<T> = T extends string
-  ? Record<string, string | string[]>
-  : Record<string, string | string[] | File | File[]>;
+type TypeOrArray<T> = T | Array<T>;
+
+type NormalPrimitive = string | number | boolean | null | undefined;
+
+type ParsedFormData<T extends FormData | string, P extends boolean> = T extends string
+	? Record<string, P extends true ? TypeOrArray<NormalPrimitive> : TypeOrArray<string>>
+	: Record<
+			string,
+			P extends true ? TypeOrArray<NormalPrimitive | File> : TypeOrArray<string | File>
+		>;
 ```

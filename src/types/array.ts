@@ -4,6 +4,9 @@ import type { GenericObject, NestedPrimitiveKey } from 'src/types/object';
 /** * Flatten Array or Wrap in Array */
 export type Flattened<T> = T extends (infer U)[] ? Flattened<U> : T;
 
+/** * Union of type `T` and array of `T` */
+export type TypeOrArray<T> = T | Array<T>;
+
 // ! ======== TYPES FOR OPTIONS ARRAY START ======== //
 /**
  * * Configuration for `createOptionsArray`.

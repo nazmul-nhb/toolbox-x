@@ -44,10 +44,10 @@ export function serializeForm<T extends boolean = false>(
  * @param parsePrimitives - Whether to parse string values into primitive types (e.g., boolean, number, array, object). Defaults to `true`.
  * @returns The parsed form data as an object.
  */
-export function parseFormData<T extends FormData | string>(
-	data: T,
-	parsePrimitives = true
-): ParsedFormData<T> {
+export function parseFormData<D extends FormData | string, P extends boolean = true>(
+	data: D,
+	parsePrimitives: P = true as P
+): ParsedFormData<D, P> {
 	const parsed: Record<string, unknown> = {};
 
 	if (isString(data)) {
@@ -89,8 +89,8 @@ export function parseFormData<T extends FormData | string>(
 	}
 
 	if (parsePrimitives) {
-		return parseObjectValues(parsed) as ParsedFormData<T>;
+		return parseObjectValues(parsed) as ParsedFormData<D, P>;
 	} else {
-		return parsed as ParsedFormData<T>;
+		return parsed as ParsedFormData<D, P>;
 	}
 }

@@ -14,6 +14,8 @@ export function _resolveNestedKey(obj: unknown, path: string): unknown {
 			if (isNotEmptyObject(acc)) {
 				return acc[key];
 			}
+
+			return undefined;
 		}, obj);
 	}
 }
