@@ -9,6 +9,8 @@
 		"utils",
 		"classes",
 		"guards",
+		"types",
+		"constants",
 		"..."
 	]
 }
