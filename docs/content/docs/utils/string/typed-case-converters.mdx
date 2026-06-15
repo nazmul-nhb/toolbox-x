@@ -7,9 +7,10 @@ description: Utilities that convert strings into various case formats while pres
 
 The typed case converters convert string literals into various case formats while preserving their compile-time TypeScript types. This provides complete type safety and IDE autocompletion when working with string constant values.
 
-> [!WARNING]
-> - **TypeScript Character Limit**: For reliable literal type inference, TypeScript supports strings up to ~45 characters. For longer strings, type inference might fallback to `string`.
-> - **No Acronym Handling**: These functions do not support custom acronym preservation rules. Use [convertStringCase](./convert-string-case) instead if you need to handle acronyms.
+<Callout type="warning" title="Warning">
+- **TypeScript Character Limit**: For reliable literal type inference, TypeScript supports strings up to ~45 characters. For longer strings, type inference might fallback to `string`.
+- **No Acronym Handling**: These functions do not support custom acronym preservation rules. Use [convertStringCase](./convert-string-case) instead if you need to handle acronyms.
+</Callout>
 
 ### Import
 

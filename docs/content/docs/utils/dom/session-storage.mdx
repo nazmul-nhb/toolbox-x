@@ -35,21 +35,21 @@ function getFromSessionStorage<T>(
 
 ### Example Usage
 
-```ts pg tab="String Value"
+```ts tab="String Value"
 import { getFromSessionStorage } from 'toolbox-x/dom';
 
 const color = getFromSessionStorage<string>('color');
 console.log(color); // → e.g. 'blue'
 ```
 
-```ts pg tab="Object Value"
+```ts tab="Object Value"
 import { getFromSessionStorage } from 'toolbox-x/dom';
 
 const cart = getFromSessionStorage<{ total: number; items: number }>('cart');
 console.log(cart?.total); // → 30
 ```
 
-```ts pg tab="Custom Deserialization"
+```ts tab="Custom Deserialization"
 import { getFromSessionStorage } from 'toolbox-x/dom';
 
 interface AuthSession {
@@ -92,14 +92,14 @@ function saveToSessionStorage<T>(
 
 ### Example Usage
 
-```ts pg tab="Basic Usage"
+```ts tab="Basic Usage"
 import { saveToSessionStorage } from 'toolbox-x/dom';
 
 saveToSessionStorage('count', 10);
 saveToSessionStorage('profile', { id: 7, username: 'user7' });
 ```
 
-```ts pg tab="Custom Serialization"
+```ts tab="Custom Serialization"
 import { saveToSessionStorage } from 'toolbox-x/dom';
 
 saveToSessionStorage(
@@ -137,7 +137,7 @@ function removeFromSessionStorage(key: string): void
 
 ### Example Usage
 
-```ts pg
+```ts
 import { removeFromSessionStorage } from 'toolbox-x/dom';
 
 removeFromSessionStorage('cart');

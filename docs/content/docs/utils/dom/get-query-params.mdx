@@ -19,7 +19,7 @@ function getQueryParams<QParams extends Record<string, string>>(): QParams
 
 ### Example Usage
 
-```ts pg tab="Basic Usage"
+```ts tab="Basic Usage"
 // If current URL is: https://example.com/?user=alex&role=admin
 
 import { getQueryParams } from 'toolbox-x/dom';
@@ -29,7 +29,7 @@ console.log(params);
 // Output: { user: "alex", role: "admin" }
 ```
 
-```ts pg tab="Encoded Values"
+```ts tab="Encoded Values"
 // If current URL is: https://example.com/?q=hello%20world
 
 import { getQueryParams } from 'toolbox-x/dom';

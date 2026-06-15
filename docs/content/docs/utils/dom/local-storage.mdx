@@ -40,7 +40,7 @@ function getFromLocalStorage<T>(key: string, deserialize?: Deserializer<T>): T |
 
 ### Example Usage
 
-```ts pg tab="String Value"
+```ts tab="String Value"
 import { getFromLocalStorage } from 'toolbox-x/dom';
 
 // Given: localStorage.setItem('theme', JSON.stringify('dark'))
@@ -48,7 +48,7 @@ const theme = getFromLocalStorage<string>('theme');
 console.log(theme); // Output: 'dark'
 ```
 
-```ts pg tab="Object Value"
+```ts tab="Object Value"
 import { getFromLocalStorage } from 'toolbox-x/dom';
 
 // Given: localStorage.setItem('user', JSON.stringify({ id: 1, name: 'Jane'}))
@@ -56,7 +56,7 @@ const user = getFromLocalStorage<{ id: number; name: string }>('user');
 console.log(user); // Output: { id: 1, name: 'Jane' }
 ```
 
-```ts pg tab="Custom Deserializer"
+```ts tab="Custom Deserializer"
 import { getFromLocalStorage } from 'toolbox-x/dom';
 
 // Correctly hydrate Date objects
@@ -92,19 +92,19 @@ function saveToLocalStorage<T>(key: string, value: T, serialize?: Serializer<T>)
 
 ### Example Usage
 
-```ts pg tab="Store Primitive"
+```ts tab="Store Primitive"
 import { saveToLocalStorage } from 'toolbox-x/dom';
 
 saveToLocalStorage('count', 5);
 ```
 
-```ts pg tab="Store Object"
+```ts tab="Store Object"
 import { saveToLocalStorage } from 'toolbox-x/dom';
 
 saveToLocalStorage('session', { token: 'abc', expires: 123456 });
 ```
 
-```ts pg tab="Custom Serializer"
+```ts tab="Custom Serializer"
 import { saveToLocalStorage } from 'toolbox-x/dom';
 
 saveToLocalStorage(
@@ -135,7 +135,7 @@ function removeFromLocalStorage(key: string): void
 
 ### Example Usage
 
-```ts pg
+```ts
 import { removeFromLocalStorage } from 'toolbox-x/dom';
 
 removeFromLocalStorage('theme');

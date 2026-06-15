@@ -18,9 +18,9 @@ function serializeForm<T extends boolean = false>(
 
 ### Parameters
 
-| Parameter | Type | Description | Default |
-| :--- | :--- | :--- | :--- |
-| `form` | `HTMLFormElement` | The form element to serialize. | — |
+| Parameter       | Type                 | Description                                    | Default |
+| :-------------- | :------------------- | :--------------------------------------------- | :------ |
+| `form`          | `HTMLFormElement`    | The form element to serialize.                 | —       |
 | `toQueryString` | `boolean` (optional) | Return as a query string instead of an object. | `false` |
 
 ### Returns
@@ -33,7 +33,7 @@ function serializeForm<T extends boolean = false>(
 
 ### Example Usage
 
-```ts pg tab="Object Format"
+```ts tab="Object Format"
 import { serializeForm } from 'toolbox-x/dom';
 
 // Assuming an HTML form with inputs: name="John", hobbies="reading", hobbies="coding"
@@ -43,7 +43,7 @@ console.log(data);
 // → { name: 'John', hobbies: ['reading', 'coding'] }
 ```
 
-```ts pg tab="Query String Format"
+```ts tab="Query String Format"
 import { serializeForm } from 'toolbox-x/dom';
 
 const form = document.querySelector('form') as HTMLFormElement;
@@ -59,8 +59,9 @@ console.log(query);
 - **Multiple Inputs**: Multiple checkboxes with the same name or multi-select inputs automatically get serialized into arrays.
 - **File Inputs**: File input values are serialized as their filename strings, not actual binary contents. For uploading files, use [`createFormData`](./create-form-data) instead.
 
-> [!WARNING]
-> **Server-Side Rendering (SSR)**: This utility is a browser-only tool because it directly references and reads `HTMLFormElement` DOM nodes. It will throw errors in SSR contexts if executed server-side.
+<Callout type="warning" title="Warning">
+**Server-Side Rendering (SSR)**: This utility is a browser-only tool because it directly references and reads `HTMLFormElement` DOM nodes. It will throw errors in SSR contexts if executed server-side.
+</Callout>
 
 ---
 

@@ -15,10 +15,10 @@ function smoothScrollTo(element: HTMLElement, offset?: number): void
 
 ### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `element` | `HTMLElement` | The target DOM element to scroll to. |
-| `offset` | `number` (optional) | Vertical pixel offset (positive shifts viewport further down, negative shifts it up). |
+| Parameter | Type                | Description                                                                           |
+| :-------- | :------------------ | :------------------------------------------------------------------------------------ |
+| `element` | `HTMLElement`       | The target DOM element to scroll to.                                                  |
+| `offset`  | `number` (optional) | Vertical pixel offset (positive shifts viewport further down, negative shifts it up). |
 
 ### Returns
 
@@ -28,7 +28,7 @@ function smoothScrollTo(element: HTMLElement, offset?: number): void
 
 ### Example Usage
 
-```ts pg tab="Basic Scroll"
+```ts tab="Basic Scroll"
 import { smoothScrollTo } from 'toolbox-x/dom';
 
 const section = document.getElementById('contact-us');
@@ -37,7 +37,7 @@ if (section) {
 }
 ```
 
-```ts pg tab="Header Offset"
+```ts tab="Header Offset"
 import { smoothScrollTo } from 'toolbox-x/dom';
 
 const faq = document.getElementById('faq');

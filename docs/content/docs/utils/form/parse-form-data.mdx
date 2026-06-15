@@ -1,5 +1,5 @@
 ---
-title: Parse Form Data
+title: Parse FormData
 description: Converts FormData or query strings into structured JavaScript objects with optional primitive parsing.
 ---
 
@@ -18,10 +18,10 @@ function parseFormData<T extends FormData | string>(
 
 ### Parameters
 
-| Parameter | Type | Description | Default |
-| :--- | :--- | :--- | :--- |
-| `data` | `FormData \| string` | Input data to parse. | — |
-| `parsePrimitives` | `boolean` (optional) | Whether to convert string values into actual types (booleans, numbers, arrays, objects). | `true` |
+| Parameter         | Type                 | Description                                                                              | Default |
+| ----------------- | -------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `data`            | `FormData \| string` | Input data to parse.                                                                     | —       |
+| `parsePrimitives` | `boolean` (optional) | Whether to convert string values into actual types (booleans, numbers, arrays, objects). | `true`  |
 
 ### Returns
 

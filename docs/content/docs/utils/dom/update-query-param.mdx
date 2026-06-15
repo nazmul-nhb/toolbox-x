@@ -15,10 +15,10 @@ function updateQueryParam(key: string, value: string): void
 
 ### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `key` | `string` | The query parameter key to update or add. |
-| `value` | `string` | The value to set for the key. |
+| Parameter | Type     | Description                               |
+| :-------- | :------- | :---------------------------------------- |
+| `key`     | `string` | The query parameter key to update or add. |
+| `value`   | `string` | The value to set for the key.             |
 
 ### Returns
 
@@ -28,7 +28,7 @@ function updateQueryParam(key: string, value: string): void
 
 ### Example Usage
 
-```ts pg tab="Basic Update"
+```ts tab="Basic Update"
 import { updateQueryParam } from 'toolbox-x/dom';
 
 // Assuming current URL: https://example.com/?user=alex&role=admin
@@ -37,7 +37,7 @@ updateQueryParam('user', 'sam');
 // Browser URL is now: https://example.com/?user=sam&role=admin
 ```
 
-```ts pg tab="Add Parameter"
+```ts tab="Add Parameter"
 import { updateQueryParam } from 'toolbox-x/dom';
 
 // Assuming current URL: https://example.com/?a=1

@@ -196,6 +196,17 @@ export {
 } from 'src/object/basics';
 
 export {
+	generateQueryParams as createQueryParams,
+	generateQueryParams as formatQueryParams,
+	generateQueryParams,
+	parseQueryString as getQueryStringAsObject,
+	parseQueryString,
+	parseQueryString as queryStringToObject,
+	parseQueryStringLiteral as literalQueryStringToObject,
+	parseQueryStringLiteral,
+} from 'src/dom/query';
+
+export {
 	extractNewFields,
 	extractUpdatedAndNewFields,
 	extractUpdatedFields,

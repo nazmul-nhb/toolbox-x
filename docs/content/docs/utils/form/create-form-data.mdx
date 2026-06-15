@@ -1,5 +1,5 @@
 ---
-title: Create Controlled FormData
+title: Create FormData
 description: Converts JavaScript objects, nested structures, and files into standard FormData with comprehensive formatting options.
 ---
 
@@ -18,9 +18,9 @@ function createFormData<T extends GenericObject>(
 
 ### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `data` | `T` | The source object to convert to FormData. |
+| Parameter | Type                            | Description                                      |
+| :-------- | :------------------------------ | :----------------------------------------------- |
+| `data`    | `T`                             | The source object to convert to FormData.        |
 | `configs` | `FormDataConfigs<T>` (optional) | Configuration options controlling serialization. |
 
 ### Returns
@@ -34,7 +34,8 @@ function createFormData<T extends GenericObject>(
 ```ts pg
 import { createFormData } from 'toolbox-x/dom';
 
-const file = new File(['hello'], 'hello.txt', { type: 'text/plain' });
+const file1 = new File(['file1'], 'file1.txt', { type: 'text/plain' });
+const file2 = new File(['file2'], 'file2.txt', { type: 'text/plain' }); 
 
 const data = {
   user: {
@@ -42,7 +43,7 @@ const data = {
     age: 30,
     preferences: { theme: 'dark' }
   },
-  files: [file]
+  files: [file1, file2]
 };
 
 const formData = createFormData(data, {
@@ -52,11 +53,14 @@ const formData = createFormData(data, {
   breakArray: ['files']
 });
 
-// Resulting FormData values:
-// user.name -> "john doe" (trimmed and lowercased)
-// user.age -> "30"
-// user.preferences.theme -> "dark" (flattened via dotNotateNested)
-// files[0] -> File object (individual key due to breakArray)
+console.log(Object.fromEntries(formData));
+
+// Resulting FormData:
+// user.name=john doe
+// user.age=30
+// user.preferences.theme=dark
+// files[0]=[File1]
+// files[1]=[File2]
 ```
 
 ---
@@ -77,8 +81,9 @@ const formData = createFormData(data, {
 - Trims all string values when `trimStrings` is `true`.
 - Converts specific key paths or values to lowercase using `lowerCaseKeys` and `lowerCaseValues`.
 
-> [!WARNING]
-> **Server-Side Rendering (SSR)**: This utility is designed for browser environments and may fail or produce unexpected results when run inside server-side environments (such as Next.js Server Components) due to server-side `FormData` limitations.
+<Callout type="warning" title="Warning">
+**Server-Side Rendering (SSR)**: This utility is designed for browser environments and may fail or produce unexpected results when run inside server-side environments (such as Next.js Server Components) due to server-side `FormData` limitations.
+</Callout>
 
 ---
 
@@ -86,8 +91,8 @@ const formData = createFormData(data, {
 
 This function can also be imported under the following name:
 
-| Alias | Import Path |
-| :--- | :--- |
+| Alias               | Import Path     |
+| :------------------ | :-------------- |
 | `convertToFormData` | `toolbox-x/dom` |
 
 ---
