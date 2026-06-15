@@ -291,8 +291,7 @@ export const extractUpdatedAndNewFields = <T extends GenericObject, U extends Ge
  * - *Unlike `parseJSON`, which returns any valid JSON structure (including arrays, strings, numbers, etc.),
  * this function strictly ensures that the result is an object and optionally transforms stringified primitives.*
  *
- * @see parseJSON - For parsing generic JSON values (arrays, numbers, etc.) with optional primitive transformation.
- *
+ * @see `parseJSON` - For parsing generic JSON values (arrays, numbers, etc.) with optional primitive transformation.
  */
 export const parseJsonToObject = <T extends GenericObject = GenericObject>(
 	value: string,

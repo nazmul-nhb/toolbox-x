@@ -6,7 +6,7 @@ import type { ColorInput, ColorInputArray, Hex8 } from 'src/types/colors';
 import type { Percent } from 'src/types/number';
 
 /**
- *  * Generates a hex (`Hex8` format) color based on the first character (initial) of a string or number.
+ * * Generates a hex (`Hex8` format) color based on the first character (initial) of a string or number.
  *
  * - For numbers, it uses 10 predefined colors (0-9).
  * - For letters, it uses 26 predefined colors (A-Z).
@@ -90,14 +90,12 @@ export function getColorForInitial(
 				_applyOpacity(color, hexOpacity)
 			);
 
-		return input
-			.map((el) => {
-				if (Array.isArray(el)) {
-					return getColorForInitial(el, opacity);
-				}
+		return input.flatMap((el) => {
+			if (Array.isArray(el)) {
 				return getColorForInitial(el, opacity);
-			})
-			.flat();
+			}
+			return getColorForInitial(el, opacity);
+		});
 	}
 
 	return _applyOpacity(DEFAULT, hexOpacity);

@@ -1,7 +1,7 @@
 import { DATE_UNIT_SETTERS } from 'src/date/constants';
 import { _dateArgsToDate } from 'src/date/helpers';
-import { isNumber } from 'src/guards';
 import { isObjectWithKeys } from 'src/guards/non-primitives';
+import { isNumber } from 'src/guards/primitives';
 import { normalizeNumber } from 'src/number/utilities';
 import type { DateArgs, TimeUnit, UnitWithValue } from 'src/types/date';
 import type { Maybe, Numeric } from 'src/types/index';
