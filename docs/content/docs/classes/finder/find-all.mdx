@@ -1,5 +1,5 @@
 ---
-title: findAll()
+title: Find All Items
 description: Finds all items matching specified criteria using optimized search strategies.
 ---
 
@@ -19,11 +19,11 @@ findAll(
 
 ### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `matcher` | `string \| number` | Value to match against. |
-| `keySelector` | `KeySelector<T>` | Property name or value extractor function. |
-| `options` | `FindOptions<T>` | Search configuration options. |
+| Parameter     | Type               | Description                                |
+| :------------ | :----------------- | :----------------------------------------- |
+| `matcher`     | `string \| number` | Value to match against.                    |
+| `keySelector` | `KeySelector<T>`   | Property name or value extractor function. |
+| `options`     | `FindOptions<T>`   | Search configuration options.              |
 
 ### Returns
 
@@ -42,6 +42,7 @@ const users = [
 
 const userFinder = new Finder(users);
 const admins = userFinder.findAll('admin', 'role');
+
 console.log(admins); // → [{ id: 1, name: 'John Doe', role: 'admin' }]
 ```
 
@@ -58,6 +59,7 @@ const productFinder = new Finder(products);
 const laptops = productFinder.findAll('lptp', 'name', {
   fuzzy: true
 });
+
 console.log(laptops); // → [{ id: 3, name: "Laptop" }]
 ```
 
@@ -66,13 +68,17 @@ import { Finder } from 'toolbox-x';
 
 const users = [
   { id: 1, name: 'John Doe', status: 'active' },
-  { id: 2, name: 'Jane Smith', status: 'active' }
+  { id: 2, name: 'Jane Smith', status: 'active' },
+  { id: 3, name: 'Bob Johnson', status: 'inactive' },
+  { id: 4, name: 'Alice Williams', status: 'busy' },
+  { id: 5, name: 'Charlie Brown', status: 'inactive' },
 ];
 
 const userFinder = new Finder(users);
 const results = userFinder.findAll('active', 'status', {
   cacheKey: 'active-users'
 });
+
 console.log(results);
 ```
 

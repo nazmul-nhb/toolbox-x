@@ -1,5 +1,5 @@
 ---
-title: fuzzySearch()
+title: Fuzzy Search
 description: Performs a fuzzy search by matching characters in sequence against array elements.
 ---
 
@@ -20,12 +20,12 @@ fuzzySearch(
 
 ### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `array` | `T[]` | The collection to search. |
-| `matcher` | `string` | The sequence to search for (e.g. `'cmn'` matches `'California'`). |
-| `keySelector` | `(item: T) => string \| number` | Value extractor function. |
-| `caseInsensitive` | `boolean` | Whether to ignore character case. |
+| Parameter         | Type                            | Description                                                       |
+| :---------------- | :------------------------------ | :---------------------------------------------------------------- |
+| `array`           | `T[]`                           | The collection to search.                                         |
+| `matcher`         | `string`                        | The sequence to search for (e.g. `'cmn'` matches `'California'`). |
+| `keySelector`     | `(item: T) => string \| number` | Value extractor function.                                         |
+| `caseInsensitive` | `boolean`                       | Whether to ignore character case.                                 |
 
 ### Description
 
@@ -53,6 +53,7 @@ const result = finder.fuzzySearch(
   item => item.name,
   true
 );
+
 console.log(result); // → { id: 1, name: "Smartphone" }
 ```
 
@@ -71,6 +72,7 @@ const result = finder.fuzzySearch(
   item => item.stock,
   false
 );
+
 console.log(result); // → { sku: "A100", stock: 15 }
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: findOne()
+title: Find One Item
 description: Finds the first item matching specified criteria using optimized search strategies.
 ---
 
@@ -19,11 +19,11 @@ findOne(
 
 ### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `matcher` | `string \| number` | Value to match against. |
-| `keySelector` | `KeySelector<T>` | Property name or value extractor function. |
-| `options` | `FindOptions<T>` | Search configuration options. |
+| Parameter     | Type               | Description                                |
+| :------------ | :----------------- | :----------------------------------------- |
+| `matcher`     | `string \| number` | Value to match against.                    |
+| `keySelector` | `KeySelector<T>`   | Property name or value extractor function. |
+| `options`     | `FindOptions<T>`   | Search configuration options.              |
 
 ### Returns
 
@@ -41,6 +41,7 @@ const users = [
 
 const userFinder = new Finder(users);
 const admin = userFinder.findOne('john@example.com', 'email');
+
 console.log(admin); // → { id: 1, name: 'John Doe', email: 'john@example.com' }
 ```
 
@@ -57,6 +58,7 @@ const laptop = productFinder.findOne('electronics', 'category', {
   fuzzy: true,
   caseInsensitive: true
 });
+
 console.log(laptop);
 ```
 
@@ -72,6 +74,7 @@ const userFinder = new Finder(users);
 const result = userFinder.findOne('john@example.com', 'email', {
   cacheKey: 'john-search'
 });
+
 console.log(result);
 ```
 

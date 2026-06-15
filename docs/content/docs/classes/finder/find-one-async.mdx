@@ -1,5 +1,5 @@
 ---
-title: findOneAsync()
+title: Find One Item Async
 description: Asynchronously finds the first matching item using the same search strategies as findOne().
 ---
 
@@ -20,12 +20,12 @@ async findOneAsync(
 
 ### Parameters
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `supplier` | `() => Promise<T[]>` | Async function providing the data. |
-| `matcher` | `string \| number` | Value to match against. |
-| `keySelector` | `KeySelector<T>` | Property name or value extractor function. |
-| `options` | `Omit<FindOptions<T>, 'data'>` | Search configuration options (excluding `data`). |
+| Parameter     | Type                           | Description                                      |
+| :------------ | :----------------------------- | :----------------------------------------------- |
+| `supplier`    | `() => Promise<T[]>`           | Async function providing the data.               |
+| `matcher`     | `string \| number`             | Value to match against.                          |
+| `keySelector` | `KeySelector<T>`               | Property name or value extractor function.       |
+| `options`     | `Omit<FindOptions<T>, 'data'>` | Search configuration options (excluding `data`). |
 
 ### Returns
 
@@ -40,10 +40,16 @@ This method provides an async interface to `findOne()`, useful when:
 
 ### Example Usage
 
-```typescript
+```typescript tab="Basic Usage"
 import { Finder } from 'toolbox-x';
 
-const userFinder = new Finder<any>([]);
+interface User {
+  id: number;
+  name: string;
+  role: string;
+}
+
+const userFinder = new Finder<User>([]);
 
 // Basic Async Search
 const result = await userFinder.findOneAsync(
@@ -54,13 +60,20 @@ const result = await userFinder.findOneAsync(
   'admin',
   'role'
 );
+
 console.log(result);
 ```
 
-```typescript
+```typescript tab="With Custom Options"
 import { Finder } from 'toolbox-x';
 
-const userFinder = new Finder<any>([]);
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const userFinder = new Finder<User>([]);
 
 // With Caching
 const user = await userFinder.findOneAsync(

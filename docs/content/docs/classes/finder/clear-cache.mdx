@@ -1,5 +1,5 @@
 ---
-title: clearCache()
+title: Clear Cache
 description: Manages the internal cache of search results by either clearing a specific cache entry or purging all cached data.
 ---
 
@@ -15,9 +15,9 @@ clearCache(key?: string): void
 
 ### Parameters
 
-| Parameter | Type | Required | Description |
-| :--- | :--- | :--- | :--- |
-| `key` | `string` | Optional | The specific cache key to remove. When omitted, clears all cached results. |
+| Parameter | Type     | Required | Description                                                                |
+| :-------- | :------- | :------- | :------------------------------------------------------------------------- |
+| `key`     | `string` | Optional | The specific cache key to remove. When omitted, clears all cached results. |
 
 ### Description
 
@@ -33,7 +33,7 @@ Cache management is particularly useful when:
 
 ### Example Usage
 
-```ts pg tab="Clearing All Cached Results"
+```ts tab="Clearing All Cached Results"
 import { Finder } from 'toolbox-x';
 
 const products = [
@@ -48,7 +48,7 @@ const productFinder = new Finder(products);
 productFinder.clearCache();
 ```
 
-```ts pg tab="Removing Specific Cache Entry"
+```ts tab="Removing Specific Cache Entry"
 import { Finder } from 'toolbox-x';
 
 const users = [
@@ -65,7 +65,7 @@ userFinder.findAll('admin', 'role', { cacheKey: 'admin-users' });
 userFinder.clearCache('admin-users');
 ```
 
-```ts pg tab="Cache Management Pattern"
+```ts tab="Cache Management Pattern"
 import { Finder } from 'toolbox-x';
 
 class DataService {
