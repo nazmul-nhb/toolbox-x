@@ -5,13 +5,12 @@
 import { Stylog } from 'toolbox-x/stylog';
 
 /**
- * @fileoverview Syncs release sections from root CHANGELOG.md into
- * docs/content/docs/changelog.mdx with the MDX frontmatter preserved.
+ * @fileoverview Syncs release sections from root CHANGELOG.md
+ * into docs/content/docs/changelog.mdx with the MDX frontmatter preserved.
  *
  * Runs before the docs build (Vercel) to keep the changelog page up-to-date.
  *
- * Usage:
- *   node docs/scripts/update-changelog.mjs
+ * Usage: node docs/scripts/update-changelog.mjs
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
