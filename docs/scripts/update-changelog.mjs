@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-//@ts-check
+// @ts-check
 
 import { Stylog } from 'toolbox-x/stylog';
 
@@ -31,7 +31,7 @@ description: All notable changes to the toolbox-x package.
 icon: Logs
 ---
 
-All notable changes to **toolbox-x** will be documented in this file.
+All notable changes to **toolbox-x** will be documented here.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).`;
 

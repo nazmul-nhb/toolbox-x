@@ -4,10 +4,6 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
-## [Unreleased](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.4...HEAD)
-
-* \[[`daa192f88c`](https://github.com/nazmul-nhb/toolbox-x/commit/daa192f88c)] - 📚 docs: updated CHANGELOG.md for v2.2.4 (github-actions\[bot])
-
 ## [v2.2.4](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.2.4) — 2026-06-16
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.2...v2.2.4)
@@ -84,9 +80,9 @@ All notable changes to **toolbox-x** will be documented in this file.
 * \[[`8bfc3133cd`](https://github.com/nazmul-nhb/toolbox-x/commit/8bfc3133cd)] - 🐛 fix(docs): updated all invalid mdx links (Nazmul Hassan)
 * \[[`960c38abf8`](https://github.com/nazmul-nhb/toolbox-x/commit/960c38abf8)] - 🐛 fix(docs): fixed some syntax errors and removed some pg (Nazmul Hassan)
 * \[[`6723823ab2`](https://github.com/nazmul-nhb/toolbox-x/commit/6723823ab2)] - 🔧 update(docs): removed some pg tag and added some (Nazmul Hassan)
-* \[[`048824461d`](https://github.com/nazmul-nhb/toolbox-x/commit/048824461d)] - 🔧 update(docs): updated class docs sideba titles and other gaps (Nazmul Hassan)
+* \[[`048824461d`](https://github.com/nazmul-nhb/toolbox-x/commit/048824461d)] - 🔧 update(docs): updated class docs sidebar titles and other gaps (Nazmul Hassan)
 * \[[`6a2193938a`](https://github.com/nazmul-nhb/toolbox-x/commit/6a2193938a)] - 🔧 update(docs): migrated rest of the docs from old docusaurus docs (Nazmul Hassan)
-* \[[`169e3e7b7f`](https://github.com/nazmul-nhb/toolbox-x/commit/169e3e7b7f)] - ✨ feat(object): added new util `extractObjectEntries` and updated array iltering util (Nazmul Hassan)
+* \[[`169e3e7b7f`](https://github.com/nazmul-nhb/toolbox-x/commit/169e3e7b7f)] - ✨ feat(object): added new util `extractObjectEntries` and updated array filtering util (Nazmul Hassan)
 * \[[`fed3e28a6a`](https://github.com/nazmul-nhb/toolbox-x/commit/fed3e28a6a)] - 🔧 update(docs): rearranged sidebar items (Nazmul Hassan)
 * \[[`5ecff45b6e`](https://github.com/nazmul-nhb/toolbox-x/commit/5ecff45b6e)] - 🐛 fix(docs): fixed syntax error in mdx (Nazmul Hassan)
 * \[[`1daecd22ed`](https://github.com/nazmul-nhb/toolbox-x/commit/1daecd22ed)] - 🔧 update(docs): added (migrated) rest of the docs by AI Agent (Nazmul Hassan)

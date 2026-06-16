@@ -111,44 +111,42 @@ async function main() {
 	const tagsRaw = await runShell("git tag -l 'v*' --sort=-v:refname");
 
 	if (!tagsRaw) {
-		console.error('❌ No version tags found.');
+		console.error('✗ No version tags found.');
 		process.exit(1);
 	}
 
 	const tags = tagsRaw.split('\n').filter(Boolean);
 
 	// Check for unreleased commits (commits after the latest tag)
-	const latestTag = tags[0];
-	const unreleasedCommits = await runShell(
-		`git rev-list --count "${latestTag}..HEAD" 2>/dev/null`
-	);
-	const hasUnreleased = Number.parseInt(unreleasedCommits, 10) > 0;
+	// const latestTag = tags[0];
+	// const unreleasedCommits = await runShell(
+	// 	`git rev-list --count "${latestTag}..HEAD" 2>/dev/null`
+	// );
+	// const hasUnreleased = Number.parseInt(unreleasedCommits, 10) > 0;
 
 	/** @type {string[]} */
 	const sections = [];
 
 	// ── Unreleased section ──────────────────────────────────────────────────
-	if (hasUnreleased) {
-		const firstAfter = await runShell(
-			`git rev-list --reverse "${latestTag}..HEAD" | head -n 1`
-		);
-
-		if (firstAfter) {
-			const notes = await runShell(
-				`npx changelog-maker --markdown --group --filter-release --start-ref "${firstAfter}" ${REPO_OWNER} ${REPO_NAME}`
-			);
-
-			if (notes) {
-				sections.push(
-					[
-						`## [Unreleased](${REPO_URL}/compare/${latestTag}...HEAD)`,
-						'',
-						notes,
-					].join('\n')
-				);
-			}
-		}
-	}
+	// if (hasUnreleased) {
+	// const firstAfter = await runShell(
+	// 	`git rev-list --reverse "${latestTag}..HEAD" | head -n 1`
+	// );
+	// if (firstAfter) {
+	// 	const notes = await runShell(
+	// 		`npx changelog-maker --markdown --group --filter-release --start-ref "${firstAfter}" ${REPO_OWNER} ${REPO_NAME}`
+	// 	);
+	// 	if (notes) {
+	// 		sections.push(
+	// 			[
+	// 				`## [Unreleased](${REPO_URL}/compare/${latestTag}...HEAD)`,
+	// 				'',
+	// 				notes,
+	// 			].join('\n')
+	// 		);
+	// 	}
+	// }
+	// }
 
 	// ── Release sections (newest → oldest) ──────────────────────────────────
 	for (let i = 0; i < tags.length; i++) {
@@ -200,7 +198,10 @@ async function main() {
 		'',
 		`> Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).`,
 		'',
-		...sections.map((s) => `${s}\n`),
+		...sections.map(
+			(s) =>
+				`${s.replace(/\ssideba\s/g, ' sidebar ').replace(/\siltering\s/g, ' filtering ')}\n`
+		),
 	].join('\n');
 
 	writeFileSync(CHANGELOG_PATH, changelog, 'utf-8');
@@ -209,7 +210,7 @@ async function main() {
 try {
 	await estimator(main(), 'Updating CHANGELOG.md');
 } catch (error) {
-	const message = error instanceof Error ? error.message : error;
+	const message = error instanceof Error ? error.message : 'Failed to update the changelog!';
 	console.error(message);
 	process.exit(0);
 }
