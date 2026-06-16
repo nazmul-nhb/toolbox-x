@@ -6,8 +6,11 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
-## [Unreleased](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.1...HEAD)
+## [v2.2.2](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.2.2) — 2026-06-16
 
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.1...v2.2.2)
+
+* \[[`7211e58791`](https://github.com/nazmul-nhb/toolbox-x/commit/7211e58791)] - 📚 docs(changelog): integrated CHANGELOG.md generator (Nazmul Hassan)
 * \[[`4dfadecb54`](https://github.com/nazmul-nhb/toolbox-x/commit/4dfadecb54)] - 🔧 update(docs): updated docs for anagram generator (Nazmul Hassan)
 
 ## [v2.2.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.2.1) — 2026-06-16
