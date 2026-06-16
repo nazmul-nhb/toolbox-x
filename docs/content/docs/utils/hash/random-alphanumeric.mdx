@@ -1,0 +1,70 @@
+---
+title: Generate Random Alphanumeric
+description: Generate a random alphanumeric string (letters and numbers) of the specified length.
+---
+
+## randomAlphaNumeric
+
+The `randomAlphaNumeric` function generates a random alphanumeric string (letters and numbers) of the specified length.
+
+<Callout type="info" title="Info">
+  Does not rely on `Node.js` or `Web APIs`. **Works on any JS engine**
+</Callout>
+
+### Function Signature
+
+```ts
+randomAlphaNumeric(length?: number, uppercase?: boolean): string
+```
+
+### Parameters
+
+| Parameter   | Type                 | Description                                                            |
+| ----------- | -------------------- | ---------------------------------------------------------------------- |
+| `length`    | `number` (optional)  | The desired length of the random string. Default: `8`                  |
+| `uppercase` | `boolean` (optional) | If `true`, the string will contain uppercase letters. Default: `false` |
+
+### Return Value
+
+Returns a randomly generated alphanumeric string composed of letters and numbers of the specified length.
+
+### Example Usage
+
+```ts pg
+import { randomAlphaNumeric } from 'toolbox-x/hash';
+
+// Generate a random 8-character alphanumeric string (default: lowercase)
+const randomStr = randomAlphaNumeric(8);
+// → "a7b2f9d1"
+
+// Generate a 12-character uppercase alphanumeric string
+const randomUpper = randomAlphaNumeric(12, true);
+// → "X5K9P2M7H4L3"
+
+// Generate a 6-character string
+const shortStr = randomAlphaNumeric(6);
+// → "p9e4w1"
+
+console.log({ randomStr, randomUpper, shortStr });
+```
+
+### Use Cases
+
+- Generating unique identifiers
+- Creating random tokens for authentication or password resets
+- Generating temporary session IDs
+- Generating readable codes or reference keys
+
+### Implementation Notes
+
+- The function generates random bytes and converts them to base-36 (0-9, a-z) characters.
+- If `length` is `0` or negative, an empty string is returned.
+- Uses `crypto.getRandomValues` (via `randomBytes`) when available for secure randomness, and falls back to `Math.random` if not.
+- The `uppercase` parameter controls whether the letters are uppercase or lowercase. By default, it returns lowercase letters.
+
+### See Also
+
+- [randomHex](./random-hex) - Generate cryptographically secure random hex strings
+- [randomBytes](./random-bytes) - Generate cryptographically secure random bytes (`Uint8Array`)
+- [randomNumeric](./random-numeric) - Generate cryptographically secure random numeric strings
+- [randomID](/docs/utils/string/generate-random-id) - Generate customizable random alphanumeric ID (cryptographically not secure)

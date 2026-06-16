@@ -1,0 +1,63 @@
+---
+title: Generate Random Numeric
+description: Generate a random numeric string of the specified length.
+---
+
+## randomNumeric
+
+The `randomNumeric` function generates a random numeric string of the specified length.
+
+<Callout type="info" title="Info">
+  Does not rely on `Node.js` or `Web APIs`. **Works on any JS engine**
+</Callout>
+
+### Function Signature
+
+```ts
+randomNumeric(length?: number): `${number}`
+```
+
+### Parameters
+
+| Parameter | Type                | Description                                            |
+| --------- | ------------------- | ------------------------------------------------------ |
+| `length`  | `number` (optional) | Length of the numeric string to generate. Default: `6` |
+
+### Return Value
+
+Returns a randomly generated numeric string (as a template literal type matching `${number}`) of the specified length.
+
+### Example Usage
+
+```ts pg
+import { randomNumeric } from 'toolbox-x/hash';
+
+// Generate a 6-digit numeric string (default)
+const pin = randomNumeric();
+// → "408219"
+
+// Generate a 10-digit numeric string
+const otp = randomNumeric(10);
+// → "9384021746"
+
+console.log({ pin, otp });
+```
+
+### Use Cases
+
+- Generating One-Time Passwords (OTPs)
+- Creating verification codes (PINs)
+- Generating numeric transaction references
+- Creating numeric coupon or discount codes
+
+### Implementation Notes
+
+- If `length` is `0` or negative, an empty string is returned.
+- Uses `crypto.getRandomValues` when available for secure randomness, and falls back to `Math.random` if not.
+
+### See Also
+
+- [randomHex](./random-hex) - Generate cryptographically secure random hex strings
+- [randomBytes](./random-bytes) - Generate cryptographically secure random bytes (`Uint8Array`)
+- [randomAlphaNumeric](./random-alphanumeric) - Generate cryptographically secure random alphanumeric strings
+- [randomID](/docs/utils/string/generate-random-id) - Generate customizable random alphanumeric ID (cryptographically not secure)
