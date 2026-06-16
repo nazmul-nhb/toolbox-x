@@ -41,11 +41,17 @@ import type { NumberRange, Percent } from 'src/types/number';
  * @property `hsla` - {@link HSLA} color representation including alpha.
  */
 export class Color {
+	/** {@link Hex6 Hex} color representation (without alpha). */
 	readonly hex: Hex6;
+	/** {@link Hex8} color representation including alpha. */
 	readonly hex8: Hex8;
+	/** {@link RGB} color representation (without alpha). */
 	readonly rgb: RGB;
+	/** {@link RGBA} color representation including alpha. */
 	readonly rgba: RGBA;
+	/** {@link HSL} color representation (without alpha). */
 	readonly hsl: HSL;
+	/** {@link HSLA} color representation including alpha. */
 	readonly hsla: HSLA;
 
 	/**
@@ -440,10 +446,10 @@ export class Color {
 	blendWith(other: ColorType | CSSColor, weight = 0.5): Color {
 		const w = Math.max(0, Math.min(1, weight));
 
-		const converted = new Color(other);
+		const otherColor = new Color(other);
 
 		const [r1, g1, b1, a1] = extractAlphaColorValues(this.rgba);
-		const [r2, g2, b2, a2] = extractAlphaColorValues(converted.rgba);
+		const [r2, g2, b2, a2] = extractAlphaColorValues(otherColor.rgba);
 
 		const alpha = Math.round((a1 * (1 - w) + a2 * w) * 100) / 100;
 
@@ -466,9 +472,9 @@ export class Color {
 	 * @returns A number representing the contrast ratio (rounded to 2 decimal places).
 	 */
 	contrastRatio(other: ColorType | CSSColor): number {
-		const newColor = new Color(other);
+		const otherColor = new Color(other);
 
-		const luminance = (rgb: RGB): number => {
+		const _luminance = (rgb: RGB): number => {
 			const [r, g, b] = extractSolidColorValues(rgb).map((v) => {
 				const c = v / 255;
 				return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
@@ -477,8 +483,8 @@ export class Color {
 			return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 		};
 
-		const lum1 = luminance(this.rgb);
-		const lum2 = luminance(newColor.rgb);
+		const lum1 = _luminance(this.rgb);
+		const lum2 = _luminance(otherColor.rgb);
 
 		const brighter = Math.max(lum1, lum2);
 		const darker = Math.min(lum1, lum2);

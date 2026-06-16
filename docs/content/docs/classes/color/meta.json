@@ -1,7 +1,7 @@
 {
 	"pages": [
-		"manipulation",
 		"protocol-methods",
+		"manipulation",
 		"contrast-accessibility",
 		"scheme-generation",
 		"static-validation",

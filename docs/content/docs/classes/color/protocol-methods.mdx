@@ -85,17 +85,17 @@ Handles type coercion when the engine needs a primitive value. Returns different
 
 #### Parameters
 
-| Parameter | Type     | Description                                                    |
-| :-------- | :------- | :------------------------------------------------------------- |
+| Parameter | Type     | Description                                                |
+| :-------- | :------- | :--------------------------------------------------------- |
 | `hint`    | `string` | The coercion hint: `"string"`, `"number"`, or `"default"`. |
 
 #### Returns
 
-| Hint        | Return Type | Value                                                                                         |
-| :---------- | :---------- | :-------------------------------------------------------------------------------------------- |
-| `"string"`  | `string`    | The `Hex8` representation.                                                                    |
-| `"number"`  | `number`    | Integer parsed from the hex value (`Hex6` if fully opaque, `Hex8` otherwise).                 |
-| `"default"` | `Color`     | The `Color` instance itself.                                                                  |
+| Hint        | Return Type | Value                                                                         |
+| :---------- | :---------- | :---------------------------------------------------------------------------- |
+| `"string"`  | `string`    | The `Hex8` representation.                                                    |
+| `"number"`  | `number`    | Integer parsed from the hex value (`Hex6` if fully opaque, `Hex8` otherwise). |
+| `"default"` | `Color`     | The `Color` instance itself.                                                  |
 
 #### Example
 
