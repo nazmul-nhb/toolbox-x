@@ -4,6 +4,14 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.1) — 2026-06-17
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.0...v2.4.1)
+
+* \[[`23f0fd060c`](https://github.com/nazmul-nhb/toolbox-x/commit/23f0fd060c)] - 🐛 fix(hash): fixed issue with the length of the output numeric string; updated examples for bytes array (Nazmul Hassan)
+* \[[`3451cebe75`](https://github.com/nazmul-nhb/toolbox-x/commit/3451cebe75)] - 🔧 update(docs): updated docs for `convertToDecimal` (Nazmul Hassan)
+* \[[`a4099fbe66`](https://github.com/nazmul-nhb/toolbox-x/commit/a4099fbe66)] - 📚 docs: updated CHANGELOG.md for v2.4.0 (github-actions\[bot])
+
 ## [v2.4.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.0) — 2026-06-17
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.3.0...v2.4.0)
