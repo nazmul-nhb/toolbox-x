@@ -147,48 +147,44 @@
       "require": "./dist/change-case.cjs"
     },
     "./colors": {
-      "import": "./dist/colors.mjs",
-      "require": "./dist/colors.cjs"
+      "import": "./dist/colors/index.mjs",
+      "require": "./dist/colors/index.cjs"
     },
     "./constants": {
       "import": "./dist/constants.mjs",
       "require": "./dist/constants.cjs"
     },
     "./converter": {
-      "import": "./dist/converter.mjs",
-      "require": "./dist/converter.cjs"
+      "import": "./dist/converter/index.mjs",
+      "require": "./dist/converter/index.cjs"
     },
     "./date": {
-      "import": "./dist/date.mjs",
-      "require": "./dist/date.cjs"
+      "import": "./dist/date/index.mjs",
+      "require": "./dist/date/index.cjs"
     },
     "./dom": {
-      "import": "./dist/dom.mjs",
-      "require": "./dist/dom.cjs"
+      "import": "./dist/dom/index.mjs",
+      "require": "./dist/dom/index.cjs"
     },
     "./guards": {
-      "import": "./dist/guards.mjs",
-      "require": "./dist/guards.cjs"
+      "import": "./dist/guards/index.mjs",
+      "require": "./dist/guards/index.cjs"
     },
     "./hash": {
-      "import": "./dist/hash.mjs",
-      "require": "./dist/hash.cjs"
+      "import": "./dist/hash/index.mjs",
+      "require": "./dist/hash/index.cjs"
     },
     "./http-status": {
-      "import": "./dist/http-status.mjs",
-      "require": "./dist/http-status.cjs"
+      "import": "./dist/http-status/index.mjs",
+      "require": "./dist/http-status/index.cjs"
     },
     "./paginator": {
       "import": "./dist/paginator.mjs",
       "require": "./dist/paginator.cjs"
     },
-    "./pluralizer": {
-      "import": "./dist/pluralizer.mjs",
-      "require": "./dist/pluralizer.cjs"
-    },
     "./stylog": {
-      "import": "./dist/stylog.mjs",
-      "require": "./dist/stylog.cjs"
+      "import": "./dist/stylog/index.mjs",
+      "require": "./dist/stylog/index.cjs"
     },
     "./types": {
       "import": "./dist/types/index.mjs",
@@ -251,8 +247,8 @@
       "require": "./dist/types/verbalizer.cjs"
     },
     "./verbalizer": {
-      "import": "./dist/verbalizer.mjs",
-      "require": "./dist/verbalizer.cjs"
+      "import": "./dist/verbalizer/index.mjs",
+      "require": "./dist/verbalizer/index.cjs"
     },
     "./package.json": "./package.json"
   }
