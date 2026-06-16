@@ -10,10 +10,7 @@ The `convertToDecimal` function rounds a number to a specified number of decimal
 ### Function Signature
 
 ```typescript
-function convertToDecimal<T extends boolean | undefined = false>(
-  input: Numeric,
-  options?: DecimalOptions<T>
-): ConvertedDecimal<T>
+function convertToDecimal<T extends boolean>(input: Numeric, options?: DecimalOptions<T>): ConvertedDecimal<T>
 ```
 
 ### Parameters
@@ -50,7 +47,7 @@ console.log(convertToDecimal(3.14159, { decimalPlaces: 3, isString: true }));  /
 
 - **[`roundNumber`](./round-number)**: Use when you need rounding to specific decimal places (including negative places for whole number rounding) without string output options.
 - **[`roundToNearest`](./round-to-nearest)**: Use when you need to round to arbitrary intervals (like multiples of 5, 10, etc.) rather than decimal places.
-- For a comparison, see [`roundNumber#comparison-with-similar-functions`](./round-number#comparison-with-similar-functions).
+- For a comparison, see [`roundNumber`: Comparison with Similar Functions](./round-number#comparison-with-similar-functions).
 
 ### Aliases
 

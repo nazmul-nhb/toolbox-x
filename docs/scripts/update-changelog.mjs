@@ -26,13 +26,15 @@ const MDX_PATH = resolve(DOCS_ROOT, 'content/docs/changelog.mdx');
 
 const FRONTMATTER = `---
 title: Changelog
-description: All notable changes to the toolbox-x package.
+description: All notable changes to the package.
 icon: Logs
 ---
 
 All notable changes to **toolbox-x** will be documented here.
 
-> Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).`;
+> Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
+
+---`;
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
