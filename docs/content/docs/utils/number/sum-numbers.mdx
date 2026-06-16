@@ -49,6 +49,14 @@ console.log(sumNumbers());
 - All input values are converted to numbers before summing.
 - If no inputs are passed, the return value is `0`.
 
+<Callout type="error" title="Caution">
+It does not check for any invalid numeric inputs. For example, if you pass an invalid numeric string, it will return `NaN`.
+</Callout>
+
+<Callout type="idea" title="Floating-Point Safety">
+For floating-point numbers, it's recommended to use [`safeAdd`](./safe-add) to avoid potential precision issues.
+</Callout>
+
 ### Aliases
 
 The following aliases can be used for the `sumNumbers` function:

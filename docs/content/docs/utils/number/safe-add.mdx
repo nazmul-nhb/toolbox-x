@@ -1,0 +1,56 @@
+---
+title: Safely Add Numbers
+description: Adds numbers safely, avoiding common floating-point arithmetic issues.
+---
+
+## safeAdd
+
+The `safeAdd` function adds multiple numbers or numeric strings together, avoiding common floating-point arithmetic issues (such as `0.1 + 0.2 !== 0.3`) by scaling them to integers before performing the addition.
+
+### Function Signature
+
+```typescript
+function safeAdd(...values: Numeric[]): number
+```
+
+### Parameters
+
+- **`values`** (`Numeric[]`): A list of numbers or numeric strings to add.
+
+### Return Value
+
+- **`number`**: The sum of all the provided numbers, with floating-point inaccuracies mitigated.
+
+### Example Usage
+
+```ts pg
+import { safeAdd } from 'toolbox-x';
+
+console.log(safeAdd(0.1, 0.2));              // → 0.3
+console.log(safeAdd(1, '2', 3.456));         // → 6.456
+console.log(safeAdd(0.1, 0.2, 0.3, 0.4));    // → 1
+console.log(safeAdd(3e-4, '6e-8'));          // → 0.00030006
+```
+
+### Notes
+
+- This function addresses common floating-point addition errors by temporarily scaling numbers to integers, performing the addition, and then scaling back.
+- Non-numeric values are safely ignored during calculation.
+- Internally uses `normalizeNumber`, `getDecimalPlaces`, and `roundNumber`.
+
+<Callout type="warning" title="Warning">
+It does not handle numbers beyond `Number.MAX_SAFE_INTEGER` or `Number.MIN_SAFE_INTEGER`. May output incorrect results if the numbers are too large.
+</Callout>
+
+### Aliases
+
+The following alias can be used for the `safeAdd` function:
+
+- `add`
+
+### See Also
+
+- [`sumNumbers`](./sum-numbers) - Sums up all numbers passed as arguments.
+- [`getDecimalPlaces`](./get-decimal-places) - Gets the number of decimal places in a number.
+- [`roundNumber`](./round-number) - Rounds a number to a specified number of decimal places.
+- [`normalizeNumber`](./normalize-number) - Normalizes a number or numeric string.

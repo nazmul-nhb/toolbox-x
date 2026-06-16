@@ -1,0 +1,58 @@
+---
+title: Get Decimal Places
+description: Returns the number of decimal places represented by a number or numeric string.
+---
+
+## getDecimalPlaces
+
+The `getDecimalPlaces` function returns the number of decimal places represented by a given number or numeric string.
+
+### Function Signature
+
+```typescript
+function getDecimalPlaces(value: Numeric): number
+```
+
+### Parameters
+
+- **`value`** (`Numeric`): The number or numeric string for which to calculate the number of decimal places.
+
+### Return Value
+
+- **`number`**: The number of decimal places represented by the input value.
+
+### Throws
+
+- **`TypeError`**: If the input value cannot be converted to a number (e.g., `undefined`, `null`, `NaN`, or invalid numeric strings like `'11x'`).
+
+### Example Usage
+
+```ts pg
+import { getDecimalPlaces } from 'toolbox-x';
+
+console.log(getDecimalPlaces(123.456));      // → 3
+console.log(getDecimalPlaces('123.45600'));  // → 3
+console.log(getDecimalPlaces(123));          // → 0
+console.log(getDecimalPlaces('1e-6'));       // → 6
+console.log(getDecimalPlaces('1.00'));       // → 0
+console.log(getDecimalPlaces('9.900'));      // → 1
+```
+
+### Notes
+
+- If a numeric string in scientific notation (e.g., `'1e-6'`) is provided, it calculates the decimal places accordingly.
+- If a numeric string has trailing zeros (e.g., `'1.00'` or `'9.900'`), it is first normalized using `normalizeNumber`, which strips trailing decimal zeros. Thus, `'1.00'` normalized to `1` returns `0`, and `'9.900'` normalized to `9.9` returns `1`.
+- If a number is an integer, it returns `0`.
+- Internally uses `normalizeNumber` to normalize the input value.
+
+### Aliases
+
+The following alias can be used for the `getDecimalPlaces` function:
+
+- `decimalPlaces`
+
+### See Also
+
+- [`normalizeNumber`](./normalize-number) - Normalizes a number or numeric string.
+- [`roundNumber`](./round-number) - Rounds a number to a specified number of decimal places.
+- [`safeAdd`](./safe-add) - Adds numbers safely, avoiding common floating-point arithmetic issues.
