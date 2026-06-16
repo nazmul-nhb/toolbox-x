@@ -1,4 +1,4 @@
-export { Color, Colour } from 'src/colors/Color';
+export { Color, Color as Colour } from 'src/colors/Color';
 export {
 	convertColorCode,
 	convertHex8ToHsla,

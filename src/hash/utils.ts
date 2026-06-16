@@ -1,5 +1,41 @@
 import { isHexString } from 'src/guards/specials';
-import { _bytesToRandomHex, _splitByCharLength } from 'src/hash/helpers';
+import { _bytesToRandomHex, _fillWithRandomValues, _splitByCharLength } from 'src/hash/helpers';
+
+/**
+ * * Generates random bytes in the {@link Uint8Array} format.
+ *
+ * @param size - The length of the byte array to generate. Defaults to `8`.
+ * @returns A random array of bytes.
+ *
+ * @example
+ * ```typescript
+ * const bytes = randomBytes(16);
+ * // Returns something like: Uint8Array(16) [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 224, 166, 170, 224, 167, 131]
+ *
+ * // Empty array
+ * const empty = randomBytes(0);
+ * // Returns: Uint8Array(0) []
+ *
+ * // Zero or negative values are treated as 0
+ * const zero = randomBytes(-5);
+ * // Returns: Uint8Array(0) []
+ * ```
+ *
+ * @remarks
+ * - It uses {@link crypto.getRandomValues} when available for secure randomness, and falls back to {@link Math.random} if not.
+ * - If {@link crypto.getRandomValues} is available (supported environments include browser and Node.js), it is used for cryptographically secure random number generation.
+ * - In environments where {@link crypto.getRandomValues} is not available, the function falls back to {@link Math.random}, which is **not** cryptographically secure.
+ * - {@link crypto.getRandomValues} fills the array with random values in the range [0, 255] (inclusive).
+ * - {@link Math.random} returns values in the range [0, 1) (exclusive of 1), so the values are scaled to [0, 255].
+ * - If `size` is 0 or negative, an empty `Uint8Array` is returned.
+ */
+export function randomBytes(size: number = 8): Uint8Array {
+	if (size <= 0) return new Uint8Array(0);
+
+	const bytes = new Uint8Array(size);
+
+	return _fillWithRandomValues(bytes);
+}
 
 /**
  * * Generates a random hexadecimal string of the specified length.
@@ -31,6 +67,67 @@ export function randomHex(length: number, uppercase = false): string {
 	const expected = _bytesToRandomHex(bytes).slice(0, length);
 
 	return uppercase ? expected.toUpperCase() : expected;
+}
+
+/**
+ * * Generates a random numeric string of the specified length.
+ *
+ * @param length - Length of the numeric string. Defaults to `6`.
+ * @returns A randomly generated numeric string.
+ *
+ * @example
+ * ```typescript
+ * const otp = randomNumeric(6);
+ * // Returns something like: '123456'
+ * ```
+ *
+ * @remarks
+ * - If `length` is `0` or negative, an empty string is returned.
+ */
+export function randomNumeric(length: number = 6): `${number}` {
+	const bytes = randomBytes(length);
+
+	return bytes.map((byte) => byte & 10).join('') as `${number}`;
+}
+
+/**
+ * * Generates a random alphanumeric string (letters and numbers) of the specified length.
+ *
+ * @param length - The desired length of the random string. Defaults to `8`.
+ * @param uppercase - If `true`, the string will contain uppercase letters (A-Z). Defaults to `false` (lowercase).
+ *
+ * @returns A random string composed of alphanumeric characters.
+ *
+ * @example
+ * ```typescript
+ * // Generate a random 8-character alphanumeric string (default: lowercase)
+ * const randomStr = randomAlphaNumeric(8);
+ * // Example output: "a7b2f9d1"
+ *
+ * // Generate a 12-character uppercase alphanumeric string
+ * const randomUpper = randomAlphaNumeric(12, true);
+ * // Example output: "X5K9P2M7H4L3"
+ *
+ * // Generate a 6-character string
+ * const shortStr = randomAlphaNumeric(6);
+ * ```
+ *
+ * @remarks
+ * - The function generates random bytes and converts them to base-36 (0-9, a-z) characters.
+ * - If `length` is `0` or negative, an empty string is returned.
+ */
+export function randomAlphaNumeric(length: number = 8, uppercase = false): string {
+	const bytes = randomBytes(Math.ceil(length / 2));
+
+	let ran = '';
+
+	for (const byte of bytes) {
+		ran += byte.toString(36).padStart(2, '0');
+	}
+
+	const result = ran.slice(0, length);
+
+	return uppercase ? result.toUpperCase() : result;
 }
 
 // ! UTF-8 Utilities

@@ -760,5 +760,3 @@ export class Color {
 		});
 	}
 }
-
-export { Color as Colour };
