@@ -1,6 +1,6 @@
 {
   "name": "toolbox-x",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "A versatile collection of smart, efficient, and reusable utility functions, classes and types for everyday development needs.",
   "main": "./dist/index.cjs",
   "type": "module",
@@ -25,7 +25,8 @@
     "fix": "biome check --write --diagnostic-level=warn",
     "format": "biome format --write --diagnostic-level=warn",
     "create-docs": "nhb-module -t docs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "changelog": "node scripts/generate-changelog.mjs"
   },
   "keywords": [
     "toolbox",
@@ -87,6 +88,7 @@
     "dist",
     "LICENSE",
     "README.md",
+    "CHANGELOG.md",
     "package.json"
   ],
   "repository": {

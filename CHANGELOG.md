@@ -2,4 +2,182 @@
 
 <!-- markdownlint-disable-file MD024 -->
 
-All notable changes to the package will be documented here.
+All notable changes to **toolbox-x** will be documented in this file.
+
+> Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
+
+## [Unreleased](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.1...HEAD)
+
+* \[[`4dfadecb54`](https://github.com/nazmul-nhb/toolbox-x/commit/4dfadecb54)] - 🔧 update(docs): updated docs for anagram generator (Nazmul Hassan)
+
+## [v2.2.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.2.1) — 2026-06-16
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.0...v2.2.1)
+
+* \[[`304f8adcdc`](https://github.com/nazmul-nhb/toolbox-x/commit/304f8adcdc)] - 📚 docs(color): updated tsdocs and docs for `Color` (Nazmul Hassan)
+
+## [v2.2.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.2.0) — 2026-06-16
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.0.14...v2.2.0)
+
+* \[[`6932c0301c`](https://github.com/nazmul-nhb/toolbox-x/commit/6932c0301c)] - ✨ feat(color): added new methods: `generatePalette`, `toString`, `toJSON` and `Symbol.toPrimitive` methods; fixed bugs and docs (Nazmul Hassan)
+* \[[`53ed908cd4`](https://github.com/nazmul-nhb/toolbox-x/commit/53ed908cd4)] - 🐛 fix(lint): fixed all lint errors and warnings (Nazmul Hassan)
+
+## [v2.0.14](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.0.14) — 2026-06-15
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.0.13...v2.0.14)
+
+* \[[`258e5bd8b2`](https://github.com/nazmul-nhb/toolbox-x/commit/258e5bd8b2)] - 🔧 update: fixed some lint errors; updated type defs for `parseFormData` and updated docs (Nazmul Hassan)
+
+## [v2.0.13](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.0.13) — 2026-06-15
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.0.12...v2.0.13)
+
+* \[[`862d5023d4`](https://github.com/nazmul-nhb/toolbox-x/commit/862d5023d4)] - 🔧 update(docs): updated docs for dom related utils and re-exported non-dom utils from package main path (Nazmul Hassan)
+* \[[`34c3246ae4`](https://github.com/nazmul-nhb/toolbox-x/commit/34c3246ae4)] - 🐛 fix(docs): updated a mismatched import in the example codeblock (Nazmul Hassan)
+
+## [v2.0.12](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.0.12) — 2026-06-15
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.0.11...v2.0.12)
+
+* \[[`27c053ce3d`](https://github.com/nazmul-nhb/toolbox-x/commit/27c053ce3d)] - 🔧 update(docs): updated docs for `addDate` (Nazmul Hassan)
+
+## [v2.0.11](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.0.11) — 2026-06-15
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.0.10...v2.0.11)
+
+* \[[`6056bf47d1`](https://github.com/nazmul-nhb/toolbox-x/commit/6056bf47d1)] - 🐛 fix: updated missing type imports (Nazmul Hassan)
+
+## [v2.0.10](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.0.10) — 2026-06-15
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.0.1...v2.0.10)
+
+* \[[`a17d0026e8`](https://github.com/nazmul-nhb/toolbox-x/commit/a17d0026e8)] - ✨ feat(date): added new date-time utility `addDate` with docs (Nazmul Hassan)
+* \[[`3bfdb22e8e`](https://github.com/nazmul-nhb/toolbox-x/commit/3bfdb22e8e)] - 🔧 update(docs): reordered constant on sidebar (Nazmul Hassan)
+* \[[`f948a34837`](https://github.com/nazmul-nhb/toolbox-x/commit/f948a34837)] - 🔧 update(docs): modified pg codeblocks and updated some titles (Nazmul Hassan)
+
+## [v2.0.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.0.1) — 2026-06-15
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.0.0...v2.0.1)
+
+* \[[`da534461aa`](https://github.com/nazmul-nhb/toolbox-x/commit/da534461aa)] - ✨ feat(date-time): added new utility `formatRelativeDateNative` with docs (Nazmul Hassan)
+
+## [v2.0.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.0.0) — 2026-06-15
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.2.1...v2.0.0)
+
+* \[[`e4785ab008`](https://github.com/nazmul-nhb/toolbox-x/commit/e4785ab008)] - 🔡 tsdoc: updated tsdoc for the latest doc site and improved internal perf (Nazmul Hassan)
+* \[[`8bfc3133cd`](https://github.com/nazmul-nhb/toolbox-x/commit/8bfc3133cd)] - 🐛 fix(docs): updated all invalid mdx links (Nazmul Hassan)
+* \[[`960c38abf8`](https://github.com/nazmul-nhb/toolbox-x/commit/960c38abf8)] - 🐛 fix(docs): fixed some syntax errors and removed some pg (Nazmul Hassan)
+* \[[`6723823ab2`](https://github.com/nazmul-nhb/toolbox-x/commit/6723823ab2)] - 🔧 update(docs): removed some pg tag and added some (Nazmul Hassan)
+* \[[`048824461d`](https://github.com/nazmul-nhb/toolbox-x/commit/048824461d)] - 🔧 update(docs): updated class docs sideba titles and other gaps (Nazmul Hassan)
+* \[[`6a2193938a`](https://github.com/nazmul-nhb/toolbox-x/commit/6a2193938a)] - 🔧 update(docs): migrated rest of the docs from old docusaurus docs (Nazmul Hassan)
+* \[[`169e3e7b7f`](https://github.com/nazmul-nhb/toolbox-x/commit/169e3e7b7f)] - ✨ feat(object): added new util `extractObjectEntries` and updated array iltering util (Nazmul Hassan)
+* \[[`fed3e28a6a`](https://github.com/nazmul-nhb/toolbox-x/commit/fed3e28a6a)] - 🔧 update(docs): rearranged sidebar items (Nazmul Hassan)
+* \[[`5ecff45b6e`](https://github.com/nazmul-nhb/toolbox-x/commit/5ecff45b6e)] - 🐛 fix(docs): fixed syntax error in mdx (Nazmul Hassan)
+* \[[`1daecd22ed`](https://github.com/nazmul-nhb/toolbox-x/commit/1daecd22ed)] - 🔧 update(docs): added (migrated) rest of the docs by AI Agent (Nazmul Hassan)
+* \[[`4be446c120`](https://github.com/nazmul-nhb/toolbox-x/commit/4be446c120)] - 🔧 update(biome): updated biome configs (Nazmul Hassan)
+* \[[`fe031fee91`](https://github.com/nazmul-nhb/toolbox-x/commit/fe031fee91)] - 🔧 update(docs): added docs for `createOptionsArray` (Nazmul Hassan)
+* \[[`20426fb1c9`](https://github.com/nazmul-nhb/toolbox-x/commit/20426fb1c9)] - 🔧 update(deps): updated dependencies (Nazmul Hassan)
+* \[[`38c12216da`](https://github.com/nazmul-nhb/toolbox-x/commit/38c12216da)] - 🧼 refactor(internals): reuse `_resolveNestedKey` in `_getNumericProp` (Nazmul Hassan)
+* \[[`8a2a8acc8c`](https://github.com/nazmul-nhb/toolbox-x/commit/8a2a8acc8c)] - 🔁 revert(internals): reverted signature of `_resolveNestedKey` to the previous state (Nazmul Hassan)
+* \[[`bcae9bbe32`](https://github.com/nazmul-nhb/toolbox-x/commit/bcae9bbe32)] - 🔧 update(internal): updated signature of `_resolveNestedKey` internal helper (Nazmul Hassan)
+* \[[`f33c762b5a`](https://github.com/nazmul-nhb/toolbox-x/commit/f33c762b5a)] - 🔧 update(utils): updated signature of `definePrototypeMethod` utility (Nazmul Hassan)
+* \[[`45e2263f0d`](https://github.com/nazmul-nhb/toolbox-x/commit/45e2263f0d)] - 🔧 update(docs): added docs for array split utils (Nazmul Hassan)
+* \[[`da5253f513`](https://github.com/nazmul-nhb/toolbox-x/commit/da5253f513)] - 🔧 update(docs): added docs for array metrics utils (Nazmul Hassan)
+* \[[`93fad69a34`](https://github.com/nazmul-nhb/toolbox-x/commit/93fad69a34)] - 🐛 fix(change-case): fixed issues with delimiter normalizer and updated return types for non-literal strings (Nazmul Hassan)
+* \[[`366769bf10`](https://github.com/nazmul-nhb/toolbox-x/commit/366769bf10)] - 🔧 update(docs): added docs for string checkers (Nazmul Hassan)
+* \[[`8db76e3608`](https://github.com/nazmul-nhb/toolbox-x/commit/8db76e3608)] - 🔧 update(docs): added docs for number checkers (Nazmul Hassan)
+* \[[`a9d47c768c`](https://github.com/nazmul-nhb/toolbox-x/commit/a9d47c768c)] - 🔧 update(docs): added docs for `isDeepEqual` (Nazmul Hassan)
+* \[[`3866f14770`](https://github.com/nazmul-nhb/toolbox-x/commit/3866f14770)] - 🔧 update(docs): added docs for empty array checker (Nazmul Hassan)
+* \[[`7cff6aaab4`](https://github.com/nazmul-nhb/toolbox-x/commit/7cff6aaab4)] - 🔧 update(tsdoc): updated tsdoc for environment guard (Nazmul Hassan)
+* \[[`0d6d0e4101`](https://github.com/nazmul-nhb/toolbox-x/commit/0d6d0e4101)] - 🔧 update(docs/guards): updated example (Nazmul Hassan)
+* \[[`ac00debace`](https://github.com/nazmul-nhb/toolbox-x/commit/ac00debace)] - 🔧 update(docs): added docs for environment guards (Nazmul Hassan)
+* \[[`8a83fce7e9`](https://github.com/nazmul-nhb/toolbox-x/commit/8a83fce7e9)] - 🔧 update(docs): added docs for string format guards (Nazmul Hassan)
+* \[[`9336711fd3`](https://github.com/nazmul-nhb/toolbox-x/commit/9336711fd3)] - 🔧 update(docs): added docs for object guards (Nazmul Hassan)
+* \[[`3dfd02fe27`](https://github.com/nazmul-nhb/toolbox-x/commit/3dfd02fe27)] - 🔧 update(docs): added docs for composite type guards for primitive values (Nazmul Hassan)
+* \[[`866bc5e3cc`](https://github.com/nazmul-nhb/toolbox-x/commit/866bc5e3cc)] - 🔧 update(docs): added docs for nullish type checkers (Nazmul Hassan)
+* \[[`e5039e7a8c`](https://github.com/nazmul-nhb/toolbox-x/commit/e5039e7a8c)] - 🔧 update(docs): added docs for numeric type guards (Nazmul Hassan)
+* \[[`a39e82cc99`](https://github.com/nazmul-nhb/toolbox-x/commit/a39e82cc99)] - 🔧 update(docs): added docs for core primitive type guards (Nazmul Hassan)
+* \[[`b82e2ed041`](https://github.com/nazmul-nhb/toolbox-x/commit/b82e2ed041)] - 📦 deps(workspace): updated all deps to safe versions (Nazmul Hassan)
+* \[[`258f78a839`](https://github.com/nazmul-nhb/toolbox-x/commit/258f78a839)] - 🧼 refactor(hash): created new internal helper `_fillWithRandomBytes` for reuse (Nazmul Hassan)
+* \[[`cbb1c84c29`](https://github.com/nazmul-nhb/toolbox-x/commit/cbb1c84c29)] - 🧹 cleanup(docs): removed unnecessary examples from docs (Nazmul Hassan)
+* \[[`ba0c5e1b1b`](https://github.com/nazmul-nhb/toolbox-x/commit/ba0c5e1b1b)] - 🔧 update(docs): updated function guards docs (Nazmul Hassan)
+* \[[`e4fdc149cc`](https://github.com/nazmul-nhb/toolbox-x/commit/e4fdc149cc)] - 🔧 update(guards): added implementation and docs for function guards (Nazmul Hassan)
+* \[[`127c296f37`](https://github.com/nazmul-nhb/toolbox-x/commit/127c296f37)] - 🔧 update(docs): updated the format of last modified date (Nazmul Hassan)
+* \[[`cdc1241994`](https://github.com/nazmul-nhb/toolbox-x/commit/cdc1241994)] - 🔧 update(docs): swapped a section in array guards (Nazmul Hassan)
+* \[[`4b1929b695`](https://github.com/nazmul-nhb/toolbox-x/commit/4b1929b695)] - 🔧 update(docs): added docs for dom guards (Nazmul Hassan)
+
+## [v1.2.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.2.1) — 2026-05-26
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.2.0...v1.2.1)
+
+* \[[`07203dab41`](https://github.com/nazmul-nhb/toolbox-x/commit/07203dab41)] - 🔧 update: fixed `isValidUTCOffset` and added docs for array guards and updated other docs (Nazmul Hassan)
+* \[[`544362c0f5`](https://github.com/nazmul-nhb/toolbox-x/commit/544362c0f5)] - 🔧 update(docs): added docs for `isDate` and `isDateString` (Nazmul Hassan)
+* \[[`be859a3064`](https://github.com/nazmul-nhb/toolbox-x/commit/be859a3064)] - 🔧 update(docs): organized hash utils docs (Nazmul Hassan)
+
+## [v1.2.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.2.0) — 2026-05-26
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.1.2...v1.2.0)
+
+* \[[`bca3090bbf`](https://github.com/nazmul-nhb/toolbox-x/commit/bca3090bbf)] - 🔧 update(docs+Signet): added docs for hash utils and fixed validation issue with Signet class (Nazmul Hassan)
+* \[[`a05d221246`](https://github.com/nazmul-nhb/toolbox-x/commit/a05d221246)] - 🔧 update(docs): changed rehype code theme (Nazmul Hassan)
+* \[[`5a6bc46578`](https://github.com/nazmul-nhb/toolbox-x/commit/5a6bc46578)] - 🔧 update(docs): added hash utils index page (Nazmul Hassan)
+* \[[`7430836daa`](https://github.com/nazmul-nhb/toolbox-x/commit/7430836daa)] - 🔧 update(docs): updated intro and quick start pages (Nazmul Hassan)
+* \[[`3110880cfe`](https://github.com/nazmul-nhb/toolbox-x/commit/3110880cfe)] - 🔧 update(docs): updated util/date to utils/date-time (Nazmul Hassan)
+* \[[`86562982c9`](https://github.com/nazmul-nhb/toolbox-x/commit/86562982c9)] - 🔧 update(docs): changed brand and theme colors (Nazmul Hassan)
+* \[[`423690d231`](https://github.com/nazmul-nhb/toolbox-x/commit/423690d231)] - 🔧 update(docs): changed theme and updated docs (Nazmul Hassan)
+
+## [v1.1.2](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.1.2) — 2026-05-24
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.1.1...v1.1.2)
+
+* \[[`caaf5bdbbf`](https://github.com/nazmul-nhb/toolbox-x/commit/caaf5bdbbf)] - 🔧 update(date): updated `isDateLike` to handle more `Temporal` instances (Nazmul Hassan)
+
+## [v1.1.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.1.1) — 2026-05-24
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.1.0...v1.1.1)
+
+* \[[`eceb63859d`](https://github.com/nazmul-nhb/toolbox-x/commit/eceb63859d)] - 🐛 fix(form): updated `createFormData`: now handles configs more correctly (Nazmul Hassan)
+* \[[`fe133e9efa`](https://github.com/nazmul-nhb/toolbox-x/commit/fe133e9efa)] - 🐛 fix(docs): updated invalid links and sidebar meta (Nazmul Hassan)
+* \[[`c10974cf06`](https://github.com/nazmul-nhb/toolbox-x/commit/c10974cf06)] - 🔧 update(docs): updated chatbot name and import paths (Nazmul Hassan)
+
+## [v1.1.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.1.0) — 2026-05-24
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.0.1-rc.6...v1.1.0)
+
+* \[[`6c99fb7273`](https://github.com/nazmul-nhb/toolbox-x/commit/6c99fb7273)] - 🔧 update(dom/form): fixed all known issues with `createFormData` and updated docs (Nazmul Hassan)
+* \[[`21672be18c`](https://github.com/nazmul-nhb/toolbox-x/commit/21672be18c)] - 🐛 fix(dom/form): fixed an issue with string trimming (Nazmul Hassan)
+* \[[`a1f0a2897c`](https://github.com/nazmul-nhb/toolbox-x/commit/a1f0a2897c)] - 🛠️ chore: updated types and re-export some utils from other sub modules (Nazmul Hassan)
+
+## [v1.0.1-rc.6](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.0.1-rc.6) — 2026-05-23
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.0.1-rc.4...v1.0.1-rc.6)
+
+* \[[`60f8e4b328`](https://github.com/nazmul-nhb/toolbox-x/commit/60f8e4b328)] - 🧼 refactor(paths): updated import paths (Nazmul Hassan)
+* \[[`1f0f173f77`](https://github.com/nazmul-nhb/toolbox-x/commit/1f0f173f77)] - 🔧 update(docs): organized date utils and guards (Nazmul Hassan)
+* \[[`e41e05f6ea`](https://github.com/nazmul-nhb/toolbox-x/commit/e41e05f6ea)] - 🔧 update(docs): updated getting started section (Nazmul Hassan)
+
+## [v1.0.1-rc.4](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.0.1-rc.4) — 2026-05-22
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.0.1-rc.3...v1.0.1-rc.4)
+
+* \[[`0c13fbf037`](https://github.com/nazmul-nhb/toolbox-x/commit/0c13fbf037)] - 🧹 cleanup: removed unnecessary code (Nazmul Hassan)
+* \[[`f8b067fc91`](https://github.com/nazmul-nhb/toolbox-x/commit/f8b067fc91)] - 🔧 update(og): updated og generator base url (Nazmul Hassan)
+* \[[`77d79ce0d1`](https://github.com/nazmul-nhb/toolbox-x/commit/77d79ce0d1)] - 🔧 update(docs): updated theme color, logo and other configs (Nazmul Hassan)
+
+## [v1.0.1-rc.3](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.0.1-rc.3) — 2026-05-22
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.0.1-rc.2...v1.0.1-rc.3)
+
+* \[[`53f215946e`](https://github.com/nazmul-nhb/toolbox-x/commit/53f215946e)] - 🔧 update: updated types and docs; added logo (Nazmul Hassan)
+
+## [v1.0.1-rc.2](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.0.1-rc.2) — 2026-05-22
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v1.0.1-rc.1...v1.0.1-rc.2)
+
+* \[[`2ad9a08a2d`](https://github.com/nazmul-nhb/toolbox-x/commit/2ad9a08a2d)] - 🔧 update(domain): updated homepage domain (Nazmul Hassan)
+
+## [v1.0.1-rc.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v1.0.1-rc.1) — 2026-05-22
+
+* \[[`4ebb0d43ab`](https://github.com/toolbox-x/toolbox-x/commit/4ebb0d43ab)] - 🚀 init: initialized the project with existing codes from `nhb-toolbox` (Nazmul Hassan)
