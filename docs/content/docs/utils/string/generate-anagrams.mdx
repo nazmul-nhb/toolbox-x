@@ -58,9 +58,21 @@ console.log(anagrams);
 // Output: ['tone', 'note']
 ```
 
+<Callout type="warning" title="Limitations">
+- Dictionary-based filtering only includes exact matches; partial matches are ignored.
+- For built-in dictionary-based anagrams, use the dedicated package [`nhb-anagram-generator`](https://www.npmjs.com/package/nhb-anagram-generator), which specifically returns valid words (optional all words) using a built-in json dictionary.
+</Callout>
+
 ### Notes
 
 - Single character words return a single-item array containing the lowercase character.
 - An empty string returns an empty array.
-- For a pre-built dictionary of English words, you can fetch [english-words.json](https://github.com/nazmul-nhb/toolbox-x/blob/main/__dump__/english-words.json) and pass its array format to `options.dictionary`.
+- For a pre-built dictionary of English words, you can fetch [`english-words.json`](https://github.com/nazmul-nhb/anagram-generator/blob/main/src/data/english-words.json) and pass its array format to `options.dictionary`.
+  ```ts
+  import dict from './english-words.json'; // match your path
+
+  const words = (dict as { words: string[] }).words; // it contains 370,100 English words
+  generateAnagrams('banana', { dictionary: words });
+  ```
 - Anagram generation scales factorially with word length; use `limit` when dealing with longer words to avoid freezing the execution thread.
+
