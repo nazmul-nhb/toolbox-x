@@ -1,6 +1,6 @@
 // @ts-check
 
-import { defineScriptConfig, runExeca } from 'nhb-scripts';
+import { defineScriptConfig } from 'nhb-scripts';
 import { convertStringCase } from 'toolbox-x/change-case';
 import { isCamelCase, isPascalCase } from 'toolbox-x/guards';
 
@@ -18,9 +18,9 @@ export default defineScriptConfig({
 				{ emoji: '🔡', type: 'tsdoc' },
 			],
 		},
-		runBefore: async () => {
-			await runExeca('git', ['pull', 'origin', 'main']);
-		},
+		// runBefore: async () => {
+		// 	await runExeca('git', ['pull', 'origin', 'main']);
+		// },
 	},
 	module: {
 		force: false,

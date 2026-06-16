@@ -11,6 +11,8 @@
 		"guards",
 		"types",
 		"constants",
-		"..."
+		"...",
+		"---Recent Changes---",
+		"changelog"
 	]
 }

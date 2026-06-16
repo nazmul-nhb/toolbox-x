@@ -196,8 +196,6 @@ async function main() {
 	const changelog = [
 		'# Changelog',
 		'',
-		'<!-- markdownlint-disable-file MD024 -->',
-		'',
 		'All notable changes to **toolbox-x** will be documented in this file.',
 		'',
 		`> Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).`,

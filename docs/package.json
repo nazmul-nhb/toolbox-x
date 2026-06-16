@@ -4,9 +4,10 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "pnpm --filter toolbox-x build && pnpm gen && next build",
-		"dev": "pnpm gen && next dev",
+		"build": "pnpm changelog && pnpm --filter toolbox-x build && pnpm gen && next build",
+		"dev": "pnpm changelog && pnpm gen && next dev",
 		"start": "next start",
+		"changelog": "node scripts/update-changelog.mjs",
 		"gen": "node scripts/generate-types.mjs",
 		"typecheck": "fumadocs-mdx && next typegen && tsc --noEmit",
 		"typegen": "next typegen",
