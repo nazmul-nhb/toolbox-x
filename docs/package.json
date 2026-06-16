@@ -4,7 +4,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "pnpm --filter toolbox-x build pnpm changelog && && pnpm gen && next build",
+		"build": "pnpm --filter toolbox-x build && pnpm changelog && pnpm gen && next build",
 		"dev": "pnpm changelog && pnpm gen && next dev",
 		"start": "next start",
 		"changelog": "node scripts/update-changelog.mjs",
