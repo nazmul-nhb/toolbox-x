@@ -4,6 +4,14 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.0) — 2026-06-17
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.3.0...v2.4.0)
+
+* \[[`4d73725523`](https://github.com/nazmul-nhb/toolbox-x/commit/4d73725523)] - ✨ feat(number): added 2 new utils with docs: `safeAdd` and `getDecimalPlaces` (Nazmul Hassan)
+* \[[`afdab94c08`](https://github.com/nazmul-nhb/toolbox-x/commit/afdab94c08)] - 🔧 update(docs): added docs for new hash utils (Nazmul Hassan)
+* \[[`625265f93f`](https://github.com/nazmul-nhb/toolbox-x/commit/625265f93f)] - 📚 docs: updated CHANGELOG.md for v2.3.0 (github-actions\[bot])
+
 ## [v2.3.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.3.0) — 2026-06-16
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.5...v2.3.0)
