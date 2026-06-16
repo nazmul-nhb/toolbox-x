@@ -6,10 +6,12 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
-## [v2.2.3](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.2.3) — 2026-06-16
+## [v2.2.4](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.2.4) — 2026-06-16
 
-[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.2...v2.2.3)
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.2...v2.2.4)
 
+* \[[`2de5c47525`](https://github.com/nazmul-nhb/toolbox-x/commit/2de5c47525)] - 🚀 ci(publish): updated publish script (Nazmul Hassan)
+* \[[`3d6c1e2e95`](https://github.com/nazmul-nhb/toolbox-x/commit/3d6c1e2e95)] - 📚 docs: updated CHANGELOG.md for v2.2.3 (github-actions\[bot])
 * \[[`7f2fadcec0`](https://github.com/nazmul-nhb/toolbox-x/commit/7f2fadcec0)] - 🚀 ci: testing ci for changelog (Nazmul Hassan)
 * \[[`91951f99ae`](https://github.com/nazmul-nhb/toolbox-x/commit/91951f99ae)] - 📚 docs: updated CHANGELOG.md for v2.2.2 (github-actions\[bot])
 
