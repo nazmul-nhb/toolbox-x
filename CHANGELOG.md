@@ -4,6 +4,17 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.2.5](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.2.5) — 2026-06-16
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.4...v2.2.5)
+
+* \[[`86be53a528`](https://github.com/nazmul-nhb/toolbox-x/commit/86be53a528)] - 🔧 update(scripts): updated pre-commit script to pull main with safety (Nazmul Hassan)
+* \[[`dd02dcf024`](https://github.com/nazmul-nhb/toolbox-x/commit/dd02dcf024)] - 🔧 update(changelog): updated changelog script (Nazmul Hassan)
+* \[[`314749f832`](https://github.com/nazmul-nhb/toolbox-x/commit/314749f832)] - 🐛 fix(docs): updated build script (Nazmul Hassan)
+* \[[`524acb4d98`](https://github.com/nazmul-nhb/toolbox-x/commit/524acb4d98)] - 🐛 fix(docs): fixed error in changelog sync (Nazmul Hassan)
+* \[[`169ab67304`](https://github.com/nazmul-nhb/toolbox-x/commit/169ab67304)] - 🔧 update(docs): sync changelog before build (Nazmul Hassan)
+* \[[`daa192f88c`](https://github.com/nazmul-nhb/toolbox-x/commit/daa192f88c)] - 📚 docs: updated CHANGELOG.md for v2.2.4 (github-actions\[bot])
+
 ## [v2.2.4](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.2.4) — 2026-06-16
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.2.2...v2.2.4)
