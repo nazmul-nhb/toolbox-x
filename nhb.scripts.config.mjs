@@ -18,9 +18,6 @@ export default defineScriptConfig({
 				{ emoji: '🔡', type: 'tsdoc' },
 			],
 		},
-		// runBefore: async () => {
-		// 	await runExeca('git', ['pull', 'origin', 'main']);
-		// },
 	},
 	module: {
 		force: false,
