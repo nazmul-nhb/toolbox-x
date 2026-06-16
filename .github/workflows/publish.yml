@@ -147,10 +147,10 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
           if [[ "$VERSION" =~ -(alpha|beta|rc) ]]; then
             echo "Pre-release detected, tag 'next'"
-            pnpm publish --access public --tag next --registry https://registry.npmjs.org
+            pnpm publish --access public --tag next --no-git-checks --registry https://registry.npmjs.org
           else
             echo "Stable release, tag 'latest'"
-            pnpm publish --access public --registry https://registry.npmjs.org
+            pnpm publish --access public --no-git-checks --registry https://registry.npmjs.org
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
