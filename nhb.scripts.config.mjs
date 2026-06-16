@@ -30,10 +30,10 @@ export default defineScriptConfig({
 			},
 		},
 	},
-	// count: {
-	// 	defaultPath: 'node_modules/nhb-toolbox/dist/esm',
-	// 	excludePaths: ['node_modules', 'dist', '.VSCodeCounter'],
-	// },
+	count: {
+		defaultPath: 'src/index.ts',
+		excludePaths: ['node_modules', 'dist', '.VSCodeCounter', 'docs'],
+	},
 });
 
 /**
