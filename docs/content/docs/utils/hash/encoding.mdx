@@ -43,7 +43,7 @@ utf8ToBytes(str: string): Uint8Array
 import { utf8ToBytes } from 'toolbox-x/hash';
 const bytes = utf8ToBytes('Hello 🌍');
 // Uint8Array(10) [72, 101, 108, 108, 111, 32, 240, 159, 140, 141]
-console.log(bytes);
+console.log([...bytes]); // Converting to a normal array for logging
 ```
 
 #### Features
@@ -105,7 +105,7 @@ base64ToBytes(str: string): Uint8Array
 import { base64ToBytes } from 'toolbox-x/hash';
 const bytes = base64ToBytes('aGVsbG8=');
 // Uint8Array(5) [104, 101, 108, 108, 111]
-console.log(bytes);
+console.log([...bytes]); // Converting to a normal array for logging
 ```
 
 #### Supports
@@ -168,7 +168,7 @@ import { sha256Bytes } from 'toolbox-x/hash';
 const bytes = new Uint8Array([104, 101, 108, 108, 111]); // "hello"
 const hash = sha256Bytes(bytes);
 // Uint8Array(32) [44, 242, 77, 186, ...]
-console.log(hash);
+console.log([...hash]); // Converting to a normal array for logging
 ```
 
 #### Implementation
@@ -200,12 +200,12 @@ hmacSha256(key: Uint8Array, message: Uint8Array): Uint8Array
 #### Examples
 
 ```typescript pg
-import { hmacSha256 } from 'toolbox-x/hash';
-const key = new TextEncoder().encode('secret');
-const msg = new TextEncoder().encode('Hello');
+import { hmacSha256, utf8ToBytes } from 'toolbox-x/hash';
+const key = utf8ToBytes('secret');
+const msg = utf8ToBytes('Hello');
 const hmac = hmacSha256(key, msg);
 
-console.log(hmac);
+console.log([...hmac]); // Converting to a normal array for logging
 ```
 
 #### Algorithm
@@ -250,7 +250,7 @@ const b = new Uint8Array([3, 4]);
 const result = concatBytes(a, b);
 // Uint8Array(4) [1, 2, 3, 4]
 
-console.log(result);
+console.log([...result]); // Converting to a normal array for logging
 ```
 
 **Performance:** Allocates once and uses `set()` for optimal copying.
@@ -280,7 +280,7 @@ import { uint8To32ArrayBE } from 'toolbox-x/hash';
 const bytes = new Uint8Array([0x12, 0x34, 0x56, 0x78, 0x9A]);
 const be = uint8To32ArrayBE(bytes);
 // Uint32Array(2) [0x12345678, 0x9A000000]
-console.log(be)
+console.log([...be]); // Converting to a normal array for logging
 ```
 
 #### Notes
@@ -312,7 +312,7 @@ intTo4BytesBE(n: number): Uint8Array
 import { intTo4BytesBE } from 'toolbox-x/hash';
 const bytes = intTo4BytesBE(0x12345678);
 // Uint8Array(4) [0x12, 0x34, 0x56, 0x78]
-console.log(bytes);
+console.log([...bytes]); // Converting to a normal array for logging
 ```
 
 #### Use Cases
@@ -388,22 +388,28 @@ hexToBytes(hex: string): Uint8Array
 import { hexToBytes } from 'toolbox-x/hash';
 // Basic conversion
 const hex = '12abff00';
-const bytes = hexToBytes(hex); // Uint8Array(4) [18, 171, 255, 0]
+const bytes = [...hexToBytes(hex)]; // Converting to a normal array for logging
+// [18, 171, 255, 0]
 
 // With spaces
 const spacedHex = '48 65 6c 6c 6f';
-const spacedBytes = hexToBytes(spacedHex); // Uint8Array(5) [72, 101, 108, 108, 111]
+const spacedBytes = [...hexToBytes(spacedHex)]; // Converting to a normal array for logging
+// [72, 101, 108, 108, 111]
 
 // Empty input
-const emptyBytes = hexToBytes(''); // Uint8Array []
+const emptyBytes = [...hexToBytes('')]; // Converting to a normal array for logging
+// []
 
 // Invalid input returns empty array
-const invalidBytes = hexToBytes('invalid!'); // Uint8Array []
-const oddBytes = hexToBytes('123'); // Uint8Array []
+const invalidBytes = [...hexToBytes('invalid!')]; // Converting to a normal array for logging
+// []
+const oddBytes = [...hexToBytes('123')]; // Converting to a normal array for logging
+// []
 
 // Cryptographic hash decoding
 const sha256Hex = '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824';
-const hashBytes = hexToBytes(sha256Hex); // Uint8Array(32)
+const hashBytes = [...hexToBytes(sha256Hex)]; // Converting to a normal array for logging
+// [28, 242, 77, 186, ...]
 
 console.log({
     bytes,

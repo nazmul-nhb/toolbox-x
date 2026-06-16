@@ -87,7 +87,7 @@ export function randomHex(length: number, uppercase = false): string {
 export function randomNumeric(length: number = 6): `${number}` {
 	const bytes = randomBytes(length);
 
-	return bytes.map((byte) => byte & 10).join('') as `${number}`;
+	return bytes.map((byte) => byte % 10).join('') as `${number}`;
 }
 
 /**
