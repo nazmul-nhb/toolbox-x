@@ -124,10 +124,8 @@ export function computeTextDiff(originalText: string, modifiedText: string): Dif
 			}
 		} else if (line.type !== 'added' || !usedIndices.has(idx)) {
 			// Add unchanged lines and unpaired added lines
-			if (line.type !== 'added' || !usedIndices.has(idx)) {
-				processedLines.push(line);
-				usedIndices.add(idx);
-			}
+			processedLines.push(line);
+			usedIndices.add(idx);
 		}
 	}
 
@@ -151,12 +149,7 @@ export function computeTextDiff(originalText: string, modifiedText: string): Dif
 
 	return {
 		lines: processedLines,
-		stats: {
-			linesAdded,
-			linesRemoved,
-			linesChanged,
-			linesUnchanged,
-		},
+		stats: { linesAdded, linesRemoved, linesChanged, linesUnchanged },
 	};
 }
 

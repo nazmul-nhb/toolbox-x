@@ -372,18 +372,49 @@ export type Alphabet<T extends string> = IsAlphabet<T> extends true ? T : never;
 /** Types related to string diffing and similarity calculations. */
 export type DiffLineType = 'added' | 'removed' | 'unchanged' | 'modified';
 
-/** A single line difference between two strings, including the type of difference and the content of the line in both original and modified strings. */
-export interface DiffLine {
-	/** The type of difference: 'added', 'removed', 'unchanged', or 'modified'. */
-	type: DiffLineType;
-	/** The content of the original line. Undefined for added lines. */
-	original?: string;
-	/** The content of the modified line. Undefined for removed lines. */
-	modified?: string;
-	/** The line number in the original string (1-based). Undefined for added lines. */
-	originalLineNum?: number;
-	/** The line number in the modified string (1-based). Undefined for removed lines. */
-	modifiedLineNum?: number;
+/** Represents a single line's diff status between two strings, including the type of difference and the content of the line in both original and modified strings. */
+export type DiffLine = UnchangedOrModifiedDiffLine | AddedDiffLine | RemovedDiffLine;
+
+/** Represents the details of a single line in the diff, including its content and line number. */
+export interface DiffLineDetails {
+	/** The content of the original line, omitted for `added` lines. */
+	original: string;
+	/** The content of the modified line, omitted for `removed` lines. */
+	modified: string;
+	/** The line number in the original string (1-based), omitted for `added` lines. */
+	originalLineNum: number;
+	/** The line number in the modified string (1-based), omitted for `removed` lines. */
+	modifiedLineNum: number;
+}
+
+/** Represents an unchanged or modified line, including both original and modified content and their respective line numbers. */
+export interface UnchangedOrModifiedDiffLine extends DiffLineDetails {
+	/** The type of difference, either `'unchanged'` or `'modified'`. */
+	type: 'unchanged' | 'modified';
+}
+
+/** Represents an added line, including only its content and line number in the modified string. */
+export interface AddedDiffLine extends Omit<DiffLineDetails, 'originalLineNum' | 'original'> {
+	/** The type of difference, fixed to `'added'`. */
+	type: 'added';
+}
+
+/** Represents a removed line, including only its content and line number in the original string. */
+export interface RemovedDiffLine extends Omit<DiffLineDetails, 'modifiedLineNum' | 'modified'> {
+	/** The type of difference, fixed to `'removed'`. */
+	type: 'removed';
+}
+
+/** Statistics summarizing the diff results, including counts of added, removed, changed, and unchanged lines. */
+export interface DiffStats {
+	/** Total number of lines that were added in the modified string compared to the original. */
+	linesAdded: number;
+	/** Total number of lines that were removed from the original string in the modified version. */
+	linesRemoved: number;
+	/** Total number of lines that were modified (changed content) between the original and modified strings. */
+	linesChanged: number;
+	/** Total number of lines that remained unchanged between the original and modified strings. */
+	linesUnchanged: number;
 }
 
 /** The result of a line-level diff operation, including an array of line differences and summary statistics. */
@@ -391,23 +422,14 @@ export interface DiffResult {
 	/** An array of line differences, where each line is categorized as 'added', 'removed', 'unchanged', or 'modified'. */
 	lines: DiffLine[];
 	/** Statistics summarizing the diff results, including counts of added, removed, changed, and unchanged lines. */
-	stats: {
-		/** Total number of lines that were added in the modified string compared to the original. */
-		linesAdded: number;
-		/** Total number of lines that were removed from the original string in the modified version. */
-		linesRemoved: number;
-		/** Total number of lines that were modified (changed content) between the original and modified strings. */
-		linesChanged: number;
-		/** Total number of lines that remained unchanged between the original and modified strings. */
-		linesUnchanged: number;
-	};
+	stats: DiffStats;
 }
 
 /** A single character annotated with a `highlighted` flag indicating whether it differs from the other string in a diff operation. */
 export interface HighlightedText {
-	/** Character text. */
+	/** The text content of the character. */
 	text: string;
-	/** Whether the character is different from the other string. */
+	/** Whether the character is different from the other string in a diff operation. */
 	highlighted: boolean;
 }
 

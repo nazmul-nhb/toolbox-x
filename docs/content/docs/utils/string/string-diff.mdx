@@ -35,28 +35,15 @@ import { computeTextDiff } from 'toolbox-x';
 
 const result = computeTextDiff('hello\nworld', 'hello\nearth');
 console.log(result);
-/*
-Output:
-{
-  lines: [
-    {
-      type: 'unchanged',
-      original: 'hello',
-      modified: 'hello',
-      originalLineNum: 1,
-      modifiedLineNum: 1
-    },
-    { type: 'removed', original: 'world', originalLineNum: 2 },
-    { type: 'added', modified: 'earth', modifiedLineNum: 2 }
-  ],
-  stats: {
-    linesAdded: 1,
-    linesRemoved: 1,
-    linesChanged: 0,
-    linesUnchanged: 1
-  }
-}
-*/
+
+// {
+//   lines: [
+//     { type: 'unchanged', original: 'hello', modified: 'hello', originalLineNum: 1, modifiedLineNum: 1 },
+//     { type: 'removed', original: 'world', originalLineNum: 2 },
+//     { type: 'added', modified: 'earth', modifiedLineNum: 2 }
+//   ],
+//   stats: { linesAdded: 1, linesRemoved: 1, linesChanged: 0, linesUnchanged: 1}
+// }
 ```
 
 ### Notes
@@ -92,63 +79,102 @@ import { getCharacterDifferences } from 'toolbox-x';
 
 const diff = getCharacterDifferences('cat', 'car');
 console.log(diff);
-/*
 Output:
-{
-  original: [
-    { text: 'c', highlighted: false },
-    { text: 'a', highlighted: false },
-    { text: 't', highlighted: true }
-  ],
-  modified: [
-    { text: 'c', highlighted: false },
-    { text: 'a', highlighted: false },
-    { text: 'r', highlighted: true }
-  ]
-}
-*/
+// {
+//   original: [
+//     { text: 'c', highlighted: false },
+//     { text: 'a', highlighted: false },
+//     { text: 't', highlighted: true }
+//   ],
+//   modified: [
+//     { text: 'c', highlighted: false },
+//     { text: 'a', highlighted: false },
+//     { text: 'r', highlighted: true }
+//   ]
+// }
 ```
 
 ---
 
-### Types
+## Types
 
-#### `DiffResult`
+### `DiffResult`
 
 ```typescript
+/** Statistics summarizing the diff results, including counts of added, removed, changed, and unchanged lines. */
+interface DiffStats {
+	/** Total number of lines that were added in the modified string compared to the original. */
+	linesAdded: number;
+	/** Total number of lines that were removed from the original string in the modified version. */
+	linesRemoved: number;
+	/** Total number of lines that were modified (changed content) between the original and modified strings. */
+	linesChanged: number;
+	/** Total number of lines that remained unchanged between the original and modified strings. */
+	linesUnchanged: number;
+}
+
+/** The result of a line-level diff operation, including an array of line differences and summary statistics. */
 interface DiffResult {
-  lines: DiffLine[];
-  stats: {
-    linesAdded: number;
-    linesRemoved: number;
-    linesChanged: number;
-    linesUnchanged: number;
-  };
+	/** An array of line differences, where each line is categorized as 'added', 'removed', 'unchanged', or 'modified'. */
+	lines: DiffLine[];
+	/** Statistics summarizing the diff results, including counts of added, removed, changed, and unchanged lines. */
+	stats: DiffStats;
 }
 ```
 
-#### `DiffLine`
+### `DiffLine`
 
 ```typescript
-interface DiffLine {
-  type: 'added' | 'removed' | 'unchanged' | 'modified';
-  original?: string;
-  modified?: string;
-  originalLineNum?: number;
-  modifiedLineNum?: number;
+/** Represents a single line's diff status between two strings, including the type of difference and the content of the line in both original and modified strings. */
+type DiffLine = UnchangedOrModifiedDiffLine | AddedDiffLine | RemovedDiffLine;
+
+/** Represents the details of a single line in the diff, including its content and line number. */
+interface DiffLineDetails {
+	/** The content of the original line, omitted for `added` lines. */
+	original: string;
+	/** The content of the modified line, omitted for `removed` lines. */
+	modified: string;
+	/** The line number in the original string (1-based), omitted for `added` lines. */
+	originalLineNum: number;
+	/** The line number in the modified string (1-based), omitted for `removed` lines. */
+	modifiedLineNum: number;
+}
+
+/** Represents an unchanged or modified line, including both original and modified content and their respective line numbers. */
+interface UnchangedOrModifiedDiffLine extends DiffLineDetails {
+	/** The type of difference, either `'unchanged'` or `'modified'`. */
+	type: 'unchanged' | 'modified';
+}
+
+/** Represents an added line, including only its content and line number in the modified string. */
+interface AddedDiffLine extends Omit<DiffLineDetails, 'originalLineNum' | 'original'> {
+	/** The type of difference, fixed to `'added'`. */
+	type: 'added';
+}
+
+/** Represents a removed line, including only its content and line number in the original string. */
+interface RemovedDiffLine extends Omit<DiffLineDetails, 'modifiedLineNum' | 'modified'> {
+	/** The type of difference, fixed to `'removed'`. */
+	type: 'removed';
 }
 ```
 
-#### `CharDiffResult`
+### `CharDiffResult`
 
 ```typescript
+/** A single character annotated with a `highlighted` flag indicating whether it differs from the other string in a diff operation. */
+interface HighlightedText {
+	/** The text content of the character. */
+	text: string;
+	/** Whether the character is different from the other string in a diff operation. */
+	highlighted: boolean;
+}
+
+/** Result of a character-level diff, mapping each character in both strings to a `highlighted` flag. */
 interface CharDiffResult {
-  original: HighlightedText[];
-  modified: HighlightedText[];
+	/** An array of characters from the original string, each annotated with a `highlighted` flag indicating whether it differs from the modified string. */
+	original: HighlightedText[];
+	/** An array of characters from the modified string, each annotated with a `highlighted` flag indicating whether it differs from the original string. */
+	modified: HighlightedText[];
 }
-
-type HighlightedText = {
-  text: string;
-  highlighted: boolean;
-};
 ```
