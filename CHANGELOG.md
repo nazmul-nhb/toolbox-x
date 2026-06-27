@@ -4,6 +4,17 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.4](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.4) — 2026-06-28
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.2...v2.4.4)
+
+* \[[`5565185e11`](https://github.com/nazmul-nhb/toolbox-x/commit/5565185e11)] - 🧼 refactor(date): all conversion into `Date` object is now immutable (Nazmul Hassan)
+* \[[`592d976acc`](https://github.com/nazmul-nhb/toolbox-x/commit/592d976acc)] - 🛠️ chore: updated editor config and deps (Nazmul Hassan)
+* \[[`a3b28009a8`](https://github.com/nazmul-nhb/toolbox-x/commit/a3b28009a8)] - 🔧 update(docs): updated docs for `addDate` (Nazmul Hassan)
+* \[[`0f6476e6b0`](https://github.com/nazmul-nhb/toolbox-x/commit/0f6476e6b0)] - 🔧 update(package.json): added more keywords (Nazmul Hassan)
+* \[[`d1c6ff4282`](https://github.com/nazmul-nhb/toolbox-x/commit/d1c6ff4282)] - 🔧 update(docs): updated docs for natural sort utility (Nazmul Hassan)
+* \[[`56a8e690d5`](https://github.com/nazmul-nhb/toolbox-x/commit/56a8e690d5)] - 📚 docs: updated CHANGELOG.md for v2.4.2 (github-actions\[bot])
+
 ## [v2.4.2](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.2) — 2026-06-17
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.1...v2.4.2)
