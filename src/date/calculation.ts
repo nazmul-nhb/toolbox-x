@@ -29,13 +29,11 @@ import type { Maybe, Numeric } from 'src/types/index';
  * ```
  */
 export function addDate(date: Maybe<DateArgs>, units: UnitWithValue): Date {
-	const $date = _dateArgsToDate(date);
+	const expected = _dateArgsToDate(date);
 
-	if (Number.isNaN($date.getTime())) {
+	if (Number.isNaN(expected.getTime())) {
 		throw new TypeError('Provided date is invalid!');
 	}
-
-	const expected = new Date($date);
 
 	for (const [unit, value] of Object.entries(units) as [TimeUnit, Numeric][]) {
 		const val = normalizeNumber(value);

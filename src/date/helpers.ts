@@ -140,7 +140,7 @@ export function _padZero(value: number, length = 2) {
 }
 
 /**
- * Convert a string, number, or `Date` object to a `Date` object.
+ * Convert a string, number, or `Date` object to a new `Date` object.
  * - If the input is already a `Date`, it is returned as is.
  * - If it's a string, it is parsed into a `Date`.
  * - If it's a number, it is treated as a timestamp and converted to a `Date`.
@@ -148,8 +148,11 @@ export function _padZero(value: number, length = 2) {
  * @returns A `Date` object representing the input date.
  */
 export function _dateArgsToDate(value: Maybe<DateArgs>): Date {
-	return value instanceof Date
-		? value
-		: new Date(isString(value) ? value.replace(/['"]/g, '') : (value ?? Date.now()));
-	// ! Needs more work on this
+	return new Date(
+		value instanceof Date
+			? value
+			: isString(value)
+				? value.replace(/['"]/g, '')
+				: (value ?? Date.now())
+	);
 }
