@@ -119,7 +119,17 @@ export interface MaskOptions {
 	end?: number;
 	/** Character to use for masking. Defaults to `*`. */
 	maskCharacter?: string;
-	/** Whether to trim all whitespace characters before masking. Defaults to `true`. */
+	/** Whether to trim all whitespace characters before masking. Defaults to `false`. */
+	trim?: boolean;
+}
+
+/** Options for truncating a string */
+export interface TruncateOptions {
+	/** The maximum length of the truncated string. Defaults to `100`. */
+	maxLength?: number;
+	/** The string to append to the truncated string. Defaults to `'...'`. */
+	suffix?: string;
+	/** Whether to trim all whitespace characters from the string before truncating. Defaults to `false`. */
 	trim?: boolean;
 }
 

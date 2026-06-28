@@ -47,7 +47,7 @@ export const slugifyString = (input: string): string => {
  * @returns The masked string.
  */
 export const maskString = (input: string, options?: MaskOptions): string => {
-	const { start = 1, end = 1, trim = true, maskCharacter = '*' } = options || {};
+	const { start = 1, end = 1, trim = false, maskCharacter = '*' } = options || {};
 
 	const trimmedString = trim ? trimString(input) : input;
 

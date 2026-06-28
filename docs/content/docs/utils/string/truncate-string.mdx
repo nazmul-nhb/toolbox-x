@@ -5,26 +5,32 @@ description: Shortens a string to a specified maximum length and appends an elli
 
 ## truncateString
 
-The `truncateString` function shortens a string to a specified maximum length and appends an ellipsis (`...`) if it exceeds that length.
+The `truncateString` function shortens a string to a specified maximum length and appends an ellipsis (`...`) or a *custom suffix* if it exceeds that length.
 
 ### Function Signature
 
 ```typescript
 function truncateString(str: string, maxLength: number): string
+
+function truncateString(str: string, options?: TruncateOptions): string
 ```
 
 ### Parameters
 
 - **`str`** (`string`): The string to truncate.
-- **`maxLength`** (`number`): The maximum allowed length before truncation.
+- **`maxLength`** (`number`): The maximum allowed length before truncation. Defaults to `100`.
+- **`options`** (`TruncateOptions`, optional): Configuration options:
+  - **`maxLength`** (`number`): The maximum allowed length before truncation. Defaults to `100`.
+  - **`suffix`** (`string`): The suffix to append to the truncated string. Defaults to `'...'`.
+  - **`trim`** (`boolean`): Whether to trim all whitespace characters before truncating. Defaults to `false`.
 
 ### Return Value
 
-- **`string`**: The truncated string with an appended ellipsis (`...`), or the original string if its length is less than or equal to `maxLength`.
+- **`string`**: The truncated string based on the options or the original string if its length is less than or equal to `maxLength`.
 
 ### Example Usage
 
-```ts pg
+```ts pg tab="Without Options"
 import { truncateString } from 'toolbox-x';
 
 console.log(truncateString('Hello, this is a long sentence.', 10));
@@ -35,4 +41,32 @@ console.log(truncateString('Short', 10));
 
 console.log(truncateString('', 5));
 // Output: ''
+```
+
+```ts pg tab="With Options"
+import { truncateString } from 'toolbox-x';
+
+const sentence = '  Hello, this is a long sentence.  ';
+
+// With trim true and maxLength
+console.log(truncateString(sentence, {
+  maxLength: 10,
+  trim: true
+}));
+// Output: 'Hello, thi...'
+
+// With trim true and custom suffix
+console.log(truncateString(sentence, {
+  maxLength: 10,
+  suffix: '--',
+  trim: true
+}));
+// Output: 'Hello, thi--'
+
+// Without trim option
+console.log(truncateString(sentence, {
+  maxLength: 10,
+  suffix: '--',
+}));
+// Output: '  Hello, t--'
 ```

@@ -1,23 +1,53 @@
-import { isNonEmptyString } from 'src/guards/primitives';
-import type { RandomIdOptions } from 'src/types/string';
+import { isNotEmptyObject } from 'src/guards/non-primitives';
+import { isNonEmptyString, isNumber } from 'src/guards/primitives';
+import type { RandomIdOptions, TruncateOptions } from 'src/types/string';
 
 /**
  * * Utility to truncate a string to a specified length.
  *
  * @param str The string to truncate.
- * @param maxLength The maximum length of the truncated string.
- * @returns Truncated string with ellipsis (`...`) (only if it has more length than `maxLength`).
+ * @param maxLength The maximum length of the truncated string. Defaults to `100`.
+ * @returns Truncated string with ellipsis (`'...'`) (only if it has more length than `maxLength`).
  */
-export function truncateString(str: string, maxLength: number): string {
+export function truncateString(str: string, maxLength?: number): string;
+
+/**
+ * * Utility to truncate a string to a specified length using options.
+ *
+ * @param str The string to truncate.
+ * @param options Options for truncating the string.
+ * @returns Truncated string based on the {@link options}.
+ */
+export function truncateString(str: string, options?: TruncateOptions): string;
+
+/** Utility to truncate a string to a specified length.
+ *
+ * @param str The string to truncate.
+ * @param optionsOrLength The maximum length of the truncated string or options.
+ * @returns Truncated string based on provided options.
+ */
+export function truncateString(str: string, optionsOrLength?: number | TruncateOptions) {
 	if (!isNonEmptyString(str)) return '';
 
-	const trimmedString = str.trim();
+	let maxLength = 100,
+		suffix = '...',
+		trim = false;
+
+	if (isNumber(optionsOrLength) && optionsOrLength > 0) {
+		maxLength = optionsOrLength;
+	} else if (isNotEmptyObject(optionsOrLength)) {
+		maxLength = optionsOrLength?.maxLength ?? maxLength;
+		suffix = optionsOrLength?.suffix ?? suffix;
+		trim = optionsOrLength?.trim ?? trim;
+	}
+
+	const trimmedString = trim ? trimString(str) : str;
 
 	if (!trimmedString) return '';
 
 	if (trimmedString.length <= maxLength) return trimmedString;
 
-	return trimmedString.slice(0, maxLength).concat('...');
+	return trimmedString.slice(0, maxLength).concat(suffix);
 }
 
 /**
@@ -27,6 +57,7 @@ export function truncateString(str: string, maxLength: number): string {
  * @returns The generated ID string composed of the random alphanumeric string of specified length with optional `timeStamp`, `prefix`, and `suffix`, `caseOption` and `separator`.
  *
  * @see {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/hash/uuid uuid} for `uuid` generation
+ * @see {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/hash/random-numeric randomHex} for random numeric string generation
  * @see {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/hash/random-hex randomHex} for random hexadecimal string generation
  *
  * @example
