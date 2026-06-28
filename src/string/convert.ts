@@ -23,7 +23,7 @@ export const replaceAllInString = (
 
 	const regex = isString(find)
 		? new RegExp(find, 'g')
-		: new RegExp(find, find?.flags.includes('g') ? find?.flags : find?.flags + 'g');
+		: new RegExp(find, find?.flags.includes('g') ? find?.flags : `${find?.flags}g`);
 
 	return trimmedString?.replace(regex, replace);
 };
@@ -47,17 +47,17 @@ export const slugifyString = (input: string): string => {
  * @returns The masked string.
  */
 export const maskString = (input: string, options?: MaskOptions): string => {
-	const { start = 1, end = 1, maskCharacter: maskChar = '*' } = options || {};
+	const { start = 1, end = 1, trim = true, maskCharacter = '*' } = options || {};
 
-	const trimmedString = trimString(input);
+	const trimmedString = trim ? trimString(input) : input;
 
 	if (trimmedString?.length <= start + end) {
-		return maskChar?.repeat(trimmedString?.length);
+		return maskCharacter?.repeat(trimmedString?.length);
 	}
 
 	return (
 		trimmedString.slice(0, start) +
-		maskChar?.repeat(trimmedString?.length - start - end) +
+		maskCharacter?.repeat(trimmedString?.length - start - end) +
 		(end > 0 ? trimmedString.slice(-end) : '')
 	);
 };

@@ -119,6 +119,8 @@ export interface MaskOptions {
 	end?: number;
 	/** Character to use for masking. Defaults to `*`. */
 	maskCharacter?: string;
+	/** Whether to trim all whitespace characters before masking. Defaults to `true`. */
+	trim?: boolean;
 }
 
 /** Formatted query string as `?${string}` = `?key=value&...` or empty string. */
