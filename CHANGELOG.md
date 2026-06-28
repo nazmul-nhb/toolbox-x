@@ -4,6 +4,14 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.6](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.6) — 2026-06-28
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.4...v2.4.6)
+
+* \[[`56043d65ef`](https://github.com/nazmul-nhb/toolbox-x/commit/56043d65ef)] - 🔧 update(string): added new signature for `truncateString` with `TruncateOptions` (Nazmul Hassan)
+* \[[`bde1e98b99`](https://github.com/nazmul-nhb/toolbox-x/commit/bde1e98b99)] - 🔧 update(string): updated `MaskOptions` for `maskString` (Nazmul Hassan)
+* \[[`bdeea053f1`](https://github.com/nazmul-nhb/toolbox-x/commit/bdeea053f1)] - 📚 docs: updated CHANGELOG.md for v2.4.4 (github-actions\[bot])
+
 ## [v2.4.4](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.4) — 2026-06-28
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.2...v2.4.4)
