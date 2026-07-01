@@ -4,6 +4,13 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.7](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.7) — 2026-07-01
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.6...v2.4.7)
+
+* \[[`0bc327ce62`](https://github.com/nazmul-nhb/toolbox-x/commit/0bc327ce62)] - 🔣 types: added new utility types (Nazmul Hassan)
+* \[[`31c4ffc719`](https://github.com/nazmul-nhb/toolbox-x/commit/31c4ffc719)] - 📚 docs: updated CHANGELOG.md for v2.4.6 (github-actions\[bot])
+
 ## [v2.4.6](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.6) — 2026-06-28
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.4...v2.4.6)
