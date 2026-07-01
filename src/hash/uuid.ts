@@ -17,6 +17,7 @@ import type {
 	UUID,
 	UUIDOptions,
 } from 'src/types/hash';
+import type { Nullable } from 'src/types/index';
 
 /**
  * * Generates UUIDs across all major RFC-compliant versions (1, 3, 4, 5, 6, 7, 8), following standards from `RFC4122`. Default version is `v4`.
@@ -184,7 +185,7 @@ export function uuid<V extends SupportedVersion = 'v4'>(options?: UUIDOptions<V>
  *   - `v8` decoding only returns timestamp if it matches a known layout.
  *   - `v3/v5` hash UUIDs contain no timestamp information.
  */
-export function decodeUUID(uuid: string): DecodedUUID | null {
+export function decodeUUID(uuid: string): Nullable<DecodedUUID> {
 	if (!isUUID(uuid)) return null;
 
 	const plain = uuid.replace(/-/g, '');

@@ -19,12 +19,16 @@ import type { ChatUIMessage, SearchTool } from '@/app/api/chat/route';
 import { Markdown } from '@/components/markdown';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/cn';
+import type { Nullable } from '@/types/index';
 
-const Context = createContext<{
-	open: boolean;
-	setOpen: (open: boolean) => void;
-	chat: UseChatHelpers<ChatUIMessage>;
-} | null>(null);
+const Context =
+	createContext<
+		Nullable<{
+			open: boolean;
+			setOpen: (open: boolean) => void;
+			chat: UseChatHelpers<ChatUIMessage>;
+		}>
+	>(null);
 
 export function AISearchPanelHeader({ className, ...props }: ComponentProps<'div'>) {
 	const { setOpen } = useAISearchContext();

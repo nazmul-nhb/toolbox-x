@@ -21,10 +21,16 @@ type $Brand<B> = { [__brand]: B };
  */
 export type Branded<T, B> = T & $Brand<B>;
 
-/** Represents a value that may or may not be present. */
+/** Represents a value that may be `undefined`. */
 export type Maybe<T> = T | undefined;
 
-/** Utility type to flatten Partial type */
+/** Represents a value that may be `null`. */
+export type Nullable<T> = T | null;
+
+/** Represents a value that may be `null` or `undefined`. */
+export type Uncertain<T> = T | null | undefined;
+
+/** Utility type to flatten `Partial` type */
 export type FlattenPartial<T> = Partial<{ [K in keyof T]: T[K] }>;
 
 /** Union of `number` and numeric string */

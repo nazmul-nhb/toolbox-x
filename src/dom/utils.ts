@@ -1,3 +1,5 @@
+import type { Nullable } from 'src/types/index';
+
 /**
  * * Scrolls smoothly to the given element with an optional vertical offset.
  * @param element The target element to scroll to.
@@ -19,7 +21,7 @@ export function smoothScrollTo(element: HTMLElement, offset = 0) {
  */
 export function toggleFullScreen(element = document.documentElement) {
 	const doc = document as Document & {
-		webkitFullscreenElement?: Element | null;
+		webkitFullscreenElement?: Nullable<Element>;
 		webkitExitFullscreen?: () => Promise<void>;
 	};
 

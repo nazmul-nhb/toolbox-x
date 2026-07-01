@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { Maybe } from 'toolbox-x/types';
+import type { Nullable } from '@/types/index';
 
 /**
  * Smoothly animates a number change (count-up / count-down)
@@ -10,7 +11,7 @@ export function useCountUp(value: Maybe<number>, duration = 2500): number {
 	const [display, setDisplay] = useState(value ?? 0);
 
 	useEffect(() => {
-		let start: number | null = null;
+		let start: Nullable<number> = null;
 		const from = display;
 		const diff = (value ?? 0) - from;
 

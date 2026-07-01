@@ -1,3 +1,4 @@
+import type { Nullable } from 'src/types/index';
 import type {
 	FromMetaOptions,
 	PageListOptions,
@@ -153,17 +154,17 @@ export class Paginator {
 
 	/**
 	 * @instance Returns the next page number if it exists.
-	 * @returns The next page number or null if it's the last page.
+	 * @returns The next page number or `null` if it's the last page.
 	 */
-	nextPage(): number | null {
+	nextPage(): Nullable<number> {
 		return this.#currentPage < this.totalPages() ? this.#currentPage + 1 : null;
 	}
 
 	/**
 	 * @instance Returns the previous page number if it exists.
-	 * @returns The previous page number or null if it's the first page.
+	 * @returns The previous page number or `null` if it's the first page.
 	 */
-	prevPage(): number | null {
+	prevPage(): Nullable<number> {
 		return this.#currentPage > 1 ? this.#currentPage - 1 : null;
 	}
 

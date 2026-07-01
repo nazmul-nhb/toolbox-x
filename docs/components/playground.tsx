@@ -9,6 +9,7 @@ import { isArray, isObject } from 'toolbox-x/guards';
 import { Copy } from '@/components/copy';
 import { MODULES, Toolbox, type ToolboxModule } from '@/lib/.generated-modules';
 import generatedTypes from '@/lib/.generated-types.json';
+import type { Nullable } from '@/types/index';
 
 interface PlaygroundProps {
 	code: string;
@@ -18,7 +19,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 	const monaco = useMonaco();
 	const [code, setCode] = useState(initialCode);
 	const [outputs, setOutputs] = useState<unknown[]>([]);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<Nullable<string>>(null);
 	const [editorHeight, setEditorHeight] = useState(256);
 
 	const editorRef = useRef<Parameters<OnMount>[0]>(null);

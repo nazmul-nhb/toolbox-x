@@ -13,6 +13,7 @@ import {
 	useState,
 } from 'react';
 import { cn } from '@/lib/cn';
+import type { Nullable } from '@/types/index';
 
 type CollectionKey = string | symbol;
 
@@ -36,10 +37,13 @@ export interface TabsProps
 	label?: ReactNode;
 }
 
-const TabsContext = createContext<{
-	items?: string[];
-	collection: CollectionKey[];
-} | null>(null);
+const TabsContext =
+	createContext<
+		Nullable<{
+			items?: string[];
+			collection: CollectionKey[];
+		}>
+	>(null);
 
 function useTabContext() {
 	const ctx = useContext(TabsContext);

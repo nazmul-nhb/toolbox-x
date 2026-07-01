@@ -1,4 +1,4 @@
-import type { Deserializer, Serializer } from 'src/types/index';
+import type { Deserializer, Nullable, Serializer } from 'src/types/index';
 
 // * ****************** Local Storage ****************** * //
 
@@ -9,7 +9,10 @@ import type { Deserializer, Serializer } from 'src/types/index';
  * @param deserialize - Optional deserializer function to convert the stored value back to type `T`. Defaults to `JSON.parse`.
  * @returns Returns saved item from local storage if it exists with that key.
  */
-export function getFromLocalStorage<T>(key: string, deserialize?: Deserializer<T>): T | null {
+export function getFromLocalStorage<T>(
+	key: string,
+	deserialize?: Deserializer<T>
+): Nullable<T> {
 	const deserializer: Deserializer<T> = deserialize ?? JSON.parse;
 
 	try {
@@ -60,7 +63,10 @@ export function removeFromLocalStorage(key: string) {
  * @param deserialize - Optional deserializer function to convert the stored value back to type `T`. Defaults to `JSON.parse`.
  * @returns Returns saved item from session storage if it exists with that key.
  */
-export function getFromSessionStorage<T>(key: string, deserialize?: Deserializer<T>): T | null {
+export function getFromSessionStorage<T>(
+	key: string,
+	deserialize?: Deserializer<T>
+): Nullable<T> {
 	const deserializer: Deserializer<T> = deserialize ?? JSON.parse;
 
 	try {

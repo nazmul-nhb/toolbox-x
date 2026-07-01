@@ -1,4 +1,5 @@
 import type { LOWERCASE } from 'src/string/constants';
+import type { Nullable } from 'src/types/index';
 import type { $Countries } from 'src/types/object';
 import type { Join, LooseLiteral, Split } from 'src/types/utils';
 
@@ -81,7 +82,7 @@ export interface RandomIdOptions {
 	separator?: string;
 
 	/** Specifies the case for the full id (this includes alphanumeric string and suffix+prefix). Default is `null`. */
-	caseOption?: 'upper' | 'lower' | null;
+	caseOption?: Nullable<'upper' | 'lower'>;
 }
 
 /** - Case formats for converting a string */
