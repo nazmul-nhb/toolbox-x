@@ -4,6 +4,13 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.8](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.8) — 2026-07-09
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.7...v2.4.8)
+
+* \[[`943e84246c`](https://github.com/nazmul-nhb/toolbox-x/commit/943e84246c)] - 🐛 fix(stylog): fixed the issue with log not printing the styles properly (Nazmul Hassan)
+* \[[`efd0a3fab5`](https://github.com/nazmul-nhb/toolbox-x/commit/efd0a3fab5)] - 📚 docs: updated CHANGELOG.md for v2.4.7 (github-actions\[bot])
+
 ## [v2.4.7](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.4.7) — 2026-07-01
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.6...v2.4.7)
