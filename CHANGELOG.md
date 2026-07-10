@@ -4,6 +4,13 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.5.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.5.1) — 2026-07-10
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.5.0...v2.5.1)
+
+* \[[`ce831eda79`](https://github.com/nazmul-nhb/toolbox-x/commit/ce831eda79)] - 🐛 fix(docs): updated tsdoc and docs site (Nazmul Hassan)
+* \[[`9180c9ad55`](https://github.com/nazmul-nhb/toolbox-x/commit/9180c9ad55)] - 📚 docs: updated CHANGELOG.md for v2.5.0 (github-actions\[bot])
+
 ## [v2.5.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.5.0) — 2026-07-10
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.4.8...v2.5.0)
