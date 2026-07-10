@@ -1,258 +1,256 @@
 {
-  "name": "toolbox-x",
-  "version": "2.4.8",
-  "description": "A versatile collection of smart, efficient, and reusable utility functions, classes and types for everyday development needs.",
-  "main": "./dist/index.cjs",
-  "type": "module",
-  "sideEffects": false,
-  "scripts": {
-    "build": "tsdown",
-    "watch": "tsdown --watch",
-    "build:gen": "tsdown && pnpm gen",
-    "dev": "pnpm --filter toolbox-x-docs dev",
-    "start": "pnpm --filter toolbox-x-docs start",
-    "build:docs": "pnpm --filter toolbox-x-docs build",
-    "gen": "pnpm --filter toolbox-x-docs gen",
-    "typegen": "pnpm --filter toolbox-x-docs typegen",
-    "typecheck": "tsc --noEmit",
-    "typecheck:docs": "pnpm --filter toolbox-x-docs typecheck",
-    "validate:links": "pnpm --filter toolbox-x-docs validate:links",
-    "prepublishOnly": "pnpm run build",
-    "commit": "node scripts/pull-main.mjs && nhb-commit",
-    "count": "nhb-count",
-    "delete": "nhb-delete",
-    "lint": "biome lint --diagnostic-level=warn",
-    "fix": "biome check --write --diagnostic-level=warn",
-    "format": "biome format --write --diagnostic-level=warn",
-    "create-docs": "nhb-module -t docs",
-    "prepare": "husky",
-    "changelog": "node scripts/generate-changelog.mjs",
-    "changelog:docs": "pnpm --filter toolbox-x-docs changelog"
-  },
-  "keywords": [
-    "toolbox",
-    "toolbox-x",
-    "utility",
-    "functions",
-    "class",
-    "guard",
-    "predicate",
-    "form",
-    "random-id",
-    "id",
-    "parse",
-    "format",
-    "generate",
-    "generator",
-    "data",
-    "form-data",
-    "development",
-    "tools",
-    "helpers",
-    "utils",
-    "nhb",
-    "color",
-    "time",
-    "date-fns",
-    "javascript",
-    "typescript",
-    "pluralize",
-    "pluralizer",
-    "singularize",
-    "singularizer",
-    "verbalize",
-    "verbalizer",
-    "date",
-    "date-time",
-    "chalk",
-    "console",
-    "style",
-    "stylog",
-    "log styler",
-    "log",
-    "hash",
-    "md5",
-    "sha1",
-    "sha256",
-    "text-codec",
-    "encrypt",
-    "decrypt",
-    "uuid",
-    "token",
-    "cipher",
-    "signet",
-    "status-codes",
-    "http-status",
-    "http-status-codes"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md",
-    "package.json"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nazmul-nhb/toolbox-x.git"
-  },
-  "homepage": "https://toolbox-x.nazmul-nhb.dev",
-  "author": {
-    "name": "Nazmul Hassan",
-    "email": "nazmulnhb@gmail.com",
-    "url": "https://nazmul-nhb.dev"
-  },
-  "contributors": [
-    {
-      "name": "Nazmul Hassan",
-      "email": "nazmulnhb007@yahoo.com",
-      "url": "https://github.com/nazmul-nhb"
-    },
-    {
-      "name": "Nazmul Hassan",
-      "email": "nazmulnhb@gmail.com",
-      "url": "https://github.com/nhb-nazmul"
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/nazmul-nhb/toolbox-x/issues",
-    "email": "nazmulnhb@gmail.com"
-  },
-  "license": "Apache-2.0",
-  "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
-  "devDependencies": {
-    "@biomejs/biome": "^2.5.2",
-    "@types/node": "^26.1.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^17.0.8",
-    "nhb-scripts": "^1.9.2",
-    "tsdown": "^0.22.3",
-    "typescript": "^6.0.3"
-  },
-  "lint-staged": {
-    "*.+((c|m)?js(x)?|(c|m)?ts(x)?)": [
-      "biome format --write --diagnostic-level=warn",
-      "biome lint --diagnostic-level=warn"
-    ]
-  },
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.cts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    },
-    "./change-case": {
-      "import": "./dist/change-case.mjs",
-      "require": "./dist/change-case.cjs"
-    },
-    "./colors": {
-      "import": "./dist/colors/index.mjs",
-      "require": "./dist/colors/index.cjs"
-    },
-    "./constants": {
-      "import": "./dist/constants.mjs",
-      "require": "./dist/constants.cjs"
-    },
-    "./converter": {
-      "import": "./dist/converter/index.mjs",
-      "require": "./dist/converter/index.cjs"
-    },
-    "./date": {
-      "import": "./dist/date/index.mjs",
-      "require": "./dist/date/index.cjs"
-    },
-    "./dom": {
-      "import": "./dist/dom/index.mjs",
-      "require": "./dist/dom/index.cjs"
-    },
-    "./guards": {
-      "import": "./dist/guards/index.mjs",
-      "require": "./dist/guards/index.cjs"
-    },
-    "./hash": {
-      "import": "./dist/hash/index.mjs",
-      "require": "./dist/hash/index.cjs"
-    },
-    "./http-status": {
-      "import": "./dist/http-status/index.mjs",
-      "require": "./dist/http-status/index.cjs"
-    },
-    "./paginator": {
-      "import": "./dist/paginator.mjs",
-      "require": "./dist/paginator.cjs"
-    },
-    "./stylog": {
-      "import": "./dist/stylog/index.mjs",
-      "require": "./dist/stylog/index.cjs"
-    },
-    "./types": {
-      "import": "./dist/types/index.mjs",
-      "require": "./dist/types/index.cjs"
-    },
-    "./types/array": {
-      "import": "./dist/types/array.mjs",
-      "require": "./dist/types/array.cjs"
-    },
-    "./types/colors": {
-      "import": "./dist/types/colors.mjs",
-      "require": "./dist/types/colors.cjs"
-    },
-    "./types/converter": {
-      "import": "./dist/types/converter.mjs",
-      "require": "./dist/types/converter.cjs"
-    },
-    "./types/date": {
-      "import": "./dist/types/date.mjs",
-      "require": "./dist/types/date.cjs"
-    },
-    "./types/form": {
-      "import": "./dist/types/form.mjs",
-      "require": "./dist/types/form.cjs"
-    },
-    "./types/hash": {
-      "import": "./dist/types/hash.mjs",
-      "require": "./dist/types/hash.cjs"
-    },
-    "./types/http-status": {
-      "import": "./dist/types/http-status.mjs",
-      "require": "./dist/types/http-status.cjs"
-    },
-    "./types/number": {
-      "import": "./dist/types/number.mjs",
-      "require": "./dist/types/number.cjs"
-    },
-    "./types/object": {
-      "import": "./dist/types/object.mjs",
-      "require": "./dist/types/object.cjs"
-    },
-    "./types/pluralizer": {
-      "import": "./dist/types/pluralizer.mjs",
-      "require": "./dist/types/pluralizer.cjs"
-    },
-    "./types/string": {
-      "import": "./dist/types/string.mjs",
-      "require": "./dist/types/string.cjs"
-    },
-    "./types/stylog": {
-      "import": "./dist/types/stylog.mjs",
-      "require": "./dist/types/stylog.cjs"
-    },
-    "./types/utils": {
-      "import": "./dist/types/utils.mjs",
-      "require": "./dist/types/utils.cjs"
-    },
-    "./types/verbalizer": {
-      "import": "./dist/types/verbalizer.mjs",
-      "require": "./dist/types/verbalizer.cjs"
-    },
-    "./verbalizer": {
-      "import": "./dist/verbalizer/index.mjs",
-      "require": "./dist/verbalizer/index.cjs"
-    },
-    "./package.json": "./package.json"
-  }
+	"name": "toolbox-x",
+	"version": "2.4.8",
+	"description": "A versatile collection of smart, efficient, and reusable utility functions, classes and types for everyday development needs.",
+	"main": "./dist/index.cjs",
+	"type": "module",
+	"sideEffects": false,
+	"scripts": {
+		"build": "tsdown",
+		"watch": "tsdown --watch",
+		"build:gen": "tsdown && pnpm gen",
+		"dev": "pnpm --filter toolbox-x-docs dev",
+		"start": "pnpm --filter toolbox-x-docs start",
+		"build:docs": "pnpm --filter toolbox-x-docs build",
+		"gen": "pnpm --filter toolbox-x-docs gen",
+		"typegen": "pnpm --filter toolbox-x-docs typegen",
+		"typecheck": "tsc --noEmit",
+		"typecheck:docs": "pnpm --filter toolbox-x-docs typecheck",
+		"validate:links": "pnpm --filter toolbox-x-docs validate:links",
+		"prepublishOnly": "pnpm run build",
+		"commit": "node scripts/pull-main.mjs && nhb-commit",
+		"count": "nhb-count",
+		"delete": "nhb-delete",
+		"lint": "biome lint --diagnostic-level=warn",
+		"fix": "biome check --write --diagnostic-level=warn",
+		"format": "biome format --write --diagnostic-level=warn",
+		"create-docs": "nhb-module -t docs",
+		"prepare": "husky",
+		"changelog": "node scripts/generate-changelog.mjs",
+		"changelog:docs": "pnpm --filter toolbox-x-docs changelog"
+	},
+	"keywords": [
+		"toolbox",
+		"toolbox-x",
+		"utility",
+		"functions",
+		"class",
+		"guard",
+		"predicate",
+		"form",
+		"random-id",
+		"id",
+		"parse",
+		"format",
+		"generate",
+		"generator",
+		"data",
+		"form-data",
+		"development",
+		"tools",
+		"helpers",
+		"utils",
+		"nhb",
+		"color",
+		"time",
+		"date-fns",
+		"javascript",
+		"typescript",
+		"pluralize",
+		"pluralizer",
+		"singularize",
+		"singularizer",
+		"verbalize",
+		"verbalizer",
+		"date",
+		"date-time",
+		"chalk",
+		"console",
+		"style",
+		"stylog",
+		"log styler",
+		"log",
+		"hash",
+		"md5",
+		"sha1",
+		"sha256",
+		"text-codec",
+		"encrypt",
+		"decrypt",
+		"uuid",
+		"token",
+		"cipher",
+		"signet",
+		"status-codes",
+		"http-status",
+		"http-status-codes"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": ["dist", "LICENSE", "README.md", "CHANGELOG.md", "package.json"],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nazmul-nhb/toolbox-x.git"
+	},
+	"homepage": "https://toolbox-x.nazmul-nhb.dev",
+	"author": {
+		"name": "Nazmul Hassan",
+		"email": "nazmulnhb@gmail.com",
+		"url": "https://nazmul-nhb.dev"
+	},
+	"contributors": [
+		{
+			"name": "Nazmul Hassan",
+			"email": "nazmulnhb007@yahoo.com",
+			"url": "https://github.com/nazmul-nhb"
+		},
+		{
+			"name": "Nazmul Hassan",
+			"email": "nazmulnhb@gmail.com",
+			"url": "https://github.com/nhb-nazmul"
+		}
+	],
+	"bugs": {
+		"url": "https://github.com/nazmul-nhb/toolbox-x/issues",
+		"email": "nazmulnhb@gmail.com"
+	},
+	"license": "Apache-2.0",
+	"packageManager": "pnpm@11.10.0+sha512.0b7f8b98060031904c017e3a41eb187a16d40eeb829b95c4f8cb03681761fc4ab53dd219115b9b447f4dce1a05a214764461e7d3703392a9f32f9511ce8c86c8",
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.2",
+		"@types/node": "^26.1.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^17.0.8",
+		"nhb-scripts": "^1.9.2",
+		"tsdown": "^0.22.3",
+		"typescript": "^6.0.3"
+	},
+	"lint-staged": {
+		"*.+((c|m)?js(x)?|(c|m)?ts(x)?)": [
+			"biome format --write --diagnostic-level=warn",
+			"biome lint --diagnostic-level=warn"
+		]
+	},
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.cts",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
+		},
+		"./change-case": {
+			"import": "./dist/change-case.mjs",
+			"require": "./dist/change-case.cjs"
+		},
+		"./colors": {
+			"import": "./dist/colors/index.mjs",
+			"require": "./dist/colors/index.cjs"
+		},
+		"./constants": {
+			"import": "./dist/constants.mjs",
+			"require": "./dist/constants.cjs"
+		},
+		"./converter": {
+			"import": "./dist/converter/index.mjs",
+			"require": "./dist/converter/index.cjs"
+		},
+		"./date": {
+			"import": "./dist/date/index.mjs",
+			"require": "./dist/date/index.cjs"
+		},
+		"./dom": {
+			"import": "./dist/dom/index.mjs",
+			"require": "./dist/dom/index.cjs"
+		},
+		"./guards": {
+			"import": "./dist/guards/index.mjs",
+			"require": "./dist/guards/index.cjs"
+		},
+		"./hash": {
+			"import": "./dist/hash/index.mjs",
+			"require": "./dist/hash/index.cjs"
+		},
+		"./http-status": {
+			"import": "./dist/http-status/index.mjs",
+			"require": "./dist/http-status/index.cjs"
+		},
+		"./paginator": {
+			"import": "./dist/paginator.mjs",
+			"require": "./dist/paginator.cjs"
+		},
+		"./pluralizer": {
+			"import": "./dist/pluralizer/index.mjs",
+			"require": "./dist/pluralizer/index.cjs"
+		},
+		"./stylog": {
+			"import": "./dist/stylog/index.mjs",
+			"require": "./dist/stylog/index.cjs"
+		},
+		"./types": {
+			"import": "./dist/types/index.mjs",
+			"require": "./dist/types/index.cjs"
+		},
+		"./types/array": {
+			"import": "./dist/types/array.mjs",
+			"require": "./dist/types/array.cjs"
+		},
+		"./types/colors": {
+			"import": "./dist/types/colors.mjs",
+			"require": "./dist/types/colors.cjs"
+		},
+		"./types/converter": {
+			"import": "./dist/types/converter.mjs",
+			"require": "./dist/types/converter.cjs"
+		},
+		"./types/date": {
+			"import": "./dist/types/date.mjs",
+			"require": "./dist/types/date.cjs"
+		},
+		"./types/form": {
+			"import": "./dist/types/form.mjs",
+			"require": "./dist/types/form.cjs"
+		},
+		"./types/hash": {
+			"import": "./dist/types/hash.mjs",
+			"require": "./dist/types/hash.cjs"
+		},
+		"./types/http-status": {
+			"import": "./dist/types/http-status.mjs",
+			"require": "./dist/types/http-status.cjs"
+		},
+		"./types/number": {
+			"import": "./dist/types/number.mjs",
+			"require": "./dist/types/number.cjs"
+		},
+		"./types/object": {
+			"import": "./dist/types/object.mjs",
+			"require": "./dist/types/object.cjs"
+		},
+		"./types/pluralizer": {
+			"import": "./dist/types/pluralizer.mjs",
+			"require": "./dist/types/pluralizer.cjs"
+		},
+		"./types/string": {
+			"import": "./dist/types/string.mjs",
+			"require": "./dist/types/string.cjs"
+		},
+		"./types/stylog": {
+			"import": "./dist/types/stylog.mjs",
+			"require": "./dist/types/stylog.cjs"
+		},
+		"./types/utils": {
+			"import": "./dist/types/utils.mjs",
+			"require": "./dist/types/utils.cjs"
+		},
+		"./types/verbalizer": {
+			"import": "./dist/types/verbalizer.mjs",
+			"require": "./dist/types/verbalizer.cjs"
+		},
+		"./verbalizer": {
+			"import": "./dist/verbalizer/index.mjs",
+			"require": "./dist/verbalizer/index.cjs"
+		},
+		"./package.json": "./package.json"
+	}
 }

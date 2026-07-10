@@ -172,7 +172,7 @@ export type DeepPartialAll<T> =
 		: Prettify<{ [K in keyof T]?: DeepPartialAll<T[K]> }>;
 
 /**
- * * Removes `readonly` modifiers from all properties of an object type.
+ * * Removes `readonly` modifier from all top level properties of an object type.
  *
  * @example
  * type ReadonlyObj = { readonly id: number };
@@ -184,7 +184,19 @@ export type Mutable<T> = {
 };
 
 /**
- * * Recursively adds `readonly` to all properties of an object type.
+ * * Recursively removes `readonly` modifier from all nested properties of an object type.
+ *
+ * @example
+ * type ReadonlyObj = { readonly user: { readonly name: string; readonly id: number } };
+ * type WritableObj = MutableDeep<ReadonlyObj>;
+ * // { id: number }
+ */
+export type MutableDeep<T> = {
+	-readonly [K in keyof T]: MutableDeep<T[K]>;
+};
+
+/**
+ * * Recursively adds `readonly` modifier to all nested properties of an object type.
  *
  * @example
  * type State = { user: { id: number } };
@@ -206,6 +218,36 @@ export type Immutable<T> = {
  */
 export type Merge<T, U> = {
 	[K in keyof T | keyof U]: K extends keyof U ? U[K] : K extends keyof T ? T[K] : never;
+};
+
+/**
+ * * Creates an object type containing only the properties shared by both object types.
+ *   Shared property values are combined into a union.
+ *
+ * @example
+ * type A = { id: number; name: string };
+ * type B = { name: boolean; active: boolean };
+ * type Shared = PickShared<A, B>;
+ * // { name: string | boolean }
+ */
+export type PickShared<T, U> = {
+	[K in keyof T & keyof U]: T[K] | U[K];
+};
+
+/**
+ * * Combines all properties from both object types.
+ *   When a property exists in both types, its value becomes a union of both.
+ *
+ * @example
+ * type A = { id: number; name: string };
+ * type B = { name: boolean; active: boolean };
+ * type Unified = MergeUnion<A, B>;
+ * // { id: number; name: string | boolean; active: boolean }
+ */
+export type MergeUnion<T, U> = {
+	[K in keyof T | keyof U]:
+		| (K extends keyof U ? U[K] : never)
+		| (K extends keyof T ? T[K] : never);
 };
 
 /**
@@ -269,9 +311,10 @@ export type Prettify<T> = { [K in keyof T]: T[K] } & {};
  *
  * @note Technically, this uses intersection with primitive base types (`string & {}` or `number & {}`) to retain IntelliSense while avoiding type narrowing.
  */
-export type LooseLiteral<T extends string | number> =
-	| T
-	| (T extends string ? string & {} : number & {});
+export type LooseLiteral<T> = T | $LooseLiteral<T>;
+
+/** Helper type to create loose `string`/`number` part of {@link LooseLiteral} */
+type $LooseLiteral<T> = T extends string ? string & {} : T extends number ? number & {} : never;
 
 /**
  * * Extracts an object type containing only the optional keys from `T`.

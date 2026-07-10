@@ -12,6 +12,7 @@ import * as Guards from 'toolbox-x/guards';
 import * as Hash from 'toolbox-x/hash';
 import * as HttpStatus from 'toolbox-x/http-status';
 import * as Paginator from 'toolbox-x/paginator';
+import * as Pluralizer from 'toolbox-x/pluralizer';
 import * as Stylog from 'toolbox-x/stylog';
 import * as Types from 'toolbox-x/types';
 import * as TypesArray from 'toolbox-x/types/array';
@@ -44,6 +45,7 @@ export const MODULES: Record<ToolboxModule, unknown> = {
 	'toolbox-x/hash': Hash,
 	'toolbox-x/http-status': HttpStatus,
 	'toolbox-x/paginator': Paginator,
+	'toolbox-x/pluralizer': Pluralizer,
 	'toolbox-x/stylog': Stylog,
 	'toolbox-x/types': Types,
 	'toolbox-x/types/array': TypesArray,
