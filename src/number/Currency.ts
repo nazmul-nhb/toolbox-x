@@ -52,7 +52,7 @@ export class Currency<Code extends CurrencyCode> {
 	 *
 	 * @param locale - Optional. A BCP 47 locale string (e.g., `'de-DE'`, `'en-US'`). Defaults to `'en-US'` if not provided.
 	 * @param code - Optional. An ISO 4217 currency code (e.g., `'USD'`, `'EUR'`) used solely for formatting purposes.
-	 *            _This does not alter the internal currency code set during instantiation._
+	 *
 	 * @returns A string representing the formatted currency value according to the specified locale and currency code.
 	 */
 	format(locale?: LocaleCode, code?: CurrencyCode): string {

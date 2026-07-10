@@ -59,13 +59,25 @@ export type Percent = Enumerate<101>;
 
 /** - Options for random number generator */
 export interface RandomNumberOptions {
-	/** Minimum number to start with. @default 0 */
+	/**
+	 * Minimum number to start with.
+	 * @default 0
+	 */
 	min?: number;
-	/** Maximum number to end with. @default 100 */
+	/**
+	 * Maximum number to end with.
+	 * @default 100
+	 */
 	max?: number;
-	/** Whether to include the minimum number. @default true */
+	/**
+	 * Whether to include the minimum number.
+	 * @default true
+	 */
 	includeMin?: boolean;
-	/** Whether to include the maximum number. @default true */
+	/**
+	 * Whether to include the maximum number.
+	 * @default true
+	 */
 	includeMax?: boolean;
 }
 

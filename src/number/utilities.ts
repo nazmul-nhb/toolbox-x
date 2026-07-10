@@ -11,9 +11,9 @@ import type { CurrencyCode, LocaleCode } from 'src/types/number';
  * @returns The number rounded to the nearest interval.
  * @example roundToNearest(27, 5) → 25
  */
-export const roundToNearest = (value: Numeric, interval = 5): number => {
+export function roundToNearest(value: Numeric, interval = 5): number {
 	return Math.round(Number(value) / interval) * interval;
-};
+}
 
 /**
  * * Formats a number as a currency string.
@@ -25,18 +25,18 @@ export const roundToNearest = (value: Numeric, interval = 5): number => {
  * @example formatCurrency(1234.56, "USD") → "$1,234.56"
  * @example formatCurrency(1234.56, "USD", "en-US") → "$1,234.56"
  */
-export const formatCurrency = (
+export function formatCurrency(
 	value: Numeric,
 	currency: CurrencyCode = 'USD',
 	locale?: LocaleCode
-): string => {
+): string {
 	const selectedLocale: LocaleCode = locale ? locale : CURRENCY_LOCALES[currency];
 
 	return new Intl.NumberFormat(selectedLocale, {
 		style: 'currency',
 		currency,
 	}).format(value);
-};
+}
 
 /**
  * * Clamps a number within a specified range.
@@ -48,9 +48,9 @@ export const formatCurrency = (
  * @example clampNumber(5, 10, 20) → 10
  * @example clampNumber(25, 10, 20) → 20
  */
-export const clampNumber = (value: number, min: number, max: number): number => {
+export function clampNumber(value: number, min: number, max: number): number {
 	return Math.max(min, Math.min(value, max));
-};
+}
 
 /**
  * * Generates a random floating-point number within a range.
@@ -59,9 +59,9 @@ export const clampNumber = (value: number, min: number, max: number): number => 
  * @returns A random floating-point number between min and max.
  * @example randomFloat(1.5, 3.5) → 2.84623
  */
-export const getRandomFloat = (min: Numeric, max: Numeric): number => {
+export function getRandomFloat(min: Numeric, max: Numeric): number {
 	return Math.random() * (Number(max) - Number(min)) + Number(min);
-};
+}
 
 /**
  * * Returns the ordinal suffix for a given number (e.g., 1 -> 'st', 2 -> 'nd', 3 -> 'rd', 4 -> 'th' etc.).
@@ -73,7 +73,7 @@ export const getRandomFloat = (min: Numeric, max: Numeric): number => {
  * @param withNumber - Whether to include the number along with its ordinal suffix (defaults to `true`).
  * @returns The appropriate ordinal suffix, optionally with the number (e.g., '1st' or 'st`, '2nd' or 'nd' and so on.).
  */
-export const getOrdinal = (num: Numeric, withNumber = true): string => {
+export function getOrdinal(num: Numeric, withNumber = true): string {
 	const remainder10 = Number(num) % 10;
 	const remainder100 = Number(num) % 100;
 
@@ -90,7 +90,7 @@ export const getOrdinal = (num: Numeric, withNumber = true): string => {
 	}
 
 	return withNumber ? String(num).concat(suffix) : suffix;
-};
+}
 
 /**
  * * Normalize a number or numeric string to a number.
