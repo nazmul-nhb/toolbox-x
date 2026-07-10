@@ -59,13 +59,13 @@ export type Percent = Enumerate<101>;
 
 /** - Options for random number generator */
 export interface RandomNumberOptions {
-	/** Minimum number to start with. */
+	/** Minimum number to start with. @default 0 */
 	min?: number;
-	/** Maximum number to end with. */
+	/** Maximum number to end with. @default 100 */
 	max?: number;
-	/** Whether to include the minimum number. */
+	/** Whether to include the minimum number. @default true */
 	includeMin?: boolean;
-	/** Whether to include the maximum number. */
+	/** Whether to include the maximum number. @default true */
 	includeMax?: boolean;
 }
 
@@ -85,11 +85,32 @@ export type NumberType = 'any' | 'natural' | 'odd' | 'even' | 'prime' | 'random'
 
 /** - Options for generating numbers in a range */
 export interface RangeOptions<T extends boolean = false> extends RandomNumberOptions {
-	/** Separator for the string format if `getAsString` is `true`. Defaults to `", "`. */
+	/**
+	 * Minimum number to start with.
+	 * @remarks When `type` is `'natural'` it cannot be a negative value and defaults to `1`. Any negative value is clamped to `1`.
+	 * @default 0
+	 */
+	min?: number;
+	/**
+	 * Maximum number to end with.
+	 * @remarks When `type` is `'natural'` it cannot be a negative value. Any negative value is clamped to `1`.
+	 * @default 100
+	 */
+	max?: number;
+	/**
+	 * Separator for the string format if `getAsString` is `true`.
+	 * @default ", "
+	 */
 	separator?: T extends true ? string : never;
-	/** The multiples of which number to consider in the result. */
+	/**
+	 * The multiples of which number to consider in the result.
+	 * @default undefined
+	 */
 	multiplesOf?: number;
-	/** The format for the result - `{ getAsString: true }` returns strings with custom separator and `false` returns array of numbers. Default is `false`. */
+	/**
+	 * The format for the result - `{ getAsString: true }` returns strings with custom separator and `false` returns array of numbers.
+	 * @default false
+	 */
 	getAsString?: T;
 }
 

@@ -12,7 +12,7 @@ import type { ConvertedDecimal, DecimalOptions, RandomNumberOptions } from 'src/
  * @param options - Options for configuring random number generator.
  * @returns Random number.
  */
-export const getRandomNumber = (options?: RandomNumberOptions): number => {
+export function getRandomNumber(options?: RandomNumberOptions): number {
 	const { min = 0, max = 100, includeMin = true, includeMax = true } = options || {};
 
 	let minimum = min,
@@ -54,7 +54,7 @@ export const getRandomNumber = (options?: RandomNumberOptions): number => {
 	}
 
 	return 0;
-};
+}
 
 /**
  * * Utility to round a number to given decimal places.
@@ -63,10 +63,10 @@ export const getRandomNumber = (options?: RandomNumberOptions): number => {
  * @param options - Options for rounding behavior, including decimal places and return type.
  * @returns Converted number as `number` (default) or `string` (if `isString` is `true`).
  */
-export const convertToDecimal = <T extends Maybe<boolean> = false>(
+export function convertToDecimal<T extends Maybe<boolean> = false>(
 	input: Numeric,
 	options?: DecimalOptions<T>
-): ConvertedDecimal<T> => {
+): ConvertedDecimal<T> {
 	const { decimalPlaces = 2, isString = false } = options || {};
 
 	const parsed = normalizeNumber(input);
@@ -80,7 +80,7 @@ export const convertToDecimal = <T extends Maybe<boolean> = false>(
 	return (
 		isString ? parsed.toFixed(decimalPlaces) : Number(parsed.toFixed(decimalPlaces))
 	) as ConvertedDecimal<T>;
-};
+}
 
 /**
  * * Calculates the HCF/GCD of multiple numbers.

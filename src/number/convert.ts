@@ -73,7 +73,7 @@ export function numberToWords(num: Numeric): string {
  *
  * @example convertToRomanNumerals(29) // → "XXIX"
  */
-export const convertToRomanNumerals = (value: Numeric): RomanCapital => {
+export function convertToRomanNumerals(value: Numeric): RomanCapital {
 	let num = normalizeNumber(value);
 
 	if (!isInteger(num) || num <= 0 || num >= 4000) {
@@ -105,7 +105,7 @@ export const convertToRomanNumerals = (value: Numeric): RomanCapital => {
 	}
 
 	return result as RomanCapital;
-};
+}
 
 /**
  * * Converts a Roman numeral to its Arabic numeric representation.
@@ -116,7 +116,7 @@ export const convertToRomanNumerals = (value: Numeric): RomanCapital => {
  * romanToInteger("XXIX") // → 29
  * romanToInteger("mmxxv") // → 2025
  */
-export const romanToInteger = (roman: LooseRomanNumeral): number => {
+export function romanToInteger(roman: LooseRomanNumeral): number {
 	const romanMap: Record<string, number> = {
 		I: 1,
 		V: 5,
@@ -162,7 +162,7 @@ export const romanToInteger = (roman: LooseRomanNumeral): number => {
 	}
 
 	return total;
-};
+}
 
 /**
  * * Converts a number, numeric string, or cardinal word string into its ordinal word representation.

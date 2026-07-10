@@ -12,7 +12,7 @@ import { convertArrayToString } from 'src/utils/index';
  *
  * @remarks Returns either string or array of numbers based on the {@link RangeOptions.getAsString getAsString} option.
  *
- * @param type - The type of numbers to generate ('random', 'prime', etc.).
+ * @param type - The type of numbers to generate ('random', 'prime', etc.). @default 'any'
  * @param options - Options to configure number generation, including range and formatting.
  * @returns The numbers in the range based on {@link type} and {@link options} either as string or array of numbers.
  */
@@ -93,7 +93,7 @@ export function getNumbersInRange<T extends boolean = false>(
 			break;
 
 		case 'natural':
-			output = _applyRangeOptions(Math.max(min, 1), max);
+			output = _applyRangeOptions(Math.max(min, 1), Math.max(max, 1));
 			break;
 
 		default:
