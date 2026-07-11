@@ -15,3 +15,7 @@ minimumReleaseAgeExclude:
   - nhb-scripts
   - typescript
   - "@types/*"
+
+peerDependencyRules:
+  allowedVersions:
+    typescript: "7"
