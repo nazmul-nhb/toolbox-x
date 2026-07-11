@@ -106,13 +106,10 @@ export function extractObjectKeys<T extends GenericObject>(obj: T): Array<keyof 
  */
 export function extractObjectKeys<T extends GenericObject>(obj: T, tuple: true): Tuple<keyof T>;
 
-export function extractObjectKeys<T extends GenericObject>(
-	obj: T,
-	tuple?: true
-): Array<keyof T> | Tuple<keyof T> {
+export function extractObjectKeys<T extends GenericObject>(obj: T, _tuple?: true) {
 	const keys = isNotEmptyObject(obj) ? Object.keys(obj) : [];
 
-	return tuple ? (keys as Tuple<keyof T>) : (keys as Array<keyof T>);
+	return keys as Array<keyof T>;
 }
 
 /**

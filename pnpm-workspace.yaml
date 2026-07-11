@@ -10,3 +10,8 @@ allowBuilds:
 onlyBuiltDependencies:
   - esbuild
   - sharp
+
+minimumReleaseAgeExclude:
+  - nhb-scripts
+  - typescript
+  - "@types/*"
