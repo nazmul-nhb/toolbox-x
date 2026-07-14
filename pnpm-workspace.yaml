@@ -14,6 +14,7 @@ onlyBuiltDependencies:
 minimumReleaseAgeExclude:
   - nhb-scripts
   - typescript
+  - tsdown
   - "@types/*"
 
 peerDependencyRules:
