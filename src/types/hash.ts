@@ -98,28 +98,27 @@ export interface SignOptions extends VerifyOptions {
 export type TokenString = `${string}.${string}.${string}`;
 
 /** Interface of token verification result if token is valid */
-export type $ValidToken<T extends GenericObject = GenericObject> = {
+export interface $ValidToken<T extends GenericObject = GenericObject> {
 	/** Whether the token is valid */
 	isValid: true;
 	/** Decoded payload after successful verification with common {@link SignetPayload} properties */
 	payload: SignetPayload<T>;
-};
+}
 
 /** Interface of token verification result if token is invalid */
-export type $InvalidToken = {
+export interface $InvalidToken {
 	/** Whether the token is valid */
 	isValid: false;
 	/** Error message if the token is invalid */
 	error: string;
-};
+}
 
 /** Result of token verification */
 export type VerifiedToken<T extends GenericObject = GenericObject> =
 	| $ValidToken<T>
 	| $InvalidToken;
 
-/** Decoded `Signet` payload with `iat` and optional claims */
-export type SignetPayload<T extends GenericObject = GenericObject> = {
+export interface $SignetPayload {
 	/** When the token was created (unix timestamp in seconds) */
 	iat: number;
 	/** When the token was created (as JavaScript {@link Date}) */
@@ -138,10 +137,13 @@ export type SignetPayload<T extends GenericObject = GenericObject> = {
 	sub?: string;
 	/** From where/who the token is issued */
 	iss?: string;
-} & T;
+}
+
+/** Decoded `Signet` payload with `iat` and optional claims */
+export type SignetPayload<T extends GenericObject = GenericObject> = $SignetPayload & T;
 
 /** Interface of a decoded token */
-export type DecodedToken<T extends GenericObject = GenericObject> = {
+export interface DecodedToken<T extends GenericObject = GenericObject> {
 	/** Token header info, algorithm, type etc. */
 	header: SignetHeader;
 	/** Decoded payload after with common {@link SignetPayload} properties */
@@ -153,6 +155,6 @@ export type DecodedToken<T extends GenericObject = GenericObject> = {
 	signature: string;
 	/** The header and payload in encrypted `Base64` format.*/
 	signingInput: `${string}.${string}`;
-};
+}
 
 export type { SignetHeader as TokenHeader, SignetPayload as TokenPayload };

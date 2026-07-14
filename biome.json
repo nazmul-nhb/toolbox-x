@@ -232,6 +232,10 @@
 		{
 			"includes": ["**/*.extensions.ts"],
 			"linter": { "rules": { "complexity": { "noBannedTypes": "off" } } }
+		},
+		{
+			"includes": ["**/converter/*.ts"],
+			"linter": { "rules": { "complexity": { "noUselessConstructor": "off" } } }
 		}
 	],
 	"assist": {
