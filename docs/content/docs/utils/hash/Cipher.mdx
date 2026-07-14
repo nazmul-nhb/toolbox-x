@@ -218,6 +218,8 @@ function createSecureStorage(cipher: Cipher) {
 #### Encrypted Messaging
 
 ```typescript pg
+import { Cipher } from 'toolbox-x/hash';
+
 class SecureMessenger {
   private cipher: Cipher;
 
