@@ -118,6 +118,7 @@ export type VerifiedToken<T extends GenericObject = GenericObject> =
 	| $ValidToken<T>
 	| $InvalidToken;
 
+/** Interface of `Signet` payload with `iat` and optional claims */
 export interface $SignetPayload {
 	/** When the token was created (unix timestamp in seconds) */
 	iat: number;

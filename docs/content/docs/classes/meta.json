@@ -7,6 +7,9 @@
 		"http-status",
 		"paginator",
 		"log-styler",
+		"[Cipher](/docs/utils/hash/Cipher)",
+		"[Signet](/docs/utils/hash/Signet)",
+		"[TextCodec](/docs/utils/hash/TextCodec)",
 		"..."
 	]
 }
