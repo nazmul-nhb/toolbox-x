@@ -1,6 +1,6 @@
 import { isString } from 'src/guards/primitives';
 import { trimString } from 'src/string/basics';
-import type { MaskOptions } from 'src/types/string';
+import type { HtmlToTextOptions, MaskOptions } from 'src/types/string';
 
 /**
  * * Replaces all occurrences of a string or pattern in the given input string.
@@ -117,4 +117,118 @@ export function formatUnitWithPlural(count: number, unit: string, withNumber = t
 	const pluralized = abs === 1 ? unit : `${unit}s`;
 
 	return withNumber ? `${count} ${pluralized}` : pluralized;
+}
+
+/**
+ * * Converts HTML into plain text.
+ *
+ * @description
+ * This utility removes HTML tags while attempting to preserve the document's readable structure.
+ * Unlike a simple tag stripper, it can optionally convert line-break tags,
+ * preserve block-level separation, decode common HTML entities, and normalize whitespace.
+ *
+ * @remarks
+ * - This function is dependency-free and works in both browser and server environments.
+ * - It is intended for extracting readable text from HTML, **not** for sanitizing untrusted HTML.
+ *
+ * @param input - The HTML (or any value convertible to a string).
+ * @param options - Options to control the conversion process.
+ *
+ * @returns The extracted plain text.
+ *
+ * @example
+ * ```ts
+ * htmlToText('<p>Hello <b>World</b></p>');
+ * // Hello World
+ * ```
+ *
+ * @example
+ * ```ts
+ * htmlToText('<p>A</p><p>B</p>');
+ * // A
+ * // B
+ * ```
+ *
+ * @example
+ * ```ts
+ * htmlToText('<div>One<br>Two</div>');
+ * // One
+ * // Two
+ * ```
+ */
+export function htmlToText(input: unknown, options?: HtmlToTextOptions): string {
+	const {
+		brToNewLine = true,
+		blockToNewLine = true,
+		decodeEntities = true,
+		normalizeWhitespace = true,
+		maxBlankLines = 2,
+		trim = true,
+	} = options || {};
+
+	let text = input == null ? '' : isString(input) ? input : String(input);
+
+	// Normalize line endings first.
+	text = text.replace(/\r\n?/g, '\n');
+
+	if (brToNewLine === true) {
+		text = text.replace(/<br\s*\/?>/gi, '\n');
+	}
+
+	if (blockToNewLine === true) {
+		const BLOCK_TAGS =
+			'address|article|aside|blockquote|caption|center|dd|details|dialog|div|dl|dt|fieldset|figcaption|figure|footer|form|h[1-6]|header|hr|li|main|nav|ol|p|pre|section|table|tbody|td|tfoot|th|thead|tr|ul';
+
+		const blockRegex = new RegExp(`</?(?:${BLOCK_TAGS})\\b[^>]*>`, 'gi');
+
+		text = text.replace(blockRegex, '\n');
+	}
+
+	// Remove remaining tags.
+	text = text.replace(/<\/?[^>]+>/g, '');
+
+	if (decodeEntities === true) {
+		const namedEntities: Record<string, string> = {
+			amp: '&',
+			lt: '<',
+			gt: '>',
+			quot: '"',
+			apos: "'",
+			'#39': "'",
+			nbsp: ' ',
+		};
+
+		text = text.replace(/&(#\d+|#x[\da-f]+|[a-z]+);/gi, (entity, value: string) => {
+			const lower = value.toLowerCase();
+
+			if (lower.startsWith('#x')) {
+				const cp = Number.parseInt(lower.slice(2), 16);
+				return Number.isNaN(cp) ? entity : String.fromCodePoint(cp);
+			}
+
+			if (lower.startsWith('#')) {
+				const cp = Number.parseInt(lower.slice(1), 10);
+				return Number.isNaN(cp) ? entity : String.fromCodePoint(cp);
+			}
+
+			return namedEntities[lower] ?? entity;
+		});
+	}
+
+	if (normalizeWhitespace === true) {
+		text = text
+			.replace(/[^\S\n]+/g, ' ')
+			.replace(/\n[^\S\n]+/g, '\n')
+			.replace(/[^\S\n]+\n/g, '\n');
+
+		if (maxBlankLines <= 0) {
+			text = text.replace(/\n+/g, '\n');
+		} else {
+			const regex = new RegExp(`\\n{${maxBlankLines + 1},}`, 'g');
+
+			text = text.replace(regex, '\n'.repeat(maxBlankLines));
+		}
+	}
+
+	return trim === true ? text.trim() : text;
 }

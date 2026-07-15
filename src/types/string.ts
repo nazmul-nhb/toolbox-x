@@ -453,3 +453,62 @@ export interface CharDiffResult {
 	/** An array of characters from the modified string, each annotated with a `highlighted` flag indicating whether it differs from the original string. */
 	modified: HighlightedText[];
 }
+
+/** Options for `htmlToText` utility. */
+export interface HtmlToTextOptions {
+	/**
+	 * Converts `<br>` tags into line breaks.
+	 *
+	 * @default true
+	 */
+	brToNewLine?: boolean;
+
+	/**
+	 * Inserts line breaks before and after common block-level HTML elements.
+	 *
+	 * This helps preserve the original document structure instead of merging
+	 * paragraphs, headings, list items, table rows, and other block elements into a single line.
+	 *
+	 * @default true
+	 */
+	blockToNewLine?: boolean;
+
+	/**
+	 * Decodes a small set of common HTML entities.
+	 *
+	 * Supported entities include: `&amp;`, `&lt;`, `&gt;`, `&quot;`, `&#39;`, `&nbsp;`,
+	 * decimal numeric entities (`&#123;`) and hexadecimal entities (`&#x1F600;`).
+	 *
+	 * @default true
+	 */
+	decodeEntities?: boolean;
+
+	/**
+	 * Normalizes whitespace.
+	 *
+	 * This:
+	 * - converts `CRLF`/`CR` to `LF`
+	 * - collapses repeated spaces and tabs
+	 * - removes indentation around line breaks
+	 * - limits consecutive blank lines
+	 *
+	 * @default true
+	 */
+	normalizeWhitespace?: boolean;
+
+	/**
+	 * Maximum number of consecutive blank lines to preserve.
+	 *
+	 * Set to `0` to remove blank lines entirely.
+	 *
+	 * @default 2
+	 */
+	maxBlankLines?: number;
+
+	/**
+	 * Trims leading and trailing whitespace from the final result.
+	 *
+	 * @default true
+	 */
+	trim?: boolean;
+}
