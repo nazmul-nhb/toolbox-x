@@ -129,3 +129,27 @@ export const LOWERCASE = /* @__PURE__ */ Object.freeze([
 	'will',
 	'would',
 ] as const);
+
+/** Names of rules for `markdownToText` function */
+export const MD_TO_TEXT_RULES = [
+	'hr',
+	'abbr',
+	'footnoteDef',
+	'refLinkDef',
+	'listLeaders',
+	'gfmHeader',
+	'gfmFencedCode',
+	'blockquote',
+	'atxHeader',
+	'setextHeader',
+	'html',
+	'imageInline',
+	'imageReference',
+	'linkInline',
+	'linkReference',
+	'inlineCode',
+	'footnoteRef',
+	'strikethrough',
+	'emphasisAsterisk',
+	'emphasisUnderscore',
+] as const;

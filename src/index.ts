@@ -15,6 +15,7 @@ export {
 	formatUnitWithPlural,
 	formatUnitWithPlural as formatWithPlural,
 	htmlToText,
+	markdownToText,
 	maskString,
 	normalizeString,
 	replaceAllInString,

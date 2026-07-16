@@ -1,4 +1,4 @@
-import type { LOWERCASE } from 'src/string/constants';
+import type { LOWERCASE, MD_TO_TEXT_RULES } from 'src/string/constants';
 import type { Nullable } from 'src/types/index';
 import type { $Countries } from 'src/types/object';
 import type { Join, LooseLiteral, Split } from 'src/types/utils';
@@ -582,4 +582,111 @@ export interface ListMarkers {
 	 * @default '- '
 	 */
 	ul?: string;
+}
+
+/** Names of rules for `markdownToText` function */
+export type MarkDownToTextRules = (typeof MD_TO_TEXT_RULES)[number];
+
+/** Record of custom {@link RegExp} patterns for `markdownToText` function */
+export type MarkDownToTextCustomPatterns = Partial<Record<MarkDownToTextRules, RegExp>>;
+
+/** Options for `markdownToText` utility. */
+export interface MarkdownToTextOptions {
+	/**
+	 * Removes list leaders (like `*`, `-`, `+`, `1.`).
+	 *
+	 * @default true
+	 */
+	stripListLeaders?: boolean;
+
+	/**
+	 * Replace list leaders with a unicode character or any string.
+	 *
+	 * Only applicable if `stripListLeaders` is true.
+	 *
+	 * @default ''
+	 */
+	listUnicodeChar?: string;
+
+	/**
+	 * Cleans GitHub Flavored Markdown (GFM) specific tags (like fenced code blocks and GFM headers).
+	 *
+	 * @default true
+	 */
+	gfm?: boolean;
+
+	/**
+	 * Replace images with their alt text instead of stripping them completely.
+	 *
+	 * @default true
+	 */
+	useImgAltText?: boolean;
+
+	/**
+	 * Strip Markdown abbreviations (`*[abbr]: description`).
+	 *
+	 * @default false
+	 */
+	abbr?: boolean;
+
+	/**
+	 * Replaces links with their URL instead of their anchor text.
+	 *
+	 * @default false
+	 */
+	replaceLinksWithURL?: boolean;
+
+	/**
+	 * Custom separator to put between link text and URL (e.g. " - ").
+	 *
+	 * If set, overrides `replaceLinksWithURL`.
+	 */
+	separateLinksAndTexts?: string;
+
+	/**
+	 * List of HTML tags to preserve/skip when stripping HTML.
+	 *
+	 * @default []
+	 */
+	htmlTagsToSkip?: string[];
+
+	/**
+	 * If true, throws errors during parsing, otherwise logs and returns original input.
+	 *
+	 * @default false
+	 */
+	throwError?: boolean;
+
+	/**
+	 * Normalizes whitespace.
+	 *
+	 * This:
+	 * - collapses repeated spaces and tabs
+	 * - removes indentation around line breaks
+	 * - limits consecutive blank lines
+	 *
+	 * @default true
+	 */
+	normalizeWhitespace?: boolean;
+
+	/**
+	 * Maximum number of consecutive blank lines to preserve.
+	 *
+	 * Set to `0` to remove blank lines entirely.
+	 *
+	 * @default 2
+	 */
+	maxBlankLines?: number;
+
+	/**
+	 * Trims leading and trailing whitespace from the final result.
+	 *
+	 * @default true
+	 */
+	trimOutput?: boolean;
+
+	/**
+	 * Custom regular expressions to override default rules.
+	 */
+	customPatterns?: MarkDownToTextCustomPatterns;
 }

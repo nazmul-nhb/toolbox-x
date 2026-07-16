@@ -1,7 +1,13 @@
-import { isNotEmptyObject } from 'src/guards/non-primitives';
-import { isNumber, isString } from 'src/guards/primitives';
+import { isNotEmptyObject, isValidArray } from 'src/guards/non-primitives';
+import { isNonEmptyString, isNumber, isString } from 'src/guards/primitives';
 import { trimString } from 'src/string/basics';
-import type { HtmlToTextOptions, MaskOptions } from 'src/types/string';
+import type { GenericFn } from 'src/types/index';
+import type {
+	HtmlToTextOptions,
+	MarkDownToTextRules,
+	MarkdownToTextOptions,
+	MaskOptions,
+} from 'src/types/string';
 
 /**
  * * Replaces all occurrences of a string or pattern in the given input string.
@@ -409,4 +415,257 @@ export function htmlToText(input: unknown, options?: HtmlToTextOptions): string 
 	}
 
 	return result;
+}
+
+/**
+ * * Converts Markdown into plain text.
+ *
+ * @description
+ * This utility parses and strips markdown syntactic elements (like headers, list items, emphasis, GFM blocks,
+ * code spans, links, images, blockquotes, and horizontal rules) to extract readable plain text.
+ * It is highly modular and customizable, allowing regex overrides per rule and strict control over whitespaces.
+ *
+ * @remarks
+ * - This function is dependency-free and runs on both client and server environments.
+ * - It is intended for text-extraction, not for document validation.
+ *
+ * @param markdown - The markdown content (or any value convertible to a string).
+ * @param options - Options to control the conversion process.
+ *
+ * @returns The extracted plain text.
+ *
+ * @example
+ * ```ts
+ * markdownToText('# Hello **World**');
+ * // Hello World
+ * ```
+ *
+ * @example
+ * ```ts
+ * markdownToText('Click [Google](https://google.com)');
+ * // Click Google
+ * ```
+ */
+export function markdownToText(markdown: unknown, options?: MarkdownToTextOptions): string {
+	const {
+		stripListLeaders = true,
+		listUnicodeChar = '',
+		gfm = true,
+		useImgAltText = true,
+		abbr = false,
+		replaceLinksWithURL = false,
+		separateLinksAndTexts,
+		htmlTagsToSkip = [],
+		throwError = false,
+		normalizeWhitespace = true,
+		maxBlankLines = 2,
+		trimOutput = true,
+		customPatterns = {},
+	} = options || {};
+
+	const mdStr = markdown == null ? '' : isString(markdown) ? markdown : String(markdown);
+
+	let text = mdStr;
+
+	try {
+		// Normalize line endings first.
+		text = text.replace(/\r\n?/g, '\n');
+
+		// Prepare HTML replacing regex
+		let htmlReplaceRegex = /<\/?[^>]+>/gi;
+		if (isValidArray<string>(htmlTagsToSkip)) {
+			const joinedTags = htmlTagsToSkip
+				.map((tag) => tag.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'))
+				.join('|');
+			htmlReplaceRegex = new RegExp(`<(?!\\/?(${joinedTags})\\b)[^>]+>`, 'gi');
+		}
+
+		// Define clean cleanup rules
+		const rules = [
+			// 1. Horizontal rules
+			{
+				name: 'hr',
+				pattern:
+					customPatterns.hr ||
+					/^ {0,3}((?:-[ \t]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/gm,
+				replace: '',
+			},
+			// 2. Abbreviations definitions
+			{
+				name: 'abbr',
+				pattern: customPatterns.abbr || /^[^\S\n]*\*\[.*?\]:.*$/gm,
+				replace: '',
+				enabled: abbr === true,
+			},
+			// 3. Footnotes definitions
+			{
+				name: 'footnoteDef',
+				pattern: customPatterns.footnoteDef || /^[^\S\n]*\[\^.*?\]:[^\S\n]*.*$/gm,
+				replace: '',
+			},
+			// 4. Reference link definitions
+			{
+				name: 'refLinkDef',
+				pattern:
+					customPatterns.refLinkDef ||
+					/^[^\S\n]{0,3}\[(.*?)\]:[^\S\n]*(\S+)(?:[^\S\n]+["'(].*?["')])?[^\S\n]*$/gm,
+				replace: '',
+			},
+			// 5. List leaders stripping
+			{
+				name: 'listLeaders',
+				pattern: customPatterns.listLeaders || /^([^\S\n]*)([*+-]|\d+\.)[^\S\n]+/gm,
+				replace: (_match: string, indent: string) => {
+					if (isNonEmptyString(listUnicodeChar)) {
+						return `${indent}${listUnicodeChar} `;
+					}
+					return indent;
+				},
+				enabled: stripListLeaders === true,
+			},
+			// 6. GFM Header underlines (e.g. ===)
+			{
+				name: 'gfmHeader',
+				pattern: customPatterns.gfmHeader || /\n={2,}/g,
+				replace: '\n',
+				enabled: gfm === true,
+			},
+			// 7. GFM Fenced Code blocks
+			{
+				name: 'gfmFencedCode',
+				pattern:
+					customPatterns.gfmFencedCode ||
+					/^ {0,3}(`{3,}|~{3,})([^`~\n]*)\n([\s\S]*?)\n {0,3}\1[^\S\n]*$/gm,
+				replace: '$3',
+				enabled: gfm === true,
+			},
+			// 8. Blockquotes
+			{
+				name: 'blockquote',
+				pattern: customPatterns.blockquote || /^[^\S\n]{0,3}>[^\S\n]?/gm,
+				replace: '',
+			},
+			// 9. ATX Headers
+			{
+				name: 'atxHeader',
+				pattern:
+					customPatterns.atxHeader ||
+					/^[^\S\n]{0,3}#{1,6}(?:[^\S\n]+(.*?))?[^\S\n]*#*[^\S\n]*$/gm,
+				replace: '$1',
+			},
+			// 10. Setext Headers (underlines)
+			{
+				name: 'setextHeader',
+				pattern: customPatterns.setextHeader || /^[=-]{2,}[^\S\n]*$/gm,
+				replace: '',
+			},
+			// 11. HTML Tags
+			{
+				name: 'html',
+				pattern: customPatterns.html || htmlReplaceRegex,
+				replace: '',
+			},
+			// 12. Images (inline)
+			{
+				name: 'imageInline',
+				pattern: customPatterns.imageInline || /!\[([\s\S]*?)\]\((.*?)\)/g,
+				replace: useImgAltText === true ? '$1' : '',
+			},
+			// 13. Images (reference)
+			{
+				name: 'imageReference',
+				pattern: customPatterns.imageReference || /!\[([\s\S]*?)\]\[(.*?)\]/g,
+				replace: useImgAltText === true ? '$1' : '',
+			},
+			// 14. Links (inline)
+			{
+				name: 'linkInline',
+				pattern: customPatterns.linkInline || /(?<!!)\[([\s\S]*?)\]\((.*?)\)/g,
+				replace: (_match: string, textStr: string, urlStr: string) => {
+					if (isString(separateLinksAndTexts)) {
+						return textStr + separateLinksAndTexts + urlStr;
+					}
+
+					if (replaceLinksWithURL === true) {
+						return urlStr;
+					}
+
+					return textStr;
+				},
+			},
+			// 15. Links (reference)
+			{
+				name: 'linkReference',
+				pattern: customPatterns.linkReference || /(?<!!)\[([\s\S]*?)\]\[(.*?)\]/g,
+				replace: '$1',
+			},
+			// 16. Inline code blocks (spans)
+			{
+				name: 'inlineCode',
+				pattern: customPatterns.inlineCode || /(`+)([\s\S]+?)\1/g,
+				replace: '$2',
+			},
+			// 17. Footnotes inline citation
+			{
+				name: 'footnoteRef',
+				pattern: customPatterns.footnoteRef || /\[\^.*?\]/g,
+				replace: '',
+			},
+			// 18. Strikethrough
+			{
+				name: 'strikethrough',
+				pattern: customPatterns.strikethrough || /(~{1,2})(\S)(.*?\S)??\1/g,
+				replace: '$2$3',
+			},
+			// 19. Emphasis (asterisk)
+			{
+				name: 'emphasisAsterisk',
+				pattern: customPatterns.emphasisAsterisk || /(\*+)(\S)(.*?\S)??\1/g,
+				replace: '$2$3',
+			},
+			// 20. Emphasis (underscore)
+			{
+				name: 'emphasisUnderscore',
+				pattern:
+					customPatterns.emphasisUnderscore || /(^|\W)(_+)(\S)(.*?\S)??\2($|\W)/g,
+				replace: '$1$3$4$5',
+			},
+		] satisfies Array<{
+			name: MarkDownToTextRules;
+			pattern: RegExp;
+			replace: string | GenericFn;
+			enabled?: boolean;
+		}>;
+
+		// Apply rules sequentially
+		for (const rule of rules) {
+			if (rule.enabled === false) {
+				continue;
+			}
+
+			text = text.replace(rule.pattern, rule.replace as string);
+		}
+
+		if (normalizeWhitespace === true) {
+			text = text.replace(/(\S)[^\S\n]+/g, '$1 ').replace(/[^\S\n]+$/gm, '');
+
+			const finalMaxBlankLines = isNumber(maxBlankLines) ? maxBlankLines : 2;
+			if (finalMaxBlankLines <= 0) {
+				text = text.replace(/\n+/g, '\n');
+			} else {
+				const regex = new RegExp(`\\n{${finalMaxBlankLines + 2},}`, 'g');
+				text = text.replace(regex, '\n'.repeat(finalMaxBlankLines + 1));
+			}
+		}
+	} catch (error) {
+		if (throwError === true) {
+			throw error;
+		}
+
+		console.error('markdownToText encountered error:', error);
+
+		return mdStr;
+	}
+
+	return trimOutput === true ? text.trim() : text;
 }
