@@ -4,6 +4,19 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.0) — 2026-07-16
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.5.4...v2.6.0)
+
+* \[[`fbad00a10a`](https://github.com/nazmul-nhb/toolbox-x/commit/fbad00a10a)] - 🔖 release: release v2.6.0 (Nazmul Hassan)
+* \[[`84d1cfd321`](https://github.com/nazmul-nhb/toolbox-x/commit/84d1cfd321)] - 🔧 update(docs): updated docs for utils/string (Nazmul Hassan)
+* \[[`6f90a199b0`](https://github.com/nazmul-nhb/toolbox-x/commit/6f90a199b0)] - 🔧 update(docs): added docs for html and markdown to text converters (Nazmul Hassan)
+* \[[`c8ca235a45`](https://github.com/nazmul-nhb/toolbox-x/commit/c8ca235a45)] - ✨ feat(string): added new utility `markdownToText` to convert markdown into plain text (Nazmul Hassan)
+* \[[`5c69b8081e`](https://github.com/nazmul-nhb/toolbox-x/commit/5c69b8081e)] - 🔧 update(string): updated `htmlToText` to accept more options (Nazmul Hassan)
+* \[[`0424055324`](https://github.com/nazmul-nhb/toolbox-x/commit/0424055324)] - ✨ feat(string): added new utility to convert html string to plain text (Nazmul Hassan)
+* \[[`736bfafef6`](https://github.com/nazmul-nhb/toolbox-x/commit/736bfafef6)] - 🔧 update(docs): added hashing classes in the classes sidebar (Nazmul Hassan)
+* \[[`68c03d99a8`](https://github.com/nazmul-nhb/toolbox-x/commit/68c03d99a8)] - 📚 docs: updated CHANGELOG.md for v2.5.4 (github-actions\[bot])
+
 ## [v2.5.4](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.5.4) — 2026-07-14
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.5.3...v2.5.4)
