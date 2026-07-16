@@ -6,6 +6,8 @@
 		"format-unit-with-plural",
 		"pluralizer",
 		"verbalizer",
+		"html-to-text",
+		"markdown-to-text",
 		"natural-sort",
 		"..."
 	]

@@ -77,27 +77,7 @@ Available rule keys in `MarkDownToTextRules`:
 ### Types
 
 ```typescript
-type MarkDownToTextRules =
-  | 'hr'
-  | 'abbr'
-  | 'footnoteDef'
-  | 'refLinkDef'
-  | 'listLeaders'
-  | 'gfmHeader'
-  | 'gfmFencedCode'
-  | 'blockquote'
-  | 'atxHeader'
-  | 'setextHeader'
-  | 'html'
-  | 'imageInline'
-  | 'imageReference'
-  | 'linkInline'
-  | 'linkReference'
-  | 'inlineCode'
-  | 'footnoteRef'
-  | 'strikethrough'
-  | 'emphasisAsterisk'
-  | 'emphasisUnderscore';
+type MarkDownToTextRules = 'hr' | 'abbr' | 'footnoteDef' | ... | 'emphasisAsterisk' | 'emphasisUnderscore';
 
 type MarkDownToTextCustomPatterns = Partial<Record<MarkDownToTextRules, RegExp>>;
 
@@ -156,18 +136,6 @@ console.log(markdownToText(linkMd, { replaceLinksWithURL: true }));
 
 console.log(markdownToText(linkMd, { separateLinksAndTexts: ' - ' }));
 // Output: "Visit Google - https://google.com"
-```
-
-```ts pg tab="Custom Pattern Overrides"
-import { markdownToText } from 'toolbox-x';
-
-const md = 'Some custom text';
-const text = markdownToText(md, {
-  customPatterns: {
-    // Override how horizontal rules are stripped
-    hr: /^---$/gm
-  }
-});
 ```
 
 ---
