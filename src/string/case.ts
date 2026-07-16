@@ -142,8 +142,8 @@ export function convertStringCase(
 	}
 
 	if (tokens.length === 0) {
-		// nothing meaningful to do — return only punctuation (if any)
-		return start.concat(end);
+		// nothing meaningful to do — return original value
+		return value;
 	}
 
 	switch (format) {

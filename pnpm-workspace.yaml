@@ -17,6 +17,8 @@ minimumReleaseAgeExclude:
   - tsdown
   - "@types/*"
 
+minimumReleaseAge: 120
+
 peerDependencyRules:
   allowedVersions:
     typescript: "7"
