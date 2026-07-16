@@ -14,6 +14,7 @@ export {
 	formatUnitWithPlural as formatNumberWithPluralUnit,
 	formatUnitWithPlural,
 	formatUnitWithPlural as formatWithPlural,
+	htmlToText,
 	maskString,
 	normalizeString,
 	replaceAllInString,

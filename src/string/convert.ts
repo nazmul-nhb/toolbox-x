@@ -1,4 +1,5 @@
-import { isString } from 'src/guards/primitives';
+import { isNotEmptyObject } from 'src/guards/non-primitives';
+import { isNumber, isString } from 'src/guards/primitives';
 import { trimString } from 'src/string/basics';
 import type { HtmlToTextOptions, MaskOptions } from 'src/types/string';
 
@@ -146,6 +147,7 @@ export function formatUnitWithPlural(count: number, unit: string, withNumber = t
  * ```ts
  * htmlToText('<p>A</p><p>B</p>');
  * // A
+ * //
  * // B
  * ```
  *
@@ -162,32 +164,43 @@ export function htmlToText(input: unknown, options?: HtmlToTextOptions): string 
 		blockToNewLine = true,
 		decodeEntities = true,
 		normalizeWhitespace = true,
+		trimOutput = true,
+		removeScripts = true,
+		removeStyles = true,
+		preservePreAndCode = false,
+		blockSeparator = '\n',
+		tableCellSeparator = '\t',
 		maxBlankLines = 2,
-		trim = true,
+		listMarker,
 	} = options || {};
+
+	const finalBlockSeparator = isString(blockSeparator) ? blockSeparator : '\n';
+	const finalTableCellSeparator = isString(tableCellSeparator) ? tableCellSeparator : '\t';
+	const finalMaxBlankLines = isNumber(maxBlankLines) ? maxBlankLines : 2;
+
+	let ulMarker = '- ';
+	let olMarker = '1. ';
+
+	if (listMarker != null) {
+		const lm = listMarker;
+		if (isString(lm)) {
+			ulMarker = lm;
+			olMarker = lm;
+		} else if (isNotEmptyObject(lm)) {
+			ulMarker = isString(lm.ul) ? lm.ul : '- ';
+			olMarker = isString(lm.ol) ? lm.ol : '1. ';
+		}
+	}
 
 	let text = input == null ? '' : isString(input) ? input : String(input);
 
 	// Normalize line endings first.
 	text = text.replace(/\r\n?/g, '\n');
 
-	if (brToNewLine === true) {
-		text = text.replace(/<br\s*\/?>/gi, '\n');
-	}
+	const listMarkers: string[] = [];
 
-	if (blockToNewLine === true) {
-		const BLOCK_TAGS =
-			'address|article|aside|blockquote|caption|center|dd|details|dialog|div|dl|dt|fieldset|figcaption|figure|footer|form|h[1-6]|header|hr|li|main|nav|ol|p|pre|section|table|tbody|td|tfoot|th|thead|tr|ul';
-
-		const blockRegex = new RegExp(`</?(?:${BLOCK_TAGS})\\b[^>]*>`, 'gi');
-
-		text = text.replace(blockRegex, '\n');
-	}
-
-	// Remove remaining tags.
-	text = text.replace(/<\/?[^>]+>/g, '');
-
-	if (decodeEntities === true) {
+	// Helper to decode HTML entities
+	const decodeHtmlEntities = (textToDecode: string): string => {
 		const namedEntities: Record<string, string> = {
 			amp: '&',
 			lt: '<',
@@ -198,7 +211,7 @@ export function htmlToText(input: unknown, options?: HtmlToTextOptions): string 
 			nbsp: ' ',
 		};
 
-		text = text.replace(/&(#\d+|#x[\da-f]+|[a-z]+);/gi, (entity, value: string) => {
+		return textToDecode.replace(/&(#\d+|#x[\da-f]+|[a-z]+);/gi, (entity, value: string) => {
 			const lower = value.toLowerCase();
 
 			if (lower.startsWith('#x')) {
@@ -213,7 +226,154 @@ export function htmlToText(input: unknown, options?: HtmlToTextOptions): string 
 
 			return namedEntities[lower] ?? entity;
 		});
+	};
+
+	const _getStrippedText = (str: string) => {
+		let stripped = str.replace(/<\/?[^>]+>/g, '');
+		stripped = stripped.replace(/\x01CELL_SEP\x01/g, finalTableCellSeparator);
+		stripped = stripped.replace(/\x03BLOCK_SEP\x03/g, finalBlockSeparator);
+		stripped = stripped.replace(/\x02LIST_MARKER_(\d+)\x02/g, (_, indexStr) => {
+			const index = Number.parseInt(indexStr, 10);
+			return listMarkers[index] !== undefined ? listMarkers[index] : '';
+		});
+
+		return stripped;
+	};
+
+	// Helper to check if a position is at the start of input (only tags or whitespace before it)
+	const _isStartOfInput = (offset: number, str: string) => {
+		const prefix = str.slice(0, offset);
+		const stripped = _getStrippedText(prefix);
+		return stripped.trim() === '';
+	};
+
+	// Remove scripts if option is true
+	if (removeScripts === true) {
+		text = text.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 	}
+
+	// Remove styles if option is true
+	if (removeStyles === true) {
+		text = text.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '');
+	}
+
+	// Extract and preserve pre/code blocks if option is true
+	const preCodeBlocks: string[] = [];
+	if (preservePreAndCode === true) {
+		text = text.replace(
+			/(<(pre|code)\b[^>]*>)([\s\S]*?)(<\/\2>)/gi,
+			(_match, openTag, _tagName, innerContent, closeTag) => {
+				const index = preCodeBlocks.length;
+				let processed = innerContent;
+				if (brToNewLine === true) {
+					processed = processed.replace(/<br\s*\/?>/gi, '\n');
+				}
+				// Strip all tags from inner content
+				processed = processed.replace(/<\/?[^>]+>/g, '');
+				if (decodeEntities === true) {
+					processed = decodeHtmlEntities(processed);
+				}
+				preCodeBlocks.push(processed);
+				return `${openTag}\x00PRE_CODE_${index}\x00${closeTag}`;
+			}
+		);
+	}
+
+	// Process list items statefully before other blocks
+	const listStack: ('ul' | 'ol')[] = [];
+	const olCounters: number[] = [];
+
+	text = text.replace(/<\/?(ul|ol|li)\b[^>]*>/gi, (match, tagName, offset, str) => {
+		const lowerTag = tagName.toLowerCase();
+		const isClosing = match.startsWith('</');
+
+		if (lowerTag === 'ul') {
+			if (isClosing) {
+				const idx = listStack.lastIndexOf('ul');
+				if (idx !== -1) {
+					listStack.splice(idx, 1);
+					olCounters.splice(idx, 1);
+				}
+				return '';
+			} else {
+				listStack.push('ul');
+				olCounters.push(0);
+			}
+			return blockToNewLine === true
+				? _isStartOfInput(offset, str)
+					? ''
+					: '\x03BLOCK_SEP\x03'
+				: '';
+		}
+
+		if (lowerTag === 'ol') {
+			if (isClosing) {
+				const idx = listStack.lastIndexOf('ol');
+				if (idx !== -1) {
+					listStack.splice(idx, 1);
+					olCounters.splice(idx, 1);
+				}
+				return '';
+			} else {
+				listStack.push('ol');
+				olCounters.push(1);
+			}
+			return blockToNewLine === true
+				? _isStartOfInput(offset, str)
+					? ''
+					: '\x03BLOCK_SEP\x03'
+				: '';
+		}
+
+		if (lowerTag === 'li') {
+			if (isClosing) {
+				return blockToNewLine === true ? '\x03BLOCK_SEP\x03' : '';
+			}
+			const parentListType = listStack[listStack.length - 1];
+			let marker = ulMarker;
+			if (parentListType === 'ol') {
+				const currentIdx = olCounters[olCounters.length - 1] || 1;
+				olCounters[olCounters.length - 1] = currentIdx + 1;
+				marker = olMarker.replace(/\d+/, String(currentIdx));
+			}
+			const index = listMarkers.length;
+			listMarkers.push(marker);
+			return `\x02LIST_MARKER_${index}\x02`;
+		}
+
+		return match;
+	});
+
+	// Replace adjacent table cells (<td>/<th>) with tableCellSeparator placeholder
+	text = text.replace(/(<\/td>|<\/th>)\s*<(td|th)\b[^>]*>/gi, '\x01CELL_SEP\x01');
+
+	if (brToNewLine === true) {
+		text = text.replace(/<br\s*\/?>/gi, '\n');
+	}
+
+	if (blockToNewLine === true) {
+		const BLOCK_TAGS =
+			'address|article|aside|blockquote|caption|center|dd|details|dialog|div|dl|dt|fieldset|figcaption|figure|footer|form|h[1-6]|header|hr|main|nav|p|pre|section|table|tbody|tfoot|thead|tr';
+
+		const blockRegex = new RegExp(`</?(?:${BLOCK_TAGS})\\b[^>]*>`, 'gi');
+
+		text = text.replace(blockRegex, (_match, offset, str) => {
+			if (_isStartOfInput(offset, str)) {
+				return '';
+			}
+			return '\x03BLOCK_SEP\x03';
+		});
+	}
+
+	// Remove remaining tags.
+	text = text.replace(/<\/?[^>]+>/g, '');
+
+	if (decodeEntities === true) {
+		text = decodeHtmlEntities(text);
+	}
+
+	// Restore block separators before whitespace normalization
+	text = text.replace(/\x03BLOCK_SEP\x03/g, finalBlockSeparator);
 
 	if (normalizeWhitespace === true) {
 		text = text
@@ -221,14 +381,32 @@ export function htmlToText(input: unknown, options?: HtmlToTextOptions): string 
 			.replace(/\n[^\S\n]+/g, '\n')
 			.replace(/[^\S\n]+\n/g, '\n');
 
-		if (maxBlankLines <= 0) {
+		if (finalMaxBlankLines <= 0) {
 			text = text.replace(/\n+/g, '\n');
 		} else {
-			const regex = new RegExp(`\\n{${maxBlankLines + 1},}`, 'g');
-
-			text = text.replace(regex, '\n'.repeat(maxBlankLines));
+			const regex = new RegExp(`\\n{${finalMaxBlankLines + 2},}`, 'g');
+			text = text.replace(regex, '\n'.repeat(finalMaxBlankLines + 1));
 		}
 	}
 
-	return trim === true ? text.trim() : text;
+	let result = trimOutput === true ? text.trim() : text;
+
+	// Restore table cell separators
+	result = result.replace(/\x01CELL_SEP\x01/g, finalTableCellSeparator);
+
+	// Restore list markers
+	result = result.replace(/\x02LIST_MARKER_(\d+)\x02/g, (_match, indexStr) => {
+		const index = Number.parseInt(indexStr, 10);
+		return listMarkers[index] !== undefined ? listMarkers[index] : '';
+	});
+
+	// Restore pre/code blocks if preserved
+	if (preservePreAndCode === true) {
+		result = result.replace(/\x00PRE_CODE_(\d+)\x00/g, (_match, indexStr) => {
+			const index = Number.parseInt(indexStr, 10);
+			return preCodeBlocks[index] !== undefined ? preCodeBlocks[index] : '';
+		});
+	}
+
+	return result;
 }

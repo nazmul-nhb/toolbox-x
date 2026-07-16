@@ -484,6 +484,54 @@ export interface HtmlToTextOptions {
 	decodeEntities?: boolean;
 
 	/**
+	 * Removes the contents of `<script>` elements.
+	 *
+	 * @default true
+	 */
+	removeScripts?: boolean;
+
+	/**
+	 * Removes the contents of `<style>` elements.
+	 *
+	 * @default true
+	 */
+	removeStyles?: boolean;
+
+	/**
+	 * Preserves whitespace inside `<pre>` and `<code>` elements.
+	 *
+	 * When enabled, whitespace inside `<pre>` and `<code>` blocks is kept exactly as written
+	 * while the remainder of the document is still normalized.
+	 *
+	 * @default false
+	 */
+	preservePreAndCode?: boolean;
+
+	/**
+	 * Prefix inserted before each `<li>`.
+	 *
+	 * Can be a string used for all lists, or an object to specify different markers for ordered (`ol`) and unordered (`ul`) lists.
+	 * Set to `''` to disable list markers.
+	 *
+	 * @default '- '
+	 */
+	listMarker?: string | ListMarkers;
+
+	/**
+	 * Separator inserted between table cells.
+	 *
+	 * @default '\t'
+	 */
+	tableCellSeparator?: string;
+
+	/**
+	 * String inserted between block elements.
+	 *
+	 * @default '\n'
+	 */
+	blockSeparator?: string;
+
+	/**
 	 * Normalizes whitespace.
 	 *
 	 * This:
@@ -510,5 +558,28 @@ export interface HtmlToTextOptions {
 	 *
 	 * @default true
 	 */
-	trim?: boolean;
+	trimOutput?: boolean;
+}
+
+/** Interface to specify different markers for ordered (`ol`) and unordered (`ul`) lists. */
+export interface ListMarkers {
+	/**
+	 * Marker for ordered lists (`ol`).
+	 *
+	 * @remark
+	 * - The function only recognizes arabic numerals (1, 2, 3, ...)
+	 * - Ordered list always starts with 1 regardless of the provided value.
+	 * - If it does not contain any number it will be treated as unordered list.
+	 * 	 Example: passing `'a'` will be treated as unordered list marker.
+	 *
+	 * @default '1. '
+	 */
+	ol?: string;
+
+	/**
+	 * Marker for unordered lists (`ul`).
+	 *
+	 * @default '- '
+	 */
+	ul?: string;
 }

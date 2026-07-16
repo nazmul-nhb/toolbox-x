@@ -236,6 +236,10 @@
 		{
 			"includes": ["**/converter/*.ts"],
 			"linter": { "rules": { "complexity": { "noUselessConstructor": "off" } } }
+		},
+		{
+			"includes": ["**/string/convert.ts"],
+			"linter": { "rules": { "suspicious": { "noControlCharactersInRegex": "off" } } }
 		}
 	],
 	"assist": {
