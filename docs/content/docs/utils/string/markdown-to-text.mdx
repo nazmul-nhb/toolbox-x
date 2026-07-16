@@ -1,0 +1,179 @@
+---
+title: Markdown to Text
+description: Convert Markdown strings into plain text with customizable options.
+---
+
+## markdownToText
+
+The `markdownToText` function converts Markdown content into clean plain text. It parses and strips header markings, list bullets, code blocks, links, images, blockquotes, horizontal rules, and formatting styles using a modular rules-based pipeline.
+
+### Function Signature
+
+```typescript
+function markdownToText(markdown: unknown, options?: MarkdownToTextOptions): string
+```
+
+### Parameters
+
+- **`markdown`** (`unknown`): The markdown content to convert. Non-string inputs are cast to strings, and `null`/`undefined` values return an empty string.
+- **`options`** (`MarkdownToTextOptions`, optional): Configuration object to control the extraction process.
+
+---
+
+### Options
+
+| Option                      | Type                           | Default     | Description                                               |
+| :-------------------------- | :----------------------------- | :---------- | :-------------------------------------------------------- |
+| **`stripListLeaders`**      | `boolean`                      | `true`      | Removes list bullets and numeric prefixes.                |
+| **`listUnicodeChar`**       | `string`                       | `''`        | Bullet character override to replace list leaders.        |
+| **`gfm`**                   | `boolean`                      | `true`      | Cleans GFM-specific blocks (fenced code, header lines).   |
+| **`useImgAltText`**         | `boolean`                      | `true`      | Extracts image alt text instead of stripping entirely.    |
+| **`abbr`**                  | `boolean`                      | `false`     | Strips abbreviation definition blocks.                    |
+| **`replaceLinksWithURL`**   | `boolean`                      | `false`     | Replaces link anchor text with the link URL.              |
+| **`separateLinksAndTexts`** | `string`                       | `undefined` | Separator to join link anchor text and URL.               |
+| **`htmlTagsToSkip`**        | `string[]`                     | `[]`        | List of HTML tags to skip while stripping HTML.           |
+| **`throwError`**            | `boolean`                      | `false`     | Throws parsing errors instead of logging.                 |
+| **`normalizeWhitespace`**   | `boolean`                      | `true`      | Collapses redundant spacing, keeping leading indentation. |
+| **`maxBlankLines`**         | `number`                       | `2`         | Max consecutive blank lines allowed in output.            |
+| **`trimOutput`**            | `boolean`                      | `true`      | Trims leading and trailing whitespace.                    |
+| **`customPatterns`**        | `MarkDownToTextCustomPatterns` | `undefined` | RegExp overrides for default parser rules.                |
+
+<Callout type="info" title="Note">
+- **Leading Line Indentation**: Preserved during whitespace normalization to keep nested lists and code blocks correctly aligned.
+- **Negative Lookbehinds**: Leveraged when matching links to prevent image descriptors (`![]()`) from being parsed as standard anchor tags.
+</Callout>
+
+---
+
+### Custom Rules
+
+The parser evaluates a sequence of cleanup rules. You can override the default regex pattern for any rule using the `customPatterns` option.
+
+Available rule keys in `MarkDownToTextRules`:
+
+- **`hr`**: Matches horizontal rules (`---`, `***`, `___`).
+- **`abbr`**: Matches abbreviation definitions.
+- **`footnoteDef`**: Matches footnote definition blocks.
+- **`refLinkDef`**: Matches reference link definition blocks.
+- **`listLeaders`**: Matches unordered/ordered list leaders at line starts.
+- **`gfmHeader`**: Matches GFM header underlines (`===`).
+- **`gfmFencedCode`**: Matches fenced code blocks (using backticks or tildes).
+- **`blockquote`**: Matches blockquote symbols (`>`).
+- **`atxHeader`**: Matches ATX headers (`# Header`).
+- **`setextHeader`**: Matches Setext header underlines.
+- **`html`**: Matches raw HTML tags.
+- **`imageInline`**: Matches inline images (`![alt](url)`).
+- **`imageReference`**: Matches reference images (`![alt][ref]`).
+- **`linkInline`**: Matches inline links (`[text](url)`).
+- **`linkReference`**: Matches reference links (`[text][ref]`).
+- **`inlineCode`**: Matches inline code backtick spans.
+- **`footnoteRef`**: Matches inline footnote references (`[^1]`).
+- **`strikethrough`**: Matches strike-throughs (`~~text~~`).
+- **`emphasisAsterisk`**: Matches bold/italic formatting using asterisks (`**`, `*`).
+- **`emphasisUnderscore`**: Matches bold/italic formatting using underscores (`__`, `_`).
+
+---
+
+### Types
+
+```typescript
+type MarkDownToTextRules =
+  | 'hr'
+  | 'abbr'
+  | 'footnoteDef'
+  | 'refLinkDef'
+  | 'listLeaders'
+  | 'gfmHeader'
+  | 'gfmFencedCode'
+  | 'blockquote'
+  | 'atxHeader'
+  | 'setextHeader'
+  | 'html'
+  | 'imageInline'
+  | 'imageReference'
+  | 'linkInline'
+  | 'linkReference'
+  | 'inlineCode'
+  | 'footnoteRef'
+  | 'strikethrough'
+  | 'emphasisAsterisk'
+  | 'emphasisUnderscore';
+
+type MarkDownToTextCustomPatterns = Partial<Record<MarkDownToTextRules, RegExp>>;
+
+interface MarkdownToTextOptions {
+  stripListLeaders?: boolean;
+  listUnicodeChar?: string;
+  gfm?: boolean;
+  useImgAltText?: boolean;
+  abbr?: boolean;
+  replaceLinksWithURL?: boolean;
+  separateLinksAndTexts?: string;
+  htmlTagsToSkip?: string[];
+  throwError?: boolean;
+  normalizeWhitespace?: boolean;
+  maxBlankLines?: number;
+  trimOutput?: boolean;
+  customPatterns?: MarkDownToTextCustomPatterns;
+}
+```
+
+---
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { markdownToText } from 'toolbox-x';
+
+const md = '# Hello World\n\nThis is **bold** and *italic* text.';
+console.log(markdownToText(md));
+// Output:
+// Hello World
+//
+// This is bold and italic text.
+```
+
+```ts pg tab="Custom Bullet Marker"
+import { markdownToText } from 'toolbox-x';
+
+const listMd = '  * Item 1\n    * Item 2';
+console.log(markdownToText(listMd, {
+  listUnicodeChar: '•',
+  trimOutput: false // Keep starting indentation
+}));
+// Output:
+//   • Item 1
+//     • Item 2
+```
+
+```ts pg tab="Link Customizations"
+import { markdownToText } from 'toolbox-x';
+
+const linkMd = 'Visit [Google](https://google.com)';
+
+console.log(markdownToText(linkMd, { replaceLinksWithURL: true }));
+// Output: "Visit https://google.com"
+
+console.log(markdownToText(linkMd, { separateLinksAndTexts: ' - ' }));
+// Output: "Visit Google - https://google.com"
+```
+
+```ts pg tab="Custom Pattern Overrides"
+import { markdownToText } from 'toolbox-x';
+
+const md = 'Some custom text';
+const text = markdownToText(md, {
+  customPatterns: {
+    // Override how horizontal rules are stripped
+    hr: /^---$/gm
+  }
+});
+```
+
+---
+
+### See Also
+
+- [**htmlToText**](./html-to-text) — Convert HTML formatted strings to plain text.
+- [**normalizeString**](./normalize-string) — Clean and normalize string whitespaces.
+- [**trimString**](./trim-string) — Remove leading, trailing, and duplicate spaces.

@@ -1,0 +1,133 @@
+---
+title: HTML to Text
+description: Convert HTML strings into plain text with customizable options.
+---
+
+## htmlToText
+
+The `htmlToText` function converts HTML strings into formatted plain text by stripping HTML tags while preserving line breaks, paragraph structure, lists, tables, and spacing according to customizable rules.
+
+### Function Signature
+
+```typescript
+function htmlToText(html: unknown, options?: HtmlToTextOptions): string
+```
+
+### Parameters
+
+- **`html`** (`unknown`): The HTML content to parse. Non-string inputs are converted to strings, and `null`/`undefined` values return an empty string.
+- **`options`** (`HtmlToTextOptions`, optional): Configuration object to control the parser's behaviour.
+
+---
+
+### Options
+
+| Option                    | Type                    | Default | Description                                                |
+| :------------------------ | :---------------------- | :------ | :--------------------------------------------------------- |
+| **`brToNewLine`**         | `boolean`               | `true`  | Converts `<br>` tags into line breaks (`\n`).              |
+| **`blockToNewLine`**      | `boolean`               | `true`  | Inserts newlines before and after block-level HTML tags.   |
+| **`decodeEntities`**      | `boolean`               | `true`  | Decodes common, decimal, and hexadecimal HTML entities.    |
+| **`removeScripts`**       | `boolean`               | `true`  | Removes `<script>` tags and their inner content.           |
+| **`removeStyles`**        | `boolean`               | `true`  | Removes `<style>` tags and their inner content.            |
+| **`preservePreAndCode`**  | `boolean`               | `false` | Preserves formatting inside `<pre>` and `<code>` elements. |
+| **`listMarker`**          | `string \| ListMarkers` | `'- '`  | Prefix indicator for list items (`<li>`).                  |
+| **`tableCellSeparator`**  | `string`                | `'\t'`  | Separator between table cells.                             |
+| **`blockSeparator`**      | `string`                | `'\n'`  | Separator between adjacent block-level elements.           |
+| **`normalizeWhitespace`** | `boolean`               | `true`  | Collapses redundant spaces, tabs, and duplicate lines.     |
+| **`maxBlankLines`**       | `number`                | `2`     | Max consecutive blank lines allowed in output.             |
+| **`trimOutput`**          | `boolean`               | `true`  | Trims leading and trailing whitespace from output.         |
+
+<Callout type="info" title="Note">
+- **List Markers**: Can be configured globally as a string, or independently per list type (`ol` or `ul`) using a config object. The ordered lists counter always increments sequentially starting from `1`.
+- **Pre & Code Blocks**: Spacing inside these tags is preserved exactly as written when `preservePreAndCode` is set to `true`.
+</Callout>
+
+#### Sub-Option: `ListMarkers`
+
+When specifying `listMarker` as an object, configure ordered and unordered list bullets independently:
+
+- **`ol`** (`string`, default: `'1. '`): Dynamic sequentially incremented prefix.
+- **`ul`** (`string`, default: `'- '`): Static marker prefix.
+
+---
+
+### Types
+
+```typescript
+interface HtmlToTextOptions {
+  brToNewLine?: boolean;
+  blockToNewLine?: boolean;
+  decodeEntities?: boolean;
+  removeScripts?: boolean;
+  removeStyles?: boolean;
+  preservePreAndCode?: boolean;
+  listMarker?: string | ListMarkers;
+  tableCellSeparator?: string;
+  blockSeparator?: string;
+  normalizeWhitespace?: boolean;
+  maxBlankLines?: number;
+  trimOutput?: boolean;
+}
+
+interface ListMarkers {
+  ol?: string;
+  ul?: string;
+}
+```
+
+---
+
+### Example Usage
+
+```ts pg tab="Basic Usage"
+import { htmlToText } from 'toolbox-x';
+
+const html = '<p>Hello <strong>World</strong>!</p><br/><a href="#">Link</a>';
+console.log(htmlToText(html));
+// Output:
+// Hello World!
+//
+// Link
+```
+
+```ts pg tab="Formatting Options"
+import { htmlToText } from 'toolbox-x';
+
+const listHtml = '<ul><li>Apples</li><li>Oranges</li></ul>';
+console.log(htmlToText(listHtml, { listMarker: '• ' }));
+// Output:
+// • Apples
+// • Oranges
+```
+
+```ts pg tab="Custom List Markers"
+import { htmlToText } from 'toolbox-x';
+
+const olHtml = '<ol><li>Step One</li><li>Step Two</li></ol>';
+console.log(htmlToText(olHtml, {
+  listMarker: {
+    ol: 'A) ', // If the marker has no digits, it acts as static bullet.
+    ul: '• '
+  }
+}));
+// Output:
+// A) Step One
+// A) Step Two
+```
+
+```ts pg tab="Strict Table Parsing"
+import { htmlToText } from 'toolbox-x';
+
+const tableHtml = '<table><tr><td>A1</td><td>B1</td></tr></table>';
+console.log(htmlToText(tableHtml, { tableCellSeparator: ' | ' }));
+// Output:
+// A1 | B1
+```
+
+---
+
+### See Also
+
+- [**markdownToText**](./markdown-to-text) — Convert Markdown formatted strings to plain text.
+- [**normalizeString**](./normalize-string) — Clean and normalize string whitespaces.
+- [**trimString**](./trim-string) — Remove leading, trailing, and duplicate spaces.
