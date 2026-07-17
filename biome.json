@@ -154,7 +154,6 @@
 			"!!**/.source",
 			"!coverage/*",
 			"!**/*.test.ts",
-			"!**/__tests__/**/*",
 			"!.VSCodeCounter/*"
 		]
 	},
@@ -212,11 +211,12 @@
 			"linter": { "rules": { "complexity": { "noBannedTypes": "off" } } }
 		},
 		{
-			"includes": ["__ideas__/**/*.ts", "__*.ts", "src/**/*log.ts"],
+			"includes": ["__ideas__/**/*.ts", "__tests__/**/*.ts", "__*.ts", "src/**/*log.ts"],
 			"linter": {
 				"rules": {
 					"correctness": { "noUnusedVariables": "off" },
-					"suspicious": { "noConsole": "off" }
+					"suspicious": { "noConsole": "off", "noEmptyBlockStatements": "off" },
+					"style": { "noNonNullAssertion": "off" }
 				}
 			}
 		},

@@ -27,6 +27,7 @@
 		"fixmat": "tsc --noEmit && biome check --write --diagnostic-level=warn && biome format --write --diagnostic-level=info",
 		"create-docs": "nhb-module -t docs",
 		"test": "vitest",
+		"test:ui": "vitest --coverage --ui",
 		"coverage": "vitest run --coverage",
 		"prepare": "husky",
 		"changelog": "node scripts/generate-changelog.mjs",
@@ -124,12 +125,13 @@
 		"@biomejs/biome": "^2.5.4",
 		"@types/node": "^26.1.1",
 		"@vitest/coverage-v8": "^4.1.10",
+		"@vitest/ui": "4.1.10",
 		"happy-dom": "^20.10.6",
 		"husky": "^9.1.7",
 		"lint-staged": "^17.0.8",
 		"nhb-scripts": "^1.9.2",
 		"tsdown": "^0.22.9",
-		"typescript": "^7.0.2",
+		"typescript": "^6.0.3",
 		"vitest": "^4.1.10"
 	},
 	"lint-staged": {

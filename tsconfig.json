@@ -26,12 +26,14 @@
 		"pretty": true,
 		"checkJs": true,
 		"preserveWatchOutput": true,
-		"types": ["node", "vitest"]
+		"types": ["node", "vitest/globals"]
 	},
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.d.ts",
 		"__tests__/**/*.ts",
+		"**/*.test.ts",
+		"**/*.spec.ts",
 		"__test.ts",
 		"__test.*.ts",
 		"vitest.config.ts",
