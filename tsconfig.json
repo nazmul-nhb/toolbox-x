@@ -26,14 +26,15 @@
 		"pretty": true,
 		"checkJs": true,
 		"preserveWatchOutput": true,
-		"types": ["node"]
+		"types": ["node", "vitest"]
 	},
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.d.ts",
 		"__tests__/**/*.ts",
 		"__test.ts",
-		"jest.config.ts",
+		"__test.*.ts",
+		"vitest.config.ts",
 		"nhb.scripts.config.mjs"
 	],
 	"exclude": ["node_modules", "dist", "coverage", "__dump__", "__ideas__"]

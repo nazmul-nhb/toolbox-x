@@ -91,13 +91,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": [
-		"dist",
-		"LICENSE",
-		"README.md",
-		"CHANGELOG.md",
-		"package.json"
-	],
+	"files": ["dist", "LICENSE", "README.md", "CHANGELOG.md", "package.json"],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/nazmul-nhb/toolbox-x.git"
@@ -130,6 +124,7 @@
 		"@biomejs/biome": "^2.5.4",
 		"@types/node": "^26.1.1",
 		"@vitest/coverage-v8": "^4.1.10",
+		"happy-dom": "^20.10.6",
 		"husky": "^9.1.7",
 		"lint-staged": "^17.0.8",
 		"nhb-scripts": "^1.9.2",

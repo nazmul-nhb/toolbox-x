@@ -1,6 +1,4 @@
 import {
-	capitalizeString,
-	convertStringCase,
 	toCamelCase,
 	toConstantCase,
 	toDotCase,
@@ -12,7 +10,8 @@ import {
 	toSnakeCase,
 	toTitleCase,
 	toTrainCase,
-} from 'src/string/case';
+} from 'src/change-case';
+import { capitalizeString, convertStringCase } from 'src/string/case';
 import { describe, expect, it } from 'vitest';
 
 describe('case.ts utils', () => {
