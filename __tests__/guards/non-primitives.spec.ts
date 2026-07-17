@@ -77,6 +77,7 @@ describe('non-primitives guards', () => {
 	it('should validate isJSON', () => {
 		expect(isJSON('{"a":1}')).toBe(true);
 		expect(isJSON('invalid')).toBe(false);
+		expect(isJSON({})).toBe(false);
 	});
 
 	it('should validate isObjectWithKeys', () => {
