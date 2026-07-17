@@ -26,7 +26,7 @@ export function _resolveNestedKey(obj: unknown, path: string): unknown {
  *
  * @param obj - The source object to read from.
  * @param path - The dot-notation path string like 'user.income.tax'.
- * @returns The numeric value at that path, or 0 if	 not valid.
+ * @returns The numeric value at that path, or 0 if not valid.
  */
 export function _getNumericProp(obj: unknown, path: string): number {
 	const value = _resolveNestedKey(obj, path);

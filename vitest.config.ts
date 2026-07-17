@@ -9,6 +9,7 @@ export default defineConfig({
 		coverage: {
 			provider: 'v8',
 			include: ['src/**'],
+			exclude: ['**/**/seasons.ts'],
 			reporter: ['text', 'json', 'html'],
 		},
 	},

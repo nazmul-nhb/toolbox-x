@@ -52,6 +52,8 @@ describe('number conversion utilities', () => {
 			expect(numberToWordsOrdinal('23')).toBe('twenty-third');
 			expect(numberToWordsOrdinal('twenty-three')).toBe('twenty-third');
 			expect(numberToWordsOrdinal('hundred')).toBe('hundredth');
+			expect(numberToWordsOrdinal('forty')).toBe('fortieth');
+			expect(numberToWordsOrdinal('fortieth')).toBe('fortieth');
 		});
 	});
 
