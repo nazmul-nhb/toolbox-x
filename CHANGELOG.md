@@ -4,6 +4,19 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.10](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.10) — 2026-07-19
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.6...v2.6.10)
+
+* \[[`f6a92130df`](https://github.com/nazmul-nhb/toolbox-x/commit/f6a92130df)] - 🔧 update(docs): added docs for `isFirstElementOfType` (Nazmul Hassan)
+* \[[`53244cbead`](https://github.com/nazmul-nhb/toolbox-x/commit/53244cbead)] - 🐛 fix(array): added new guard `isFirstElementOfType` to perform lightweight check on suitable array iterator fns (Nazmul Hassan)
+* \[[`394439bae3`](https://github.com/nazmul-nhb/toolbox-x/commit/394439bae3)] - 🧪 test: added more unit tests for mixed utils (Nazmul Hassan)
+* \[[`910362e82d`](https://github.com/nazmul-nhb/toolbox-x/commit/910362e82d)] - 🧪 test(array): added unit tests for `Finder` and optimized the class (Nazmul Hassan)
+* \[[`481dae168d`](https://github.com/nazmul-nhb/toolbox-x/commit/481dae168d)] - 🧪 test(array): added unit tests for array utils (Nazmul Hassan)
+* \[[`9d8eab4648`](https://github.com/nazmul-nhb/toolbox-x/commit/9d8eab4648)] - 🧼 refactor: moved nested key resolvers into `src/object` and renamed `src/utils/index.ts` to `*/miscellaneous.ts` (Nazmul Hassan)
+* \[[`49b5456fc9`](https://github.com/nazmul-nhb/toolbox-x/commit/49b5456fc9)] - 🔧 update(docs): updated generic return type in example of `parseObjectValues` (Nazmul Hassan)
+* \[[`e9db1ebe84`](https://github.com/nazmul-nhb/toolbox-x/commit/e9db1ebe84)] - 📚 docs: updated CHANGELOG.md for v2.6.6 (github-actions\[bot])
+
 ## [v2.6.6](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.6) — 2026-07-18
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.4...v2.6.6)
