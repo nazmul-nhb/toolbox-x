@@ -1,6 +1,6 @@
 ---
 title: Check Array of Type
-description: Validates that all elements in an array match a specific type guard.
+description: Validates that element(s) in an array match a specific type guard.
 ---
 
 ## isArrayOfType
@@ -59,3 +59,72 @@ if (isArrayOfType(apiResponse, isUser)) {
 - Processing CSV/JSON data
 - Sanitizing user-provided arrays
 - Runtime validation of typed collections
+
+---
+
+## isFirstElementOfType
+
+Validates that the first element of an array matches a specific type guard. Useful for checking homogeneous collections from untyped sources.
+
+### Import
+
+```ts
+import { isFirstElementOfType } from 'toolbox-x/guards';
+```
+
+### Signature
+
+```ts
+function isFirstElementOfType<T>(
+    value: unknown,
+    typeCheck: (item: unknown) => item is T
+): value is T[]
+```
+
+<Callout type="warning" title="Warning">
+    This guard only checks the first element of the array. It does not check the rest of the elements.
+    Use [isArrayOfType](#isarrayoftype) for a more comprehensive check.
+</Callout>
+
+### Examples
+
+```ts pg
+import { isFirstElementOfType, isNumber, isString, isBoolean, isObject } from 'toolbox-x/guards';
+
+// Primitive type checking
+console.log(isFirstElementOfType([1, 2, 3], isNumber));      // true
+console.log(isFirstElementOfType(['a', 'b'], isString));     // true
+console.log(isFirstElementOfType([true, false], isBoolean)); // true
+
+// Complex object validation
+interface User {
+  id: number;
+  name: string;
+  active: boolean;
+}
+
+const isUser = (u: unknown): u is User => (
+  isObject(u) && 
+  isNumber(u.id) && 
+  isString(u.name) && 
+  isBoolean(u.active)
+);
+
+const apiResponse: unknown = [
+  { id: 1, name: 'Alice', active: true },
+  { id: 2, name: 'Bob', active: false }
+];
+
+if (isFirstElementOfType(apiResponse, isUser)) {
+  // apiResponse is now typed as User[]
+  const activeUsers = apiResponse.filter(u => u.active);
+
+  console.log(activeUsers);
+}
+```
+
+### Use Cases
+
+- Validating API response arrays
+- Processing CSV/JSON data
+- Sanitizing user-provided arrays
