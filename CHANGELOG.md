@@ -4,6 +4,13 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.4](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.4) — 2026-07-18
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.1...v2.6.4)
+
+* \[[`53688df427`](https://github.com/nazmul-nhb/toolbox-x/commit/53688df427)] - 🐛 fix(types/object): updated the return type of `parseObjectValues()` utility (Nazmul Hassan)
+* \[[`781dafa28d`](https://github.com/nazmul-nhb/toolbox-x/commit/781dafa28d)] - 📚 docs: updated CHANGELOG.md for v2.6.1 (github-actions\[bot])
+
 ## [v2.6.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.1) — 2026-07-18
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.0...v2.6.1)
