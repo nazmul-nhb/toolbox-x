@@ -340,7 +340,7 @@ export function stableStringify(obj: unknown): string {
 	}
 
 	if (isValidArray(obj)) {
-		return '[' + obj.map((v) => stableStringify(v)).join(',') + ']';
+		return `[${obj.map((v) => stableStringify(v)).join(',')}]`;
 	}
 
 	return JSON.stringify(obj, _replacer);

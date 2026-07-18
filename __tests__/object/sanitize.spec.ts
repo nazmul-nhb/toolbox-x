@@ -15,7 +15,7 @@ describe('parseObjectValues', () => {
 		port: '3000',
 		title: 'My App',
 		nullable: 'null',
-	};
+	} as const;
 
 	const result = parseObjectValues(config);
 
@@ -66,15 +66,7 @@ describe('parseObjectValues', () => {
 		const result = parseObjectValues(nested);
 
 		expect(result).toEqual({
-			a: {
-				b: {
-					c: true,
-					d: false,
-					e: null,
-					f: undefined,
-					g: 123,
-				},
-			},
+			a: { b: { c: true, d: false, e: null, f: undefined, g: 123 } },
 			h: true,
 			i: false,
 			j: null,
