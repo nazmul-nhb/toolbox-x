@@ -7,6 +7,7 @@ import type { Any, PartialOrRequired } from 'src/types/index';
 import type {
 	DotNotationKey,
 	GenericObject,
+	ParsedObjectValues,
 	SanitizedData,
 	SanitizeOptions,
 } from 'src/types/object';
@@ -261,10 +262,10 @@ export function sanitizeData<
  * @param parseNested - Whether to convert stringified primitives in nested arrays/objects. (default: `true`).
  * @returns A new object with parsed values converted to their original types.
  */
-export function parseObjectValues<T extends GenericObject>(
-	object: T,
-	parseNested = true
-): { [K in keyof T]: Any } {
+export function parseObjectValues<
+	T extends GenericObject,
+	Result extends { [K in keyof T]: Any } = ParsedObjectValues<T>,
+>(object: T, parseNested = true): Result {
 	function _deepParseValues(data: unknown): unknown {
 		if (Array.isArray(data)) {
 			return data?.map(_deepParseValues);
@@ -282,8 +283,9 @@ export function parseObjectValues<T extends GenericObject>(
 
 				return _deepParseValues(parsed);
 			} catch {
-				if (data === 'true') return true;
-				else if (data === 'false') {
+				if (data === 'true') {
+					return true;
+				} else if (data === 'false') {
 					return false;
 				} else if (data === 'null') {
 					return null;
@@ -308,5 +310,5 @@ export function parseObjectValues<T extends GenericObject>(
 		});
 	}
 
-	return parsedBody as { [K in keyof T]: Any };
+	return parsedBody as Result;
 }

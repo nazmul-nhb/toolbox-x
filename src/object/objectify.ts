@@ -193,7 +193,7 @@ export const extractUpdatedFields = <T extends GenericObject>(
 			if (updatedObject[key] && isNotEmptyObject(updatedObject[key])) {
 				updatedFields[key] = extractUpdatedFields(
 					baseObject[key],
-					updatedObject[key] as FlattenPartial<T>
+					updatedObject[key]
 				) as T[keyof T];
 
 				if (updatedFields[key] && isEmptyObject(updatedFields[key])) {
@@ -217,23 +217,20 @@ export const extractUpdatedFields = <T extends GenericObject>(
  */
 export const extractNewFields = <T extends GenericObject, U extends GenericObject>(
 	baseObject: T,
-	updatedObject: FlattenPartial<T> & FlattenPartial<U>
+	updatedObject: U
 ): FlattenPartial<U> => {
 	const newFields: FlattenPartial<U> = {};
 
 	for (const key in updatedObject) {
 		if (!(key in baseObject)) {
 			// Directly assign new fields
-			newFields[key as keyof FlattenPartial<U>] = updatedObject[key];
+			newFields[key] = updatedObject[key];
 		} else if (isNotEmptyObject(updatedObject[key]) && isNotEmptyObject(baseObject[key])) {
 			// Recursively extract new fields inside nested objects
-			const nestedNewFields = extractNewFields(
-				baseObject[key] as T,
-				updatedObject[key] as FlattenPartial<T> & FlattenPartial<U>
-			);
+			const nestedNewFields = extractNewFields(baseObject[key], updatedObject[key]);
 
 			if (isNotEmptyObject(nestedNewFields)) {
-				newFields[key as keyof FlattenPartial<U>] = nestedNewFields as T[keyof T];
+				newFields[key] = nestedNewFields as T[keyof T];
 			}
 		}
 	}
@@ -250,18 +247,18 @@ export const extractNewFields = <T extends GenericObject, U extends GenericObjec
  */
 export const extractUpdatedAndNewFields = <T extends GenericObject, U extends GenericObject>(
 	baseObject: T,
-	updatedObject: FlattenPartial<T> & FlattenPartial<U>
+	updatedObject: U
 ): FlattenPartial<T> & FlattenPartial<U> => {
 	const updatedFields: FlattenPartial<T> = {};
 	const newFields: FlattenPartial<U> = {};
 
 	for (const key in updatedObject) {
 		if (!(key in baseObject)) {
-			newFields[key as keyof FlattenPartial<U>] = updatedObject[key];
+			newFields[key] = updatedObject[key];
 		} else if (!isDeepEqual(updatedObject[key], baseObject[key])) {
 			if (updatedObject[key] && isNotEmptyObject(updatedObject[key])) {
-				updatedFields[key as keyof T] = extractUpdatedAndNewFields(
-					baseObject[key] as T,
+				updatedFields[key] = extractUpdatedAndNewFields(
+					baseObject[key],
 					updatedObject[key]
 				) as T[keyof T];
 
@@ -269,7 +266,7 @@ export const extractUpdatedAndNewFields = <T extends GenericObject, U extends Ge
 					delete updatedFields[key];
 				}
 			} else {
-				updatedFields[key as keyof T] = updatedObject[key];
+				updatedFields[key] = updatedObject[key];
 			}
 		}
 	}
@@ -304,7 +301,7 @@ export const parseJsonToObject = <T extends GenericObject = GenericObject>(
 			return {} as T;
 		}
 
-		return parsePrimitives ? parseObjectValues<T>(data) : data;
+		return parsePrimitives ? parseObjectValues<T, T>(data) : data;
 	} catch {
 		return {} as T;
 	}

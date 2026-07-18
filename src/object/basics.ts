@@ -1,4 +1,4 @@
-import { isNotEmptyObject } from 'src/guards/non-primitives';
+import { isFunction, isNotEmptyObject, isObject } from 'src/guards/non-primitives';
 import type { DeepKeys, GenericObject, ObjectEntry } from 'src/types/object';
 import type { Tuple } from 'src/types/utils';
 import { stableStringify } from 'src/utils/index';
@@ -48,9 +48,10 @@ import { stableStringify } from 'src/utils/index';
  */
 export function cloneObject<T extends GenericObject>(obj: T, serialize = false): T {
 	try {
-		if (!serialize && typeof structuredClone === 'function') {
+		if (!serialize && isFunction(structuredClone)) {
 			return structuredClone(obj);
 		}
+
 		return JSON.parse(stableStringify(obj));
 	} catch {
 		return { ...obj };
@@ -64,7 +65,9 @@ export function cloneObject<T extends GenericObject>(obj: T, serialize = false):
  * @returns Number of fields in the object.
  */
 export function countObjectFields<T extends GenericObject>(obj: T): number {
-	if (obj != null) return Object.keys(obj)?.length;
+	if (isObject(obj)) {
+		return Object.keys(obj)?.length;
+	}
 
 	return 0;
 }

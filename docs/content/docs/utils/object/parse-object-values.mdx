@@ -10,7 +10,7 @@ The `parseObjectValues` function recursively scans an object or array and conver
 ### Function Signature
 
 ```typescript
-function parseObjectValues<T>(object: T, parseNested?: boolean): { [K in keyof T]: any }
+function parseObjectValues<T extends GenericObject, Result extends ParsedObjectValues<T>>(object: T, parseNested?: boolean): Result
 ```
 
 ### Parameters

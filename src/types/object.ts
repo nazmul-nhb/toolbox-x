@@ -3,6 +3,7 @@ import type {
 	AdvancedTypes,
 	Maybe,
 	NormalPrimitive,
+	Numeric,
 	PartialOrRequired,
 	ValidArray,
 } from 'src/types/index';
@@ -460,3 +461,19 @@ export type CountryDetails = Readonly<
 export type ObjectEntry<T extends GenericObject> = {
 	[K in keyof T]: [K, T[K]];
 }[keyof T];
+
+export type ParsedObjectValues<T extends GenericObject> = {
+	[K in keyof T]: T[K] extends GenericObject
+		? ParsedObjectValues<T[K]>
+		: T[K] extends 'true'
+			? true
+			: T[K] extends 'false'
+				? false
+				: T[K] extends 'null'
+					? null
+					: T[K] extends 'undefined'
+						? undefined
+						: T[K] extends Numeric
+							? number
+							: T[K];
+};
