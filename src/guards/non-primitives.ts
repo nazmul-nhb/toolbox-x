@@ -101,12 +101,30 @@ export function isDate(value: unknown): value is Date {
  * @param value - The value to check.
  * @param typeCheck - The type guard function to check each item of the array.
  * @returns `true` if the value is an array of the specified type, otherwise `false`.
+ *
+ * @remarks This guard checks every element of the array. For lightweight checks, use {@link isFirstElementOfType}.
  */
 export function isArrayOfType<T>(
 	value: unknown,
 	typeCheck: (item: unknown) => item is T
 ): value is T[] {
 	return isArray(value) && value?.every(typeCheck);
+}
+
+/**
+ * * Type guard to check if a value is an array of a specific type by checking the first element.
+ * @param value The value to check the first element of.
+ * @param typeCheck The type guard function to check the first element of the array.
+ * @returns `true` if the value is an array of the specified type, otherwise `false`.
+ *
+ * @remarks This guard only checks the first element of the array. It does not check the rest of the elements.
+ * 			Use {@link isArrayOfType} for a more comprehensive check.
+ */
+export function isFirstElementOfType<T>(
+	value: unknown,
+	typeCheck: (item: unknown) => item is T
+): value is T[] {
+	return isArray(value) && typeCheck(value?.[0]);
 }
 
 /**

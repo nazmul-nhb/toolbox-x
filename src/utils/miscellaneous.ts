@@ -121,15 +121,13 @@ export function convertArrayToString<T extends Primitive | GenericObject>(
 
 	if (isArrayOfType(array, isPrimitive)) {
 		return array?.join(separator);
-	} else if (isArrayOfType(array, isNotEmptyObject)) {
+	} else {
 		if (options && 'target' in options) {
 			return array?.map((el) => _resolveNestedKey(el, options?.target))?.join(separator);
 		} else {
 			return '';
 		}
 	}
-
-	return '';
 }
 
 /**

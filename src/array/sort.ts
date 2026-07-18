@@ -1,5 +1,11 @@
-import { isArrayOfType, isObject, isValidArray } from 'src/guards/non-primitives';
+import {
+	isFirstElementOfType,
+	isObject,
+	isObjectWithKeys,
+	isValidArray,
+} from 'src/guards/non-primitives';
 import { isBoolean, isNumber, isString } from 'src/guards/primitives';
+import { _resolveNestedKey } from 'src/object/helpers';
 import type { OrderOption, SortByOption, SortNature, SortOptions } from 'src/types/array';
 import type { BasicPrimitive } from 'src/types/index';
 import type { GenericObject } from 'src/types/object';
@@ -133,35 +139,29 @@ export function sortAnArray<T extends BasicPrimitive | GenericObject>(
 	if (!isValidArray(array)) return array;
 
 	// Check if the array contains strings
-	if (isArrayOfType(array, isString)) {
+	if (isFirstElementOfType(array, isString)) {
 		return [...array].sort((a, b) =>
 			options?.sortOrder === 'desc' ? naturalSort(b, a) : naturalSort(a, b)
 		);
 	}
 
 	// Check if the array contains numbers
-	if (isArrayOfType(array, isNumber)) {
+	if (isFirstElementOfType(array, isNumber)) {
 		return [...array].sort((a, b) => (options?.sortOrder === 'desc' ? b - a : a - b));
 	}
 
 	// Check if the array contains booleans
-	if (isArrayOfType(array, isBoolean)) {
+	if (isFirstElementOfType(array, isBoolean)) {
 		return [...array].sort((a, b) =>
 			options?.sortOrder === 'desc' ? Number(b) - Number(a) : Number(a) - Number(b)
 		);
 	}
 
 	// Handle array of objects
-	if (isArrayOfType(array, isObject) && options && 'sortByField' in options) {
+	if (isFirstElementOfType(array, isObject) && isObjectWithKeys(options, ['sortByField'])) {
 		return [...array].sort((a, b) => {
-			const _getKeyValue = (obj: T, path: string): unknown => {
-				return path
-					.split('.')
-					.reduce<unknown>((acc, key) => (acc as T)?.[key as keyof T], obj);
-			};
-
-			const keyA = _getKeyValue(a, options?.sortByField);
-			const keyB = _getKeyValue(b, options?.sortByField);
+			const keyA = _resolveNestedKey(a, options?.sortByField);
+			const keyB = _resolveNestedKey(b, options?.sortByField);
 
 			if (keyA == null || keyB == null) {
 				return keyA == null ? 1 : -1;

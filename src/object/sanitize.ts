@@ -1,6 +1,11 @@
 import { isDateLike } from 'src/date/guards';
 import { isCustomFile, isFileList, isFileOrBlob, isFileUpload } from 'src/form/guards';
-import { isArrayOfType, isNotEmptyObject, isObject } from 'src/guards/non-primitives';
+import {
+	isArrayOfType,
+	isNotEmptyObject,
+	isObject,
+	isValidArray,
+} from 'src/guards/non-primitives';
 import { isString } from 'src/guards/primitives';
 import { trimString } from 'src/string/basics';
 import type { Any, PartialOrRequired } from 'src/types/index';
@@ -225,7 +230,7 @@ export function sanitizeData<
 	}
 
 	// Process array of strings and objects
-	if (Array.isArray(input)) {
+	if (isValidArray(input)) {
 		// Process array of strings
 		if (isArrayOfType(input, isString)) {
 			return trimString(input);
