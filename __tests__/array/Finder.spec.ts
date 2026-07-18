@@ -20,8 +20,66 @@ describe('Array Finder', () => {
 		]);
 	});
 
+	it('clearCache', () => {
+		const finder = new Finder(sampleData);
+		expect(finder.findAll('jane', 'name', { cacheKey: 'test' })).toEqual([
+			{ id: 2, name: 'Jane', age: 25 },
+			{ id: 4, name: 'Jane', age: 40 },
+		]);
+		finder.clearCache('test');
+		finder.clearCache();
+	});
+
+	it('findAll should return [] for empty source', () => {
+		const finder = new Finder<(typeof sampleData)[number]>([]);
+		const result = finder.findAll('nothing', 'name');
+		expect(result).toEqual([]);
+	});
+
+	it('findAll with forceBinary', () => {
+		const finder = new Finder(sampleData);
+		const result = finder.findAll('jane', 'name', { forceBinary: true });
+		expect(result).toEqual([
+			{ id: 2, name: 'Jane', age: 25 },
+			{ id: 4, name: 'Jane', age: 40 },
+		]);
+	});
+
+	it('findAll with fuzzy', () => {
+		const finder = new Finder(sampleData);
+		const result = finder.findAll('jne', 'name', { fuzzy: true });
+		expect(result).toEqual([
+			{ id: 2, name: 'Jane', age: 25 },
+			{ id: 4, name: 'Jane', age: 40 },
+		]);
+	});
+
 	it('findOne', () => {
 		const result = finder.findOne('jane', 'name');
+		expect(result).toEqual({ id: 2, name: 'Jane', age: 25 });
+	});
+
+	it('findOne should return undefined', () => {
+		const finder = new Finder(sampleData);
+		const result = finder.findOne('nothing', 'name');
+		expect(result).toBeUndefined();
+	});
+
+	it('findOne should return undefined for empty source', () => {
+		const finder = new Finder<(typeof sampleData)[number]>([]);
+		const result = finder.findOne('nothing', 'name');
+		expect(result).toBeUndefined();
+	});
+
+	it('findOne with forceBinary', () => {
+		const finder = new Finder(sampleData);
+		const result = finder.findOne('jane', 'name', { forceBinary: true });
+		expect(result).toEqual({ id: 2, name: 'Jane', age: 25 });
+	});
+
+	it('findOne with fuzzy', () => {
+		const finder = new Finder(sampleData);
+		const result = finder.findOne('jne', 'name', { fuzzy: true });
 		expect(result).toEqual({ id: 2, name: 'Jane', age: 25 });
 	});
 
