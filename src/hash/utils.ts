@@ -1,7 +1,7 @@
 import { isUndefined } from 'src/guards/primitives';
 import { isHexString } from 'src/guards/specials';
 import { _bytesToRandomHex, _fillWithRandomValues, _splitByCharLength } from 'src/hash/helpers';
-import type { Maybe } from 'src/types/index';
+import type { Maybe, NumericString } from 'src/types/index';
 
 /**
  * * Generates random bytes in the {@link Uint8Array} format.
@@ -86,10 +86,10 @@ export function randomHex(length: number, uppercase = false): string {
  * @remarks
  * - If `length` is `0` or negative, an empty string is returned.
  */
-export function randomNumeric(length: number = 6): `${number}` {
+export function randomNumeric(length: number = 6): NumericString {
 	const bytes = randomBytes(length);
 
-	return bytes.map((byte) => byte % 10).join('') as `${number}`;
+	return bytes.map((byte) => byte % 10).join('') as NumericString;
 }
 
 /**

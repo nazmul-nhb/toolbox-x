@@ -33,8 +33,11 @@ export type Uncertain<T> = T | null | undefined;
 /** Utility type to flatten `Partial` type */
 export type FlattenPartial<T> = Partial<{ [K in keyof T]: T[K] }>;
 
+/** Represents numeric string (`${number}`) */
+export type NumericString = `${number}`;
+
 /** Union of `number` and numeric string */
-export type Numeric = number | `${number}`;
+export type Numeric = number | NumericString;
 
 /** Union of Basic Primitive Types (i.e. `string | number | boolean`) */
 export type BasicPrimitive = string | number | boolean;

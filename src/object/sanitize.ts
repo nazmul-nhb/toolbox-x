@@ -264,8 +264,9 @@ export function sanitizeData<
  */
 export function parseObjectValues<
 	T extends GenericObject,
-	Result extends { [K in keyof T]: Any } = ParsedObjectValues<T>,
->(object: T, parseNested = true): Result {
+	ParseNested extends boolean = true,
+	Result extends { [K in keyof T]: Any } = ParsedObjectValues<T, ParseNested>,
+>(object: T, parseNested = true as ParseNested): Result {
 	function _deepParseValues(data: unknown): unknown {
 		if (Array.isArray(data)) {
 			return data?.map(_deepParseValues);

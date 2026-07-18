@@ -1,6 +1,7 @@
 import { isArray } from 'src/guards/non-primitives';
 import { isString } from 'src/guards/primitives';
 import type { UUID, UUIDVersion } from 'src/types/hash';
+import type { NumericString } from '../types/index';
 
 /**
  * * Type guard to check if a value is a valid email string.
@@ -149,6 +150,6 @@ export function isEnvironment(env: string): boolean {
  * @param value - The value to test.
  * @returns `true` if the value is a string that fully represents a finite number.
  */
-export function isNumericString(value: unknown): value is `${number}` {
+export function isNumericString(value: unknown): value is NumericString {
 	return isString(value) && value?.trim() !== '' && Number.isFinite(Number(value));
 }

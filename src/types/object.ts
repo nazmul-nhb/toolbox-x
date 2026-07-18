@@ -463,12 +463,16 @@ export type ObjectEntry<T extends GenericObject> = {
 }[keyof T];
 
 /** Remapped object values after applying `parseObjectValues`. */
-export type ParsedObjectValues<T extends GenericObject> = {
+export type ParsedObjectValues<T extends GenericObject, ParseNested extends boolean = true> = {
 	[K in keyof T]: T[K] extends GenericObject
-		? ParsedObjectValues<T[K]>
+		? ParseNested extends true
+			? ParsedObjectValues<T[K], true>
+			: T[K]
 		: T[K] extends `${infer P extends number | boolean | null | undefined}`
 			? P
 			: T[K] extends Numeric
 				? number
-				: T[K];
+				: T[K] extends string
+					? T[K] | GenericObject
+					: T[K];
 };

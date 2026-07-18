@@ -8,7 +8,7 @@ import type {
 	UNITS,
 } from 'src/number/constants';
 import type { Unit } from 'src/number/Unit';
-import type { Maybe } from 'src/types/index';
+import type { Maybe, NumericString } from 'src/types/index';
 import type { LooseLiteral } from 'src/types/utils';
 
 /** Enumerate & Enumerate Internal: builds a union of all numbers from 0 to N - 1 */
@@ -90,7 +90,9 @@ export interface DecimalOptions<T extends Maybe<boolean> = false> {
 }
 
 /** - Converted decimal type either `number` or `string`. */
-export type ConvertedDecimal<T> = T extends true ? `${number}` : number;
+export type ConvertedDecimal<T extends Maybe<boolean>> = T extends true
+	? NumericString
+	: number;
 
 /** - Type of numbers to generate */
 export type NumberType = 'any' | 'natural' | 'odd' | 'even' | 'prime' | 'random';

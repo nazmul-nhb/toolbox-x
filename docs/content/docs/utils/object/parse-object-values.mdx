@@ -10,7 +10,11 @@ The `parseObjectValues` function recursively scans an object or array and conver
 ### Function Signature
 
 ```typescript
-function parseObjectValues<T extends GenericObject, Result extends ParsedObjectValues<T>>(object: T, parseNested?: boolean): Result
+function parseObjectValues<
+  T extends GenericObject, 
+  ParseNested extends boolean = true, 
+  Result extends { [K in keyof T]: Any; } = ParsedObjectValues<T, ParseNested>
+>(object: T, parseNested?: ParseNested): Result
 ```
 
 ### Parameters
@@ -20,14 +24,58 @@ function parseObjectValues<T extends GenericObject, Result extends ParsedObjectV
 
 ### Return Value
 
-- **`{ [K in keyof T]: any }`**: A new object with parsed values.
+- **`ParsedObjectValues<T>`**: The parsed object with stringified values converted to their actual types.
+
+<Callout type="idea" title="Tips">
+- Properties whose input type is `string` the return type will be typed as `string | GenericObject`:
+  ```ts
+  const result = parseObjectValues({ a: "hello", b: { x: 2 } });
+  // result: { a: "hello", b: { x: 2 } }
+  ```
+  
+  > `result.a` will be typed as `string | GenericObject`
+  > This is because a string may also be a valid `JSON` string, which can also be parsed into an object (key-value pairs).
+
+- You can pass generics to control the return type:
+  ```ts pg 
+  import { parseObjectValues } from 'toolbox-x';
+
+  type MyInputObject = { a: string; b: number; };
+
+  const object: MyInputObject = { a: `{ "x": "10" }`, b: 666 };
+
+  const result = parseObjectValues(object);
+  // Auto typed as 
+  // b: {
+  //  a: string | GenericObject;
+  //  b: number;
+  // }
+
+  // But can be controlled with generics
+  type MyReturnType = { a: { x: number; }; b: number; };
+
+  const resultTyped = parseObjectValues<MyInputObject, true, MyReturnType>(object);
+
+  // Both outputs are equivalent
+  console.log({ result, resultTyped });
+  ```
+
+  > `MyReturnType` must have the top level keys of `object` (e.g., `MyInputObject`) and the values can be anything.
+</Callout>
 
 ### Example Usage
 
 ```ts pg tab="Basic Conversion"
 import { parseObjectValues } from 'toolbox-x';
 
-const config = {
+type Config = {
+  debug: "true";
+  port: Numeric;
+  title: string;
+  nullable: "null";
+};
+
+const config: Config = {
   debug: "true",
   port: "3000",
   title: "My App",
@@ -50,14 +98,28 @@ Output:
 ```ts pg tab="Nested Parsing"
 import { parseObjectValues } from 'toolbox-x';
 
-const userData = {
+type UserData = {
+  id: Numeric;
+  preferences: {
+    darkMode: "true";
+    fontSize: Numeric;
+  };
+  history: {
+    date: string;
+    count: Numeric;
+  }[];
+};
+
+const userData: UserData = {
   id: "123",
-  preferences: JSON.stringify({
+  preferences: {
     darkMode: "true",
     fontSize: "14"
-  }),
+  },
   history: [
-    { date: "2023-01-01", count: "1" }
+    { date: '2023-01-01', count: '4' },
+    { date: '2023-01-02', count: '5' },
+    { date: '2023-01-01', count: '6' },
   ]
 };
 
@@ -81,9 +143,22 @@ Output:
 ```ts pg tab="Disable Nested Parsing"
 import { parseObjectValues } from 'toolbox-x';
 
-const nested = {
+type Nested = {
+  value: Numeric;
+  children: string;
+  address: {
+    city: string;
+    zip: string;
+  };
+};
+
+const nested: Nested = {
   value: "42",
-  children: JSON.stringify([{ val: "10" }])
+  children: JSON.stringify([{ val: "10" }]),
+  address: {
+    city: "NYC",
+    zip: "12345"
+  }
 };
 
 const result = parseObjectValues(nested, false);
@@ -92,7 +167,8 @@ console.log(result);
 Output:
 {
   value: 42,
-  children: '[{"val":"10"}]' // Remains a JSON string
+  children: [ { val: '10' } ], // Parses JSON string but does not parse nested objects
+  address: { city: 'NYC', zip: '12345' } // Does not parse nested object
 }
 */
 ```
