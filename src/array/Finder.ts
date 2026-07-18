@@ -4,7 +4,9 @@ import type { FindOptions } from 'src/types/array';
 import type { Maybe, OwnKeys } from 'src/types/index';
 import type { GenericObject } from 'src/types/object';
 
-type KeySelector<T> = Extract<OwnKeys<T>, string | number> | ((item: T) => string | number);
+type KeySelectorGetter<T> = (item: T) => string | number;
+
+type KeySelector<T> = Extract<OwnKeys<T>, string | number> | KeySelectorGetter<T>;
 
 type CacheEntry<T> = { result: T[]; timestamp: number };
 
@@ -24,7 +26,7 @@ export class Finder<T extends GenericObject> {
 	 * * Creates a new `Finder` instance with a static array of items.
 	 *
 	 * @param data An array of items to initialize the search dataset.
-	 * @param ttl Optional time-to-live (in milliseconds) for cached search results. Defaults to {@link Finder.#DEFAULT_TTL 5 Minutes}.
+	 * @param ttl Optional time-to-live (in milliseconds) for cached search results. Defaults to 5 Minutes.
 	 */
 	constructor(data: T[], ttl?: number);
 
@@ -32,7 +34,7 @@ export class Finder<T extends GenericObject> {
 	 * * Creates a new `Finder` instance with a lazy-evaluated item provider.
 	 *
 	 * @param cb A function returning an array of items to initialize the search dataset.
-	 * @param ttl Time-to-live (in milliseconds) for cached search results. Defaults to {@link Finder.#DEFAULT_TTL 5 Minutes}.
+	 * @param ttl Time-to-live (in milliseconds) for cached search results. Defaults to 5 Minutes.
 	 */
 	constructor(cb: () => T[], ttl?: number);
 
@@ -40,7 +42,7 @@ export class Finder<T extends GenericObject> {
 	 * * Creates a new `Finder` instance.
 	 *
 	 * @param data The initial array of items or a callback returning them.
-	 * @param ttl Time-to-live (in milliseconds) for cached search results. Defaults to {@link Finder.#DEFAULT_TTL 5 Minutes}.
+	 * @param ttl Time-to-live (in milliseconds) for cached search results. Defaults to 5 Minutes.
 	 */
 	constructor(data: T[] | (() => T[]), ttl: number = Finder.#DEFAULT_TTL) {
 		this.#ttl = ttl;
@@ -83,12 +85,7 @@ export class Finder<T extends GenericObject> {
 
 		if (!source?.length) return [];
 
-		const rawGetKey =
-			typeof keySelector === 'function'
-				? keySelector
-				: (item: T) => item[keySelector] as string | number;
-
-		const getKey = Finder.#createMemoizedKeyGetter(rawGetKey);
+		const getKey = Finder.#createMemoizedKeyGetter(this.#getRawGetKey(keySelector));
 
 		const normalizedMatcher =
 			caseInsensitive && isString(matcher) ? matcher.toLowerCase() : matcher;
@@ -182,12 +179,7 @@ export class Finder<T extends GenericObject> {
 
 		if (!source?.length) return undefined;
 
-		const rawGetKey =
-			typeof keySelector === 'function'
-				? keySelector
-				: (item: T) => item[keySelector] as string | number;
-
-		const getKey = Finder.#createMemoizedKeyGetter(rawGetKey);
+		const getKey = Finder.#createMemoizedKeyGetter(this.#getRawGetKey(keySelector));
 
 		const normalizedMatcher =
 			caseInsensitive && isString(matcher) ? matcher.toLowerCase() : matcher;
@@ -281,7 +273,7 @@ export class Finder<T extends GenericObject> {
 	binarySearch(
 		sorted: T[],
 		matcher: string | number,
-		keySelector: (item: T) => string | number,
+		keySelector: KeySelectorGetter<T>,
 		caseInsensitive: boolean
 	): Maybe<T> {
 		let min = 0,
@@ -312,13 +304,14 @@ export class Finder<T extends GenericObject> {
 	fuzzySearch(
 		array: T[],
 		matcher: string,
-		keySelector: (item: T) => string | number,
+		keySelector: KeySelectorGetter<T>,
 		caseInsensitive: boolean
 	): Maybe<T> {
 		for (const item of array) {
 			const rawKey = keySelector(item);
 			const key =
 				caseInsensitive && isString(rawKey) ? rawKey.toLowerCase() : String(rawKey);
+
 			if (this.#match(key, matcher)) return item;
 		}
 
@@ -343,6 +336,10 @@ export class Finder<T extends GenericObject> {
 		return true;
 	}
 
+	#getRawGetKey(selector: KeySelector<T>): KeySelectorGetter<T> {
+		return typeof selector === 'function' ? selector : (item: T) => item[selector];
+	}
+
 	/**
 	 * @private Sorts an array and caches the result for a specified time-to-live (TTL).
 	 * @param data Data to sort and cache.
@@ -350,7 +347,7 @@ export class Finder<T extends GenericObject> {
 	 * @param cacheKey Optional cache key for storing the result.
 	 * @returns
 	 */
-	#sortAndCache(data: T[], getKey: (item: T) => string | number, cacheKey?: string) {
+	#sortAndCache(data: T[], getKey: KeySelectorGetter<T>, cacheKey?: string) {
 		if (cacheKey) {
 			const entry = this.#sortedCache.get(cacheKey);
 
@@ -381,13 +378,14 @@ export class Finder<T extends GenericObject> {
 	 * @static @private Creates a memoized version of a key extractor.
 	 * @param getKey Original key extraction function
 	 */
-	static #createMemoizedKeyGetter<T>(
-		getKey: (item: T) => string | number
-	): (item: T) => string | number {
+	static #createMemoizedKeyGetter<T>(getKey: KeySelectorGetter<T>): KeySelectorGetter<T> {
 		const cache = new Map<T, string | number>();
 
 		return (item: T): string | number => {
-			if (cache.has(item)) return cache.get(item) as string | number;
+			if (cache.has(item)) {
+				return cache.get(item) as string | number;
+			}
+
 			const key = getKey(item);
 			cache.set(item, key);
 			return key;

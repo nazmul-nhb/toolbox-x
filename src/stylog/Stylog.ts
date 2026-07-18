@@ -2,6 +2,7 @@ import { convertHslToRgb } from 'src/colors/convert';
 import { CSS_COLORS } from 'src/colors/css-colors';
 import { isCSSColor, isHex6, isRGB } from 'src/colors/guards';
 import { _isValidHue, _isValidPercentage, _isValidRGBComponent } from 'src/colors/helpers';
+import { isFunction } from 'src/guards/index';
 import { isNumber, isString } from 'src/guards/primitives';
 import { isBrowser } from 'src/guards/specials';
 import { _logToConsole } from 'src/stylog/console.log';
@@ -732,11 +733,11 @@ export class LogStyler {
  */
 function createStylogProxy(styler: LogStyler): StylogChain {
 	return new Proxy(styler, {
-		get(target, prop: string) {
+		get(target, prop: keyof LogStyler) {
 			if (prop in target) {
-				const value = target[prop as keyof LogStyler];
+				const value = target[prop];
 
-				if (typeof value === 'function') {
+				if (isFunction(value)) {
 					return value.bind(target);
 				} else {
 					return value;

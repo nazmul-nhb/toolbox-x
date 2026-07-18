@@ -269,7 +269,7 @@ export function getStaticGetterNames(cls: Constructor): string[] {
 	const descriptors = Object.getOwnPropertyDescriptors(cls);
 
 	const result = Object.entries(descriptors)
-		.filter(([key, desc]) => typeof desc.get === 'function' && key !== 'prototype')
+		.filter(([key, desc]) => isFunction(desc.get) && key !== 'prototype')
 		.map(([key]) => key);
 
 	return sortAnArray(result);

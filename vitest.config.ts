@@ -4,12 +4,15 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
 	test: {
 		include: ['__tests__/**/*.spec.ts'],
-		exclude: ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/docs/**'],
-		// setupFiles: '__tests__/setup.ts',
 		coverage: {
 			provider: 'v8',
 			include: ['src/**'],
-			exclude: ['**/**/seasons.ts', '**/**/countries.ts', '**/types/*.ts'],
+			exclude: [
+				'**/**/seasons.ts',
+				'**/**/countries.ts',
+				'**/**/*/constants.ts',
+				'**/types/*.ts',
+			],
 			reporter: ['text', 'json', 'html'],
 		},
 	},
