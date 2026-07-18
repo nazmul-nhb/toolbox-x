@@ -301,7 +301,7 @@ export const parseJsonToObject = <T extends GenericObject = GenericObject>(
 			return {} as T;
 		}
 
-		return parsePrimitives ? parseObjectValues<T, T>(data) : data;
+		return parsePrimitives ? parseObjectValues(data) : data;
 	} catch {
 		return {} as T;
 	}

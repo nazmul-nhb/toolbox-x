@@ -67,6 +67,7 @@ function parseObjectValues<
 
 ```ts pg tab="Basic Conversion"
 import { parseObjectValues } from 'toolbox-x';
+import type { Numeric } from 'toolbox-x/types';
 
 type Config = {
   debug: "true";
@@ -97,6 +98,7 @@ Output:
 
 ```ts pg tab="Nested Parsing"
 import { parseObjectValues } from 'toolbox-x';
+import type { Numeric } from 'toolbox-x/types';
 
 type UserData = {
   id: Numeric;
@@ -142,6 +144,7 @@ Output:
 
 ```ts pg tab="Disable Nested Parsing"
 import { parseObjectValues } from 'toolbox-x';
+import type { Numeric } from 'toolbox-x/types';
 
 type Nested = {
   value: Numeric;
