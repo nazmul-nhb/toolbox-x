@@ -4,6 +4,19 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.1](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.1) — 2026-07-18
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.0...v2.6.1)
+
+* \[[`f33ea2ce81`](https://github.com/nazmul-nhb/toolbox-x/commit/f33ea2ce81)] - 🔖 release: verify builds after updating the types in object utils (Nazmul Hassan)
+* \[[`4b4101bb28`](https://github.com/nazmul-nhb/toolbox-x/commit/4b4101bb28)] - 🧪 test(object): added unit tests for object utils (Nazmul Hassan)
+* \[[`50e6a1bfe8`](https://github.com/nazmul-nhb/toolbox-x/commit/50e6a1bfe8)] - 🧪 test: added more test cases for guards and http-status (Nazmul Hassan)
+* \[[`5c6d39a390`](https://github.com/nazmul-nhb/toolbox-x/commit/5c6d39a390)] - 🧪 test: added more test cases for number utils and converter (Nazmul Hassan)
+* \[[`393aa82bdd`](https://github.com/nazmul-nhb/toolbox-x/commit/393aa82bdd)] - 💅 style: updated biome config (Nazmul Hassan)
+* \[[`e2d4aeb7e5`](https://github.com/nazmul-nhb/toolbox-x/commit/e2d4aeb7e5)] - 🧪 test: added more test cases (Nazmul Hassan)
+* \[[`9b749f6aeb`](https://github.com/nazmul-nhb/toolbox-x/commit/9b749f6aeb)] - 🧪 test(string): tested all string utils (Nazmul Hassan)
+* \[[`d938261214`](https://github.com/nazmul-nhb/toolbox-x/commit/d938261214)] - 📚 docs: updated CHANGELOG.md for v2.6.0 (github-actions\[bot])
+
 ## [v2.6.0](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.0) — 2026-07-16
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.5.4...v2.6.0)
