@@ -114,4 +114,4 @@ export {
 	isPascalCase,
 	isSnakeCase,
 } from 'src/string/guards';
-export { isDeepEqual } from 'src/utils/index';
+export { isDeepEqual } from 'src/utils/miscellaneous';

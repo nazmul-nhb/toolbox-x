@@ -268,6 +268,6 @@ export {
 	stableStringify,
 	stripJsonEdgeGarbage,
 	throttleAction,
-} from 'src/utils/index';
+} from 'src/utils/miscellaneous';
 
 export { getCountryByPhone } from 'src/utils/xtras';

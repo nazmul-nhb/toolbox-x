@@ -10,7 +10,7 @@ import { normalizeNumber } from 'src/number/utilities';
  */
 export function _resolveNestedKey(obj: unknown, path: string): unknown {
 	if (isNotEmptyObject(obj)) {
-		return path?.split('.').reduce<unknown>((acc, key) => {
+		return path?.split('.').reduce((acc, key) => {
 			if (isNotEmptyObject(acc)) {
 				return acc[key];
 			}

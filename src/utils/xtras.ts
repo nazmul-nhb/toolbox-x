@@ -33,7 +33,7 @@ export function getCountryByPhone(phone: number | string): CountryDetails[] {
 
 	const normalized = (isString(phone) ? phone : String(phone)).replace(/\D/g, '');
 
-	return COUNTRIES.filter((country) =>
-		normalized.startsWith(country.country_code.replace(/-/g, ''))
-	);
+	return COUNTRIES.filter((country) => {
+		return normalized.startsWith(country.country_code.replace(/-/g, ''));
+	});
 }

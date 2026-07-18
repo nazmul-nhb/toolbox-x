@@ -1,7 +1,7 @@
 import { isFunction, isNotEmptyObject, isObject } from 'src/guards/non-primitives';
 import type { DeepKeys, GenericObject, ObjectEntry } from 'src/types/object';
 import type { Tuple } from 'src/types/utils';
-import { stableStringify } from 'src/utils/index';
+import { stableStringify } from 'src/utils/miscellaneous';
 
 /**
  * * Deep clone an object using `structuredClone` or deterministic *JSON serialization*.

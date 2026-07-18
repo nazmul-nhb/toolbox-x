@@ -1,10 +1,10 @@
-import { _resolveNestedKey } from 'src/array/helpers';
 import { isValidArray } from 'src/guards/non-primitives';
 import { isNumber } from 'src/guards/primitives';
+import { _resolveNestedKey } from 'src/object/helpers';
 import type { FieldValue, Option, OptionsConfig } from 'src/types/array';
 import type { Maybe } from 'src/types/index';
 import type { GenericObject, NestedPrimitiveKey } from 'src/types/object';
-import { isDeepEqual } from 'src/utils/index';
+import { isDeepEqual } from 'src/utils/miscellaneous';
 
 /**
  * * Converts an array of objects into a formatted array of options.

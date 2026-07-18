@@ -28,7 +28,7 @@
 		"create-docs": "nhb-module -t docs",
 		"test": "vitest",
 		"test:ui": "vitest --coverage --ui",
-		"coverage": "vitest run --coverage",
+		"coverage": "vitest --coverage",
 		"prepare": "husky",
 		"changelog": "node scripts/generate-changelog.mjs",
 		"changelog:docs": "pnpm --filter toolbox-x-docs changelog"

@@ -8,7 +8,7 @@ import type {
 	StrictObject,
 } from 'src/types/object';
 import type { QueryString } from 'src/types/string';
-import { deepParsePrimitives } from 'src/utils/index';
+import { deepParsePrimitives } from 'src/utils/miscellaneous';
 
 /**
  * * Utility to generate query parameters from an object.

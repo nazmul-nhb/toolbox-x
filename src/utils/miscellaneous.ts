@@ -1,4 +1,3 @@
-import { _resolveNestedKey } from 'src/array/helpers';
 import { sortAnArray } from 'src/array/sort';
 import { isDateLike } from 'src/date/guards';
 import {
@@ -12,6 +11,7 @@ import {
 } from 'src/guards/non-primitives';
 import { isNonEmptyString, isPrimitive, isString } from 'src/guards/primitives';
 import { isNumericString } from 'src/guards/specials';
+import { _resolveNestedKey } from 'src/object/helpers';
 import type {
 	ClassDetails,
 	Constructor,

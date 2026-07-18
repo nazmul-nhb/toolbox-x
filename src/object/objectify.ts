@@ -11,7 +11,7 @@ import type {
 	MergeAll,
 	Objects,
 } from 'src/types/object';
-import { isDeepEqual } from 'src/utils/index';
+import { isDeepEqual } from 'src/utils/miscellaneous';
 
 /**
  * Deeply merges two or more objects.

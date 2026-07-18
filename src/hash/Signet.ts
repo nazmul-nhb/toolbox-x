@@ -21,7 +21,7 @@ import type {
 } from 'src/types/hash';
 import type { Maybe } from 'src/types/index';
 import type { GenericObject } from 'src/types/object';
-import { stableStringify, stripJsonEdgeGarbage } from 'src/utils/index';
+import { stableStringify, stripJsonEdgeGarbage } from 'src/utils/miscellaneous';
 
 /**
  * @class A lightweight, secure implementation of JWT-like tokens using `HMAC-SHA256` signatures.

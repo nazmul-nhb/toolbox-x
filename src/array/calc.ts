@@ -1,7 +1,7 @@
-import { _getNumericProp, _resolveNestedKey } from 'src/array/helpers';
 import { splitArrayByProperty } from 'src/array/transform';
 import { isValidArray } from 'src/guards/non-primitives';
 import { roundNumber } from 'src/number/basics';
+import { _getNumericProp, _resolveNestedKey } from 'src/object/helpers';
 import type { Maybe } from 'src/types/index';
 import type { GenericObject, NestedPrimitiveKey, NumericDotKey } from 'src/types/object';
 

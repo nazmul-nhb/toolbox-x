@@ -5,7 +5,7 @@ import { isEven, isOdd } from 'src/number/guards';
 import { _applyMultiples } from 'src/number/helpers';
 import { isPrime } from 'src/number/prime';
 import type { NumberType, RangedNumbers, RangeOptions } from 'src/types/number';
-import { convertArrayToString } from 'src/utils/index';
+import { convertArrayToString } from 'src/utils/miscellaneous';
 
 /**
  * * Function to get numbers within a range based on the provided {@link NumberType} and options.
