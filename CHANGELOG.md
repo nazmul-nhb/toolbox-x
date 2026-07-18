@@ -4,6 +4,14 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.6](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.6) — 2026-07-18
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.4...v2.6.6)
+
+* \[[`8a610b5c1f`](https://github.com/nazmul-nhb/toolbox-x/commit/8a610b5c1f)] - 🔧 update: fixed misleading types in pg example in docs (Nazmul Hassan)
+* \[[`6605f80009`](https://github.com/nazmul-nhb/toolbox-x/commit/6605f80009)] - 🔧 update(docs): fixed type imports in playground example for `parseObjectValues()` (Nazmul Hassan)
+* \[[`9d971a9aab`](https://github.com/nazmul-nhb/toolbox-x/commit/9d971a9aab)] - 📚 docs: updated CHANGELOG.md for v2.6.4 (github-actions\[bot])
+
 ## [v2.6.4](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.4) — 2026-07-18
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.1...v2.6.4)
