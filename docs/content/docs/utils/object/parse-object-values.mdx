@@ -36,28 +36,18 @@ function parseObjectValues<
   > `result.a` will be typed as `string | GenericObject`
   > This is because a string may also be a valid `JSON` string, which can also be parsed into an object (key-value pairs).
 
-- You can pass generics to control the return type:
-  ```ts pg 
+- You can pass generics to control the return type (3rd generic):
+  ```ts
   import { parseObjectValues } from 'toolbox-x';
 
   type MyInputObject = { a: string; b: number; };
 
   const object: MyInputObject = { a: `{ "x": "10" }`, b: 666 };
 
-  const result = parseObjectValues(object);
-  // Auto typed as 
-  // {
-  //  a: string | GenericObject;
-  //  b: number;
-  // }
-
   // But can be controlled with generics
   type MyReturnType = { a: { x: number; }; b: number; };
 
   const resultTyped = parseObjectValues<MyInputObject, true, MyReturnType>(object);
-
-  // Both outputs are equivalent
-  console.log({ result, resultTyped });
   ```
 
   > `MyReturnType` must have the top level keys of `object` (e.g., `MyInputObject`) and the values can be anything.
@@ -140,6 +130,29 @@ Output:
   ]
 }
 */
+```
+
+```ts pg tab="Control Return Type"
+import { parseObjectValues } from 'toolbox-x';
+
+type MyInputObject = { a: string; b: number; };
+
+const object: MyInputObject = { a: `{ "x": "10" }`, b: 666 };
+
+const result = parseObjectValues(object);
+// Auto typed as 
+// {
+//  a: string | GenericObject;
+//  b: number;
+// }
+
+// But can be controlled with generics
+type MyReturnType = { a: { x: number; }; b: number; };
+
+const resultTyped = parseObjectValues<MyInputObject, true, MyReturnType>(object);
+
+// Both outputs are equivalent
+console.log({ result, resultTyped });
 ```
 
 ```ts pg tab="Disable Nested Parsing"
