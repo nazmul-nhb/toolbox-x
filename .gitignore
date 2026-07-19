@@ -8,3 +8,4 @@ docs/.source
 docs/.env.local
 ex.js
 coverage
+.sonda

@@ -1,4 +1,4 @@
-import { isFunction } from 'src/guards';
+import { isFunction } from 'src/guards/non-primitives';
 import { extractObjectEntries } from 'src/object/basics';
 import type { Flattened } from 'src/types/array';
 import type { ConditionFns, Maybe } from 'src/types/index';

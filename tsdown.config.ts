@@ -1,4 +1,10 @@
+import { cp, mkdir, rename, stat } from 'node:fs/promises';
+import { basename, dirname, join } from 'node:path';
+import type { Plugin } from 'rolldown';
+import { bundleAnalyzerPlugin } from 'rolldown/experimental';
 import { defineConfig } from 'tsdown';
+
+const statFileName = 'BUNDLE_STATS.md';
 
 export default defineConfig({
 	entry: [
@@ -25,14 +31,17 @@ export default defineConfig({
 	exports: true,
 	unbundle: false,
 	treeshake: true,
-	// plugins: [
-	// 	visualizer({
-	// 		gzipSize: true,
-	// 		filename: fileURLToPath(new URL('./.estimator/stats.html', import.meta.url)),
-	// 		title: 'Toolbox-X Bundle Size',
-	// 		open: true,
-	// 	}),
-	// ],
+	plugins: [
+		bundleAnalyzerPlugin({
+			format: 'md',
+			fileName: statFileName,
+		}),
+		moveFilePlugin({
+			file: statFileName,
+			fromDir: 'dist',
+			to: statFileName,
+		}),
+	],
 	checks: {
 		pluginTimings: false,
 	},
@@ -53,3 +62,72 @@ export default defineConfig({
  */
 `,
 });
+
+export interface MoveFilePluginOptions {
+	/**
+	 * Generated output directory.
+	 *
+	 * Example: "dist"
+	 */
+	fromDir: string;
+
+	/**
+	 * File inside the generated directory.
+	 *
+	 * Example: "index.d.ts"
+	 */
+	file: string;
+
+	/**
+	 * Destination path.
+	 *
+	 * Example: "docs/index.d.ts"
+	 */
+	to: string;
+
+	/**
+	 * Copy instead of move.
+	 *
+	 * @default false
+	 */
+	copy?: boolean;
+}
+
+async function resolveDestination(source: string, to: string) {
+	try {
+		if ((await stat(to)).isDirectory()) {
+			return join(to, basename(source));
+		}
+	} catch {
+		// Doesn't exist yet. That's perfectly fine.
+	}
+
+	// treat "." specially
+	if (to === '.' || to === './') {
+		return join(to, basename(source));
+	}
+
+	return to;
+}
+
+/**
+ * Moves (or copies) a generated file after the bundle is written.
+ */
+export function moveFilePlugin(options: MoveFilePluginOptions): Plugin {
+	return {
+		name: 'move-file',
+
+		async closeBundle() {
+			const source = join(options.fromDir, options.file);
+			const destination = await resolveDestination(source, options.to);
+
+			await mkdir(dirname(destination), { recursive: true });
+
+			if (options.copy) {
+				await cp(source, destination, { force: true });
+			} else {
+				await rename(source, destination);
+			}
+		},
+	};
+}

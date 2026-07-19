@@ -32,6 +32,9 @@ importers:
       nhb-scripts:
         specifier: ^1.9.2
         version: 1.9.2
+      rolldown:
+        specifier: ^1.2.0
+        version: 1.2.0
       tsdown:
         specifier: ^0.22.9
         version: 0.22.9(typescript@6.0.3)

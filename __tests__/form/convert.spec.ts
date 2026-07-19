@@ -31,3 +31,36 @@ describe('form convert utils', () => {
 		expect(fd.get('user')).toBe(JSON.stringify(data.user));
 	});
 });
+
+describe('createFormData', () => {
+	const file1 = new File(['file1'], 'file1.txt', { type: 'text/plain' });
+	const file2 = new File(['file2'], 'file2.txt', { type: 'text/plain' });
+
+	const data = {
+		user: {
+			name: ' John Doe ',
+			age: 30,
+			preferences: { theme: 'dark' },
+		},
+		files: [file1, file2],
+	};
+
+	const formData = createFormData(data, {
+		trimStrings: true,
+		lowerCaseValues: ['user.name'],
+		dotNotateNested: ['user'],
+		breakArray: ['files'],
+	});
+
+	const result = Object.fromEntries(formData);
+
+	it('should return an object with the correct values', () => {
+		expect(result).toEqual({
+			'user.name': 'john doe',
+			'user.age': '30',
+			'user.preferences.theme': 'dark',
+			'files[0]': file1,
+			'files[1]': file2,
+		});
+	});
+});

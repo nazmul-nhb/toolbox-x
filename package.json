@@ -1,6 +1,6 @@
 {
   "name": "toolbox-x",
-  "version": "2.6.14",
+  "version": "2.6.16",
   "description": "A versatile collection of smart, efficient, and reusable utility functions, classes and types for everyday development needs.",
   "main": "./dist/index.cjs",
   "type": "module",
@@ -148,6 +148,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.1.0",
     "nhb-scripts": "^1.9.2",
+    "rolldown": "^1.2.0",
     "tsdown": "^0.22.9",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"
