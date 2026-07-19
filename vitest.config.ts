@@ -14,7 +14,7 @@ export default defineConfig({
 				'**/**/*/*.log.ts',
 				'**/types/*.ts',
 			],
-			reporter: ['text', 'json', 'html'],
+			reporter: ['text', 'text-summary', 'html', 'json-summary'],
 		},
 	},
 	resolve: {
