@@ -89,7 +89,7 @@ console.log(result);
 
 ### Notes
 
-- **Performance**: Uses cache when available ($O(1)$ lookup). Falls back to linear search for small datasets ($O(n)$) or binary search for large sorted datasets ($O(\log n)$). Fuzzy search is $O(n)$ when enabled.
+- **Performance**: Uses cache when available (`O(1)` lookup). Falls back to linear search for small datasets (`O(n)`) or binary search for large sorted datasets (`O(\log n)`). Fuzzy search is `O(n)` when enabled.
 - **Cache Behavior**: Cache entries expire after 5 minutes by default. Cache is automatically cleared when the dataset changes.
 - **String Matching**: Case-insensitive by default. Exact matching unless `fuzzy` is true.
 - **Sorting**: Sorts data automatically when `needSorting` is true. Skips sorting when data is already sorted.
