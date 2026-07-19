@@ -308,9 +308,8 @@ export class Finder<T extends GenericObject> {
 		caseInsensitive: boolean
 	): Maybe<T> {
 		for (const item of array) {
-			const rawKey = keySelector(item);
-			const key =
-				caseInsensitive && isString(rawKey) ? rawKey.toLowerCase() : String(rawKey);
+			const rKey = keySelector(item);
+			const key = caseInsensitive && isString(rKey) ? rKey.toLowerCase() : String(rKey);
 
 			if (this.#match(key, matcher)) return item;
 		}

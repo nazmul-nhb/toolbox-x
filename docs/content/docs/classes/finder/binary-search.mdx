@@ -7,6 +7,11 @@ description: Performs a binary search on a sorted array using a custom key selec
 
 Performs a binary search on a sorted array using a custom key selector function.
 
+<Callout type="idea" title="Important Note">
+  - You should not use this method explicitly unless you have a specific use case that requires it.
+  - Instead, consider using the `{ forceBinary: true }` option in the [`findOne`](./find-one), [`findAll`](./find-all), [`findOneAsync`](./find-one-async), and [`findAllAsync`](./find-all-async) methods to enable binary search.
+</Callout>
+
 ### Signature
 
 ```typescript
@@ -65,8 +70,6 @@ console.log(result); // → { id: 2, name: "Phone" }
 
 - **Time Complexity**: `O(log n)`
 - **Space Complexity**: `O(1)`
-- **Best Case**: `O(1)`
-- **Worst Case**: `O(log n)`
 
 ### Use Cases
 

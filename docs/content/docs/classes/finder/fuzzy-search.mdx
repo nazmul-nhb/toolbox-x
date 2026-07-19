@@ -7,6 +7,11 @@ description: Performs a fuzzy search by matching characters in sequence against 
 
 Performs a fuzzy search by matching characters in sequence against array elements.
 
+<Callout type="idea" title="Important Note">
+  - You should not use this method explicitly unless you have a specific use case that requires it.
+  - Instead, consider using the `{ fuzzy: true }` option in the [`findOne`](./find-one), [`findAll`](./find-all), [`findOneAsync`](./find-one-async), and [`findAllAsync`](./find-all-async) methods to enable fuzzy search.
+</Callout>
+
 ### Signature
 
 ```typescript
