@@ -4,6 +4,14 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.13](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.13) — 2026-07-19
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.11...v2.6.13)
+
+* \[[`e21cbf3294`](https://github.com/nazmul-nhb/toolbox-x/commit/e21cbf3294)] - 🧪 test(utils): added new test cases for utils and updated a utility (Nazmul Hassan)
+* \[[`88dc700f41`](https://github.com/nazmul-nhb/toolbox-x/commit/88dc700f41)] - 🔧 update(config): added new scripts to get gzipped bundle size (Nazmul Hassan)
+* \[[`cf63832c60`](https://github.com/nazmul-nhb/toolbox-x/commit/cf63832c60)] - 📚 docs: updated CHANGELOG.md for v2.6.11 (github-actions\[bot])
+
 ## [v2.6.11](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.11) — 2026-07-19
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.10...v2.6.11)
