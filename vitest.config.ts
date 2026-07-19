@@ -11,6 +11,7 @@ export default defineConfig({
 				'**/**/seasons.ts',
 				'**/**/countries.ts',
 				'**/**/*/constants.ts',
+				'**/**/*/*.log.ts',
 				'**/types/*.ts',
 			],
 			reporter: ['text', 'json', 'html'],

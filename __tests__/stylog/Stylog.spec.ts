@@ -11,16 +11,10 @@ describe('LogStyler and Stylog', () => {
 		expect(styled).toBeDefined();
 
 		// Test converting to ANSI string (useful for terminal)
-		const ansi = styled.toANSI ? styled.toANSI('Hello') : '';
-		if (ansi) {
-			expect(ansi).toContain('\x1b[');
-		}
+		expect(styled.toANSI('Hello')).toContain('\x1b[');
 
 		// Test converting to CSS styling array (useful for browser console)
-		const css = styled.toCSS ? styled.toCSS('Hello') : [];
-		if (css) {
-			expect(Array.isArray(css)).toBe(true);
-		}
+		expect(Array.isArray(styled.toCSS('Hello'))).toBe(true);
 
 		delete process.env.FORCE_COLOR;
 	});
@@ -65,5 +59,63 @@ describe('Stylog.toANSI', () => {
 		expect(output).toContain(
 			'\x1b[38;2;255;0;0mI should be red and bold\x1b[39m\x1b[38;2;0;128;0m I should be green and bold!'
 		);
+	});
+});
+
+describe('Stylog Custom Color Methods', () => {
+	beforeEach(() => {
+		process.env.FORCE_COLOR = '3';
+	});
+
+	afterEach(() => {
+		delete process.env.FORCE_COLOR;
+	});
+
+	it('rgb(): should support custom rgb values', () => {
+		const styled = Stylog.rgb(255, 0, 0).toANSI('Hello');
+		expect(styled).toContain('\x1B[38;2;255;0;0m');
+
+		const styledStr = Stylog.rgb('255, 0, 0').toANSI('Hello');
+		expect(styledStr).toContain('\x1B[38;2;255;0;0m');
+	});
+
+	it('bgRGB(): should support custom rgb values', () => {
+		const styled = Stylog.bgRGB(255, 0, 0).toANSI('Hello');
+		expect(styled).toContain('\x1B[48;2;255;0;0m');
+
+		const styledStr = Stylog.bgRGB('255, 0, 0').toANSI('Hello');
+		expect(styledStr).toContain('\x1B[48;2;255;0;0m');
+	});
+
+	it('hsl(): should support custom hsl values', () => {
+		const styled = Stylog.hsl(0, 100, 50).toANSI('Hello');
+		expect(styled).toContain('\x1B[38;2;255;0;0m');
+
+		const styledStr = Stylog.hsl('0, 100%, 50%').toANSI('Hello');
+		expect(styledStr).toContain('\x1B[38;2;255;0;0m');
+	});
+
+	it('bgHSL(): should support custom hsl values', () => {
+		const styled = Stylog.bgHSL(0, 100, 50).toANSI('Hello');
+		expect(styled).toContain('\x1B[48;2;255;0;0m');
+
+		const styledStr = Stylog.bgHSL('0, 100%, 50%').toANSI('Hello');
+		expect(styledStr).toContain('\x1B[48;2;255;0;0m');
+	});
+
+	it('hex(): should support custom hex values', () => {
+		const styled = Stylog.hex('#FF0000').toANSI('Hello');
+		expect(styled).toContain('\x1B[38;2;255;0;0m');
+
+		const styledStr = Stylog.hex('FF0000').toANSI('Hello');
+		expect(styledStr).toContain('\x1B[38;2;255;0;0m');
+	});
+
+	it('bgHex(): should support custom hex values', () => {
+		const styled = Stylog.bgHex('#FF0000').toANSI('Hello');
+		expect(styled).toContain('\x1B[48;2;255;0;0m');
+
+		const styledStr = Stylog.bgHex('FF0000').toANSI('Hello');
+		expect(styledStr).toContain('\x1B[48;2;255;0;0m');
 	});
 });
