@@ -107,5 +107,3 @@ export const IRREGULAR_PLURALS = /* @__PURE__ */ Object.freeze({
 export const INVARIANT_UNITS = /* @__PURE__ */ Object.freeze(
 	new Set(['celsius', 'fahrenheit', 'kelvin'])
 );
-
-export const Y_TO_IES = /* @__PURE__ */ Object.freeze(new Set(['century']));

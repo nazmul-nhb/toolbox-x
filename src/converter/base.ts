@@ -1,4 +1,4 @@
-import { INVARIANT_UNITS, IRREGULAR_PLURALS, UNITS, Y_TO_IES } from 'src/converter/constants';
+import { INVARIANT_UNITS, IRREGULAR_PLURALS, UNITS } from 'src/converter/constants';
 import type { $Unit, Category, FormatToOptions, Units, UnitsTuple } from 'src/types/converter';
 import type { Numeric } from 'src/types/index';
 
@@ -40,7 +40,7 @@ export class $BaseConverter<Unit extends $Unit> {
 		} else if (u.endsWith('inch')) {
 			pluralized = u.replace(/inch$/, 'inches');
 		} else {
-			pluralized = Y_TO_IES.has(u) ? u.replace(/y$/, 'ies') : `${u}s`;
+			pluralized = `${u}s`;
 		}
 
 		return `${abs} ${pluralized}`;
@@ -99,8 +99,8 @@ export class $BaseConverter<Unit extends $Unit> {
 	 * @instance Returns the unit name.
 	 * @returns The current unit.
 	 */
-	getUnit(): Unit {
-		return this.unit || ('unknown' as Unit);
+	getUnit(): Unit | 'unknown' {
+		return this.unit || 'unknown';
 	}
 
 	/**
@@ -119,8 +119,8 @@ export class $BaseConverter<Unit extends $Unit> {
 	 * @instance Returns a plain object representation.
 	 * @returns An object with value and unit.
 	 */
-	toObject(): { value: number; unit: Unit } {
-		return { value: this.value, unit: this.unit || ('unknown' as Unit) };
+	toObject(): { value: number; unit: Unit | 'unknown' } {
+		return { value: this.value, unit: this.unit || 'unknown' };
 	}
 
 	/**

@@ -89,6 +89,7 @@ describe('Converter Factory and Units', () => {
 		expect(converter(-1, 'foot').format()).toBe('1 foot');
 		expect(converter(2, 'inch').format()).toBe('2 inches');
 		expect(converter(2, 'kelvin').format()).toBe('2 kelvin');
+		expect(converter(2, 'millennium').format()).toBe('2 millennia');
 		expect(converter(2, 'century').format()).toBe('2 centuries');
 	});
 
@@ -136,5 +137,15 @@ describe('Converter Factory and Units', () => {
 		expect(converter(1).supportedUnits('mass')).includes('gram');
 		expect(converter(1).supportedUnits('area')).includes('acre');
 		expect(converter(1).supportedUnits('temp')).includes('celsius');
+	});
+
+	it('should return unit name', () => {
+		expect(converter(1).getUnit()).toBe('unknown');
+		expect(converter(1, 'meter').getUnit()).toBe('meter');
+	});
+
+	it('should convert to object', () => {
+		expect(converter(1).toObject()).toEqual({ value: 1, unit: 'unknown' });
+		expect(converter(1, 'meter').toObject()).toEqual({ value: 1, unit: 'meter' });
 	});
 });

@@ -65,7 +65,7 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 7.7 kB | 0.6% | `src/types/utils.d.ts` |
 | 7.6 kB | 0.5% | `src/types/index.ts` |
 | 7.2 kB | 0.5% | `src/types/object.d.ts` |
-| 7.2 kB | 0.5% | `src/converter/base.ts` |
+| 7.1 kB | 0.5% | `src/converter/base.ts` |
 | 6.9 kB | 0.5% | `src/object/convert.ts` |
 | 6.7 kB | 0.5% | `src/index.ts` |
 | 6.5 kB | 0.5% | `src/date/constants.ts` |
@@ -135,20 +135,20 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 2.1 kB | 0.1% | `src/http-status/constants.d.ts` |
 | 2.0 kB | 0.1% | `src/number/guards.ts` |
 | 2.0 kB | 0.1% | `src/string/utilities.ts` |
-| 1.9 kB | 0.1% | `src/types/converter.d.ts` |
-| 1.9 kB | 0.1% | `src/number/helpers.ts` |
+| 2.0 kB | 0.1% | `src/types/converter.d.ts` |
 | 1.9 kB | 0.1% | `src/types/hash.d.ts` |
+| 1.9 kB | 0.1% | `src/number/helpers.ts` |
 | 1.9 kB | 0.1% | `src/string/case.d.ts` |
 | 1.8 kB | 0.1% | `src/date/utils.d.ts` |
 | 1.8 kB | 0.1% | `src/string/constants.ts` |
 | 1.8 kB | 0.1% | `src/stylog/helpers.ts` |
-| 1.8 kB | 0.1% | `src/converter/constants.ts` |
 | 1.7 kB | 0.1% | `src/utils/miscellaneous.d.ts` |
+| 1.7 kB | 0.1% | `src/converter/constants.ts` |
 | 1.7 kB | 0.1% | `src/date/calculation.ts` |
 | 1.6 kB | 0.1% | `src/date/constants.d.ts` |
 | 1.6 kB | 0.1% | `src/string/guards.ts` |
-| 1.6 kB | 0.1% | `src/number/constants.d.ts` |
 | 1.6 kB | 0.1% | `src/types/array.d.ts` |
+| 1.6 kB | 0.1% | `src/number/constants.d.ts` |
 | 1.5 kB | 0.1% | `src/types/stylog.ts` |
 | 1.5 kB | 0.1% | `src/colors/convert.d.ts` |
 | 1.5 kB | 0.1% | `src/guards/non-primitives.d.ts` |
@@ -219,7 +219,6 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 308 B | 0.0% | `src/pluralizer/Pluralizer.d.ts` |
 | 306 B | 0.0% | `src/form/transform.d.ts` |
 | 301 B | 0.0% | `src/string/guards.d.ts` |
-| 290 B | 0.0% | `src/converter/constants.d.ts` |
 | 286 B | 0.0% | `src/colors/initials.d.ts` |
 | 284 B | 0.0% | `src/colors/random.d.ts` |
 | 249 B | 0.0% | `src/converter/index.ts` |
@@ -227,6 +226,7 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 238 B | 0.0% | `src/change-case.ts` |
 | 227 B | 0.0% | `src/form/convert.d.ts` |
 | 227 B | 0.0% | `src/types/pluralizer.d.ts` |
+| 226 B | 0.0% | `src/converter/constants.d.ts` |
 | 223 B | 0.0% | `src/change-case.d.ts` |
 | 218 B | 0.0% | `src/string/diff.d.ts` |
 | 206 B | 0.0% | `src/dom/utils.d.ts` |
@@ -363,7 +363,7 @@ Each entry point and the total code it loads (including shared chunks).
 - `constants-DCZL77t-.mjs` (1.4 kB, import-statement)
 - `css-colors-B-y4TmeC.mjs` (4.3 kB, import-statement)
 - `constants-ZyfpysiQ.mjs` (9.0 kB, import-statement)
-- `constants-B6yqsqJ5.mjs` (2.5 kB, import-statement)
+- `constants-CaESnVR6.mjs` (2.4 kB, import-statement)
 - `countries-CMxHxKiK.mjs` (24.6 kB, import-statement)
 - `constants-BLAcLxOu.mjs` (46.6 kB, import-statement)
 
@@ -381,7 +381,7 @@ Each entry point and the total code it loads (including shared chunks).
 
 **Loads these chunks** (code-splitting):
 - `index-RyvzOKVa.d.mts` (291.2 kB, import-statement)
-- `area-CCeioOty.d.mts` (15.0 kB, import-statement)
+- `area-g1yFyBcw.d.mts` (15.0 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -396,13 +396,13 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 21.1 kB
 
 **Loads these chunks** (code-splitting):
-- `constants-B6yqsqJ5.mjs` (2.5 kB, import-statement)
+- `constants-CaESnVR6.mjs` (2.4 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
 | Bytes | Module |
 |-------|--------|
-| 7.2 kB | `src/converter/base.ts` |
+| 7.1 kB | `src/converter/base.ts` |
 | 2.9 kB | `src/converter/volume.ts` |
 | 2.6 kB | `src/converter/area.ts` |
 | 2.5 kB | `src/converter/length.ts` |
@@ -825,7 +825,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.1 kB
 
 **Loads these chunks** (code-splitting):
-- `area-CCeioOty.d.mts` (15.0 kB, import-statement)
+- `area-g1yFyBcw.d.mts` (15.0 kB, import-statement)
 
 ### Entry: `src/types/converter.ts`
 
@@ -1475,8 +1475,8 @@ Complete dependency information for each module.
 - **Imports**:
   - `src/date/seasons.ts`
   - `src/string/constants.ts`
-  - `src/converter/constants.ts`
   - `src/http-status/constants.ts`
+  - `src/converter/constants.ts`
   - `src/colors/constants.ts`
   - `src/date/constants.ts`
   - `src/number/constants.ts`
@@ -1542,19 +1542,19 @@ Complete dependency information for each module.
 
 ### `src/converter/base.ts`
 
-- **Output contribution**: 7.2 kB
+- **Output contribution**: 7.1 kB
 - **Imported by** (8 files): `src/converter/area.ts` `src/converter/data.ts` `src/converter/length.ts` `src/converter/mass.ts` `src/converter/temp.ts` `src/converter/time.ts` `src/converter/volume.ts` `src/converter/Converter.ts`
 - **Imports**:
   - `src/converter/constants.ts`
 
 ### `src/converter/constants.d.ts`
 
-- **Output contribution**: 290 B
+- **Output contribution**: 226 B
 - **Imported by** (2 files): `src/constants.d.ts` `src/types/converter.d.ts`
 
 ### `src/converter/constants.ts`
 
-- **Output contribution**: 1.8 kB
+- **Output contribution**: 1.7 kB
 - **Imported by** (10 files): `src/constants.ts` `src/converter/base.ts` `src/converter/area.ts` `src/converter/data.ts` `src/converter/length.ts` `src/converter/mass.ts` `src/converter/temp.ts` `src/converter/time.ts` `src/converter/volume.ts` `src/converter/Converter.ts`
 
 ### `src/converter/data.d.ts`
@@ -2797,7 +2797,7 @@ Complete dependency information for each module.
 
 ### `src/types/converter.d.ts`
 
-- **Output contribution**: 1.9 kB
+- **Output contribution**: 2.0 kB
 - **Imported by** (9 files): `src/converter/Converter.d.ts` `src/converter/data.d.ts` `src/converter/length.d.ts` `src/converter/mass.d.ts` `src/converter/temp.d.ts` `src/converter/time.d.ts` `src/converter/volume.d.ts` `src/converter/base.d.ts` `src/converter/area.d.ts`
 - **Imports**:
   - `src/converter/data.d.ts`
@@ -3136,7 +3136,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/hash/uuid.ts]
 [OUTPUT_BYTES: src/hash/uuid.ts = 9293 bytes]
 [MODULE: src/types/date.d.ts]
-[OUTPUT_BYTES: src/types/date.d.ts = 8951 bytes]
+[OUTPUT_BYTES: src/types/date.d.ts = 8876 bytes]
 [MODULE: src/pluralizer/rules.ts]
 [OUTPUT_BYTES: src/pluralizer/rules.ts = 8744 bytes]
 [MODULE: src/utils/Paginator.ts]
@@ -3148,7 +3148,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/types/object.d.ts]
 [OUTPUT_BYTES: src/types/object.d.ts = 7356 bytes]
 [MODULE: src/converter/base.ts]
-[OUTPUT_BYTES: src/converter/base.ts = 7322 bytes]
+[OUTPUT_BYTES: src/converter/base.ts = 7273 bytes]
 [MODULE: src/object/convert.ts]
 [OUTPUT_BYTES: src/object/convert.ts = 7115 bytes]
 [MODULE: src/index.ts]
@@ -3240,7 +3240,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/form/transform.ts]
 [OUTPUT_BYTES: src/form/transform.ts = 2934 bytes]
 [MODULE: src/types/index.d.ts]
-[OUTPUT_BYTES: src/types/index.d.ts = 2875 bytes]
+[OUTPUT_BYTES: src/types/index.d.ts = 2866 bytes]
 [MODULE: src/colors/helpers.ts]
 [OUTPUT_BYTES: src/colors/helpers.ts = 2859 bytes]
 [MODULE: src/stylog/constants.ts]
@@ -3274,7 +3274,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/date/parse.ts]
 [OUTPUT_BYTES: src/date/parse.ts = 2279 bytes]
 [MODULE: src/types/colors.d.ts]
-[OUTPUT_BYTES: src/types/colors.d.ts = 2252 bytes]
+[OUTPUT_BYTES: src/types/colors.d.ts = 2278 bytes]
 [MODULE: src/converter/Converter.ts]
 [OUTPUT_BYTES: src/converter/Converter.ts = 2188 bytes]
 [MODULE: src/guards/index.d.ts]
@@ -3288,11 +3288,11 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/string/utilities.ts]
 [OUTPUT_BYTES: src/string/utilities.ts = 2019 bytes]
 [MODULE: src/types/converter.d.ts]
-[OUTPUT_BYTES: src/types/converter.d.ts = 1995 bytes]
+[OUTPUT_BYTES: src/types/converter.d.ts = 2012 bytes]
+[MODULE: src/types/hash.d.ts]
+[OUTPUT_BYTES: src/types/hash.d.ts = 1980 bytes]
 [MODULE: src/number/helpers.ts]
 [OUTPUT_BYTES: src/number/helpers.ts = 1970 bytes]
-[MODULE: src/types/hash.d.ts]
-[OUTPUT_BYTES: src/types/hash.d.ts = 1961 bytes]
 [MODULE: src/string/case.d.ts]
 [OUTPUT_BYTES: src/string/case.d.ts = 1925 bytes]
 [MODULE: src/date/utils.d.ts]
@@ -3301,20 +3301,20 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/string/constants.ts = 1827 bytes]
 [MODULE: src/stylog/helpers.ts]
 [OUTPUT_BYTES: src/stylog/helpers.ts = 1805 bytes]
-[MODULE: src/converter/constants.ts]
-[OUTPUT_BYTES: src/converter/constants.ts = 1802 bytes]
 [MODULE: src/utils/miscellaneous.d.ts]
 [OUTPUT_BYTES: src/utils/miscellaneous.d.ts = 1773 bytes]
+[MODULE: src/converter/constants.ts]
+[OUTPUT_BYTES: src/converter/constants.ts = 1724 bytes]
 [MODULE: src/date/calculation.ts]
 [OUTPUT_BYTES: src/date/calculation.ts = 1699 bytes]
 [MODULE: src/date/constants.d.ts]
 [OUTPUT_BYTES: src/date/constants.d.ts = 1678 bytes]
 [MODULE: src/string/guards.ts]
 [OUTPUT_BYTES: src/string/guards.ts = 1668 bytes]
+[MODULE: src/types/array.d.ts]
+[OUTPUT_BYTES: src/types/array.d.ts = 1610 bytes]
 [MODULE: src/number/constants.d.ts]
 [OUTPUT_BYTES: src/number/constants.d.ts = 1591 bytes]
-[MODULE: src/types/array.d.ts]
-[OUTPUT_BYTES: src/types/array.d.ts = 1588 bytes]
 [MODULE: src/types/stylog.ts]
 [OUTPUT_BYTES: src/types/stylog.ts = 1579 bytes]
 [MODULE: src/colors/convert.d.ts]
@@ -3455,8 +3455,6 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/form/transform.d.ts = 306 bytes]
 [MODULE: src/string/guards.d.ts]
 [OUTPUT_BYTES: src/string/guards.d.ts = 301 bytes]
-[MODULE: src/converter/constants.d.ts]
-[OUTPUT_BYTES: src/converter/constants.d.ts = 290 bytes]
 [MODULE: src/colors/initials.d.ts]
 [OUTPUT_BYTES: src/colors/initials.d.ts = 286 bytes]
 [MODULE: src/colors/random.d.ts]
@@ -3471,6 +3469,8 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/form/convert.d.ts = 227 bytes]
 [MODULE: src/types/pluralizer.d.ts]
 [OUTPUT_BYTES: src/types/pluralizer.d.ts = 227 bytes]
+[MODULE: src/converter/constants.d.ts]
+[OUTPUT_BYTES: src/converter/constants.d.ts = 226 bytes]
 [MODULE: src/change-case.d.ts]
 [OUTPUT_BYTES: src/change-case.d.ts = 223 bytes]
 [MODULE: src/string/diff.d.ts]
@@ -3620,8 +3620,8 @@ This section contains raw, grep-friendly data. Use these patterns:
 [IMPORT: src/constants.d.ts -> src/object/countries.d.ts]
 [IMPORT: src/constants.ts -> src/date/seasons.ts]
 [IMPORT: src/constants.ts -> src/string/constants.ts]
-[IMPORT: src/constants.ts -> src/converter/constants.ts]
 [IMPORT: src/constants.ts -> src/http-status/constants.ts]
+[IMPORT: src/constants.ts -> src/converter/constants.ts]
 [IMPORT: src/constants.ts -> src/colors/constants.ts]
 [IMPORT: src/constants.ts -> src/date/constants.ts]
 [IMPORT: src/constants.ts -> src/number/constants.ts]
@@ -4655,7 +4655,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [ENTRY: src/constants.d.ts -> constants.d.mts (5283 bytes)]
 [ENTRY: src/constants.ts -> constants.mjs (7386 bytes)]
 [ENTRY: src/converter/index.d.ts -> converter/index.d.mts (1515 bytes)]
-[ENTRY: src/converter/index.ts -> converter/index.mjs (21624 bytes)]
+[ENTRY: src/converter/index.ts -> converter/index.mjs (21566 bytes)]
 [ENTRY: src/date/index.d.ts -> date/index.d.mts (13336 bytes)]
 [ENTRY: src/date/index.ts -> date/index.mjs (17221 bytes)]
 [ENTRY: src/dom/index.d.ts -> dom/index.d.mts (9159 bytes)]
@@ -4713,15 +4713,15 @@ This section contains raw, grep-friendly data. Use these patterns:
 ```
 [CHUNK: Color-D1JAcofV.d.mts (25550 bytes)]
 [CHUNK: Stylog-RJFq3XxK.d.mts (21433 bytes)]
-[CHUNK: area-CCeioOty.d.mts (15315 bytes)]
+[CHUNK: area-g1yFyBcw.d.mts (15339 bytes)]
 [CHUNK: array-rQDGxuaE.d.mts (6508 bytes)]
 [CHUNK: basics-CUmFAnZU.d.mts (3990 bytes)]
 [CHUNK: case-Bub_44BH.mjs (21603 bytes)]
 [CHUNK: case-C6WsS6Xr.d.mts (17218 bytes)]
 [CHUNK: constants-B0zJiNqH.mjs (2013 bytes)]
-[CHUNK: constants-B6yqsqJ5.mjs (2514 bytes)]
 [CHUNK: constants-BLAcLxOu.mjs (47741 bytes)]
 [CHUNK: constants-BPeq21eD.d.mts (2285 bytes)]
+[CHUNK: constants-CaESnVR6.mjs (2413 bytes)]
 [CHUNK: constants-D8RzBjsL.d.mts (2061 bytes)]
 [CHUNK: constants-DCZL77t-.mjs (1392 bytes)]
 [CHUNK: constants-DNIXgBkz.d.mts (52697 bytes)]
