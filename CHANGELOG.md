@@ -4,6 +4,14 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.14](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.14) — 2026-07-19
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.13...v2.6.14)
+
+* \[[`6995707e16`](https://github.com/nazmul-nhb/toolbox-x/commit/6995707e16)] - 🔧 update(docs): updated `Finder` docs and optimized `convertArrayToString` (Nazmul Hassan)
+* \[[`2c05e3b3d2`](https://github.com/nazmul-nhb/toolbox-x/commit/2c05e3b3d2)] - 🔧 update(docs): removed unnecessary $ signs from docs (Nazmul Hassan)
+* \[[`c54c1ea9f5`](https://github.com/nazmul-nhb/toolbox-x/commit/c54c1ea9f5)] - 📚 docs: updated CHANGELOG.md for v2.6.13 (github-actions\[bot])
+
 ## [v2.6.13](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.13) — 2026-07-19
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.11...v2.6.13)
