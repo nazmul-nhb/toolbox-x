@@ -4,6 +4,13 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.11](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.11) — 2026-07-19
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.10...v2.6.11)
+
+* \[[`8dbfc5a6ce`](https://github.com/nazmul-nhb/toolbox-x/commit/8dbfc5a6ce)] - 🐛 fix(exports): added missing export for `isFirstElementOfType` (Nazmul Hassan)
+* \[[`c968e74341`](https://github.com/nazmul-nhb/toolbox-x/commit/c968e74341)] - 📚 docs: updated CHANGELOG.md for v2.6.10 (github-actions\[bot])
+
 ## [v2.6.10](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.10) — 2026-07-19
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.6...v2.6.10)
