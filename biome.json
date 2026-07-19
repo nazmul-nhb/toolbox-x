@@ -8,6 +8,7 @@
 			"!!**/coverage",
 			"!!**/.next",
 			"!!**/.source",
+			"!!**/.estimator",
 			"!!**/node_modules",
 			"!!__dump__",
 			"!!__ideas__",

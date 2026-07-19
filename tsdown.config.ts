@@ -25,6 +25,14 @@ export default defineConfig({
 	exports: true,
 	unbundle: false,
 	treeshake: true,
+	// plugins: [
+	// 	visualizer({
+	// 		gzipSize: true,
+	// 		filename: fileURLToPath(new URL('./.estimator/stats.html', import.meta.url)),
+	// 		title: 'Toolbox-X Bundle Size',
+	// 		open: true,
+	// 	}),
+	// ],
 	checks: {
 		pluginTimings: false,
 	},
