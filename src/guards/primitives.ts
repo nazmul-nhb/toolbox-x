@@ -82,24 +82,21 @@ export function isBigInt(value: unknown): value is bigint {
 }
 
 /**
- * * Type guard to check if a value is a primitive (i.e. `string | number | boolean | symbol | bigint | null | undefined`).
- * @param value - The value to check.
- * @returns `true` if the value is a primitive, otherwise `false`.
- */
-export function isPrimitive(value: unknown): value is Primitive {
-	return (
-		value === null ||
-		['string', 'number', 'boolean', 'symbol', 'bigint', 'undefined'].includes(typeof value)
-	);
-}
-
-/**
  * * Type guard to check if a value is a normal primitive (i.e. `string | number | boolean | null | undefined`).
  * @param value - The value to check.
  * @returns `true` if the value is a primitive, otherwise `false`.
  */
 export function isNormalPrimitive(value: unknown): value is NormalPrimitive {
-	return value == null || ['string', 'number', 'boolean', 'undefined'].includes(typeof value);
+	return value == null || ['string', 'number', 'boolean'].includes(typeof value);
+}
+
+/**
+ * * Type guard to check if a value is a primitive (i.e. `string | number | boolean | symbol | bigint | null | undefined`).
+ * @param value - The value to check.
+ * @returns `true` if the value is a primitive, otherwise `false`.
+ */
+export function isPrimitive(value: unknown): value is Primitive {
+	return isNormalPrimitive(value) || ['symbol', 'bigint'].includes(typeof value);
 }
 
 /**
