@@ -21,6 +21,7 @@ export {
 	isEmptyObject,
 	isEmptyObject as isObjectEmpty,
 	isError,
+	isFirstElementOfType,
 	isFunction,
 	isJSON,
 	isJSON as isValidJSON,
