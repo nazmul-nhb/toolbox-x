@@ -1,6 +1,8 @@
+<!-- source-mtime: 2026-07-20T05:22:13.017Z -->
+
 # Test Coverage Report (Summary)
 
-Generated: Sun, 19 Jul 2026 22:42:57 GMT
+Generated: Mon, 20 Jul 2026 05:22:13 GMT
 
 ## Overall
 
@@ -134,18 +136,39 @@ Generated: Sun, 19 Jul 2026 22:42:57 GMT
 
 ## Highest Coverage
 
-| File                       | Statements |
-| -------------------------- | ---------: |
-| src/colors/css-colors.ts   |    100.00% |
-| src/colors/guards.ts       |    100.00% |
-| src/colors/random.ts       |    100.00% |
-| src/converter/area.ts      |    100.00% |
-| src/converter/base.ts      |    100.00% |
-| src/converter/Converter.ts |    100.00% |
-| src/converter/data.ts      |    100.00% |
-| src/converter/length.ts    |    100.00% |
-| src/converter/mass.ts      |    100.00% |
-| src/converter/temp.ts      |    100.00% |
+| File                          | Statements |
+| ----------------------------- | ---------: |
+| src/colors/css-colors.ts      |    100.00% |
+| src/colors/guards.ts          |    100.00% |
+| src/colors/random.ts          |    100.00% |
+| src/converter/area.ts         |    100.00% |
+| src/converter/base.ts         |    100.00% |
+| src/converter/Converter.ts    |    100.00% |
+| src/converter/data.ts         |    100.00% |
+| src/converter/length.ts       |    100.00% |
+| src/converter/mass.ts         |    100.00% |
+| src/converter/temp.ts         |    100.00% |
+| src/converter/time.ts         |    100.00% |
+| src/converter/volume.ts       |    100.00% |
+| src/date/calculation.ts       |    100.00% |
+| src/date/timezone.ts          |    100.00% |
+| src/guards/non-primitives.ts  |    100.00% |
+| src/guards/primitives.ts      |    100.00% |
+| src/guards/specials.ts        |    100.00% |
+| src/http-status/HttpStatus.ts |    100.00% |
+| src/number/fibonacci.ts       |    100.00% |
+| src/number/guards.ts          |    100.00% |
+| src/number/helpers.ts         |    100.00% |
+| src/number/prime.ts           |    100.00% |
+| src/number/Unit.ts            |    100.00% |
+| src/number/utilities.ts       |    100.00% |
+| src/pluralizer/rules.ts       |    100.00% |
+| src/string/anagram.ts         |    100.00% |
+| src/string/basics.ts          |    100.00% |
+| src/string/guards.ts          |    100.00% |
+| src/string/utilities.ts       |    100.00% |
+| src/utils/xtras.ts            |    100.00% |
+| src/verbalizer/rules.ts       |    100.00% |
 
 ## Distribution
 

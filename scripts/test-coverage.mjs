@@ -1,6 +1,6 @@
 // @ts-check
 
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, stat, writeFile } from 'node:fs/promises';
 import { relative } from 'node:path';
 import prettier from 'prettier';
 
@@ -35,8 +35,12 @@ import prettier from 'prettier';
  * @property {CoverageMetric} [branchesTrue]
  */
 
+const COVERAGE_JSON = 'coverage/coverage-summary.json';
+
+const sourceMtime = (await stat(COVERAGE_JSON)).mtime.toISOString();
+
 /** @type {CoverageSummary} */
-const summary = JSON.parse(await readFile('coverage/coverage-summary.json', 'utf8'));
+const summary = JSON.parse(await readFile(COVERAGE_JSON, 'utf8'));
 
 const total = summary.total;
 
@@ -93,7 +97,21 @@ const moduleRows = [...modules.entries()]
 	}))
 	.sort((a, b) => a.name.localeCompare(b.name));
 
-const best = [...files].sort((a, b) => b.statements.pct - a.statements.pct).slice(0, 10);
+/** @type {CoverageFile[]} */
+const best = (() => {
+	const perfect = files.filter((file) => file.statements.pct === 100);
+
+	if (perfect.length >= 10) {
+		return perfect.sort((a, b) => a.path.localeCompare(b.path));
+	}
+
+	const remaining = files
+		.filter((file) => file.statements.pct < 100)
+		.sort((a, b) => b.statements.pct - a.statements.pct)
+		.slice(0, 10 - perfect.length);
+
+	return [...perfect, ...remaining];
+})();
 
 const worst = [...files].sort((a, b) => a.statements.pct - b.statements.pct).slice(0, 10);
 
@@ -118,7 +136,9 @@ for (const file of files) {
 	else distribution['<70%']++;
 }
 
-const markdown = `# Test Coverage Report (Summary)
+const markdown = `<!-- source-mtime: ${sourceMtime} -->
+
+# Test Coverage Report (Summary)
 
 Generated: ${new Date().toUTCString()}
 
@@ -168,14 +188,40 @@ ${best.map((file) => `| ${file.path} | ${file.statements.pct.toFixed(2)}% |`).jo
 ## Distribution
 
 | Range | Files |
-|------|------:|
+|-------|------:|
 ${Object.entries(distribution)
 	.map(([range, count]) => `| ${range} | ${count} |`)
 	.join('\n')}
 `;
 
-const formatted = await prettier.format(markdown, {
-	parser: 'markdown',
-});
+/**
+ * Returns the source mtime stored in the report, or null if unavailable.
+ *
+ * @param {string} file
+ * @returns {Promise<string | null>}
+ */
+async function getStoredSourceMtime(file) {
+	try {
+		const content = await readFile(file, 'utf8');
 
-await writeFile('TEST_COVERAGE.md', formatted);
+		const match = content.match(/^<!--\s*source-mtime:\s*(.+?)\s*-->/);
+
+		return match?.[1] ?? null;
+	} catch {
+		return null;
+	}
+}
+
+try {
+	const previousMtime = await getStoredSourceMtime('TEST_COVERAGE.md');
+
+	if (previousMtime !== sourceMtime) {
+		const formatted = await prettier.format(markdown, {
+			parser: 'markdown',
+		});
+
+		await writeFile('TEST_COVERAGE.md', formatted);
+	}
+} catch (err) {
+	console.error(String(err));
+}
