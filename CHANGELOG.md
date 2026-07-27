@@ -4,6 +4,18 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.17](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.17) — 2026-07-27
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.16...v2.6.17)
+
+* \[[`081d5268b4`](https://github.com/nazmul-nhb/toolbox-x/commit/081d5268b4)] - 🛠️ chore(config): updated biome.json (Nazmul Hassan)
+* \[[`c7594fa55a`](https://github.com/nazmul-nhb/toolbox-x/commit/c7594fa55a)] - 🔣 types: added new types to extract properties and property keys from a class instance (Nazmul Hassan)
+* \[[`867a1a1611`](https://github.com/nazmul-nhb/toolbox-x/commit/867a1a1611)] - 🔧 update(scripts): updated test coverage summary generator to write file only if source json file has mtime changed (Nazmul Hassan)
+* \[[`5cd1af1fb0`](https://github.com/nazmul-nhb/toolbox-x/commit/5cd1af1fb0)] - 🧪 test(coverage): added script to generate markdown coverage report from json summary (Nazmul Hassan)
+* \[[`c2d4ebb90e`](https://github.com/nazmul-nhb/toolbox-x/commit/c2d4ebb90e)] - 🧹 cleanup(converter): removed unnecessary constant and condition (Nazmul Hassan)
+* \[[`a5a8211eb8`](https://github.com/nazmul-nhb/toolbox-x/commit/a5a8211eb8)] - 🛠️ chore: synchronized auto generated files (Nazmul Hassan)
+* \[[`3cf7cf3e19`](https://github.com/nazmul-nhb/toolbox-x/commit/3cf7cf3e19)] - 📚 docs: updated CHANGELOG.md for v2.6.16 (github-actions\[bot])
+
 ## [v2.6.16](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.16) — 2026-07-20
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.14...v2.6.16)
