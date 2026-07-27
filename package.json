@@ -104,7 +104,13 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"files": ["dist", "LICENSE", "README.md", "CHANGELOG.md", "package.json"],
+	"files": [
+		"dist",
+		"LICENSE",
+		"README.md",
+		"CHANGELOG.md",
+		"package.json"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/nazmul-nhb/toolbox-x.git"
@@ -132,19 +138,19 @@
 		"email": "nazmulnhb@gmail.com"
 	},
 	"license": "Apache-2.0",
-	"packageManager": "pnpm@11.15.0+sha512.266f8957a30d2be6e9468e5e66bcdedd35a794175f71b067ba8504d686cce1d0c0f429b33c323c3c569ad4891e667574a49ff71d1b89a22cc66f13c65818c578",
+	"packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72",
 	"devDependencies": {
-		"@biomejs/biome": "^2.5.4",
+		"@biomejs/biome": "^2.5.5",
 		"@types/node": "^26.1.1",
 		"@vitest/coverage-v8": "^4.1.10",
 		"@vitest/ui": "4.1.10",
-		"happy-dom": "^20.11.0",
+		"happy-dom": "^20.11.1",
 		"husky": "^9.1.7",
-		"lint-staged": "^17.1.0",
+		"lint-staged": "^17.2.0",
 		"nhb-scripts": "^1.9.2",
-		"prettier": "^3.9.5",
+		"prettier": "^3.9.6",
 		"rolldown": "^1.2.0",
-		"tsdown": "^0.22.12",
+		"tsdown": "^0.22.14",
 		"typescript": "^6.0.3",
 		"vitest": "^4.1.10"
 	},

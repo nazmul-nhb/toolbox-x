@@ -913,3 +913,11 @@ export type ReplaceFirst<
 	Search extends string = ' ',
 	With extends string = '-',
 > = Str extends `${infer Before}${Search}${infer After}` ? `${Before}${With}${After}` : Str;
+
+/** Extract property keys from a class which are not methods */
+export type PropertyKeys<T, PK extends PropertyKey = PropertyKey> = {
+	[K in keyof T]-?: T[K] extends (...args: any[]) => any ? never : Extract<K, PK>;
+}[keyof T];
+
+/** Represents only the properties and values of a class as object excluding the methods */
+export type Properties<T, PK extends PropertyKey = PropertyKey> = Pick<T, PropertyKeys<T, PK>>;
