@@ -15,7 +15,7 @@ This utility includes all standard HTTP status codes with metadata adapted from 
 
 <Callout type="info" title="When to Use">
 - You need **multiple independent configurations** of status codes.
-- You want to **add custom status codes** without affecting the shared [`httpStatus`](../utils/misc/http-status) instance.
+- You want to **add custom status codes** without affecting the shared [`httpStatus`](/docs/utils/misc/http-status) instance.
 - You need to **override messages** for specific status codes in your application.
 </Callout>
 
@@ -35,7 +35,7 @@ This utility includes all standard HTTP status codes with metadata adapted from 
 ### Import
 
 ```ts
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 ```
 
 ---
@@ -43,7 +43,7 @@ import { HttpStatus } from 'toolbox-x';
 ### Basic Usage
 
 ```ts pg
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
 
@@ -114,7 +114,7 @@ These types enable compile-time validation of status codes and names throughout 
 You can modify your instance without affecting others:
 
 ```ts pg
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
 
@@ -174,7 +174,7 @@ getByCode(code: StatusCode): StatusEntry | undefined;
 #### Example
 
 ```ts pg
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
 const status = customStatus.getByCode(404);
@@ -195,7 +195,7 @@ getByName(name: StatusName): StatusEntry | undefined;
 #### Example
 
 ```ts pg
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
 console.log(customStatus.getByName('NOT_FOUND')?.code); // → 404
@@ -215,7 +215,7 @@ setMessage(code: StatusCode, newMessage: string): boolean
 #### Example
 
 ```ts pg
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
 customStatus.setMessage(404, 'This page is gone');
@@ -242,7 +242,7 @@ addCode(...entries: StatusEntry[]): boolean
 #### Example
 
 ```ts pg
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
 const wasAdded = customStatus.addCode({
@@ -274,7 +274,7 @@ addOrOverrideCode(...entries: StatusEntry[]): HttpStatus
 #### Example
 
 ```ts pg
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
 customStatus
@@ -302,7 +302,7 @@ list(category?: StatusCategory): StatusEntry[]
 #### Example
 
 ```ts pg
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
 
@@ -331,18 +331,18 @@ HttpStatus.Groups: {
 
 #### Categories
 
-| Category | Description | Example Codes |
-| :--- | :--- | :--- |
+| Category        | Description      | Example Codes      |
+| :-------------- | :--------------- | :----------------- |
 | `informational` | 1xx status codes | 100, 101, 102, 103 |
-| `success` | 2xx status codes | 200, 201, 202, 204 |
-| `redirection` | 3xx status codes | 301, 302, 303, 304 |
-| `clientError` | 4xx status codes | 400, 401, 403, 404 |
-| `serverError` | 5xx status codes | 500, 501, 502, 503 |
+| `success`       | 2xx status codes | 200, 201, 202, 204 |
+| `redirection`   | 3xx status codes | 301, 302, 303, 304 |
+| `clientError`   | 4xx status codes | 400, 401, 403, 404 |
+| `serverError`   | 5xx status codes | 500, 501, 502, 503 |
 
 #### Example Usage
 
 ```ts pg
-import { HttpStatus } from 'toolbox-x';
+import { HttpStatus } from 'toolbox-x/http-status';
 
 // Get all success status codes
 const successCodes = HttpStatus.Groups.success; // [200, 201, 202, ...]
@@ -357,5 +357,5 @@ if (HttpStatus.Groups.serverError.includes(502)) {
 
 ### See Also
 
-- [**httpStatus (default instance)**](../utils/misc/http-status) — shared instance of `HttpStatus` for standard use cases.
+- [**httpStatus (default instance)**](/docs/utils/misc/http-status) — shared instance of `HttpStatus` for standard use cases.
 - [**HTTP Status Codes Reference**](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) — MDN documentation.
