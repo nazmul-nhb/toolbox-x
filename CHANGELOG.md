@@ -4,6 +4,13 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.20](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.20) — 2026-08-09
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.18...v2.6.20)
+
+* \[[`f1aaa82185`](https://github.com/nazmul-nhb/toolbox-x/commit/f1aaa82185)] - 📚 docs: fixed invalid links in README.md (Nazmul Hassan)
+* \[[`76f053af23`](https://github.com/nazmul-nhb/toolbox-x/commit/76f053af23)] - 📚 docs: updated CHANGELOG.md for v2.6.18 (github-actions\[bot])
+
 ## [v2.6.18](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.18) — 2026-08-09
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.17...v2.6.18)
