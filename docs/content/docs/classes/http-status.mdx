@@ -113,7 +113,7 @@ These types enable compile-time validation of status codes and names throughout 
 
 You can modify your instance without affecting others:
 
-```ts pg
+```ts
 import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
@@ -273,7 +273,7 @@ addOrOverrideCode(...entries: StatusEntry[]): HttpStatus
 
 #### Example
 
-```ts pg
+```ts
 import { HttpStatus } from 'toolbox-x/http-status';
 
 const customStatus = new HttpStatus();
@@ -308,9 +308,11 @@ const customStatus = new HttpStatus();
 
 // Get all status codes
 const all = customStatus.list();
+console.log(all);
 
 // Get only client errors
 const clientErrors = customStatus.list('clientError');
+console.log(clientErrors);
 ```
 
 ---

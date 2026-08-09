@@ -142,7 +142,7 @@ generateRandomID({
 }); // "USER-171234567890-AB3C4D5E6F7G"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/string/generateRandomID)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/string/generateRandomID)
 
 ---
 
@@ -165,7 +165,7 @@ pluralizer.isSingular('child'); // true
 pluralizer.isPlural('fish'); // true (uncountable)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/string/pluralizer)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/string/pluralizer)
 
 ---
 
@@ -181,7 +181,7 @@ getColorForInitial(['Alice', 'Bob', 'Charlie']);
 getColorForInitial('Banana', 50); // '#00376E80' (50% opacity)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/color/getColorForInitial)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/color/getColorForInitial)
 
 ---
 
@@ -219,7 +219,7 @@ const formData = createFormData(user, {
 // files[1]=[File2]
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/form/createFormData)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/form/createFormData)
 
 ---
 
@@ -243,7 +243,7 @@ sanitizeData(user, { ignoreFalsy: true, ignoreEmpty: true }, 'partial');
 // Returns { name: "John Doe", address: { city: "NYC" } }
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/object/sanitizeData)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/object/sanitizeData)
 
 ---
 
@@ -255,7 +255,7 @@ sanitizeData(user, { ignoreFalsy: true, ignoreEmpty: true }, 'partial');
 parseJSON('{"value":"42"}'); // { value: 42 } (auto-converts numbers)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/misc/parseJSON)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/parseJSON)
 
 ---
 
@@ -267,7 +267,7 @@ parseJSON('{"value":"42"}'); // { value: 42 } (auto-converts numbers)
 numberToWords(125); // "one hundred twenty-five"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/number/numberToWords)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/numberToWords)
 
 ---
 
@@ -281,7 +281,7 @@ getNumbersInRange('prime', { min: 10, max: 30, getAsString: true });
 // "11, 13, 17, 19, 23, 29"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/number/getNumbersInRange)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/getNumbersInRange)
 
 **`calculatePercentage`** - Swiss Army knife for percentage calculations with 7 specialized modes
 
@@ -294,7 +294,7 @@ calculatePercentage({
 }); // 50 (50% increase)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/number/calculatePercentage)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/calculatePercentage)
 
 ---
 
@@ -309,7 +309,7 @@ extractUpdatedFields(dbRecord, update);
 // { meta: { views: 1 } }
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/object/extractUpdatedFields)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/object/extractUpdatedFields)
 
 ---
 
@@ -331,7 +331,7 @@ Stylog.blue.bold.underline.log('I am Bold Underlined Blue!');
 Stylog.magenta.italic.log({ data: 'value' }, true);
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/misc/stylog)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/stylog)
 
 ---
 
@@ -344,7 +344,7 @@ Stylog.magenta.italic.log({ data: 'value' }, true);
 throttleAction(updateScrollPosition, 100);
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/misc/throttleAction)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/throttleAction)
 
 **`debounceAction`** - Intelligent delay for expensive operations
 
@@ -353,7 +353,7 @@ throttleAction(updateScrollPosition, 100);
 debounceAction(fetchResults, 300);
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utilities/misc/debounceAction)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/debounceAction)
 
 > These utilities represent just a portion of the comprehensive `toolbox-x`. Each is designed with production-grade reliability and developer experience in mind. Explore more in the [full documentation](https://toolbox-x.nazmul-nhb.dev). All the utilities and classes are categorized.
 
