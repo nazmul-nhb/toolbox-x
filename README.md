@@ -108,7 +108,7 @@ const darkerBlue = blue.applyDarkness(20); // 20% darker
 console.log(darkerBlue.hsl); // "hsl(240, 100%, 40%)" (was 50%)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/classes/Color)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/classes/color)
 
 ---
 
@@ -125,7 +125,7 @@ const laptop = productFinder.findOne('laptop', 'category', {
 });
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/classes/Finder)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/classes/finder)
 
 ---
 
@@ -134,7 +134,9 @@ const laptop = productFinder.findOne('laptop', 'category', {
 **`generateRandomID`** - Enterprise-grade unique ID generation with prefixes, timestamps, and formatting.
 
 ```typescript
-generateRandomID({
+import { generateRandomID } from 'toolbox-x';
+
+const rndId = generateRandomID({
  prefix: 'user',
  timeStamp: true,
  length: 12,
@@ -142,7 +144,39 @@ generateRandomID({
 }); // "USER-171234567890-AB3C4D5E6F7G"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/string/generateRandomID)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/string/generate-random-id)
+
+**`uuid`** - RFC-compliant secured and engine-agnostic UUID generation with support for v1, v3, v4, v5, v6, v7, and v8.
+
+```typescript
+import { uuid } from 'toolbox-x/hash';
+
+// Generate a random UUID v4 (default)
+const id1 = uuid();
+// → "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+
+// Generate uppercase v7
+const id2 = uuid({ version: 'v7', uppercase: true });
+// → "017F22E2-79B0-7CC3-98C4-DC0C0C07398F"
+
+// Generate v5 UUID with namespace
+const id3 = uuid({
+  version: 'v5',
+  namespace: uuid(),
+  name: 'example'
+});
+// → "aad5a5a7-6c6a-5b5c-8c8c-9c9c9c9c9c9c"
+
+// Generate v3 UUID
+const id4 = uuid({
+  version: 'v3', 
+  namespace: uuid(),
+  name: 'test'
+});
+// → "5df41881-3aed-3515-88a7-2f4a814cf09e"
+```
+
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/hash/uuid)
 
 ---
 
@@ -181,7 +215,7 @@ getColorForInitial(['Alice', 'Bob', 'Charlie']);
 getColorForInitial('Banana', 50); // '#00376E80' (50% opacity)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/color/getColorForInitial)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/color/get-color-for-initial)
 
 ---
 
@@ -219,7 +253,7 @@ const formData = createFormData(user, {
 // files[1]=[File2]
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/form/createFormData)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/form/create-form-data)
 
 ---
 
@@ -243,7 +277,7 @@ sanitizeData(user, { ignoreFalsy: true, ignoreEmpty: true }, 'partial');
 // Returns { name: "John Doe", address: { city: "NYC" } }
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/object/sanitizeData)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/object/sanitize-data)
 
 ---
 
@@ -255,7 +289,7 @@ sanitizeData(user, { ignoreFalsy: true, ignoreEmpty: true }, 'partial');
 parseJSON('{"value":"42"}'); // { value: 42 } (auto-converts numbers)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/parseJSON)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/parse-json)
 
 ---
 
@@ -267,7 +301,7 @@ parseJSON('{"value":"42"}'); // { value: 42 } (auto-converts numbers)
 numberToWords(125); // "one hundred twenty-five"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/numberToWords)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/number-to-words)
 
 ---
 
@@ -281,7 +315,7 @@ getNumbersInRange('prime', { min: 10, max: 30, getAsString: true });
 // "11, 13, 17, 19, 23, 29"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/getNumbersInRange)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/get-numbers-in-range)
 
 **`calculatePercentage`** - Swiss Army knife for percentage calculations with 7 specialized modes
 
@@ -294,7 +328,7 @@ calculatePercentage({
 }); // 50 (50% increase)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/calculatePercentage)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/calculate-percentage)
 
 ---
 
@@ -309,7 +343,7 @@ extractUpdatedFields(dbRecord, update);
 // { meta: { views: 1 } }
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/object/extractUpdatedFields)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/object/extract-updated-fields)
 
 ---
 
@@ -344,7 +378,7 @@ Stylog.magenta.italic.log({ data: 'value' }, true);
 throttleAction(updateScrollPosition, 100);
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/throttleAction)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/throttle-action)
 
 **`debounceAction`** - Intelligent delay for expensive operations
 
@@ -353,7 +387,7 @@ throttleAction(updateScrollPosition, 100);
 debounceAction(fetchResults, 300);
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/debounceAction)
+[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/debounce-action)
 
 > These utilities represent just a portion of the comprehensive `toolbox-x`. Each is designed with production-grade reliability and developer experience in mind. Explore more in the [full documentation](https://toolbox-x.nazmul-nhb.dev). All the utilities and classes are categorized.
 
