@@ -4,6 +4,13 @@ All notable changes to **toolbox-x** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.6.21](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.21) — 2026-08-22
+
+[Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.20...v2.6.21)
+
+* \[[`49320512e9`](https://github.com/nazmul-nhb/toolbox-x/commit/49320512e9)] - 🔧 update(docs): updated domain urls and deps (Nazmul Hassan)
+* \[[`762c13f3f2`](https://github.com/nazmul-nhb/toolbox-x/commit/762c13f3f2)] - 📚 docs: updated CHANGELOG.md for v2.6.20 (github-actions\[bot])
+
 ## [v2.6.20](https://github.com/nazmul-nhb/toolbox-x/releases/tag/v2.6.20) — 2026-08-09
 
 [Compare changes](https://github.com/nazmul-nhb/toolbox-x/compare/v2.6.18...v2.6.20)
