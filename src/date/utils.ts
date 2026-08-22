@@ -208,8 +208,8 @@ export function getTimeZoneIds(offset: UTCOffset): TimeZoneIdNative[] {
  * - The default format is `'dd, mmm DD, YYYY HH:mm:ss'` (e.g., `'Sun, Apr 06, 2025 16:11:55'`).
  * - By default, local time is used; set `useUTC` to `true` to format in UTC.
  * - The format string supports various tokens for date and time components, as well as literal text enclosed in square brackets.
- * - See {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/date-time/format-date#format-tokens format tokens} for details on supported tokens.
- * - For more complex date/time manipulations, consider using the {@link https://chronos.nazmul-nhb.dev/docs/ chronos-date} library.
+ * - See {@link https://toolbox-x.vercel.app/docs/utils/date-time/format-date#format-tokens format tokens} for details on supported tokens.
+ * - For more complex date/time manipulations, consider using the {@link https://chronos-date.vercel.app/docs/ chronos-date} library.
  *
  * @returns Date/time string in specified format.
  */

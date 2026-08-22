@@ -14,9 +14,9 @@ import type { IrregularMap, PluralizeOptions, PluralizeRule } from 'src/types/pl
  *      - This class is useful for applications that need to handle natural language processing, such as chatbots, content management systems, or any text processing tasks that require accurate pluralization.
  *
  * @remarks
- * - For simpler pluralization (plural with only 's'), please refer to {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/string/format-unit-with-plural formatUnitWithPlural} instead.
+ * - For simpler pluralization (plural with only 's'), please refer to {@link https://toolbox-x.vercel.app/docs/utils/string/format-unit-with-plural formatUnitWithPlural} instead.
  *
- * - For ready to use instance, please refer to {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/string/pluralizer pluralizer} instead.
+ * - For ready to use instance, please refer to {@link https://toolbox-x.vercel.app/docs/utils/string/pluralizer pluralizer} instead.
  *
  * @example
  * const pluralizer = new Pluralizer();
@@ -294,12 +294,12 @@ export class Pluralizer {
 }
 
 /**
- * Default shared instance of {@link https://toolbox-x.nazmul-nhb.dev/docs/classes/pluralizer Pluralizer}.
+ * Default shared instance of {@link https://toolbox-x.vercel.app/docs/classes/pluralizer Pluralizer}.
  *
  * - _Use this when you don’t need multiple configurations._
  * - _It comes preloaded with standard pluralization rules, irregular forms, and uncountable nouns._
  *
- * @remarks For simpler pluralization (plural with only 's'), please refer to {@link https://toolbox-x.nazmul-nhb.dev/docs/utilities/string/format-unit-with-plural formatUnitWithPlural} instead.
+ * @remarks For simpler pluralization (plural with only 's'), please refer to {@link https://toolbox-x.vercel.app/docs/utilities/string/format-unit-with-plural formatUnitWithPlural} instead.
  *
  * * Handles English word pluralization and singularization with support for irregular forms and uncountable nouns.
  *

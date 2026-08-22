@@ -1,6 +1,6 @@
 {
   "name": "toolbox-x",
-  "version": "2.6.20",
+  "version": "2.6.21",
   "description": "A versatile collection of smart, efficient, and reusable utility functions, classes and types for everyday development needs.",
   "main": "./dist/index.cjs",
   "type": "module",
@@ -115,11 +115,11 @@
     "type": "git",
     "url": "git+https://github.com/nazmul-nhb/toolbox-x.git"
   },
-  "homepage": "https://toolbox-x.nazmul-nhb.dev",
+  "homepage": "https://toolbox-x.vercel.app",
   "author": {
     "name": "Nazmul Hassan",
     "email": "nazmulnhb@gmail.com",
-    "url": "https://nazmul-nhb.dev"
+    "url": "https://nazmul-nhb.vercel.app"
   },
   "contributors": [
     {

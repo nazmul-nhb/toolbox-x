@@ -11,11 +11,7 @@ export default async function Image() {
 			description={titleDescription.description}
 			site={`${appName} Documentation`}
 			icon={
-				<img
-					src={`https://toolbox-x.nazmul-nhb.dev/${appLogo}`}
-					alt={appName}
-					width={80}
-				/>
+				<img src={`https://toolbox-x.vercel.app/${appLogo}`} alt={appName} width={80} />
 			}
 		/>,
 		ogImageSize

@@ -18,7 +18,7 @@ import {
  *      - This class is useful for natural language processing tasks, such as chatbots, text analysis, or content generation systems requiring accurate verb conjugation.
  *
  * @remarks
- * For ready to use instance, please refer to {@link https://toolbox-x.nazmul-nhb.dev/docs/utils/string/verbalizer verbalizer} instead.
+ * For ready to use instance, please refer to {@link https://toolbox-x.vercel.app/docs/utils/string/verbalizer verbalizer} instead.
  *
  * @example
  * const myVerbalizer = new Verbalizer();
@@ -310,7 +310,7 @@ export class Verbalizer {
 }
 
 /**
- * Default shared instance of {@link https://toolbox-x.nazmul-nhb.dev/docs/classes/verbalizer Verbalizer}.
+ * Default shared instance of {@link https://toolbox-x.vercel.app/docs/classes/verbalizer Verbalizer}.
  *
  * - Use this when you don’t need multiple configurations.
  * - It comes preloaded with standard conjugation rules and irregular verbs.

@@ -1,4 +1,4 @@
-# [Toolbox-X](https://toolbox-x.nazmul-nhb.dev)
+# [Toolbox-X](https://toolbox-x.vercel.app)
 
 > “I solve problems you face daily”
 
@@ -45,7 +45,7 @@
   </a>
 </p>
 
-[![Toolbox-X](https://raw.githubusercontent.com/nazmul-nhb/toolbox-x/refs/heads/main/toolbox-x.png)](https://toolbox-x.nazmul-nhb.dev/)
+[![Toolbox-X](https://raw.githubusercontent.com/nazmul-nhb/toolbox-x/refs/heads/main/toolbox-x.png)](https://toolbox-x.vercel.app/)
 
 ## JavaScript/TypeScript Utility Library
 
@@ -56,7 +56,7 @@
 - **Validation Utilities**: Robust data validation patterns
 - **Zero Dependencies**: Framework-agnostic implementation using only native TS/JS with 0 external package
 
-> [Explore Full Documentation →](https://toolbox-x.nazmul-nhb.dev/)
+> [Explore Full Documentation →](https://toolbox-x.vercel.app/)
 
 ---
 
@@ -90,7 +90,7 @@ See [Changelog](CHANGELOG.md) for recent updates.
 - **Modular Design**: Tree-shaking friendly – import only what you need with zero bloat
 - **Zero Dependencies**: No external dependencies - works with any JS/TS framework
 - **IDE Support**: Full type hints with JSDoc-powered API references in your editor
-- **Comprehensive Documentation**: Learn with real-world use cases on [documentation site](https://toolbox-x.nazmul-nhb.dev/)
+- **Comprehensive Documentation**: Learn with real-world use cases on [documentation site](https://toolbox-x.vercel.app/)
 - **Battle-Tested**: Reliable utilities refined through real-world production use
 - **Optimized for Production**: Focused on clean, efficient implementations
 
@@ -108,7 +108,7 @@ const darkerBlue = blue.applyDarkness(20); // 20% darker
 console.log(darkerBlue.hsl); // "hsl(240, 100%, 40%)" (was 50%)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/classes/color)
+[Documentation →](https://toolbox-x.vercel.app/docs/classes/color)
 
 ---
 
@@ -125,7 +125,7 @@ const laptop = productFinder.findOne('laptop', 'category', {
 });
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/classes/finder)
+[Documentation →](https://toolbox-x.vercel.app/docs/classes/finder)
 
 ---
 
@@ -144,7 +144,7 @@ const rndId = generateRandomID({
 }); // "USER-171234567890-AB3C4D5E6F7G"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/string/generate-random-id)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/string/generate-random-id)
 
 **`uuid`** - RFC-compliant secured and engine-agnostic UUID generation with support for v1, v3, v4, v5, v6, v7, and v8.
 
@@ -176,7 +176,7 @@ const id4 = uuid({
 // → "5df41881-3aed-3515-88a7-2f4a814cf09e"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/hash/uuid)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/hash/uuid)
 
 ---
 
@@ -199,7 +199,7 @@ pluralizer.isSingular('child'); // true
 pluralizer.isPlural('fish'); // true (uncountable)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/string/pluralizer)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/string/pluralizer)
 
 ---
 
@@ -215,7 +215,7 @@ getColorForInitial(['Alice', 'Bob', 'Charlie']);
 getColorForInitial('Banana', 50); // '#00376E80' (50% opacity)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/color/get-color-for-initial)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/color/get-color-for-initial)
 
 ---
 
@@ -253,7 +253,7 @@ const formData = createFormData(user, {
 // files[1]=[File2]
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/form/create-form-data)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/form/create-form-data)
 
 ---
 
@@ -277,7 +277,7 @@ sanitizeData(user, { ignoreFalsy: true, ignoreEmpty: true }, 'partial');
 // Returns { name: "John Doe", address: { city: "NYC" } }
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/object/sanitize-data)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/object/sanitize-data)
 
 ---
 
@@ -289,7 +289,7 @@ sanitizeData(user, { ignoreFalsy: true, ignoreEmpty: true }, 'partial');
 parseJSON('{"value":"42"}'); // { value: 42 } (auto-converts numbers)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/parse-json)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/misc/parse-json)
 
 ---
 
@@ -301,7 +301,7 @@ parseJSON('{"value":"42"}'); // { value: 42 } (auto-converts numbers)
 numberToWords(125); // "one hundred twenty-five"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/number-to-words)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/number/number-to-words)
 
 ---
 
@@ -315,7 +315,7 @@ getNumbersInRange('prime', { min: 10, max: 30, getAsString: true });
 // "11, 13, 17, 19, 23, 29"
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/get-numbers-in-range)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/number/get-numbers-in-range)
 
 **`calculatePercentage`** - Swiss Army knife for percentage calculations with 7 specialized modes
 
@@ -328,7 +328,7 @@ calculatePercentage({
 }); // 50 (50% increase)
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/number/calculate-percentage)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/number/calculate-percentage)
 
 ---
 
@@ -343,7 +343,7 @@ extractUpdatedFields(dbRecord, update);
 // { meta: { views: 1 } }
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/object/extract-updated-fields)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/object/extract-updated-fields)
 
 ---
 
@@ -365,7 +365,7 @@ Stylog.blue.bold.underline.log('I am Bold Underlined Blue!');
 Stylog.magenta.italic.log({ data: 'value' }, true);
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/stylog)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/misc/stylog)
 
 ---
 
@@ -378,7 +378,7 @@ Stylog.magenta.italic.log({ data: 'value' }, true);
 throttleAction(updateScrollPosition, 100);
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/throttle-action)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/misc/throttle-action)
 
 **`debounceAction`** - Intelligent delay for expensive operations
 
@@ -387,9 +387,9 @@ throttleAction(updateScrollPosition, 100);
 debounceAction(fetchResults, 300);
 ```
 
-[Documentation →](https://toolbox-x.nazmul-nhb.dev/docs/utils/misc/debounce-action)
+[Documentation →](https://toolbox-x.vercel.app/docs/utils/misc/debounce-action)
 
-> These utilities represent just a portion of the comprehensive `toolbox-x`. Each is designed with production-grade reliability and developer experience in mind. Explore more in the [full documentation](https://toolbox-x.nazmul-nhb.dev). All the utilities and classes are categorized.
+> These utilities represent just a portion of the comprehensive `toolbox-x`. Each is designed with production-grade reliability and developer experience in mind. Explore more in the [full documentation](https://toolbox-x.vercel.app). All the utilities and classes are categorized.
 
 ---
 
@@ -451,4 +451,4 @@ You are free to use, modify, and distribute this project under the terms of the 
 
 ---
 
-Built with ❤️ by [**Nazmul Hassan**](https://nazmul-nhb.dev)
+Built with ❤️ by [**Nazmul Hassan**](https://nazmul-nhb.vercel.app)

@@ -17,11 +17,7 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
 			description={page.data.description}
 			site={`${appName} Documentation`}
 			icon={
-				<img
-					src={`https://toolbox-x.nazmul-nhb.dev/${appLogo}`}
-					alt={appName}
-					width={80}
-				/>
+				<img src={`https://toolbox-x.vercel.app/${appLogo}`} alt={appName} width={80} />
 			}
 		/>,
 		ogImageSize
