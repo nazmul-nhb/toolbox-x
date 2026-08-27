@@ -11,9 +11,15 @@ Powerful utilities for examining and summarizing the instance/static methods and
 
 ## Example Usage
 
-```ts pg tab="Setup Class"
-// Setup class fixture
-export class Example {
+```ts pg tab="Inspect Methods"
+import {
+  getInstanceMethodNames,
+  getStaticMethodNames,
+  getInstanceGetterNames,
+  getStaticGetterNames
+} from 'toolbox-x';
+
+class Example {
   constructor() {}
   foo() {}
   bar() {}
@@ -23,16 +29,6 @@ export class Example {
   get instanceProp() { return 42; }
   static get staticProp() { return 42; }
 }
-```
-
-```ts pg tab="Inspect Methods"
-import { Example } from './Example'; // using the setup class
-import {
-  getInstanceMethodNames,
-  getStaticMethodNames,
-  getInstanceGetterNames,
-  getStaticGetterNames
-} from 'toolbox-x';
 
 console.log(getInstanceMethodNames(Example)); // → ['bar', 'foo']
 console.log(getStaticMethodNames(Example));    // → ['zap', 'zip']
@@ -41,8 +37,18 @@ console.log(getStaticGetterNames(Example));    // → ['staticProp']
 ```
 
 ```ts pg tab="Get Details"
-import { Example } from './Example'; // using the setup class
 import { getClassDetails } from 'toolbox-x';
+
+class Example {
+  constructor() {}
+  foo() {}
+  bar() {}
+  static zap() {}
+  static zip() {}
+  
+  get instanceProp() { return 42; }
+  static get staticProp() { return 42; }
+}
 
 const details = getClassDetails(Example);
 console.log(details);
