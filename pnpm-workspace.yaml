@@ -1,24 +1,30 @@
 packages:
-  - "docs"
+    - "docs"
 
 allowBuilds:
-  bun: true
-  es5-ext: true
-  esbuild: true
-  sharp: true
-
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
+    bun: true
+    es5-ext: true
+    esbuild: true
+    sharp: true
 
 minimumReleaseAgeExclude:
-  - nhb-scripts
-  - typescript
-  - tsdown
-  - "@types/*"
+    - nhb-scripts
+    - typescript
+    - tsdown
+    - "@types/*"
 
 minimumReleaseAge: 120
 
 peerDependencyRules:
-  allowedVersions:
-    typescript: "7"
+    allowedVersions:
+        typescript: "7"
+
+permissions:
+    ai:
+        skills: true
+    tsdown:
+        skills: true
+
+skills:
+    dirs:
+        - .agents/skills

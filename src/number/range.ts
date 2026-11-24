@@ -1,14 +1,13 @@
 import { shuffleArray } from 'src/array/basics';
-import { isUndefined } from 'src/guards/primitives';
+import { isNonEmptyString, isUndefined } from 'src/guards/primitives';
 import { getRandomNumber } from 'src/number/basics';
 import { isEven, isOdd } from 'src/number/guards';
 import { _applyMultiples } from 'src/number/helpers';
 import { isPrime } from 'src/number/prime';
 import type { NumberType, RangedNumbers, RangeOptions } from 'src/types/number';
-import { convertArrayToString } from 'src/utils/miscellaneous';
 
 /**
- * * Function to get numbers within a range based on the provided {@link NumberType} and options.
+ * * Function to get numbers within a range based on the provided {@link NumberType} and {@link options}.
  *
  * @remarks Returns either string or array of numbers based on the {@link RangeOptions.getAsString getAsString} option.
  *
@@ -16,19 +15,37 @@ import { convertArrayToString } from 'src/utils/miscellaneous';
  * @param options - Options to configure number generation, including range and formatting.
  * @returns The numbers in the range based on {@link type} and {@link options} either as string or array of numbers.
  */
-export function getNumbersInRange<T extends boolean = false>(
-	type: NumberType = 'any',
-	options?: RangeOptions<T>
-): RangedNumbers<T> {
+export function getNumbersInRange<T extends NumberType = 'any', S extends boolean = false>(
+	type?: T,
+	options?: RangeOptions<T, S>
+): RangedNumbers<S>;
+
+/**
+ * * Function to get numbers within a range based on {@link options}.
+ *
+ * @remarks Returns either string or array of numbers based on the {@link RangeOptions.getAsString getAsString} option.
+ *
+ * @param options - Options to configure number generation, including range and formatting.
+ * @returns The numbers in the range based on {@link options} either as string or array of numbers.
+ */
+export function getNumbersInRange<T extends NumberType = 'any', S extends boolean = false>(
+	options?: RangeOptions<T, S>
+): RangedNumbers<S>;
+
+export function getNumbersInRange<T extends NumberType = 'any', S extends boolean = false>(
+	typeOrOptions: T | RangeOptions<T, S> = 'any' as T,
+	options?: RangeOptions<T, S>
+): RangedNumbers<S> {
 	const {
 		getAsString = false,
 		min = 0,
 		max = 100,
+		step,
 		includeMin = true,
 		includeMax = true,
 		separator = ', ',
 		multiplesOf,
-	} = options || {};
+	} = (isNonEmptyString(typeOrOptions) ? options : typeOrOptions) || {};
 
 	let output: number[] = [];
 
@@ -37,9 +54,10 @@ export function getNumbersInRange<T extends boolean = false>(
 	 *
 	 * @param start The start of the range.
 	 * @param end The end of the range.
+	 * @param s The step value to increment by.
 	 * @returns The array of numbers in the range.
 	 */
-	const _applyRangeOptions = (start: number, end: number): number[] => {
+	const _applyRangeOptions = (start: number, end: number, s = 1): number[] => {
 		let startNumber = start;
 		let endNumber = end;
 
@@ -49,7 +67,7 @@ export function getNumbersInRange<T extends boolean = false>(
 
 		const numbers: number[] = [];
 
-		for (let i = startNumber; i <= endNumber; i++) {
+		for (let i = startNumber; i <= endNumber; i += s) {
 			if (
 				i >= startNumber &&
 				i <= endNumber &&
@@ -59,14 +77,15 @@ export function getNumbersInRange<T extends boolean = false>(
 				numbers.push(i);
 			}
 		}
+
 		return numbers;
 	};
 
-	if (type === 'prime' && !isUndefined(multiplesOf)) {
+	if (typeOrOptions === 'prime' && !isUndefined(multiplesOf)) {
 		console.warn('Warning: The "multiplesOf" option is ignored when the type is "prime"!');
 	}
 
-	switch (type) {
+	switch (typeOrOptions) {
 		case 'random':
 			output = shuffleArray(
 				_applyRangeOptions(min, max).map((n) =>
@@ -93,19 +112,17 @@ export function getNumbersInRange<T extends boolean = false>(
 			break;
 
 		case 'natural':
-			output = _applyRangeOptions(Math.max(min, 1), Math.max(max, 1));
+			output = _applyRangeOptions(Math.max(min, 1), Math.max(max, 1), step);
 			break;
 
 		default:
-			output = _applyRangeOptions(min, max);
+			output = _applyRangeOptions(min, max, step);
 			break;
 	}
 
-	if (type !== 'prime') {
+	if (typeOrOptions !== 'prime') {
 		output = _applyMultiples(output, multiplesOf);
 	}
 
-	return (
-		getAsString ? convertArrayToString(output, { separator }) : output
-	) as RangedNumbers<T>;
+	return (getAsString ? output.join(separator) : output) as RangedNumbers<S>;
 }

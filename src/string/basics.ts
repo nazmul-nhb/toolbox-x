@@ -57,8 +57,9 @@ export function truncateString(str: string, optionsOrLength?: number | TruncateO
  * @returns The generated ID string composed of the random alphanumeric string of specified length with optional `timeStamp`, `prefix`, and `suffix`, `caseOption` and `separator`.
  *
  * @see {@link https://toolbox-x.vercel.app/docs/utils/hash/uuid uuid} for `uuid` generation
- * @see {@link https://toolbox-x.vercel.app/docs/utils/hash/random-numeric randomHex} for random numeric string generation
  * @see {@link https://toolbox-x.vercel.app/docs/utils/hash/random-hex randomHex} for random hexadecimal string generation
+ * @see {@link https://toolbox-x.vercel.app/docs/utils/hash/random-numeric randomNumeric} for random numeric string generation
+ * @see {@link https://toolbox-x.vercel.app/docs/utils/hash/random-alphanumeric randomAlphaNumeric} for random alpha-numeric string generation
  *
  * @example
  * // Generate an ID with all default options

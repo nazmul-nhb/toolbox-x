@@ -98,7 +98,8 @@ export type ConvertedDecimal<T extends Maybe<boolean>> = T extends true
 export type NumberType = 'any' | 'natural' | 'odd' | 'even' | 'prime' | 'random';
 
 /** - Options for generating numbers in a range */
-export interface RangeOptions<T extends boolean = false> extends RandomNumberOptions {
+export interface RangeOptions<T extends NumberType, S extends boolean = false>
+	extends RandomNumberOptions {
 	/**
 	 * Minimum number to start with.
 	 * @remarks When `type` is `'natural'` it cannot be a negative value and defaults to `1`. Any negative value is clamped to `1`.
@@ -112,10 +113,16 @@ export interface RangeOptions<T extends boolean = false> extends RandomNumberOpt
 	 */
 	max?: number;
 	/**
+	 * Step value to increment by.
+	 * @remarks When `type` is `'any'` or `'natural'`, it can be any number. For other types, it is ignored.
+	 * @default 1
+	 */
+	step?: T extends 'any' | 'natural' ? number : never;
+	/**
 	 * Separator for the string format if `getAsString` is `true`.
 	 * @default ", "
 	 */
-	separator?: T extends true ? string : never;
+	separator?: S extends true ? string : never;
 	/**
 	 * The multiples of which number to consider in the result.
 	 * @default undefined
@@ -125,7 +132,7 @@ export interface RangeOptions<T extends boolean = false> extends RandomNumberOpt
 	 * The format for the result - `{ getAsString: true }` returns strings with custom separator and `false` returns array of numbers.
 	 * @default false
 	 */
-	getAsString?: T;
+	getAsString?: S;
 }
 
 /** - The return type of the `getNumbersInRange` function */
