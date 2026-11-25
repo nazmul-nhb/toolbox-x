@@ -1,10 +1,9 @@
 import { shuffleArray } from 'src/array/basics';
 import { isNonEmptyString, isUndefined } from 'src/guards/primitives';
-import { getRandomNumber } from 'src/number/basics';
 import { isEven, isOdd } from 'src/number/guards';
 import { _applyMultiples } from 'src/number/helpers';
 import { isPrime } from 'src/number/prime';
-import type { NumberType, RangedNumbers, RangeOptions } from 'src/types/number';
+import type { $RangeOptions, NumberType, RangedNumbers, RangeOptions } from 'src/types/number';
 
 /**
  * * Function to get numbers within a range based on the provided {@link NumberType} and {@link options}.
@@ -17,7 +16,7 @@ import type { NumberType, RangedNumbers, RangeOptions } from 'src/types/number';
  */
 export function getNumbersInRange<T extends NumberType = 'any', S extends boolean = false>(
 	type?: T,
-	options?: RangeOptions<T, S>
+	options?: $RangeOptions<T, S>
 ): RangedNumbers<S>;
 
 /**
@@ -33,19 +32,22 @@ export function getNumbersInRange<T extends NumberType = 'any', S extends boolea
 ): RangedNumbers<S>;
 
 export function getNumbersInRange<T extends NumberType = 'any', S extends boolean = false>(
-	typeOrOptions: T | RangeOptions<T, S> = 'any' as T,
+	typeOrOptions?: T | RangeOptions<T, S>,
 	options?: RangeOptions<T, S>
 ): RangedNumbers<S> {
 	const {
 		getAsString = false,
 		min = 0,
 		max = 100,
-		step,
+		step = 1,
+		type = 'any',
 		includeMin = true,
 		includeMax = true,
 		separator = ', ',
 		multiplesOf,
 	} = (isNonEmptyString(typeOrOptions) ? options : typeOrOptions) || {};
+
+	const $type = isNonEmptyString(typeOrOptions) ? typeOrOptions : type;
 
 	let output: number[] = [];
 
@@ -81,22 +83,13 @@ export function getNumbersInRange<T extends NumberType = 'any', S extends boolea
 		return numbers;
 	};
 
-	if (typeOrOptions === 'prime' && !isUndefined(multiplesOf)) {
+	if ($type === 'prime' && !isUndefined(multiplesOf)) {
 		console.warn('Warning: The "multiplesOf" option is ignored when the type is "prime"!');
 	}
 
-	switch (typeOrOptions) {
+	switch ($type) {
 		case 'random':
-			output = shuffleArray(
-				_applyRangeOptions(min, max).map((n) =>
-					getRandomNumber({
-						min: n,
-						max: n,
-						includeMin,
-						includeMax,
-					})
-				)
-			);
+			output = shuffleArray(_applyRangeOptions(min, max, step));
 			break;
 
 		case 'prime':
@@ -120,7 +113,7 @@ export function getNumbersInRange<T extends NumberType = 'any', S extends boolea
 			break;
 	}
 
-	if (typeOrOptions !== 'prime') {
+	if ($type !== 'prime') {
 		output = _applyMultiples(output, multiplesOf);
 	}
 

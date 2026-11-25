@@ -48,9 +48,9 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 13.7 kB | 1.0% | `src/colors/convert.ts` |
 | 11.8 kB | 0.8% | `src/number/constants.ts` |
 | 11.2 kB | 0.8% | `src/number/convert.ts` |
+| 11.0 kB | 0.8% | `src/types/number.ts` |
 | 10.9 kB | 0.8% | `src/array/Finder.ts` |
 | 10.8 kB | 0.8% | `src/number/Unit.ts` |
-| 10.7 kB | 0.8% | `src/types/number.ts` |
 | 10.5 kB | 0.8% | `src/pluralizer/Pluralizer.ts` |
 | 10.3 kB | 0.7% | `src/number/basics.ts` |
 | 9.8 kB | 0.7% | `src/object/sanitize.ts` |
@@ -59,7 +59,7 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 9.2 kB | 0.7% | `src/verbalizer/Verbalizer.ts` |
 | 9.2 kB | 0.7% | `src/object/objectify.ts` |
 | 9.1 kB | 0.6% | `src/hash/uuid.ts` |
-| 8.7 kB | 0.6% | `src/types/date.d.ts` |
+| 8.8 kB | 0.6% | `src/types/date.d.ts` |
 | 8.5 kB | 0.6% | `src/pluralizer/rules.ts` |
 | 8.0 kB | 0.6% | `src/types/utils.d.ts` |
 | 7.8 kB | 0.6% | `src/utils/Paginator.ts` |
@@ -94,14 +94,14 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 4.6 kB | 0.3% | `src/hash/Cipher.ts` |
 | 4.5 kB | 0.3% | `src/types/form.ts` |
 | 4.4 kB | 0.3% | `src/date/helpers.ts` |
-| 4.3 kB | 0.3% | `src/number/range.ts` |
 | 4.0 kB | 0.3% | `src/form/guards.ts` |
 | 4.0 kB | 0.3% | `src/guards/primitives.ts` |
 | 4.0 kB | 0.3% | `src/colors/initials.ts` |
 | 3.9 kB | 0.3% | `src/number/utilities.ts` |
 | 3.8 kB | 0.3% | `src/object/countries.d.ts` |
+| 3.8 kB | 0.3% | `src/number/range.ts` |
 | 3.6 kB | 0.3% | `src/colors/css-colors.ts` |
-| 3.4 kB | 0.2% | `src/types/number.d.ts` |
+| 3.5 kB | 0.2% | `src/types/number.d.ts` |
 | 3.2 kB | 0.2% | `src/array/basics.ts` |
 | 3.1 kB | 0.2% | `src/dom/storage.ts` |
 | 3.0 kB | 0.2% | `src/colors/guards.ts` |
@@ -212,9 +212,9 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 421 B | 0.0% | `src/converter/mass.d.ts` |
 | 421 B | 0.0% | `src/converter/time.d.ts` |
 | 421 B | 0.0% | `src/converter/area.d.ts` |
+| 382 B | 0.0% | `src/number/range.d.ts` |
 | 373 B | 0.0% | `src/string/basics.d.ts` |
 | 366 B | 0.0% | `src/number/guards.d.ts` |
-| 366 B | 0.0% | `src/number/range.d.ts` |
 | 342 B | 0.0% | `src/number/fibonacci.d.ts` |
 | 334 B | 0.0% | `src/types/verbalizer.ts` |
 | 308 B | 0.0% | `src/pluralizer/Pluralizer.d.ts` |
@@ -268,7 +268,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.1 kB
 
 **Loads these chunks** (code-splitting):
-- `case-B9QsohO5.d.mts` (16.8 kB, import-statement)
+- `case-DuMY_MDs.d.mts` (16.8 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -296,8 +296,8 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 16.0 kB
 
 **Loads these chunks** (code-splitting):
-- `Color-DyOghiqk.d.mts` (24.9 kB, import-statement)
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `Color-CmHPgFMC.d.mts` (24.9 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -337,7 +337,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 4.9 kB
 
 **Loads these chunks** (code-splitting):
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 - `css-colors-BZgVtEFq.d.mts` (5.8 kB, import-statement)
 - `constants-CErzsxbg.d.mts` (2.2 kB, import-statement)
 - `constants-oHo-8LaZ.d.mts` (2.0 kB, import-statement)
@@ -380,8 +380,8 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.4 kB
 
 **Loads these chunks** (code-splitting):
-- `area-BFf0zoaS.d.mts` (14.5 kB, import-statement)
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `area-BWFsYQvf.d.mts` (14.5 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -419,7 +419,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 12.7 kB
 
 **Loads these chunks** (code-splitting):
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -459,9 +459,9 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 8.5 kB
 
 **Loads these chunks** (code-splitting):
-- `query-BP_AT5k6.d.mts` (3.7 kB, import-statement)
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
-- `form-D79lm-6E.d.mts` (5.2 kB, import-statement)
+- `query-DG3gGV33.d.mts` (3.7 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
+- `form--spCK7IC.d.mts` (5.2 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -502,10 +502,10 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 18.2 kB
 
 **Loads these chunks** (code-splitting):
-- `miscellaneous-GpnSkCDW.d.mts` (12.6 kB, import-statement)
-- `Color-DyOghiqk.d.mts` (24.9 kB, import-statement)
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
-- `uuid-BHY__G-b.d.mts` (9.3 kB, import-statement)
+- `miscellaneous-CZEbAsET.d.mts` (12.6 kB, import-statement)
+- `Color-CmHPgFMC.d.mts` (24.9 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
+- `uuid-c36tdh2b.d.mts` (9.3 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -538,10 +538,10 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 43.6 kB
 
 **Loads these chunks** (code-splitting):
-- `uuid-BHY__G-b.d.mts` (9.3 kB, import-statement)
-- `hash-cpbdn9GV.d.mts` (6.4 kB, import-statement)
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
-- `basics-D3wIZuwe.d.mts` (4.0 kB, import-statement)
+- `uuid-c36tdh2b.d.mts` (9.3 kB, import-statement)
+- `hash-Dz9h6DB0.d.mts` (6.4 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
+- `basics-CdDQfX4T.d.mts` (4.0 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -580,8 +580,8 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 5.2 kB
 
 **Loads these chunks** (code-splitting):
-- `http-status-Cdi2lgr2.d.mts` (3.6 kB, import-statement)
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `http-status-BoK_t_G2.d.mts` (3.6 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -611,13 +611,13 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 67.3 kB
 
 **Loads these chunks** (code-splitting):
-- `basics-D3wIZuwe.d.mts` (4.0 kB, import-statement)
-- `string-CKbapMAd.d.mts` (23.7 kB, import-statement)
-- `case-B9QsohO5.d.mts` (16.8 kB, import-statement)
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
-- `miscellaneous-GpnSkCDW.d.mts` (12.6 kB, import-statement)
-- `array-DTZJHAEk.d.mts` (6.3 kB, import-statement)
-- `query-BP_AT5k6.d.mts` (3.7 kB, import-statement)
+- `basics-CdDQfX4T.d.mts` (4.0 kB, import-statement)
+- `string-Cm492igk.d.mts` (23.7 kB, import-statement)
+- `case-DuMY_MDs.d.mts` (16.8 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
+- `miscellaneous-CZEbAsET.d.mts` (12.6 kB, import-statement)
+- `array--Dnn4mHv.d.mts` (6.3 kB, import-statement)
+- `query-DG3gGV33.d.mts` (3.7 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -637,7 +637,7 @@ Each entry point and the total code it loads (including shared chunks).
 | 550 B | `src/number/utilities.d.ts` |
 | 468 B | `src/number/Currency.d.ts` |
 | 467 B | `src/array/sort.d.ts` |
-| 366 B | `src/number/range.d.ts` |
+| 382 B | `src/number/range.d.ts` |
 | 342 B | `src/number/fibonacci.d.ts` |
 | 218 B | `src/string/diff.d.ts` |
 | 176 B | `src/string/utilities.d.ts` |
@@ -648,7 +648,7 @@ Each entry point and the total code it loads (including shared chunks).
 ### Entry: `src/index.ts`
 
 **Output file**: `index.mjs`
-**Bundle size**: 85.1 kB
+**Bundle size**: 84.7 kB
 
 **Loads these chunks** (code-splitting):
 - `uuid-DmIcIFUr.mjs` (65.6 kB, import-statement)
@@ -674,7 +674,7 @@ Each entry point and the total code it loads (including shared chunks).
 | 6.4 kB | `src/array/transform.ts` |
 | 6.2 kB | `src/number/Currency.ts` |
 | 4.8 kB | `src/array/calc.ts` |
-| 4.3 kB | `src/number/range.ts` |
+| 3.8 kB | `src/number/range.ts` |
 | 3.0 kB | `src/number/percent.ts` |
 | 2.5 kB | `src/string/anagram.ts` |
 | 2.4 kB | `src/string/helpers.ts` |
@@ -689,7 +689,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 5.2 kB
 
 **Loads these chunks** (code-splitting):
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -716,7 +716,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 6.4 kB
 
 **Loads these chunks** (code-splitting):
-- `pluralizer-rNSi5nHl.d.mts` (1.4 kB, import-statement)
+- `pluralizer-Jar5o6xS.d.mts` (1.4 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -748,8 +748,8 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 2.1 kB
 
 **Loads these chunks** (code-splitting):
-- `Stylog-Cxh5tifv.d.mts` (20.8 kB, import-statement)
-- `Color-DyOghiqk.d.mts` (24.9 kB, import-statement)
+- `Stylog-B0mdXq2L.d.mts` (20.8 kB, import-statement)
+- `Color-CmHPgFMC.d.mts` (24.9 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
@@ -787,7 +787,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.0 kB
 
 **Loads these chunks** (code-splitting):
-- `array-DTZJHAEk.d.mts` (6.3 kB, import-statement)
+- `array--Dnn4mHv.d.mts` (6.3 kB, import-statement)
 
 ### Entry: `src/types/array.ts`
 
@@ -806,7 +806,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.3 kB
 
 **Loads these chunks** (code-splitting):
-- `Color-DyOghiqk.d.mts` (24.9 kB, import-statement)
+- `Color-CmHPgFMC.d.mts` (24.9 kB, import-statement)
 
 ### Entry: `src/types/colors.ts`
 
@@ -825,7 +825,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.1 kB
 
 **Loads these chunks** (code-splitting):
-- `area-BFf0zoaS.d.mts` (14.5 kB, import-statement)
+- `area-BWFsYQvf.d.mts` (14.5 kB, import-statement)
 
 ### Entry: `src/types/converter.ts`
 
@@ -844,7 +844,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 3.0 kB
 
 **Loads these chunks** (code-splitting):
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 ### Entry: `src/types/date.ts`
 
@@ -863,7 +863,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 891 B
 
 **Loads these chunks** (code-splitting):
-- `form-D79lm-6E.d.mts` (5.2 kB, import-statement)
+- `form--spCK7IC.d.mts` (5.2 kB, import-statement)
 
 ### Entry: `src/types/form.ts`
 
@@ -882,7 +882,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.3 kB
 
 **Loads these chunks** (code-splitting):
-- `hash-cpbdn9GV.d.mts` (6.4 kB, import-statement)
+- `hash-Dz9h6DB0.d.mts` (6.4 kB, import-statement)
 
 ### Entry: `src/types/hash.ts`
 
@@ -901,7 +901,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1021 B
 
 **Loads these chunks** (code-splitting):
-- `http-status-Cdi2lgr2.d.mts` (3.6 kB, import-statement)
+- `http-status-BoK_t_G2.d.mts` (3.6 kB, import-statement)
 
 ### Entry: `src/types/http-status.ts`
 
@@ -920,7 +920,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.7 kB
 
 **Loads these chunks** (code-splitting):
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 ### Entry: `src/types/index.ts`
 
@@ -939,7 +939,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.9 kB
 
 **Loads these chunks** (code-splitting):
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 ### Entry: `src/types/number.ts`
 
@@ -950,7 +950,7 @@ Each entry point and the total code it loads (including shared chunks).
 
 | Bytes | Module |
 |-------|--------|
-| 10.7 kB | `src/types/number.ts` |
+| 11.0 kB | `src/types/number.ts` |
 
 ### Entry: `src/types/object.d.ts`
 
@@ -958,7 +958,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 2.0 kB
 
 **Loads these chunks** (code-splitting):
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 ### Entry: `src/types/object.ts`
 
@@ -977,7 +977,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 773 B
 
 **Loads these chunks** (code-splitting):
-- `pluralizer-rNSi5nHl.d.mts` (1.4 kB, import-statement)
+- `pluralizer-Jar5o6xS.d.mts` (1.4 kB, import-statement)
 
 ### Entry: `src/types/pluralizer.ts`
 
@@ -996,7 +996,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 2.5 kB
 
 **Loads these chunks** (code-splitting):
-- `string-CKbapMAd.d.mts` (23.7 kB, import-statement)
+- `string-Cm492igk.d.mts` (23.7 kB, import-statement)
 
 ### Entry: `src/types/string.ts`
 
@@ -1015,7 +1015,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 886 B
 
 **Loads these chunks** (code-splitting):
-- `Stylog-Cxh5tifv.d.mts` (20.8 kB, import-statement)
+- `Stylog-B0mdXq2L.d.mts` (20.8 kB, import-statement)
 
 ### Entry: `src/types/stylog.ts`
 
@@ -1034,7 +1034,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 2.6 kB
 
 **Loads these chunks** (code-splitting):
-- `index-byVFMtl3.d.mts` (291.5 kB, import-statement)
+- `index-DBY5MfgV.d.mts` (291.8 kB, import-statement)
 
 ### Entry: `src/types/utils.ts`
 
@@ -1165,8 +1165,8 @@ Modules imported by many files. Extracting these to shared chunks may help.
 | 2 | `src/converter/volume.d.ts` | `src/converter/Converter.d.ts`, `src/types/converter.d.ts` |
 | 2 | `src/converter/area.d.ts` | `src/converter/Converter.d.ts`, `src/types/converter.d.ts` |
 | 2 | `src/string/basics.d.ts` | `src/hash/index.d.ts`, `src/index.d.ts` |
-| 2 | `src/string/case.d.ts` | `src/change-case.d.ts`, `src/index.d.ts` |
 | 2 | `src/string/case.ts` | `src/change-case.ts`, `src/index.ts` |
+| 2 | `src/string/case.d.ts` | `src/change-case.d.ts`, `src/index.d.ts` |
 | 2 | `src/string/constants.d.ts` | `src/constants.d.ts`, `src/types/string.d.ts` |
 | 2 | `src/string/constants.ts` | `src/constants.ts`, `src/string/case.ts` |
 | 2 | `src/http-status/constants.ts` | `src/constants.ts`, `src/http-status/HttpStatus.ts` |
@@ -1187,13 +1187,13 @@ Modules imported by many files. Extracting these to shared chunks may help.
 | 2 | `src/number/prime.d.ts` | `src/guards/index.d.ts`, `src/index.d.ts` |
 | 2 | `src/utils/miscellaneous.d.ts` | `src/guards/index.d.ts`, `src/index.d.ts` |
 | 2 | `src/date/parse.ts` | `src/date/index.ts`, `src/hash/Signet.ts` |
-| 2 | `src/dom/query.d.ts` | `src/dom/index.d.ts`, `src/index.d.ts` |
 | 2 | `src/object/objectify.ts` | `src/index.ts`, `src/dom/query.ts` |
-| 2 | `src/guards/specials.d.ts` | `src/guards/index.d.ts`, `src/hash/index.d.ts` |
-| 2 | `src/hash/uuid.d.ts` | `src/guards/index.d.ts`, `src/hash/index.d.ts` |
+| 2 | `src/dom/query.d.ts` | `src/dom/index.d.ts`, `src/index.d.ts` |
 | 2 | `src/array/sort.ts` | `src/index.ts`, `src/utils/miscellaneous.ts` |
 | 2 | `src/hash/core.ts` | `src/hash/index.ts`, `src/hash/uuid.ts` |
 | 2 | `src/hash/uuid.ts` | `src/hash/index.ts`, `src/guards/index.ts` |
+| 2 | `src/guards/specials.d.ts` | `src/guards/index.d.ts`, `src/hash/index.d.ts` |
+| 2 | `src/hash/uuid.d.ts` | `src/guards/index.d.ts`, `src/hash/index.d.ts` |
 
 ## Full Module Graph
 
@@ -2402,14 +2402,14 @@ Complete dependency information for each module.
 
 ### `src/number/range.d.ts`
 
-- **Output contribution**: 366 B
+- **Output contribution**: 382 B
 - **Imported by** (1 files): `src/index.d.ts`
 - **Imports**:
   - `src/types/number.d.ts`
 
 ### `src/number/range.ts`
 
-- **Output contribution**: 4.3 kB
+- **Output contribution**: 3.8 kB
 - **Imported by** (1 files): `src/index.ts`
 - **Imports**:
   - `src/number/helpers.ts`
@@ -2817,7 +2817,7 @@ Complete dependency information for each module.
 
 ### `src/types/date.d.ts`
 
-- **Output contribution**: 8.7 kB
+- **Output contribution**: 8.8 kB
 - **Imported by** (8 files): `src/date/calculation.d.ts` `src/date/greet.d.ts` `src/date/parse.d.ts` `src/date/utils.d.ts` `src/date/guards.d.ts` `src/types/hash.d.ts` `src/date/constants.d.ts` `src/types/index.d.ts`
 - **Imports**:
   - `src/date/constants.d.ts`
@@ -2889,7 +2889,7 @@ Complete dependency information for each module.
 
 ### `src/types/number.d.ts`
 
-- **Output contribution**: 3.4 kB
+- **Output contribution**: 3.5 kB
 - **Imported by** (11 files): `src/colors/initials.d.ts` `src/colors/utils.d.ts` `src/number/basics.d.ts` `src/number/Currency.d.ts` `src/number/percent.d.ts` `src/number/convert.d.ts` `src/number/utilities.d.ts` `src/number/range.d.ts` `src/colors/Color.d.ts` `src/number/Unit.d.ts` `src/types/date.d.ts`
 - **Imports**:
   - `src/number/constants.d.ts`
@@ -2899,7 +2899,7 @@ Complete dependency information for each module.
 
 ### `src/types/number.ts`
 
-- **Output contribution**: 10.7 kB
+- **Output contribution**: 11.0 kB
 - **Imported by**: (entry point or orphan)
 
 ### `src/types/object.d.ts`
@@ -3112,12 +3112,12 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/number/constants.ts = 12124 bytes]
 [MODULE: src/number/convert.ts]
 [OUTPUT_BYTES: src/number/convert.ts = 11455 bytes]
+[MODULE: src/types/number.ts]
+[OUTPUT_BYTES: src/types/number.ts = 11225 bytes]
 [MODULE: src/array/Finder.ts]
 [OUTPUT_BYTES: src/array/Finder.ts = 11188 bytes]
 [MODULE: src/number/Unit.ts]
 [OUTPUT_BYTES: src/number/Unit.ts = 11060 bytes]
-[MODULE: src/types/number.ts]
-[OUTPUT_BYTES: src/types/number.ts = 10927 bytes]
 [MODULE: src/pluralizer/Pluralizer.ts]
 [OUTPUT_BYTES: src/pluralizer/Pluralizer.ts = 10789 bytes]
 [MODULE: src/number/basics.ts]
@@ -3135,7 +3135,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/hash/uuid.ts]
 [OUTPUT_BYTES: src/hash/uuid.ts = 9285 bytes]
 [MODULE: src/types/date.d.ts]
-[OUTPUT_BYTES: src/types/date.d.ts = 8954 bytes]
+[OUTPUT_BYTES: src/types/date.d.ts = 8960 bytes]
 [MODULE: src/pluralizer/rules.ts]
 [OUTPUT_BYTES: src/pluralizer/rules.ts = 8744 bytes]
 [MODULE: src/types/utils.d.ts]
@@ -3145,7 +3145,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/types/index.ts]
 [OUTPUT_BYTES: src/types/index.ts = 7743 bytes]
 [MODULE: src/types/object.d.ts]
-[OUTPUT_BYTES: src/types/object.d.ts = 7356 bytes]
+[OUTPUT_BYTES: src/types/object.d.ts = 7339 bytes]
 [MODULE: src/converter/base.ts]
 [OUTPUT_BYTES: src/converter/base.ts = 7257 bytes]
 [MODULE: src/object/convert.ts]
@@ -3204,8 +3204,6 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/types/form.ts = 4575 bytes]
 [MODULE: src/date/helpers.ts]
 [OUTPUT_BYTES: src/date/helpers.ts = 4488 bytes]
-[MODULE: src/number/range.ts]
-[OUTPUT_BYTES: src/number/range.ts = 4362 bytes]
 [MODULE: src/form/guards.ts]
 [OUTPUT_BYTES: src/form/guards.ts = 4132 bytes]
 [MODULE: src/guards/primitives.ts]
@@ -3216,10 +3214,12 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/number/utilities.ts = 4026 bytes]
 [MODULE: src/object/countries.d.ts]
 [OUTPUT_BYTES: src/object/countries.d.ts = 3883 bytes]
+[MODULE: src/number/range.ts]
+[OUTPUT_BYTES: src/number/range.ts = 3861 bytes]
 [MODULE: src/colors/css-colors.ts]
 [OUTPUT_BYTES: src/colors/css-colors.ts = 3732 bytes]
 [MODULE: src/types/number.d.ts]
-[OUTPUT_BYTES: src/types/number.d.ts = 3436 bytes]
+[OUTPUT_BYTES: src/types/number.d.ts = 3562 bytes]
 [MODULE: src/array/basics.ts]
 [OUTPUT_BYTES: src/array/basics.ts = 3300 bytes]
 [MODULE: src/dom/storage.ts]
@@ -3273,7 +3273,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/date/parse.ts]
 [OUTPUT_BYTES: src/date/parse.ts = 2279 bytes]
 [MODULE: src/types/colors.d.ts]
-[OUTPUT_BYTES: src/types/colors.d.ts = 2252 bytes]
+[OUTPUT_BYTES: src/types/colors.d.ts = 2242 bytes]
 [MODULE: src/converter/Converter.ts]
 [OUTPUT_BYTES: src/converter/Converter.ts = 2188 bytes]
 [MODULE: src/guards/index.d.ts]
@@ -3287,7 +3287,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/string/utilities.ts]
 [OUTPUT_BYTES: src/string/utilities.ts = 2019 bytes]
 [MODULE: src/types/converter.d.ts]
-[OUTPUT_BYTES: src/types/converter.d.ts = 1985 bytes]
+[OUTPUT_BYTES: src/types/converter.d.ts = 1995 bytes]
 [MODULE: src/types/hash.d.ts]
 [OUTPUT_BYTES: src/types/hash.d.ts = 1980 bytes]
 [MODULE: src/number/helpers.ts]
@@ -3311,7 +3311,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/string/guards.ts]
 [OUTPUT_BYTES: src/string/guards.ts = 1668 bytes]
 [MODULE: src/types/array.d.ts]
-[OUTPUT_BYTES: src/types/array.d.ts = 1598 bytes]
+[OUTPUT_BYTES: src/types/array.d.ts = 1610 bytes]
 [MODULE: src/number/constants.d.ts]
 [OUTPUT_BYTES: src/number/constants.d.ts = 1591 bytes]
 [MODULE: src/types/stylog.ts]
@@ -3440,12 +3440,12 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/converter/time.d.ts = 421 bytes]
 [MODULE: src/converter/area.d.ts]
 [OUTPUT_BYTES: src/converter/area.d.ts = 421 bytes]
+[MODULE: src/number/range.d.ts]
+[OUTPUT_BYTES: src/number/range.d.ts = 382 bytes]
 [MODULE: src/string/basics.d.ts]
 [OUTPUT_BYTES: src/string/basics.d.ts = 373 bytes]
 [MODULE: src/number/guards.d.ts]
 [OUTPUT_BYTES: src/number/guards.d.ts = 366 bytes]
-[MODULE: src/number/range.d.ts]
-[OUTPUT_BYTES: src/number/range.d.ts = 366 bytes]
 [MODULE: src/number/fibonacci.d.ts]
 [OUTPUT_BYTES: src/number/fibonacci.d.ts = 342 bytes]
 [MODULE: src/types/verbalizer.ts]
@@ -4663,8 +4663,8 @@ This section contains raw, grep-friendly data. Use these patterns:
 [ENTRY: src/hash/index.ts -> hash/index.mjs (31064 bytes)]
 [ENTRY: src/http-status/index.d.ts -> http-status/index.d.mts (5359 bytes)]
 [ENTRY: src/http-status/index.ts -> http-status/index.mjs (5572 bytes)]
-[ENTRY: src/index.d.ts -> index.d.mts (68935 bytes)]
-[ENTRY: src/index.ts -> index.mjs (87163 bytes)]
+[ENTRY: src/index.d.ts -> index.d.mts (68920 bytes)]
+[ENTRY: src/index.ts -> index.mjs (86692 bytes)]
 [ENTRY: src/paginator.d.ts -> paginator.d.mts (5364 bytes)]
 [ENTRY: src/paginator.ts -> paginator.mjs (7901 bytes)]
 [ENTRY: src/pluralizer/index.d.ts -> pluralizer/index.d.mts (6585 bytes)]
@@ -4687,7 +4687,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [ENTRY: src/types/http-status.ts -> types/http-status.mjs (621 bytes)]
 [ENTRY: src/types/index.d.ts -> types/index.d.mts (1697 bytes)]
 [ENTRY: src/types/index.ts -> types/index.mjs (621 bytes)]
-[ENTRY: src/types/number.d.ts -> types/number.d.mts (1896 bytes)]
+[ENTRY: src/types/number.d.ts -> types/number.d.mts (1932 bytes)]
 [ENTRY: src/types/number.ts -> types/number.mjs (621 bytes)]
 [ENTRY: src/types/object.d.ts -> types/object.d.mts (2043 bytes)]
 [ENTRY: src/types/object.ts -> types/object.mjs (621 bytes)]
@@ -4708,13 +4708,13 @@ This section contains raw, grep-friendly data. Use these patterns:
 ### Chunks
 
 ```
-[CHUNK: Color-DyOghiqk.d.mts (25460 bytes)]
-[CHUNK: Stylog-Cxh5tifv.d.mts (21273 bytes)]
-[CHUNK: area-BFf0zoaS.d.mts (14895 bytes)]
-[CHUNK: array-DTZJHAEk.d.mts (6464 bytes)]
-[CHUNK: basics-D3wIZuwe.d.mts (4079 bytes)]
-[CHUNK: case-B9QsohO5.d.mts (17174 bytes)]
+[CHUNK: Color-CmHPgFMC.d.mts (25460 bytes)]
+[CHUNK: Stylog-B0mdXq2L.d.mts (21273 bytes)]
+[CHUNK: area-BWFsYQvf.d.mts (14895 bytes)]
+[CHUNK: array--Dnn4mHv.d.mts (6464 bytes)]
+[CHUNK: basics-CdDQfX4T.d.mts (4079 bytes)]
 [CHUNK: case-C5lOO-IT.mjs (21592 bytes)]
+[CHUNK: case-DuMY_MDs.d.mts (17174 bytes)]
 [CHUNK: constants-AoDWNcc-.mjs (4626 bytes)]
 [CHUNK: constants-CErzsxbg.d.mts (2236 bytes)]
 [CHUNK: constants-CPR-h4xB.mjs (2393 bytes)]
@@ -4728,22 +4728,22 @@ This section contains raw, grep-friendly data. Use these patterns:
 [CHUNK: countries-BLM796o2.mjs (25140 bytes)]
 [CHUNK: css-colors-BZgVtEFq.d.mts (5908 bytes)]
 [CHUNK: css-colors-IDAdNuA6.mjs (4380 bytes)]
-[CHUNK: form-D79lm-6E.d.mts (5280 bytes)]
+[CHUNK: form--spCK7IC.d.mts (5280 bytes)]
 [CHUNK: guards-CAFCfy_j.mjs (28308 bytes)]
 [CHUNK: guards-CcFohmMI.mjs (5972 bytes)]
 [CHUNK: guards-DhBp6FYH.mjs (5290 bytes)]
-[CHUNK: hash-cpbdn9GV.d.mts (6527 bytes)]
-[CHUNK: http-status-Cdi2lgr2.d.mts (3681 bytes)]
-[CHUNK: index-byVFMtl3.d.mts (298449 bytes)]
-[CHUNK: miscellaneous-GpnSkCDW.d.mts (12859 bytes)]
+[CHUNK: hash-Dz9h6DB0.d.mts (6527 bytes)]
+[CHUNK: http-status-BoK_t_G2.d.mts (3681 bytes)]
+[CHUNK: index-DBY5MfgV.d.mts (298761 bytes)]
+[CHUNK: miscellaneous-CZEbAsET.d.mts (12859 bytes)]
 [CHUNK: parse-BzWsu6xA.mjs (6323 bytes)]
-[CHUNK: pluralizer-rNSi5nHl.d.mts (1478 bytes)]
+[CHUNK: pluralizer-Jar5o6xS.d.mts (1478 bytes)]
 [CHUNK: primitives-B7qRDXo9.mjs (4346 bytes)]
-[CHUNK: query-BP_AT5k6.d.mts (3790 bytes)]
 [CHUNK: query-C6yOVuRT.mjs (22076 bytes)]
-[CHUNK: string-CKbapMAd.d.mts (24274 bytes)]
+[CHUNK: query-DG3gGV33.d.mts (3790 bytes)]
+[CHUNK: string-Cm492igk.d.mts (24274 bytes)]
 [CHUNK: timezone-Rhw1zUw6.mjs (110515 bytes)]
 [CHUNK: utilities-B1FHAgCD.mjs (14704 bytes)]
-[CHUNK: uuid-BHY__G-b.d.mts (9548 bytes)]
 [CHUNK: uuid-DmIcIFUr.mjs (67125 bytes)]
+[CHUNK: uuid-c36tdh2b.d.mts (9548 bytes)]
 ```

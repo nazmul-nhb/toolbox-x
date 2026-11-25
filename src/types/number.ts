@@ -101,6 +101,11 @@ export type NumberType = 'any' | 'natural' | 'odd' | 'even' | 'prime' | 'random'
 export interface RangeOptions<T extends NumberType, S extends boolean = false>
 	extends RandomNumberOptions {
 	/**
+	 * The type of numbers to generate ('random', 'prime', etc.).
+	 * @default 'any'
+	 */
+	type?: T;
+	/**
 	 * Minimum number to start with.
 	 * @remarks When `type` is `'natural'` it cannot be a negative value and defaults to `1`. Any negative value is clamped to `1`.
 	 * @default 0
@@ -114,10 +119,10 @@ export interface RangeOptions<T extends NumberType, S extends boolean = false>
 	max?: number;
 	/**
 	 * Step value to increment by.
-	 * @remarks When `type` is `'any'` or `'natural'`, it can be any number. For other types, it is ignored.
+	 * @remarks When `type` is `'any'`, `'natural'`, or `'random'`, it can be any number. For other types, it is ignored.
 	 * @default 1
 	 */
-	step?: T extends 'any' | 'natural' ? number : never;
+	step?: T extends 'any' | 'natural' | 'random' ? number : never;
 	/**
 	 * Separator for the string format if `getAsString` is `true`.
 	 * @default ", "
@@ -134,6 +139,12 @@ export interface RangeOptions<T extends NumberType, S extends boolean = false>
 	 */
 	getAsString?: S;
 }
+
+/** - Options for generating numbers in a range without the `type` property */
+export type $RangeOptions<T extends NumberType, S extends boolean = false> = Omit<
+	RangeOptions<T, S>,
+	'type'
+>;
 
 /** - The return type of the `getNumbersInRange` function */
 export type RangedNumbers<T extends boolean = false> = T extends true ? string : number[];
