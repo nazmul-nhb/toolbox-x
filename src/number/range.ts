@@ -6,13 +6,13 @@ import { isPrime } from 'src/number/prime';
 import type { $RangeOptions, NumberType, RangedNumbers, RangeOptions } from 'src/types/number';
 
 /**
- * * Function to get numbers within a range based on the provided {@link NumberType} and {@link options}.
+ * Generates numbers within a range using the provided {@link NumberType}.
  *
- * @remarks Returns either string or array of numbers based on the {@link RangeOptions.getAsString getAsString} option.
+ * @remarks Returns either a string or an array of numbers based on the {@link $RangeOptions.getAsString getAsString} option.
  *
  * @param type - The type of numbers to generate ('random', 'prime', etc.). @default 'any'
- * @param options - Options to configure number generation, including range and formatting.
- * @returns The numbers in the range based on {@link type} and {@link options} either as string or array of numbers.
+ * @param options - Range and formatting options. The `type` property is not available in this overload.
+ * @returns The numbers in the range as a string or an array of numbers.
  */
 export function getNumbersInRange<T extends NumberType = 'any', S extends boolean = false>(
 	type?: T,
@@ -20,12 +20,12 @@ export function getNumbersInRange<T extends NumberType = 'any', S extends boolea
 ): RangedNumbers<S>;
 
 /**
- * * Function to get numbers within a range based on {@link options}.
+ * Generates numbers within a range using an options object.
  *
  * @remarks Returns either string or array of numbers based on the {@link RangeOptions.getAsString getAsString} option.
  *
- * @param options - Options to configure number generation, including range and formatting.
- * @returns The numbers in the range based on {@link options} either as string or array of numbers.
+ * @param options - Options to configure number generation, including range, number type, and formatting.
+ * @returns The numbers in the range as a string or an array of numbers.
  */
 export function getNumbersInRange<T extends NumberType = 'any', S extends boolean = false>(
 	options?: RangeOptions<T, S>

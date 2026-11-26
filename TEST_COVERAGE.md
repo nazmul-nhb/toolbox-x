@@ -1,23 +1,23 @@
-<!-- source-mtime: 2026-08-09T15:23:43.860Z -->
+<!-- source-mtime: 2026-11-26T08:38:38.170Z -->
 
 # Test Coverage Report (Summary)
 
-Generated: Sun, 09 Aug 2026 15:23:43 GMT
+Generated: Thu, 26 Nov 2026 08:47:54 GMT
 
 ## Overall
 
 | Metric     | Covered | Total | Coverage |
 | ---------- | ------: | ----: | -------: |
-| Statements |    3496 |  3929 |   88.97% |
-| Branches   |    2168 |  2776 |   78.09% |
-| Functions  |     799 |   850 |      94% |
-| Lines      |    3278 |  3648 |   89.85% |
+| Statements |    3489 |  3920 |      89% |
+| Branches   |    2173 |  2784 |   78.05% |
+| Functions  |     798 |   849 |   93.99% |
+| Lines      |    3271 |  3639 |   89.88% |
 
 ## Files
 
 | File                          | Statements | Branches | Functions |   Lines |
 | ----------------------------- | ---------: | -------: | --------: | ------: |
-| src/array/basics.ts           |     96.87% |   88.00% |   100.00% |  96.29% |
+| src/array/basics.ts           |     96.87% |   85.18% |   100.00% |  96.29% |
 | src/array/calc.ts             |     81.48% |   66.66% |   100.00% | 100.00% |
 | src/array/Finder.ts           |     94.73% |   81.95% |   100.00% |  95.32% |
 | src/array/sort.ts             |     87.69% |   79.51% |   100.00% |  88.52% |
@@ -43,7 +43,7 @@ Generated: Sun, 09 Aug 2026 15:23:43 GMT
 | src/date/greet.ts             |     95.45% |   96.55% |   100.00% |  95.45% |
 | src/date/guards.ts            |     62.96% |   46.00% |    57.14% |  66.66% |
 | src/date/helpers.ts           |     81.81% |   72.00% |   100.00% |  80.00% |
-| src/date/parse.ts             |     87.50% |   85.00% |   100.00% | 100.00% |
+| src/date/parse.ts             |     86.66% |   85.00% |   100.00% | 100.00% |
 | src/date/timezone.ts          |    100.00% |  100.00% |   100.00% | 100.00% |
 | src/date/utils.ts             |     85.18% |   65.82% |   100.00% |  88.11% |
 | src/dom/query.ts              |     89.65% |   73.33% |   100.00% |  89.65% |
@@ -71,7 +71,7 @@ Generated: Sun, 09 Aug 2026 15:23:43 GMT
 | src/number/helpers.ts         |    100.00% |   85.71% |   100.00% | 100.00% |
 | src/number/percent.ts         |     95.00% |   94.28% |   100.00% |  95.00% |
 | src/number/prime.ts           |    100.00% |   88.88% |   100.00% | 100.00% |
-| src/number/range.ts           |     93.75% |   90.90% |   100.00% |  93.54% |
+| src/number/range.ts           |     93.75% |   87.17% |   100.00% |  93.54% |
 | src/number/Unit.ts            |    100.00% |   87.50% |   100.00% | 100.00% |
 | src/number/utilities.ts       |    100.00% |  100.00% |   100.00% | 100.00% |
 | src/object/basics.ts          |     94.73% |   86.66% |   100.00% |  94.73% |
@@ -90,7 +90,7 @@ Generated: Sun, 09 Aug 2026 15:23:43 GMT
 | src/string/helpers.ts         |     94.28% |   83.33% |   100.00% | 100.00% |
 | src/string/utilities.ts       |    100.00% |  100.00% |   100.00% | 100.00% |
 | src/stylog/helpers.ts         |     20.00% |   42.85% |    20.00% |  20.00% |
-| src/stylog/Stylog.ts          |     68.46% |   62.38% |    83.33% |  68.99% |
+| src/stylog/Stylog.ts          |     68.80% |   62.38% |    83.33% |  69.35% |
 | src/stylog/utils.ts           |     52.38% |   51.85% |   100.00% |  66.66% |
 | src/utils/miscellaneous.ts    |     76.10% |   69.31% |    75.75% |  79.59% |
 | src/utils/Paginator.ts        |     60.86% |   39.13% |    62.50% |  59.09% |
@@ -102,20 +102,20 @@ Generated: Sun, 09 Aug 2026 15:23:43 GMT
 
 | Module      | Files | Statements | Branches | Functions |   Lines |
 | ----------- | ----: | ---------: | -------: | --------: | ------: |
-| array       |     5 |     90.55% |   78.90% |    98.75% |  95.55% |
+| array       |     5 |     90.55% |   78.33% |    98.75% |  95.55% |
 | colors      |     8 |     93.27% |   88.07% |    98.53% |  93.61% |
 | converter   |     9 |    100.00% |  100.00% |   100.00% | 100.00% |
-| date        |     7 |     87.56% |   80.77% |    93.88% |  90.03% |
+| date        |     7 |     87.44% |   80.77% |    93.88% |  90.03% |
 | dom         |     3 |     68.03% |   71.41% |    91.67% |  68.03% |
 | form        |     3 |     70.76% |   60.47% |    93.33% |  70.35% |
 | guards      |     3 |    100.00% |   97.78% |   100.00% | 100.00% |
 | hash        |     7 |     88.47% |   74.24% |    92.61% |  90.56% |
 | http-status |     1 |    100.00% |   83.33% |   100.00% | 100.00% |
-| number      |    11 |     97.47% |   91.62% |   100.00% |  97.47% |
+| number      |    11 |     97.47% |   91.28% |   100.00% |  97.47% |
 | object      |     5 |     85.65% |   71.32% |    93.33% |  86.53% |
 | pluralizer  |     2 |     97.94% |   96.09% |   100.00% |  99.37% |
 | string      |     8 |     98.10% |   93.13% |    99.06% |  98.90% |
-| stylog      |     3 |     46.95% |   52.36% |    67.78% |  51.88% |
+| stylog      |     3 |     47.06% |   52.36% |    67.78% |  52.00% |
 | utils       |     3 |     78.99% |   69.48% |    79.42% |  79.56% |
 | verbalizer  |     2 |     99.41% |   98.78% |   100.00% | 100.00% |
 
@@ -131,7 +131,7 @@ Generated: Sun, 09 Aug 2026 15:23:43 GMT
 | src/date/guards.ts     |     62.96% |
 | src/object/sanitize.ts |     65.26% |
 | src/colors/utils.ts    |     68.42% |
-| src/stylog/Stylog.ts   |     68.46% |
+| src/stylog/Stylog.ts   |     68.80% |
 | src/form/transform.ts  |     69.44% |
 
 ## Highest Coverage

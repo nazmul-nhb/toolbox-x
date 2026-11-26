@@ -10,10 +10,9 @@ The `getNumbersInRange` function generates a sequence of numbers within a specif
 ### Function Signature
 
 ```typescript
-function getNumbersInRange<T extends boolean = false>(
-  type?: NumberType,
-  options?: RangeOptions<T>
-): RangedNumbers<T>
+function getNumbersInRange< T extends NumberType = 'any', S extends boolean = false>(type?: T, options?: $RangeOptions<T, S>): RangedNumbers<S>
+
+function getNumbersInRange<T extends NumberType = 'any', S extends boolean = false>(options?: RangeOptions<T, S>): RangedNumbers<S>
 ```
 
 ### Parameters
@@ -27,21 +26,23 @@ Specifies the type of numbers to generate:
 - `'odd'`: Odd numbers
 - `'even'`: Even numbers
 - `'prime'`: Prime numbers
-- `'random'`: Random numbers within each step
+- `'random'`: Randomizes the sequence generated within the range
 
 #### `options` (optional)
 
 Configuration object with these properties:
 
-| Property      | Type      | Default     | Description                                               |
-| :------------ | :-------- | :---------- | :-------------------------------------------------------- |
-| `min`         | `number`  | `0`         | Range minimum  (`1` if type is 'natural')                 |
-| `max`         | `number`  | `100`       | Range maximum                                             |
-| `includeMin`  | `boolean` | `true`      | Include minimum value                                     |
-| `includeMax`  | `boolean` | `true`      | Include maximum value                                     |
-| `multiplesOf` | `number`  | `undefined` | Filter for multiples of this number                       |
-| `getAsString` | `boolean` | `false`     | Output format (return string instead of array)            |
-| `separator`   | `string`  | `','`       | String separator (only available when `getAsString=true`) |
+| Property      | Type         | Default     | Description                                                 |
+| :------------ | :----------- | :---------- | :---------------------------------------------------------- |
+| `type`        | `NumberType` | `'any'`     | Number type (available only in the options-object overload) |
+| `min`         | `number`     | `0`         | Range minimum (`1` if type is `'natural'`)                  |
+| `max`         | `number`     | `100`       | Range maximum                                               |
+| `step`        | `number`     | `1`         | Increment step for `'any'`, `'natural'`, and `'random'`     |
+| `includeMin`  | `boolean`    | `true`      | Include minimum value                                       |
+| `includeMax`  | `boolean`    | `true`      | Include maximum value                                       |
+| `multiplesOf` | `number`     | `undefined` | Filter for multiples of this number                         |
+| `getAsString` | `boolean`    | `false`     | Return a string instead of an array                         |
+| `separator`   | `string`     | `', '`      | Separator used only when `getAsString` is `true`            |
 
 ### Return Value
 
@@ -56,6 +57,18 @@ import { getNumbersInRange } from 'toolbox-x';
 // Get all numbers from 1 to 10
 console.log(getNumbersInRange('any', { min: 1, max: 10 }));
 // Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
+```ts pg tab="Options Object"
+import { getNumbersInRange } from 'toolbox-x';
+
+// The options-object overload includes the number type in the object
+console.log(getNumbersInRange({
+  type: 'odd',
+  min: 1,
+  max: 10,
+}));
+// Output: [1, 3, 5, 7, 9]
 ```
 
 ```ts pg tab="Primes in Range"
@@ -90,6 +103,7 @@ console.log(getNumbersInRange('even', {
 - **`multiplesOf`**: Multiples filtering is ignored when type is `'prime'`.
 - **`'natural'`**: Forces minimum to be `1` or greater.
 - **`'random'`**: Shuffles the generated number sequence.
+- **`step`**: Used for `'any'`, `'natural'`, and `'random'`; it is ignored for `'prime'`, `'odd'`, and `'even'`.
 
 ### Types
 
@@ -99,22 +113,30 @@ console.log(getNumbersInRange('even', {
 type NumberType = 'any' | 'natural' | 'odd' | 'even' | 'prime' | 'random';
 ```
 
-#### `RangeOptions<T>`
+#### `RangeOptions<T, S>`
 
 ```typescript
-interface RangeOptions<T extends boolean = false> {
+interface RangeOptions<T extends NumberType = 'any', S extends boolean = false> extends RandomNumberOptions {
+  type?: T;
   min?: number;
   max?: number;
+  step?: T extends 'any' | 'natural' | 'random' ? number : never;
   includeMin?: boolean;
   includeMax?: boolean;
   multiplesOf?: number;
-  getAsString?: T;
-  separator?: string;
+  getAsString?: S;
+  separator?: S extends true ? string : never;
 }
 ```
 
-#### `RangedNumbers<T>`
+#### `$RangeOptions<T, S>`
 
 ```typescript
-type RangedNumbers<T extends boolean = false> = T extends true ? string : number[];
+type $RangeOptions<T extends NumberType = 'any', S extends boolean = false> = Omit<RangeOptions<T, S>, 'type'>;
+```
+
+#### `RangedNumbers<S>`
+
+```typescript
+type RangedNumbers<S extends boolean = false> = S extends true ? string : number[];
 ```
