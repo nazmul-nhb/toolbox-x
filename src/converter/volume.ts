@@ -43,18 +43,63 @@ export class $Volume extends $BaseConverter<$VolumeUnit> {
 		super(value, unit);
 	}
 
-	/** @instance Converts to base unit (cubic-meters). */
-	#toCubicMeters(): number {
-		return this.value * $Volume.#factors[this.unit];
-	}
-
 	/**
 	 * @instance Converts to target volume unit.
 	 * @param target Target volume unit.
 	 */
 	to(target: $VolumeUnit): number {
-		const base = this.#toCubicMeters();
+		const base = this.$toBase($Volume.#factors);
 		return base / $Volume.#factors[target];
+	}
+
+	/**
+	 * @instance Returns whether this value is greater than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	gt(val: Numeric, unit?: $VolumeUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		return base > target;
+	}
+
+	/**
+	 *  @instance Returns whether this value is less than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	lt(val: Numeric, unit?: $VolumeUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		return base < target;
+	}
+
+	/**
+	 *  @instance Returns whether this value equals a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	eq(val: Numeric, unit?: $VolumeUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		return base === target;
+	}
+
+	add(val: Numeric, unit?: $VolumeUnit): this {
+		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		return new $Volume(base + target, this.unit) as this;
+	}
+
+	subtract(val: Numeric, unit?: $VolumeUnit): this {
+		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		return new $Volume(base - target, this.unit) as this;
+	}
+
+	multiply(val: Numeric, unit?: $VolumeUnit): this {
+		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		return new $Volume(base * target, this.unit) as this;
+	}
+
+	divide(val: Numeric, unit?: $VolumeUnit): this {
+		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		return new $Volume(base / target, this.unit) as this;
 	}
 
 	/**
@@ -62,7 +107,7 @@ export class $Volume extends $BaseConverter<$VolumeUnit> {
 	 * @param target Target volume unit.
 	 */
 	toAll(): $Record<$VolumeUnit, number> {
-		const base = this.#toCubicMeters();
+		const base = this.$toBase($Volume.#factors);
 
 		const result = {} as $Record<$VolumeUnit, number>;
 

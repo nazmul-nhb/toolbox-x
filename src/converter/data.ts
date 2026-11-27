@@ -34,18 +34,63 @@ export class $Data extends $BaseConverter<$DataUnit> {
 		super(value, unit);
 	}
 
-	/** @instance Converts to base unit (bytes). */
-	#toBytes(): number {
-		return this.value * $Data.#factors[this.unit];
-	}
-
 	/**
 	 * @instance Converts to target data unit.
 	 * @param target Target data unit.
 	 */
 	to(target: $DataUnit): number {
-		const inBytes = this.#toBytes();
+		const inBytes = this.$toBase($Data.#factors);
 		return inBytes / $Data.#factors[target];
+	}
+
+	add(val: Numeric, unit?: $DataUnit): this {
+		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		return new $Data(base + target, this.unit) as this;
+	}
+
+	subtract(val: Numeric, unit?: $DataUnit): this {
+		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		return new $Data(base - target, this.unit) as this;
+	}
+
+	multiply(val: Numeric, unit?: $DataUnit): this {
+		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		return new $Data(base * target, this.unit) as this;
+	}
+
+	divide(val: Numeric, unit?: $DataUnit): this {
+		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		return new $Data(base / target, this.unit) as this;
+	}
+
+	/**
+	 * @instance Returns whether this value is greater than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	gt(val: Numeric, unit?: $DataUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		return base > target;
+	}
+
+	/**
+	 *  @instance Returns whether this value is less than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	lt(val: Numeric, unit?: $DataUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		return base < target;
+	}
+
+	/**
+	 *  @instance Returns whether this value equals a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	eq(val: Numeric, unit?: $DataUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		return base === target;
 	}
 
 	/**
@@ -53,7 +98,7 @@ export class $Data extends $BaseConverter<$DataUnit> {
 	 * @returns Object with all unit conversions.
 	 */
 	toAll(): $Record<$DataUnit, number> {
-		const inBytes = this.#toBytes();
+		const inBytes = this.$toBase($Data.#factors);
 
 		const result = {} as $Record<$DataUnit, number>;
 

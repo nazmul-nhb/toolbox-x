@@ -35,18 +35,63 @@ export class $Time extends $BaseConverter<$TimeUnit> {
 		super(value, unit);
 	}
 
-	/** @instance Converts to base unit (seconds). */
-	#toSeconds(): number {
-		return this.value * $Time.#factors[this.unit];
-	}
-
 	/**
 	 * @instance Converts to target time unit.
 	 * @param target Target time unit.
 	 */
 	to(target: $TimeUnit): number {
-		const baseInSeconds = this.#toSeconds();
+		const baseInSeconds = this.$toBase($Time.#factors);
 		return baseInSeconds / $Time.#factors[target];
+	}
+
+	/**
+	 * @instance Returns whether this value is greater than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	gt(val: Numeric, unit?: $TimeUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		return base > target;
+	}
+
+	/**
+	 *  @instance Returns whether this value is less than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	lt(val: Numeric, unit?: $TimeUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		return base < target;
+	}
+
+	/**
+	 *  @instance Returns whether this value equals a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	eq(val: Numeric, unit?: $TimeUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		return base === target;
+	}
+
+	add(val: Numeric, unit?: $TimeUnit): this {
+		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		return new $Time(base + target, this.unit) as this;
+	}
+
+	subtract(val: Numeric, unit?: $TimeUnit): this {
+		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		return new $Time(base - target, this.unit) as this;
+	}
+
+	multiply(val: Numeric, unit?: $TimeUnit): this {
+		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		return new $Time(base * target, this.unit) as this;
+	}
+
+	divide(val: Numeric, unit?: $TimeUnit): this {
+		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		return new $Time(base / target, this.unit) as this;
 	}
 
 	/**
@@ -54,7 +99,7 @@ export class $Time extends $BaseConverter<$TimeUnit> {
 	 * @returns Object with all unit conversions.
 	 */
 	toAll(): $Record<$TimeUnit, number> {
-		const inSeconds = this.#toSeconds();
+		const inSeconds = this.$toBase($Time.#factors);
 
 		const result = {} as $Record<$TimeUnit, number>;
 

@@ -1,4 +1,5 @@
 import { INVARIANT_UNITS, IRREGULAR_PLURALS, UNITS } from 'src/converter/constants';
+import { normalizeNumber } from 'src/number/utilities';
 import type { $Unit, Category, FormatToOptions, Units, UnitsTuple } from 'src/types/converter';
 import type { Numeric } from 'src/types/index';
 
@@ -9,6 +10,8 @@ import type { Numeric } from 'src/types/index';
 export class $BaseConverter<Unit extends $Unit> {
 	protected readonly value: number;
 	protected readonly unit: Unit;
+
+	#thisConstructor = this.constructor as new (v: number, u: Unit) => this;
 
 	/**
 	 * Convert value to other units
@@ -22,14 +25,14 @@ export class $BaseConverter<Unit extends $Unit> {
 
 	/** @protected Returns a grammatically correct unit string, prefixed with the number value. */
 	protected $withPluralUnit(value?: number, unit?: $Unit): string {
-		const abs = Math.abs(value ?? this.value);
+		const val = value ?? this.value;
 		const u = unit ?? this.unit;
 
-		if (!u) return String(abs);
+		if (!u) return String(val);
 
 		let pluralized: string;
 
-		if (abs === 1) {
+		if (Math.abs(val) === 1) {
 			pluralized = u;
 		} else if (IRREGULAR_PLURALS?.[u]) {
 			pluralized = IRREGULAR_PLURALS[u];
@@ -43,7 +46,7 @@ export class $BaseConverter<Unit extends $Unit> {
 			pluralized = `${u}s`;
 		}
 
-		return `${abs} ${pluralized}`;
+		return `${val} ${pluralized}`;
 	}
 
 	/** @protected Rounds a numeric value to given decimal places. */
@@ -77,6 +80,19 @@ export class $BaseConverter<Unit extends $Unit> {
 			default:
 				return this.$withPluralUnit(rounded, target);
 		}
+	}
+
+	protected $toBase(f: Record<Unit, number>, v?: Numeric, u?: Unit): number {
+		const value = normalizeNumber(v) ?? this.value;
+
+		return value * f[u || this.unit];
+	}
+
+	protected $toBaseTarget(f: Record<Unit, number>, t: Numeric, u?: Unit): [number, number] {
+		const base = this.$toBase(f);
+		const target = this.$toBase(f, t, u);
+
+		return [base, target];
 	}
 
 	/**
@@ -133,10 +149,7 @@ export class $BaseConverter<Unit extends $Unit> {
 
 	/** @instance Returns a new instance with the absolute value. */
 	abs(): this {
-		return new (this.constructor as new (v: number, u: Unit) => this)(
-			Math.abs(this.value),
-			this.unit
-		);
+		return new this.#thisConstructor(Math.abs(this.value), this.unit);
 	}
 
 	/**
@@ -144,10 +157,7 @@ export class $BaseConverter<Unit extends $Unit> {
 	 * @returns A new instance with updated value.
 	 */
 	add(n: Numeric): this {
-		return new (this.constructor as new (v: number, u: Unit) => this)(
-			this.value + Number(n),
-			this.unit
-		);
+		return new this.#thisConstructor(this.value + Number(n), this.unit);
 	}
 
 	/**
@@ -155,10 +165,7 @@ export class $BaseConverter<Unit extends $Unit> {
 	 * @returns A new instance with updated value.
 	 */
 	subtract(n: Numeric): this {
-		return new (this.constructor as new (v: number, u: Unit) => this)(
-			this.value - Number(n),
-			this.unit
-		);
+		return new this.#thisConstructor(this.value - Number(n), this.unit);
 	}
 
 	/**
@@ -166,10 +173,7 @@ export class $BaseConverter<Unit extends $Unit> {
 	 * @returns A new instance with updated value.
 	 */
 	multiply(n: Numeric): this {
-		return new (this.constructor as new (v: number, u: Unit) => this)(
-			this.value * Number(n),
-			this.unit
-		);
+		return new this.#thisConstructor(this.value * Number(n), this.unit);
 	}
 
 	/**
@@ -177,10 +181,7 @@ export class $BaseConverter<Unit extends $Unit> {
 	 * @returns A new instance with updated value.
 	 */
 	divide(n: Numeric): this {
-		return new (this.constructor as new (v: number, u: Unit) => this)(
-			this.value / Number(n),
-			this.unit
-		);
+		return new this.#thisConstructor(this.value / Number(n), this.unit);
 	}
 
 	/**
@@ -190,7 +191,7 @@ export class $BaseConverter<Unit extends $Unit> {
 	 */
 	round(decimals = 0): this {
 		const rounded = this.$round(this.value, decimals);
-		return new (this.constructor as new (v: number, u: Unit) => this)(rounded, this.unit);
+		return new this.#thisConstructor(rounded, this.unit);
 	}
 
 	/** @instance Returns whether this value is greater than another numeric value. */

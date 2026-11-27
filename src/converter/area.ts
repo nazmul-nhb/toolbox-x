@@ -36,18 +36,63 @@ export class $Area extends $BaseConverter<$AreaUnit> {
 		super(value, unit);
 	}
 
-	/** @instance Converts to base unit (square meters). */
-	#toSquareMeters(): number {
-		return this.value * $Area.#factors[this.unit];
-	}
-
 	/**
 	 * @instance Converts to target area unit.
 	 * @param target Target area unit.
 	 */
 	to(target: $AreaUnit): number {
-		const base = this.#toSquareMeters();
+		const base = this.$toBase($Area.#factors);
 		return base / $Area.#factors[target];
+	}
+
+	add(val: Numeric, unit?: $AreaUnit): this {
+		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		return new $Area(base + target, this.unit) as this;
+	}
+
+	subtract(val: Numeric, unit?: $AreaUnit): this {
+		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		return new $Area(base - target, this.unit) as this;
+	}
+
+	multiply(val: Numeric, unit?: $AreaUnit): this {
+		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		return new $Area(base * target, this.unit) as this;
+	}
+
+	divide(val: Numeric, unit?: $AreaUnit): this {
+		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		return new $Area(base / target, this.unit) as this;
+	}
+
+	/**
+	 * @instance Returns whether this value is greater than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	gt(val: Numeric, unit?: $AreaUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		return base > target;
+	}
+
+	/**
+	 *  @instance Returns whether this value is less than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	lt(val: Numeric, unit?: $AreaUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		return base < target;
+	}
+
+	/**
+	 *  @instance Returns whether this value equals a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	eq(val: Numeric, unit?: $AreaUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		return base === target;
 	}
 
 	/**
@@ -55,7 +100,7 @@ export class $Area extends $BaseConverter<$AreaUnit> {
 	 * @returns Object with all unit conversions.
 	 */
 	toAll(): $Record<$AreaUnit, number> {
-		const base = this.#toSquareMeters();
+		const base = this.$toBase($Area.#factors);
 
 		const result = {} as $Record<$AreaUnit, number>;
 

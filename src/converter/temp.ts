@@ -1,5 +1,6 @@
 import { $BaseConverter } from 'src/converter/base';
 import { UNITS } from 'src/converter/constants';
+import { normalizeNumber as normalize } from 'src/number/utilities';
 import type { $TempUnit, FormatToOptions } from 'src/types/converter';
 import type { Numeric } from 'src/types/index';
 import type { $Record } from 'src/types/object';
@@ -19,8 +20,7 @@ export class $Temperature extends $BaseConverter<$TempUnit> {
 	}
 
 	/**
-	 * @private
-	 * @description Conversion helper from Fahrenheit and Kelvin to Celsius.
+	 * @private Conversion helper from Fahrenheit and Kelvin to Celsius.
 	 */
 	static #toCelsius(value: number, from: $TempUnit): number {
 		switch (from) {
@@ -34,8 +34,7 @@ export class $Temperature extends $BaseConverter<$TempUnit> {
 	}
 
 	/**
-	 * @private
-	 * @description Conversion helper from Celsius to Fahrenheit and Kelvin.
+	 * @private Conversion helper from Celsius to Fahrenheit and Kelvin.
 	 */
 	static #fromCelsius(value: number, to: $TempUnit): number {
 		switch (to) {
@@ -46,6 +45,64 @@ export class $Temperature extends $BaseConverter<$TempUnit> {
 			default:
 				return value;
 		}
+	}
+
+	#toBaseTarget(t: Numeric, u?: $TempUnit): [number, number] {
+		const base = $Temperature.#toCelsius(this.value, this.unit);
+
+		const target = $Temperature.#toCelsius(normalize(t) ?? this.value, u || this.unit);
+
+		return [base, target];
+	}
+
+	add(val: Numeric, unit?: $TempUnit): this {
+		const [base, target] = this.#toBaseTarget(val, unit);
+		return new $Temperature(base + target, this.unit) as this;
+	}
+
+	subtract(val: Numeric, unit?: $TempUnit): this {
+		const [base, target] = this.#toBaseTarget(val, unit);
+		return new $Temperature(base - target, this.unit) as this;
+	}
+
+	multiply(val: Numeric, unit?: $TempUnit): this {
+		const [base, target] = this.#toBaseTarget(val, unit);
+		return new $Temperature(base * target, this.unit) as this;
+	}
+
+	divide(val: Numeric, unit?: $TempUnit): this {
+		const [base, target] = this.#toBaseTarget(val, unit);
+		return new $Temperature(base / target, this.unit) as this;
+	}
+
+	/**
+	 * @instance Returns whether this value is greater than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	gt(val: Numeric, unit?: $TempUnit): boolean {
+		const [base, target] = this.#toBaseTarget(val, unit);
+		return base > target;
+	}
+
+	/**
+	 *  @instance Returns whether this value is less than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	lt(val: Numeric, unit?: $TempUnit): boolean {
+		const [base, target] = this.#toBaseTarget(val, unit);
+		return base < target;
+	}
+
+	/**
+	 *  @instance Returns whether this value equals a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	eq(val: Numeric, unit?: $TempUnit): boolean {
+		const [base, target] = this.#toBaseTarget(val, unit);
+		return base === target;
 	}
 
 	/**

@@ -6,7 +6,7 @@ import { isPrime } from 'src/number/prime';
 import type { $RangeOptions, NumberType, RangedNumbers, RangeOptions } from 'src/types/number';
 
 /**
- * Generates numbers within a range using the provided {@link NumberType}.
+ * Generates numbers within a range using the provided {@link NumberType} and {@link $RangeOptions options}.
  *
  * @remarks Returns either a string or an array of numbers based on the {@link $RangeOptions.getAsString getAsString} option.
  *
@@ -20,7 +20,7 @@ export function getNumbersInRange<T extends NumberType = 'any', S extends boolea
 ): RangedNumbers<S>;
 
 /**
- * Generates numbers within a range using an options object.
+ * Generates numbers within a range using customizable {@link RangeOptions options}.
  *
  * @remarks Returns either string or array of numbers based on the {@link RangeOptions.getAsString getAsString} option.
  *

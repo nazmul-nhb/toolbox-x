@@ -36,9 +36,54 @@ export class $Length extends $BaseConverter<$LengthUnit> {
 		super(value, unit);
 	}
 
-	/** @instance Converts to base unit (meters). */
-	#toMeters(): number {
-		return this.value * $Length.#factors[this.unit];
+	/**
+	 * @instance Returns whether this value is greater than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	gt(val: Numeric, unit?: $LengthUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		return base > target;
+	}
+
+	/**
+	 *  @instance Returns whether this value is less than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	lt(val: Numeric, unit?: $LengthUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		return base < target;
+	}
+
+	/**
+	 *  @instance Returns whether this value equals a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	eq(val: Numeric, unit?: $LengthUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		return base === target;
+	}
+
+	add(val: Numeric, unit?: $LengthUnit): this {
+		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		return new $Length(base + target, this.unit) as this;
+	}
+
+	subtract(val: Numeric, unit?: $LengthUnit): this {
+		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		return new $Length(base - target, this.unit) as this;
+	}
+
+	multiply(val: Numeric, unit?: $LengthUnit): this {
+		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		return new $Length(base * target, this.unit) as this;
+	}
+
+	divide(val: Numeric, unit?: $LengthUnit): this {
+		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		return new $Length(base / target, this.unit) as this;
 	}
 
 	/**
@@ -46,16 +91,16 @@ export class $Length extends $BaseConverter<$LengthUnit> {
 	 * @param target Target length/distance unit.
 	 */
 	to(target: $LengthUnit): number {
-		const inMeters = this.#toMeters();
+		const inMeters = this.$toBase($Length.#factors);
 		return inMeters / $Length.#factors[target];
 	}
 
 	/**
-	 * @instance Converts to all data units.
+	 * @instance Converts to all length units.
 	 * @returns Object with all unit conversions.
 	 */
 	toAll(): $Record<$LengthUnit, number> {
-		const inMeters = this.#toMeters();
+		const inMeters = this.$toBase($Length.#factors);
 
 		const result = {} as $Record<$LengthUnit, number>;
 

@@ -32,18 +32,63 @@ export class $Mass extends $BaseConverter<$MassUnit> {
 		super(value, unit);
 	}
 
-	/** @instance Converts to base unit (kilograms). */
-	#toKilograms(): number {
-		return this.value * $Mass.#factors[this.unit];
-	}
-
 	/**
 	 * @instance Converts to target mass unit.
 	 * @param target Target mass unit.
 	 */
 	to(target: $MassUnit): number {
-		const base = this.#toKilograms();
+		const base = this.$toBase($Mass.#factors);
 		return base / $Mass.#factors[target];
+	}
+
+	/**
+	 * @instance Returns whether this value is greater than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	gt(val: Numeric, unit?: $MassUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		return base > target;
+	}
+
+	/**
+	 *  @instance Returns whether this value is less than a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	lt(val: Numeric, unit?: $MassUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		return base < target;
+	}
+
+	/**
+	 *  @instance Returns whether this value equals a given numeric value.
+	 * @param val Numeric value to compare against.
+	 * @param unit Optional unit for the numeric value.
+	 */
+	eq(val: Numeric, unit?: $MassUnit): boolean {
+		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		return base === target;
+	}
+
+	add(val: Numeric, unit?: $MassUnit): this {
+		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		return new $Mass(base + target, this.unit) as this;
+	}
+
+	subtract(val: Numeric, unit?: $MassUnit): this {
+		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		return new $Mass(base - target, this.unit) as this;
+	}
+
+	multiply(val: Numeric, unit?: $MassUnit): this {
+		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		return new $Mass(base * target, this.unit) as this;
+	}
+
+	divide(val: Numeric, unit?: $MassUnit): this {
+		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		return new $Mass(base / target, this.unit) as this;
 	}
 
 	/**
@@ -51,7 +96,7 @@ export class $Mass extends $BaseConverter<$MassUnit> {
 	 * @returns Object with all unit conversions.
 	 */
 	toAll(): $Record<$MassUnit, number> {
-		const base = this.#toKilograms();
+		const base = this.$toBase($Mass.#factors);
 
 		const result = {} as $Record<$MassUnit, number>;
 
