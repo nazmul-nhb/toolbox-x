@@ -82,7 +82,7 @@ async function generateNotes(startRef, endRef) {
 	if (!firstAfter) return '';
 
 	const notes = await runShell(
-		`npx changelog-maker --markdown --group --filter-release --start-ref "${firstAfter}" --end-ref "${endRef}" ${REPO_OWNER} ${REPO_NAME}`
+		`npx changelog-maker --format=markdown --group --filter-release --start-ref "${firstAfter}" --end-ref "${endRef}" ${REPO_OWNER} ${REPO_NAME}`
 	);
 
 	return notes;
@@ -95,7 +95,7 @@ async function generateNotes(startRef, endRef) {
  */
 async function generateNotesFromBeginning(endRef) {
 	const notes = await runShell(
-		`npx changelog-maker --markdown --group --filter-release --end-ref "${endRef}" --all ${REPO_OWNER} ${REPO_NAME}`
+		`npx changelog-maker --format=markdown --group --filter-release --end-ref "${endRef}" --all ${REPO_OWNER} ${REPO_NAME}`
 	);
 
 	return notes;
@@ -134,7 +134,7 @@ async function main() {
 	// );
 	// if (firstAfter) {
 	// 	const notes = await runShell(
-	// 		`npx changelog-maker --markdown --group --filter-release --start-ref "${firstAfter}" ${REPO_OWNER} ${REPO_NAME}`
+	// 		`npx changelog-maker --format=markdown --group --filter-release --start-ref "${firstAfter}" ${REPO_OWNER} ${REPO_NAME}`
 	// 	);
 	// 	if (notes) {
 	// 		sections.push(
@@ -200,7 +200,10 @@ async function main() {
 		'',
 		...sections.map(
 			(s) =>
-				`${s.replace(/\ssideba\s/g, ' sidebar ').replace(/\siltering\s/g, ' filtering ')}\n`
+				`${s
+					.replace(/\ssideba\s/g, ' sidebar ')
+					.replace(/\siltering\s/g, ' filtering ')
+					.replace(/\sfunctiona\s/g, ' function ')}\n`
 		),
 	].join('\n');
 
