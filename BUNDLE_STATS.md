@@ -29,11 +29,11 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 
 | Output Bytes | % of Total | Module |
 |--------------|------------|--------|
-| 109.2 kB | 7.8% | `src/date/timezone.ts` |
+| 109.2 kB | 7.7% | `src/date/timezone.ts` |
 | 46.4 kB | 3.3% | `src/http-status/constants.ts` |
 | 29.2 kB | 2.1% | `src/types/utils.ts` |
 | 27.1 kB | 1.9% | `src/colors/Color.ts` |
-| 26.1 kB | 1.9% | `src/hash/utils.ts` |
+| 26.1 kB | 1.8% | `src/hash/utils.ts` |
 | 25.8 kB | 1.8% | `src/stylog/Stylog.ts` |
 | 24.2 kB | 1.7% | `src/object/countries.ts` |
 | 23.8 kB | 1.7% | `src/string/case.ts` |
@@ -51,27 +51,27 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 11.0 kB | 0.8% | `src/types/number.ts` |
 | 10.9 kB | 0.8% | `src/array/Finder.ts` |
 | 10.8 kB | 0.8% | `src/number/Unit.ts` |
-| 10.5 kB | 0.8% | `src/pluralizer/Pluralizer.ts` |
+| 10.5 kB | 0.7% | `src/pluralizer/Pluralizer.ts` |
 | 10.3 kB | 0.7% | `src/number/basics.ts` |
 | 9.8 kB | 0.7% | `src/object/sanitize.ts` |
 | 9.4 kB | 0.7% | `src/hash/helpers.ts` |
 | 9.4 kB | 0.7% | `src/form/convert.ts` |
 | 9.2 kB | 0.7% | `src/verbalizer/Verbalizer.ts` |
-| 9.2 kB | 0.7% | `src/object/objectify.ts` |
+| 9.2 kB | 0.6% | `src/object/objectify.ts` |
 | 9.1 kB | 0.6% | `src/hash/uuid.ts` |
-| 8.7 kB | 0.6% | `src/types/date.d.ts` |
+| 8.8 kB | 0.6% | `src/types/date.d.ts` |
 | 8.5 kB | 0.6% | `src/pluralizer/rules.ts` |
 | 8.0 kB | 0.6% | `src/types/utils.d.ts` |
-| 7.8 kB | 0.6% | `src/utils/Paginator.ts` |
+| 7.8 kB | 0.5% | `src/utils/Paginator.ts` |
 | 7.6 kB | 0.5% | `src/types/index.ts` |
+| 7.5 kB | 0.5% | `src/converter/base.ts` |
 | 7.2 kB | 0.5% | `src/types/object.d.ts` |
-| 7.1 kB | 0.5% | `src/converter/base.ts` |
 | 6.9 kB | 0.5% | `src/object/convert.ts` |
 | 6.7 kB | 0.5% | `src/index.ts` |
 | 6.5 kB | 0.5% | `src/date/constants.ts` |
 | 6.5 kB | 0.5% | `src/string/diff.ts` |
 | 6.4 kB | 0.5% | `src/index.d.ts` |
-| 6.4 kB | 0.5% | `src/array/transform.ts` |
+| 6.4 kB | 0.4% | `src/array/transform.ts` |
 | 6.3 kB | 0.4% | `src/types/string.d.ts` |
 | 6.3 kB | 0.4% | `src/hash/TextCodec.ts` |
 | 6.2 kB | 0.4% | `src/http-status/HttpStatus.ts` |
@@ -89,49 +89,49 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 5.1 kB | 0.4% | `src/date/guards.ts` |
 | 5.1 kB | 0.4% | `src/hash/core.ts` |
 | 5.0 kB | 0.4% | `src/dom/query.ts` |
-| 4.9 kB | 0.4% | `src/date/seasons.ts` |
+| 4.9 kB | 0.3% | `src/date/seasons.ts` |
 | 4.8 kB | 0.3% | `src/array/calc.ts` |
 | 4.6 kB | 0.3% | `src/hash/Cipher.ts` |
+| 4.5 kB | 0.3% | `src/converter/volume.ts` |
 | 4.5 kB | 0.3% | `src/types/form.ts` |
+| 4.5 kB | 0.3% | `src/converter/temp.ts` |
 | 4.4 kB | 0.3% | `src/date/helpers.ts` |
+| 4.2 kB | 0.3% | `src/converter/area.ts` |
+| 4.1 kB | 0.3% | `src/converter/length.ts` |
+| 4.0 kB | 0.3% | `src/converter/time.ts` |
 | 4.0 kB | 0.3% | `src/form/guards.ts` |
 | 4.0 kB | 0.3% | `src/guards/primitives.ts` |
 | 4.0 kB | 0.3% | `src/colors/initials.ts` |
 | 3.9 kB | 0.3% | `src/number/utilities.ts` |
+| 3.9 kB | 0.3% | `src/converter/data.ts` |
+| 3.8 kB | 0.3% | `src/converter/mass.ts` |
 | 3.8 kB | 0.3% | `src/object/countries.d.ts` |
 | 3.6 kB | 0.3% | `src/colors/css-colors.ts` |
-| 3.5 kB | 0.3% | `src/number/range.ts` |
-| 3.5 kB | 0.3% | `src/types/number.d.ts` |
+| 3.6 kB | 0.3% | `src/number/range.ts` |
+| 3.5 kB | 0.2% | `src/types/number.d.ts` |
 | 3.2 kB | 0.2% | `src/array/basics.ts` |
 | 3.1 kB | 0.2% | `src/dom/storage.ts` |
 | 3.0 kB | 0.2% | `src/colors/guards.ts` |
 | 3.0 kB | 0.2% | `src/number/percent.ts` |
 | 3.0 kB | 0.2% | `src/colors/random.ts` |
-| 2.9 kB | 0.2% | `src/converter/volume.ts` |
 | 2.9 kB | 0.2% | `src/types/converter.ts` |
 | 2.9 kB | 0.2% | `src/types/http-status.ts` |
 | 2.9 kB | 0.2% | `src/form/transform.ts` |
 | 2.8 kB | 0.2% | `src/types/index.d.ts` |
 | 2.8 kB | 0.2% | `src/colors/helpers.ts` |
 | 2.7 kB | 0.2% | `src/stylog/constants.ts` |
-| 2.6 kB | 0.2% | `src/converter/area.ts` |
 | 2.5 kB | 0.2% | `src/string/anagram.ts` |
-| 2.5 kB | 0.2% | `src/converter/length.ts` |
-| 2.5 kB | 0.2% | `src/converter/time.ts` |
 | 2.4 kB | 0.2% | `src/string/helpers.ts` |
 | 2.4 kB | 0.2% | `src/stylog/utils.ts` |
 | 2.4 kB | 0.2% | `src/dom/utils.ts` |
-| 2.4 kB | 0.2% | `src/converter/temp.ts` |
 | 2.3 kB | 0.2% | `src/number/fibonacci.ts` |
 | 2.3 kB | 0.2% | `src/guards/index.ts` |
-| 2.3 kB | 0.2% | `src/converter/data.ts` |
 | 2.3 kB | 0.2% | `src/utils/xtras.ts` |
-| 2.3 kB | 0.2% | `src/converter/mass.ts` |
 | 2.2 kB | 0.2% | `src/date/parse.ts` |
 | 2.2 kB | 0.2% | `src/types/colors.d.ts` |
 | 2.1 kB | 0.2% | `src/converter/Converter.ts` |
-| 2.1 kB | 0.2% | `src/guards/index.d.ts` |
-| 2.1 kB | 0.2% | `src/date/greet.ts` |
+| 2.1 kB | 0.1% | `src/guards/index.d.ts` |
+| 2.1 kB | 0.1% | `src/date/greet.ts` |
 | 2.1 kB | 0.1% | `src/http-status/constants.d.ts` |
 | 2.0 kB | 0.1% | `src/number/guards.ts` |
 | 2.0 kB | 0.1% | `src/string/utilities.ts` |
@@ -147,8 +147,8 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 1.7 kB | 0.1% | `src/date/calculation.ts` |
 | 1.6 kB | 0.1% | `src/date/constants.d.ts` |
 | 1.6 kB | 0.1% | `src/string/guards.ts` |
-| 1.6 kB | 0.1% | `src/number/constants.d.ts` |
 | 1.6 kB | 0.1% | `src/types/array.d.ts` |
+| 1.6 kB | 0.1% | `src/number/constants.d.ts` |
 | 1.5 kB | 0.1% | `src/types/stylog.ts` |
 | 1.5 kB | 0.1% | `src/colors/convert.d.ts` |
 | 1.5 kB | 0.1% | `src/guards/non-primitives.d.ts` |
@@ -174,6 +174,7 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 915 B | 0.1% | `src/dom/index.d.ts` |
 | 913 B | 0.1% | `src/array/calc.d.ts` |
 | 869 B | 0.1% | `src/guards/specials.d.ts` |
+| 842 B | 0.1% | `src/converter/base.d.ts` |
 | 805 B | 0.1% | `src/types/pluralizer.ts` |
 | 793 B | 0.1% | `src/number/Unit.d.ts` |
 | 785 B | 0.1% | `src/hash/uuid.d.ts` |
@@ -183,13 +184,19 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 754 B | 0.1% | `src/converter/Converter.d.ts` |
 | 750 B | 0.1% | `src/hash/index.ts` |
 | 742 B | 0.1% | `src/object/basics.d.ts` |
+| 729 B | 0.1% | `src/converter/length.d.ts` |
+| 729 B | 0.1% | `src/converter/volume.d.ts` |
 | 728 B | 0.1% | `src/colors/index.d.ts` |
-| 718 B | 0.1% | `src/hash/index.d.ts` |
+| 718 B | 0.0% | `src/hash/index.d.ts` |
 | 715 B | 0.0% | `src/string/convert.d.ts` |
+| 708 B | 0.0% | `src/converter/temp.d.ts` |
+| 701 B | 0.0% | `src/converter/data.d.ts` |
+| 701 B | 0.0% | `src/converter/mass.d.ts` |
+| 701 B | 0.0% | `src/converter/time.d.ts` |
+| 701 B | 0.0% | `src/converter/area.d.ts` |
 | 689 B | 0.0% | `src/types/stylog.d.ts` |
 | 684 B | 0.0% | `src/colors/css-colors.d.ts` |
 | 661 B | 0.0% | `src/date/guards.d.ts` |
-| 659 B | 0.0% | `src/converter/base.d.ts` |
 | 656 B | 0.0% | `src/http-status/HttpStatus.d.ts` |
 | 638 B | 0.0% | `src/form/guards.d.ts` |
 | 634 B | 0.0% | `src/number/convert.d.ts` |
@@ -205,13 +212,6 @@ Modules sorted by bytes contributed to the output bundle. Large modules may indi
 | 468 B | 0.0% | `src/number/Currency.d.ts` |
 | 467 B | 0.0% | `src/array/sort.d.ts` |
 | 446 B | 0.0% | `src/stylog/utils.d.ts` |
-| 435 B | 0.0% | `src/converter/length.d.ts` |
-| 435 B | 0.0% | `src/converter/volume.d.ts` |
-| 428 B | 0.0% | `src/converter/temp.d.ts` |
-| 421 B | 0.0% | `src/converter/data.d.ts` |
-| 421 B | 0.0% | `src/converter/mass.d.ts` |
-| 421 B | 0.0% | `src/converter/time.d.ts` |
-| 421 B | 0.0% | `src/converter/area.d.ts` |
 | 382 B | 0.0% | `src/number/range.d.ts` |
 | 373 B | 0.0% | `src/string/basics.d.ts` |
 | 366 B | 0.0% | `src/number/guards.d.ts` |
@@ -380,7 +380,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.4 kB
 
 **Loads these chunks** (code-splitting):
-- `area-BqnI-vwz.d.mts` (14.5 kB, import-statement)
+- `area-DZRPizGI.d.mts` (21.1 kB, import-statement)
 - `index-BUQUhYuk.d.mts` (291.8 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
@@ -393,23 +393,24 @@ Each entry point and the total code it loads (including shared chunks).
 ### Entry: `src/converter/index.ts`
 
 **Output file**: `converter/index.mjs`
-**Bundle size**: 20.9 kB
+**Bundle size**: 31.0 kB
 
 **Loads these chunks** (code-splitting):
 - `constants-CPR-h4xB.mjs` (2.3 kB, import-statement)
+- `utilities-B1FHAgCD.mjs` (14.4 kB, import-statement)
 
 **Bundled modules** (sorted by contribution):
 
 | Bytes | Module |
 |-------|--------|
-| 7.1 kB | `src/converter/base.ts` |
-| 2.9 kB | `src/converter/volume.ts` |
-| 2.6 kB | `src/converter/area.ts` |
-| 2.5 kB | `src/converter/length.ts` |
-| 2.5 kB | `src/converter/time.ts` |
-| 2.4 kB | `src/converter/temp.ts` |
-| 2.3 kB | `src/converter/data.ts` |
-| 2.3 kB | `src/converter/mass.ts` |
+| 7.5 kB | `src/converter/base.ts` |
+| 4.5 kB | `src/converter/volume.ts` |
+| 4.5 kB | `src/converter/temp.ts` |
+| 4.2 kB | `src/converter/area.ts` |
+| 4.1 kB | `src/converter/length.ts` |
+| 4.0 kB | `src/converter/time.ts` |
+| 3.9 kB | `src/converter/data.ts` |
+| 3.8 kB | `src/converter/mass.ts` |
 | 2.1 kB | `src/converter/Converter.ts` |
 | 249 B | `src/converter/index.ts` |
 
@@ -608,7 +609,7 @@ Each entry point and the total code it loads (including shared chunks).
 ### Entry: `src/index.d.ts`
 
 **Output file**: `index.d.mts`
-**Bundle size**: 67.2 kB
+**Bundle size**: 67.3 kB
 
 **Loads these chunks** (code-splitting):
 - `basics-D_1kvsw9.d.mts` (4.0 kB, import-statement)
@@ -674,7 +675,7 @@ Each entry point and the total code it loads (including shared chunks).
 | 6.4 kB | `src/array/transform.ts` |
 | 6.2 kB | `src/number/Currency.ts` |
 | 4.8 kB | `src/array/calc.ts` |
-| 3.5 kB | `src/number/range.ts` |
+| 3.6 kB | `src/number/range.ts` |
 | 3.0 kB | `src/number/percent.ts` |
 | 2.5 kB | `src/string/anagram.ts` |
 | 2.4 kB | `src/string/helpers.ts` |
@@ -825,7 +826,7 @@ Each entry point and the total code it loads (including shared chunks).
 **Bundle size**: 1.1 kB
 
 **Loads these chunks** (code-splitting):
-- `area-BqnI-vwz.d.mts` (14.5 kB, import-statement)
+- `area-DZRPizGI.d.mts` (21.1 kB, import-statement)
 
 ### Entry: `src/types/converter.ts`
 
@@ -1111,8 +1112,8 @@ Modules imported by many files. Extracting these to shared chunks may help.
 | 41 | `src/guards/primitives.ts` | `src/colors/Color.ts`, `src/colors/initials.ts`, `src/date/calculation.ts`, `src/date/utils.ts`, `src/form/convert.ts`, `src/form/transform.ts`, `src/hash/Cipher.ts`, `src/hash/Signet.ts`, `src/hash/TextCodec.ts`, `src/string/anagram.ts`, `src/number/basics.ts`, `src/number/convert.ts`, `src/number/range.ts`, `src/array/transform.ts`, `src/array/Finder.ts`, `src/object/convert.ts`, `src/utils/xtras.ts`, `src/pluralizer/Pluralizer.ts`, `src/stylog/helpers.ts`, `src/stylog/Stylog.ts`, `src/verbalizer/Verbalizer.ts`, `src/string/case.ts`, `src/colors/utils.ts`, `src/string/convert.ts`, `src/number/guards.ts`, `src/guards/index.ts`, `src/date/guards.ts`, `src/date/helpers.ts`, `src/date/parse.ts`, `src/form/guards.ts`, `src/object/sanitize.ts`, `src/dom/query.ts`, `src/guards/non-primitives.ts`, `src/guards/specials.ts`, `src/number/utilities.ts`, `src/string/basics.ts`, `src/array/sort.ts`, `src/utils/miscellaneous.ts`, `src/hash/utils.ts`, `src/hash/helpers.ts`, `src/hash/core.ts` |
 | 28 | `src/types/object.d.ts` | `src/form/convert.d.ts`, `src/guards/non-primitives.d.ts`, `src/hash/Signet.d.ts`, `src/array/calc.d.ts`, `src/array/Finder.d.ts`, `src/array/sort.d.ts`, `src/array/transform.d.ts`, `src/object/basics.d.ts`, `src/object/objectify.d.ts`, `src/object/sanitize.d.ts`, `src/object/convert.d.ts`, `src/utils/xtras.d.ts`, `src/converter/data.d.ts`, `src/converter/length.d.ts`, `src/converter/mass.d.ts`, `src/converter/temp.d.ts`, `src/converter/time.d.ts`, `src/converter/volume.d.ts`, `src/converter/area.d.ts`, `src/types/array.d.ts`, `src/types/form.d.ts`, `src/types/hash.d.ts`, `src/types/utils.d.ts`, `src/types/index.d.ts`, `src/array/basics.d.ts`, `src/utils/miscellaneous.d.ts`, `src/dom/query.d.ts`, `src/types/string.d.ts` |
 | 23 | `src/guards/non-primitives.ts` | `src/date/calculation.ts`, `src/date/utils.ts`, `src/form/convert.ts`, `src/hash/Signet.ts`, `src/string/anagram.ts`, `src/array/transform.ts`, `src/array/calc.ts`, `src/array/Finder.ts`, `src/object/convert.ts`, `src/stylog/helpers.ts`, `src/string/convert.ts`, `src/object/basics.ts`, `src/array/basics.ts`, `src/guards/index.ts`, `src/date/guards.ts`, `src/object/sanitize.ts`, `src/object/objectify.ts`, `src/guards/specials.ts`, `src/string/basics.ts`, `src/object/helpers.ts`, `src/array/sort.ts`, `src/utils/miscellaneous.ts`, `src/hash/helpers.ts` |
+| 14 | `src/number/utilities.ts` | `src/colors/Color.ts`, `src/converter/base.ts`, `src/converter/temp.ts`, `src/date/calculation.ts`, `src/date/utils.ts`, `src/number/basics.ts`, `src/number/Currency.ts`, `src/number/convert.ts`, `src/index.ts`, `src/pluralizer/Pluralizer.ts`, `src/number/guards.ts`, `src/date/guards.ts`, `src/date/helpers.ts`, `src/object/helpers.ts` |
 | 13 | `src/guards/specials.ts` | `src/hash/Cipher.ts`, `src/hash/TextCodec.ts`, `src/hash/index.ts`, `src/number/convert.ts`, `src/stylog/Stylog.ts`, `src/guards/index.ts`, `src/date/guards.ts`, `src/date/parse.ts`, `src/number/utilities.ts`, `src/utils/miscellaneous.ts`, `src/hash/utils.ts`, `src/hash/helpers.ts`, `src/hash/uuid.ts` |
-| 12 | `src/number/utilities.ts` | `src/colors/Color.ts`, `src/date/calculation.ts`, `src/date/utils.ts`, `src/number/basics.ts`, `src/number/Currency.ts`, `src/number/convert.ts`, `src/index.ts`, `src/pluralizer/Pluralizer.ts`, `src/number/guards.ts`, `src/date/guards.ts`, `src/date/helpers.ts`, `src/object/helpers.ts` |
 | 11 | `src/types/number.d.ts` | `src/colors/initials.d.ts`, `src/colors/utils.d.ts`, `src/number/basics.d.ts`, `src/number/Currency.d.ts`, `src/number/percent.d.ts`, `src/number/convert.d.ts`, `src/number/utilities.d.ts`, `src/number/range.d.ts`, `src/colors/Color.d.ts`, `src/number/Unit.d.ts`, `src/types/date.d.ts` |
 | 10 | `src/converter/constants.ts` | `src/constants.ts`, `src/converter/base.ts`, `src/converter/area.ts`, `src/converter/data.ts`, `src/converter/length.ts`, `src/converter/mass.ts`, `src/converter/temp.ts`, `src/converter/time.ts`, `src/converter/volume.ts`, `src/converter/Converter.ts` |
 | 10 | `src/types/utils.d.ts` | `src/object/basics.d.ts`, `src/utils/Paginator.d.ts`, `src/types/converter.d.ts`, `src/types/form.d.ts`, `src/types/http-status.d.ts`, `src/types/object.d.ts`, `src/types/number.d.ts`, `src/types/date.d.ts`, `src/utils/miscellaneous.d.ts`, `src/types/string.d.ts` |
@@ -1516,7 +1517,7 @@ Complete dependency information for each module.
 
 ### `src/converter/area.d.ts`
 
-- **Output contribution**: 421 B
+- **Output contribution**: 701 B
 - **Imported by** (2 files): `src/converter/Converter.d.ts` `src/types/converter.d.ts`
 - **Imports**:
   - `src/types/converter.d.ts`
@@ -1526,7 +1527,7 @@ Complete dependency information for each module.
 
 ### `src/converter/area.ts`
 
-- **Output contribution**: 2.6 kB
+- **Output contribution**: 4.2 kB
 - **Imported by** (1 files): `src/converter/Converter.ts`
 - **Imports**:
   - `src/converter/base.ts`
@@ -1534,7 +1535,7 @@ Complete dependency information for each module.
 
 ### `src/converter/base.d.ts`
 
-- **Output contribution**: 659 B
+- **Output contribution**: 842 B
 - **Imported by** (8 files): `src/converter/data.d.ts` `src/converter/length.d.ts` `src/converter/mass.d.ts` `src/converter/temp.d.ts` `src/converter/time.d.ts` `src/converter/volume.d.ts` `src/types/converter.d.ts` `src/converter/area.d.ts`
 - **Imports**:
   - `src/types/converter.d.ts`
@@ -1542,10 +1543,11 @@ Complete dependency information for each module.
 
 ### `src/converter/base.ts`
 
-- **Output contribution**: 7.1 kB
+- **Output contribution**: 7.5 kB
 - **Imported by** (8 files): `src/converter/area.ts` `src/converter/data.ts` `src/converter/length.ts` `src/converter/mass.ts` `src/converter/temp.ts` `src/converter/time.ts` `src/converter/volume.ts` `src/converter/Converter.ts`
 - **Imports**:
   - `src/converter/constants.ts`
+  - `src/number/utilities.ts`
 
 ### `src/converter/constants.d.ts`
 
@@ -1559,7 +1561,7 @@ Complete dependency information for each module.
 
 ### `src/converter/data.d.ts`
 
-- **Output contribution**: 421 B
+- **Output contribution**: 701 B
 - **Imported by** (2 files): `src/converter/Converter.d.ts` `src/types/converter.d.ts`
 - **Imports**:
   - `src/types/converter.d.ts`
@@ -1569,7 +1571,7 @@ Complete dependency information for each module.
 
 ### `src/converter/data.ts`
 
-- **Output contribution**: 2.3 kB
+- **Output contribution**: 3.9 kB
 - **Imported by** (1 files): `src/converter/Converter.ts`
 - **Imports**:
   - `src/converter/base.ts`
@@ -1591,7 +1593,7 @@ Complete dependency information for each module.
 
 ### `src/converter/length.d.ts`
 
-- **Output contribution**: 435 B
+- **Output contribution**: 729 B
 - **Imported by** (2 files): `src/converter/Converter.d.ts` `src/types/converter.d.ts`
 - **Imports**:
   - `src/types/converter.d.ts`
@@ -1601,7 +1603,7 @@ Complete dependency information for each module.
 
 ### `src/converter/length.ts`
 
-- **Output contribution**: 2.5 kB
+- **Output contribution**: 4.1 kB
 - **Imported by** (1 files): `src/converter/Converter.ts`
 - **Imports**:
   - `src/converter/base.ts`
@@ -1609,7 +1611,7 @@ Complete dependency information for each module.
 
 ### `src/converter/mass.d.ts`
 
-- **Output contribution**: 421 B
+- **Output contribution**: 701 B
 - **Imported by** (2 files): `src/converter/Converter.d.ts` `src/types/converter.d.ts`
 - **Imports**:
   - `src/types/converter.d.ts`
@@ -1619,7 +1621,7 @@ Complete dependency information for each module.
 
 ### `src/converter/mass.ts`
 
-- **Output contribution**: 2.3 kB
+- **Output contribution**: 3.8 kB
 - **Imported by** (1 files): `src/converter/Converter.ts`
 - **Imports**:
   - `src/converter/base.ts`
@@ -1627,7 +1629,7 @@ Complete dependency information for each module.
 
 ### `src/converter/temp.d.ts`
 
-- **Output contribution**: 428 B
+- **Output contribution**: 708 B
 - **Imported by** (2 files): `src/converter/Converter.d.ts` `src/types/converter.d.ts`
 - **Imports**:
   - `src/types/converter.d.ts`
@@ -1637,15 +1639,16 @@ Complete dependency information for each module.
 
 ### `src/converter/temp.ts`
 
-- **Output contribution**: 2.4 kB
+- **Output contribution**: 4.5 kB
 - **Imported by** (1 files): `src/converter/Converter.ts`
 - **Imports**:
   - `src/converter/base.ts`
   - `src/converter/constants.ts`
+  - `src/number/utilities.ts`
 
 ### `src/converter/time.d.ts`
 
-- **Output contribution**: 421 B
+- **Output contribution**: 701 B
 - **Imported by** (2 files): `src/converter/Converter.d.ts` `src/types/converter.d.ts`
 - **Imports**:
   - `src/types/converter.d.ts`
@@ -1655,7 +1658,7 @@ Complete dependency information for each module.
 
 ### `src/converter/time.ts`
 
-- **Output contribution**: 2.5 kB
+- **Output contribution**: 4.0 kB
 - **Imported by** (1 files): `src/converter/Converter.ts`
 - **Imports**:
   - `src/converter/base.ts`
@@ -1663,7 +1666,7 @@ Complete dependency information for each module.
 
 ### `src/converter/volume.d.ts`
 
-- **Output contribution**: 435 B
+- **Output contribution**: 729 B
 - **Imported by** (2 files): `src/converter/Converter.d.ts` `src/types/converter.d.ts`
 - **Imports**:
   - `src/types/converter.d.ts`
@@ -1673,7 +1676,7 @@ Complete dependency information for each module.
 
 ### `src/converter/volume.ts`
 
-- **Output contribution**: 2.9 kB
+- **Output contribution**: 4.5 kB
 - **Imported by** (1 files): `src/converter/Converter.ts`
 - **Imports**:
   - `src/converter/base.ts`
@@ -2409,7 +2412,7 @@ Complete dependency information for each module.
 
 ### `src/number/range.ts`
 
-- **Output contribution**: 3.5 kB
+- **Output contribution**: 3.6 kB
 - **Imported by** (1 files): `src/index.ts`
 - **Imports**:
   - `src/number/helpers.ts`
@@ -2429,7 +2432,7 @@ Complete dependency information for each module.
 ### `src/number/utilities.ts`
 
 - **Output contribution**: 3.9 kB
-- **Imported by** (12 files): `src/colors/Color.ts` `src/date/calculation.ts` `src/date/utils.ts` `src/number/basics.ts` `src/number/Currency.ts` `src/number/convert.ts` `src/index.ts` `src/pluralizer/Pluralizer.ts` `src/number/guards.ts` `src/date/guards.ts` `src/date/helpers.ts` `src/object/helpers.ts`
+- **Imported by** (14 files): `src/colors/Color.ts` `src/converter/base.ts` `src/converter/temp.ts` `src/date/calculation.ts` `src/date/utils.ts` `src/number/basics.ts` `src/number/Currency.ts` `src/number/convert.ts` `src/index.ts` `src/pluralizer/Pluralizer.ts` `src/number/guards.ts` `src/date/guards.ts` `src/date/helpers.ts` `src/object/helpers.ts`
 - **Imports**:
   - `src/number/constants.ts`
   - `src/guards/primitives.ts`
@@ -2816,7 +2819,7 @@ Complete dependency information for each module.
 
 ### `src/types/date.d.ts`
 
-- **Output contribution**: 8.7 kB
+- **Output contribution**: 8.8 kB
 - **Imported by** (8 files): `src/date/calculation.d.ts` `src/date/greet.d.ts` `src/date/parse.d.ts` `src/date/utils.d.ts` `src/date/guards.d.ts` `src/types/hash.d.ts` `src/date/constants.d.ts` `src/types/index.d.ts`
 - **Imports**:
   - `src/date/constants.d.ts`
@@ -3134,7 +3137,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/hash/uuid.ts]
 [OUTPUT_BYTES: src/hash/uuid.ts = 9285 bytes]
 [MODULE: src/types/date.d.ts]
-[OUTPUT_BYTES: src/types/date.d.ts = 8951 bytes]
+[OUTPUT_BYTES: src/types/date.d.ts = 8960 bytes]
 [MODULE: src/pluralizer/rules.ts]
 [OUTPUT_BYTES: src/pluralizer/rules.ts = 8744 bytes]
 [MODULE: src/types/utils.d.ts]
@@ -3143,10 +3146,10 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/utils/Paginator.ts = 7953 bytes]
 [MODULE: src/types/index.ts]
 [OUTPUT_BYTES: src/types/index.ts = 7743 bytes]
+[MODULE: src/converter/base.ts]
+[OUTPUT_BYTES: src/converter/base.ts = 7685 bytes]
 [MODULE: src/types/object.d.ts]
 [OUTPUT_BYTES: src/types/object.d.ts = 7356 bytes]
-[MODULE: src/converter/base.ts]
-[OUTPUT_BYTES: src/converter/base.ts = 7257 bytes]
 [MODULE: src/object/convert.ts]
 [OUTPUT_BYTES: src/object/convert.ts = 7115 bytes]
 [MODULE: src/index.ts]
@@ -3199,10 +3202,20 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/array/calc.ts = 4903 bytes]
 [MODULE: src/hash/Cipher.ts]
 [OUTPUT_BYTES: src/hash/Cipher.ts = 4720 bytes]
+[MODULE: src/converter/volume.ts]
+[OUTPUT_BYTES: src/converter/volume.ts = 4627 bytes]
 [MODULE: src/types/form.ts]
 [OUTPUT_BYTES: src/types/form.ts = 4575 bytes]
+[MODULE: src/converter/temp.ts]
+[OUTPUT_BYTES: src/converter/temp.ts = 4563 bytes]
 [MODULE: src/date/helpers.ts]
 [OUTPUT_BYTES: src/date/helpers.ts = 4488 bytes]
+[MODULE: src/converter/area.ts]
+[OUTPUT_BYTES: src/converter/area.ts = 4276 bytes]
+[MODULE: src/converter/length.ts]
+[OUTPUT_BYTES: src/converter/length.ts = 4186 bytes]
+[MODULE: src/converter/time.ts]
+[OUTPUT_BYTES: src/converter/time.ts = 4137 bytes]
 [MODULE: src/form/guards.ts]
 [OUTPUT_BYTES: src/form/guards.ts = 4132 bytes]
 [MODULE: src/guards/primitives.ts]
@@ -3211,12 +3224,16 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/colors/initials.ts = 4059 bytes]
 [MODULE: src/number/utilities.ts]
 [OUTPUT_BYTES: src/number/utilities.ts = 4026 bytes]
+[MODULE: src/converter/data.ts]
+[OUTPUT_BYTES: src/converter/data.ts = 3974 bytes]
+[MODULE: src/converter/mass.ts]
+[OUTPUT_BYTES: src/converter/mass.ts = 3925 bytes]
 [MODULE: src/object/countries.d.ts]
 [OUTPUT_BYTES: src/object/countries.d.ts = 3883 bytes]
 [MODULE: src/colors/css-colors.ts]
 [OUTPUT_BYTES: src/colors/css-colors.ts = 3732 bytes]
 [MODULE: src/number/range.ts]
-[OUTPUT_BYTES: src/number/range.ts = 3619 bytes]
+[OUTPUT_BYTES: src/number/range.ts = 3677 bytes]
 [MODULE: src/types/number.d.ts]
 [OUTPUT_BYTES: src/types/number.d.ts = 3602 bytes]
 [MODULE: src/array/basics.ts]
@@ -3229,8 +3246,6 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/number/percent.ts = 3058 bytes]
 [MODULE: src/colors/random.ts]
 [OUTPUT_BYTES: src/colors/random.ts = 3053 bytes]
-[MODULE: src/converter/volume.ts]
-[OUTPUT_BYTES: src/converter/volume.ts = 2990 bytes]
 [MODULE: src/types/converter.ts]
 [OUTPUT_BYTES: src/types/converter.ts = 2955 bytes]
 [MODULE: src/types/http-status.ts]
@@ -3238,37 +3253,25 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/form/transform.ts]
 [OUTPUT_BYTES: src/form/transform.ts = 2934 bytes]
 [MODULE: src/types/index.d.ts]
-[OUTPUT_BYTES: src/types/index.d.ts = 2875 bytes]
+[OUTPUT_BYTES: src/types/index.d.ts = 2866 bytes]
 [MODULE: src/colors/helpers.ts]
 [OUTPUT_BYTES: src/colors/helpers.ts = 2859 bytes]
 [MODULE: src/stylog/constants.ts]
 [OUTPUT_BYTES: src/stylog/constants.ts = 2808 bytes]
-[MODULE: src/converter/area.ts]
-[OUTPUT_BYTES: src/converter/area.ts = 2681 bytes]
 [MODULE: src/string/anagram.ts]
 [OUTPUT_BYTES: src/string/anagram.ts = 2557 bytes]
-[MODULE: src/converter/length.ts]
-[OUTPUT_BYTES: src/converter/length.ts = 2526 bytes]
-[MODULE: src/converter/time.ts]
-[OUTPUT_BYTES: src/converter/time.ts = 2521 bytes]
 [MODULE: src/string/helpers.ts]
 [OUTPUT_BYTES: src/string/helpers.ts = 2472 bytes]
 [MODULE: src/stylog/utils.ts]
 [OUTPUT_BYTES: src/stylog/utils.ts = 2467 bytes]
 [MODULE: src/dom/utils.ts]
 [OUTPUT_BYTES: src/dom/utils.ts = 2457 bytes]
-[MODULE: src/converter/temp.ts]
-[OUTPUT_BYTES: src/converter/temp.ts = 2426 bytes]
 [MODULE: src/number/fibonacci.ts]
 [OUTPUT_BYTES: src/number/fibonacci.ts = 2396 bytes]
 [MODULE: src/guards/index.ts]
 [OUTPUT_BYTES: src/guards/index.ts = 2392 bytes]
-[MODULE: src/converter/data.ts]
-[OUTPUT_BYTES: src/converter/data.ts = 2350 bytes]
 [MODULE: src/utils/xtras.ts]
 [OUTPUT_BYTES: src/utils/xtras.ts = 2335 bytes]
-[MODULE: src/converter/mass.ts]
-[OUTPUT_BYTES: src/converter/mass.ts = 2317 bytes]
 [MODULE: src/date/parse.ts]
 [OUTPUT_BYTES: src/date/parse.ts = 2279 bytes]
 [MODULE: src/types/colors.d.ts]
@@ -3286,7 +3289,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [MODULE: src/string/utilities.ts]
 [OUTPUT_BYTES: src/string/utilities.ts = 2019 bytes]
 [MODULE: src/types/converter.d.ts]
-[OUTPUT_BYTES: src/types/converter.d.ts = 1995 bytes]
+[OUTPUT_BYTES: src/types/converter.d.ts = 1985 bytes]
 [MODULE: src/number/helpers.ts]
 [OUTPUT_BYTES: src/number/helpers.ts = 1970 bytes]
 [MODULE: src/types/hash.d.ts]
@@ -3309,10 +3312,10 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/date/constants.d.ts = 1678 bytes]
 [MODULE: src/string/guards.ts]
 [OUTPUT_BYTES: src/string/guards.ts = 1668 bytes]
+[MODULE: src/types/array.d.ts]
+[OUTPUT_BYTES: src/types/array.d.ts = 1598 bytes]
 [MODULE: src/number/constants.d.ts]
 [OUTPUT_BYTES: src/number/constants.d.ts = 1591 bytes]
-[MODULE: src/types/array.d.ts]
-[OUTPUT_BYTES: src/types/array.d.ts = 1588 bytes]
 [MODULE: src/types/stylog.ts]
 [OUTPUT_BYTES: src/types/stylog.ts = 1579 bytes]
 [MODULE: src/colors/convert.d.ts]
@@ -3363,6 +3366,8 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/array/calc.d.ts = 913 bytes]
 [MODULE: src/guards/specials.d.ts]
 [OUTPUT_BYTES: src/guards/specials.d.ts = 869 bytes]
+[MODULE: src/converter/base.d.ts]
+[OUTPUT_BYTES: src/converter/base.d.ts = 842 bytes]
 [MODULE: src/types/pluralizer.ts]
 [OUTPUT_BYTES: src/types/pluralizer.ts = 805 bytes]
 [MODULE: src/number/Unit.d.ts]
@@ -3381,20 +3386,32 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/hash/index.ts = 750 bytes]
 [MODULE: src/object/basics.d.ts]
 [OUTPUT_BYTES: src/object/basics.d.ts = 742 bytes]
+[MODULE: src/converter/length.d.ts]
+[OUTPUT_BYTES: src/converter/length.d.ts = 729 bytes]
+[MODULE: src/converter/volume.d.ts]
+[OUTPUT_BYTES: src/converter/volume.d.ts = 729 bytes]
 [MODULE: src/colors/index.d.ts]
 [OUTPUT_BYTES: src/colors/index.d.ts = 728 bytes]
 [MODULE: src/hash/index.d.ts]
 [OUTPUT_BYTES: src/hash/index.d.ts = 718 bytes]
 [MODULE: src/string/convert.d.ts]
 [OUTPUT_BYTES: src/string/convert.d.ts = 715 bytes]
+[MODULE: src/converter/temp.d.ts]
+[OUTPUT_BYTES: src/converter/temp.d.ts = 708 bytes]
+[MODULE: src/converter/data.d.ts]
+[OUTPUT_BYTES: src/converter/data.d.ts = 701 bytes]
+[MODULE: src/converter/mass.d.ts]
+[OUTPUT_BYTES: src/converter/mass.d.ts = 701 bytes]
+[MODULE: src/converter/time.d.ts]
+[OUTPUT_BYTES: src/converter/time.d.ts = 701 bytes]
+[MODULE: src/converter/area.d.ts]
+[OUTPUT_BYTES: src/converter/area.d.ts = 701 bytes]
 [MODULE: src/types/stylog.d.ts]
 [OUTPUT_BYTES: src/types/stylog.d.ts = 689 bytes]
 [MODULE: src/colors/css-colors.d.ts]
 [OUTPUT_BYTES: src/colors/css-colors.d.ts = 684 bytes]
 [MODULE: src/date/guards.d.ts]
 [OUTPUT_BYTES: src/date/guards.d.ts = 661 bytes]
-[MODULE: src/converter/base.d.ts]
-[OUTPUT_BYTES: src/converter/base.d.ts = 659 bytes]
 [MODULE: src/http-status/HttpStatus.d.ts]
 [OUTPUT_BYTES: src/http-status/HttpStatus.d.ts = 656 bytes]
 [MODULE: src/form/guards.d.ts]
@@ -3425,20 +3442,6 @@ This section contains raw, grep-friendly data. Use these patterns:
 [OUTPUT_BYTES: src/array/sort.d.ts = 467 bytes]
 [MODULE: src/stylog/utils.d.ts]
 [OUTPUT_BYTES: src/stylog/utils.d.ts = 446 bytes]
-[MODULE: src/converter/length.d.ts]
-[OUTPUT_BYTES: src/converter/length.d.ts = 435 bytes]
-[MODULE: src/converter/volume.d.ts]
-[OUTPUT_BYTES: src/converter/volume.d.ts = 435 bytes]
-[MODULE: src/converter/temp.d.ts]
-[OUTPUT_BYTES: src/converter/temp.d.ts = 428 bytes]
-[MODULE: src/converter/data.d.ts]
-[OUTPUT_BYTES: src/converter/data.d.ts = 421 bytes]
-[MODULE: src/converter/mass.d.ts]
-[OUTPUT_BYTES: src/converter/mass.d.ts = 421 bytes]
-[MODULE: src/converter/time.d.ts]
-[OUTPUT_BYTES: src/converter/time.d.ts = 421 bytes]
-[MODULE: src/converter/area.d.ts]
-[OUTPUT_BYTES: src/converter/area.d.ts = 421 bytes]
 [MODULE: src/number/range.d.ts]
 [OUTPUT_BYTES: src/number/range.d.ts = 382 bytes]
 [MODULE: src/string/basics.d.ts]
@@ -3653,6 +3656,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [IMPORT: src/converter/base.d.ts -> src/types/converter.d.ts]
 [IMPORT: src/converter/base.d.ts -> src/types/index.d.ts]
 [IMPORT: src/converter/base.ts -> src/converter/constants.ts]
+[IMPORT: src/converter/base.ts -> src/number/utilities.ts]
 [IMPORT: src/converter/data.d.ts -> src/types/converter.d.ts]
 [IMPORT: src/converter/data.d.ts -> src/converter/base.d.ts]
 [IMPORT: src/converter/data.d.ts -> src/types/object.d.ts]
@@ -3679,6 +3683,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [IMPORT: src/converter/temp.d.ts -> src/types/index.d.ts]
 [IMPORT: src/converter/temp.ts -> src/converter/base.ts]
 [IMPORT: src/converter/temp.ts -> src/converter/constants.ts]
+[IMPORT: src/converter/temp.ts -> src/number/utilities.ts]
 [IMPORT: src/converter/time.d.ts -> src/types/converter.d.ts]
 [IMPORT: src/converter/time.d.ts -> src/converter/base.d.ts]
 [IMPORT: src/converter/time.d.ts -> src/types/object.d.ts]
@@ -4404,6 +4409,8 @@ This section contains raw, grep-friendly data. Use these patterns:
 [IMPORTED_BY: src/number/range.ts <- src/index.ts]
 [IMPORTED_BY: src/number/utilities.d.ts <- src/index.d.ts]
 [IMPORTED_BY: src/number/utilities.ts <- src/colors/Color.ts]
+[IMPORTED_BY: src/number/utilities.ts <- src/converter/base.ts]
+[IMPORTED_BY: src/number/utilities.ts <- src/converter/temp.ts]
 [IMPORTED_BY: src/number/utilities.ts <- src/date/calculation.ts]
 [IMPORTED_BY: src/number/utilities.ts <- src/date/utils.ts]
 [IMPORTED_BY: src/number/utilities.ts <- src/number/basics.ts]
@@ -4649,7 +4656,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [ENTRY: src/constants.d.ts -> constants.d.mts (5036 bytes)]
 [ENTRY: src/constants.ts -> constants.mjs (7366 bytes)]
 [ENTRY: src/converter/index.d.ts -> converter/index.d.mts (1459 bytes)]
-[ENTRY: src/converter/index.ts -> converter/index.mjs (21370 bytes)]
+[ENTRY: src/converter/index.ts -> converter/index.mjs (31759 bytes)]
 [ENTRY: src/date/index.d.ts -> date/index.d.mts (12979 bytes)]
 [ENTRY: src/date/index.ts -> date/index.mjs (17282 bytes)]
 [ENTRY: src/dom/index.d.ts -> dom/index.d.mts (8724 bytes)]
@@ -4660,7 +4667,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 [ENTRY: src/hash/index.ts -> hash/index.mjs (31064 bytes)]
 [ENTRY: src/http-status/index.d.ts -> http-status/index.d.mts (5359 bytes)]
 [ENTRY: src/http-status/index.ts -> http-status/index.mjs (5572 bytes)]
-[ENTRY: src/index.d.ts -> index.d.mts (68842 bytes)]
+[ENTRY: src/index.d.ts -> index.d.mts (68900 bytes)]
 [ENTRY: src/index.ts -> index.mjs (86611 bytes)]
 [ENTRY: src/paginator.d.ts -> paginator.d.mts (5364 bytes)]
 [ENTRY: src/paginator.ts -> paginator.mjs (7901 bytes)]
@@ -4707,7 +4714,7 @@ This section contains raw, grep-friendly data. Use these patterns:
 ```
 [CHUNK: Color-zFAtxZIq.d.mts (25460 bytes)]
 [CHUNK: Stylog-CJUQbsoN.d.mts (21273 bytes)]
-[CHUNK: area-BqnI-vwz.d.mts (14895 bytes)]
+[CHUNK: area-DZRPizGI.d.mts (21603 bytes)]
 [CHUNK: array-DddJuLql.d.mts (6464 bytes)]
 [CHUNK: basics-D_1kvsw9.d.mts (4079 bytes)]
 [CHUNK: case-BnsthdUh.d.mts (17174 bytes)]

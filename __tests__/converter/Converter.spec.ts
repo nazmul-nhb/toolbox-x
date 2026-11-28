@@ -86,7 +86,7 @@ describe('Converter Factory and Units', () => {
 		expect(converter(2).format()).toBe('2');
 		expect(converter(2, 'meter').format()).toBe('2 meters');
 		expect(converter(2, 'foot').format()).toBe('2 feet');
-		expect(converter(-1, 'foot').format()).toBe('1 foot');
+		expect(converter(-1, 'foot').format()).toBe('-1 foot');
 		expect(converter(2, 'inch').format()).toBe('2 inches');
 		expect(converter(2, 'kelvin').format()).toBe('2 kelvin');
 		expect(converter(2, 'millennium').format()).toBe('2 millennia');
@@ -103,12 +103,35 @@ describe('Converter Factory and Units', () => {
 		expect(length.lt(500)).toBe(false);
 	});
 
+	it('should compare values expressed in different units', () => {
+		const time = converter(1, 'hour');
+
+		expect(time.eq(60, 'minute')).toBe(true);
+		expect(time.gt(30, 'minute')).toBe(true);
+		expect(time.lt(90, 'minute')).toBe(true);
+	});
+
 	it('should perform arithmetic operations', () => {
 		const length = converter(1000, 'meter');
 		expect(length.add(1000).to('meter')).toBe(2000);
 		expect(length.subtract(1000).to('meter')).toBe(0);
 		expect(length.multiply(2).to('meter')).toBe(2000);
 		expect(length.divide(2).to('meter')).toBe(500);
+	});
+
+	it('should convert arithmetic operands to the receiver unit', () => {
+		const length = converter(1, 'kilometer');
+
+		expect(length.add(500, 'meter').to('kilometer')).toBe(1.5);
+		expect(length.subtract(500, 'meter').to('kilometer')).toBe(0.5);
+		expect(length.multiply(500, 'meter').to('kilometer')).toBe(0.5);
+		expect(length.divide(500, 'meter').to('kilometer')).toBe(2);
+	});
+
+	it('should convert temperature operands before arithmetic', () => {
+		expect(converter(20, 'celsius').subtract(50, 'fahrenheit').to('celsius')).toBeCloseTo(
+			10
+		);
 	});
 
 	it('should round the value', () => {

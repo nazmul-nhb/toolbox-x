@@ -95,6 +95,12 @@ export class $BaseConverter<Unit extends $Unit> {
 		return [base, target];
 	}
 
+	protected $toUnitTarget(f: Record<Unit, number>, t: Numeric, u?: Unit): [number, number] {
+		const target = this.$toBase(f, t, u) / f[this.unit];
+
+		return [this.value, target];
+	}
+
 	/**
 	 * @instance Returns the numeric value.
 	 * @returns The raw numeric value without unit.

@@ -83,22 +83,22 @@ export class $Volume extends $BaseConverter<$VolumeUnit> {
 	}
 
 	add(val: Numeric, unit?: $VolumeUnit): this {
-		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Volume.#factors, val, unit);
 		return new $Volume(base + target, this.unit) as this;
 	}
 
 	subtract(val: Numeric, unit?: $VolumeUnit): this {
-		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Volume.#factors, val, unit);
 		return new $Volume(base - target, this.unit) as this;
 	}
 
 	multiply(val: Numeric, unit?: $VolumeUnit): this {
-		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Volume.#factors, val, unit);
 		return new $Volume(base * target, this.unit) as this;
 	}
 
 	divide(val: Numeric, unit?: $VolumeUnit): this {
-		const [base, target] = this.$toBaseTarget($Volume.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Volume.#factors, val, unit);
 		return new $Volume(base / target, this.unit) as this;
 	}
 

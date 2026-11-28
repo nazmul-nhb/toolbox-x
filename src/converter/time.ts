@@ -75,22 +75,22 @@ export class $Time extends $BaseConverter<$TimeUnit> {
 	}
 
 	add(val: Numeric, unit?: $TimeUnit): this {
-		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Time.#factors, val, unit);
 		return new $Time(base + target, this.unit) as this;
 	}
 
 	subtract(val: Numeric, unit?: $TimeUnit): this {
-		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Time.#factors, val, unit);
 		return new $Time(base - target, this.unit) as this;
 	}
 
 	multiply(val: Numeric, unit?: $TimeUnit): this {
-		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Time.#factors, val, unit);
 		return new $Time(base * target, this.unit) as this;
 	}
 
 	divide(val: Numeric, unit?: $TimeUnit): this {
-		const [base, target] = this.$toBaseTarget($Time.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Time.#factors, val, unit);
 		return new $Time(base / target, this.unit) as this;
 	}
 

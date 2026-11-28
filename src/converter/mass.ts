@@ -72,22 +72,22 @@ export class $Mass extends $BaseConverter<$MassUnit> {
 	}
 
 	add(val: Numeric, unit?: $MassUnit): this {
-		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Mass.#factors, val, unit);
 		return new $Mass(base + target, this.unit) as this;
 	}
 
 	subtract(val: Numeric, unit?: $MassUnit): this {
-		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Mass.#factors, val, unit);
 		return new $Mass(base - target, this.unit) as this;
 	}
 
 	multiply(val: Numeric, unit?: $MassUnit): this {
-		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Mass.#factors, val, unit);
 		return new $Mass(base * target, this.unit) as this;
 	}
 
 	divide(val: Numeric, unit?: $MassUnit): this {
-		const [base, target] = this.$toBaseTarget($Mass.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Mass.#factors, val, unit);
 		return new $Mass(base / target, this.unit) as this;
 	}
 

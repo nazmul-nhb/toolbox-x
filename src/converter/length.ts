@@ -67,22 +67,22 @@ export class $Length extends $BaseConverter<$LengthUnit> {
 	}
 
 	add(val: Numeric, unit?: $LengthUnit): this {
-		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Length.#factors, val, unit);
 		return new $Length(base + target, this.unit) as this;
 	}
 
 	subtract(val: Numeric, unit?: $LengthUnit): this {
-		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Length.#factors, val, unit);
 		return new $Length(base - target, this.unit) as this;
 	}
 
 	multiply(val: Numeric, unit?: $LengthUnit): this {
-		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Length.#factors, val, unit);
 		return new $Length(base * target, this.unit) as this;
 	}
 
 	divide(val: Numeric, unit?: $LengthUnit): this {
-		const [base, target] = this.$toBaseTarget($Length.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Length.#factors, val, unit);
 		return new $Length(base / target, this.unit) as this;
 	}
 

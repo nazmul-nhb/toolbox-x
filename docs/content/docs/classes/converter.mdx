@@ -286,18 +286,25 @@ console.log(Converter(2.5, 'hour').toJSON()); // → '{"value":2.5,"unit":"hour"
 
 ### Mathematical Operations
 
-All converters support mathematical operations that return new instances:
+Unit-aware converters support mathematical operations that return new instances. Each operation accepts a numeric value and an optional unit from the same category as the converter. If the unit is omitted, the receiver's unit is assumed. If provided, the value is converted to the receiver's unit before the operation, and the result keeps the receiver's unit.
 
 ```ts pg
 import { Converter } from 'toolbox-x/converter';
 
 const time = Converter(1, 'hour');
 
-console.log(time.add(30).toString());      // → "31 hours" (assumes same unit)
-console.log(time.subtract(15).toString()); // → "14 hours"
-console.log(time.multiply(2).toString());  // → "2 hours"  
-console.log(time.divide(4).toString());    // → "0.25 hours"
+console.log(time.add(30, 'minute').toString());      // → "1.5 hours"
+console.log(time.subtract(30, 'minute').toString()); // → "0.5 hours"
+console.log(time.multiply(2).toString());            // → "2 hours" (assumes hours)
+console.log(time.divide(4).toString());              // → "0.25 hours" (assumes hours)
+console.log(time.multiply(30, 'minute').toString()); // → "0.5 hours"
 ```
+
+<Callout type="info" title="Info">
+For `multiply` and `divide`, the optional unit is converted to the receiver's unit before its value is used as the arithmetic operand.
+
+The optional unit is type-checked against the converter's category (for example, a time converter accepts time units). `BaseConverter` supports these methods without a unit parameter.
+</Callout>
 
 #### `abs()`
 
@@ -321,15 +328,19 @@ console.log(Converter(1.2345, 'hour').round(2).toString()); // → "1.23 hours"
 
 ### Comparison Methods
 
+Unit-aware converters accept an optional unit for the value being compared. The supplied unit must belong to the same category as the receiver; if omitted, the receiver's unit is assumed. Values are converted before comparison.
+
 ```ts pg
 import { Converter } from 'toolbox-x/converter';
 
 const time = Converter(2, 'hour');
 
-console.log(time.gt(1)); // → true
-console.log(time.lt(3)); // → true  
-console.log(time.eq(2)); // → true
+console.log(time.gt(90, 'minute')); // → true
+console.log(time.lt(3)); // → true (assumes hours)
+console.log(time.eq(120, 'minute')); // → true
 ```
+
+Comparison methods on unit-aware converters accept a unit from the same category. `BaseConverter` comparison methods do not accept a unit parameter.
 
 ---
 

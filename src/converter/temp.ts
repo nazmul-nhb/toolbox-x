@@ -55,23 +55,29 @@ export class $Temperature extends $BaseConverter<$TempUnit> {
 		return [base, target];
 	}
 
+	#toUnitTarget(t: Numeric, u?: $TempUnit): [number, number] {
+		const target = $Temperature.#toCelsius(normalize(t) ?? this.value, u || this.unit);
+
+		return [this.value, $Temperature.#fromCelsius(target, this.unit)];
+	}
+
 	add(val: Numeric, unit?: $TempUnit): this {
-		const [base, target] = this.#toBaseTarget(val, unit);
+		const [base, target] = this.#toUnitTarget(val, unit);
 		return new $Temperature(base + target, this.unit) as this;
 	}
 
 	subtract(val: Numeric, unit?: $TempUnit): this {
-		const [base, target] = this.#toBaseTarget(val, unit);
+		const [base, target] = this.#toUnitTarget(val, unit);
 		return new $Temperature(base - target, this.unit) as this;
 	}
 
 	multiply(val: Numeric, unit?: $TempUnit): this {
-		const [base, target] = this.#toBaseTarget(val, unit);
+		const [base, target] = this.#toUnitTarget(val, unit);
 		return new $Temperature(base * target, this.unit) as this;
 	}
 
 	divide(val: Numeric, unit?: $TempUnit): this {
-		const [base, target] = this.#toBaseTarget(val, unit);
+		const [base, target] = this.#toUnitTarget(val, unit);
 		return new $Temperature(base / target, this.unit) as this;
 	}
 

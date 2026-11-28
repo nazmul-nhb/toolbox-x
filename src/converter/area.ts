@@ -46,22 +46,22 @@ export class $Area extends $BaseConverter<$AreaUnit> {
 	}
 
 	add(val: Numeric, unit?: $AreaUnit): this {
-		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Area.#factors, val, unit);
 		return new $Area(base + target, this.unit) as this;
 	}
 
 	subtract(val: Numeric, unit?: $AreaUnit): this {
-		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Area.#factors, val, unit);
 		return new $Area(base - target, this.unit) as this;
 	}
 
 	multiply(val: Numeric, unit?: $AreaUnit): this {
-		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Area.#factors, val, unit);
 		return new $Area(base * target, this.unit) as this;
 	}
 
 	divide(val: Numeric, unit?: $AreaUnit): this {
-		const [base, target] = this.$toBaseTarget($Area.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Area.#factors, val, unit);
 		return new $Area(base / target, this.unit) as this;
 	}
 

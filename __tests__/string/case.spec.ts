@@ -276,7 +276,7 @@ describe('convertStringCase - basic conversions', () => {
 		expect(convertStringCase('xml-http_request', 'Title Case')).toBe('Xml-http Request');
 	});
 
-	test('Convert special cased string to Title Case', () => {
+	test('Convert special cased string to Title Case 2', () => {
 		expect(
 			convertStringCase('XML-HTTP_request', 'Title Case', {
 				preserveAcronyms: true,

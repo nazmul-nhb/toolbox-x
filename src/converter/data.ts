@@ -44,22 +44,22 @@ export class $Data extends $BaseConverter<$DataUnit> {
 	}
 
 	add(val: Numeric, unit?: $DataUnit): this {
-		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Data.#factors, val, unit);
 		return new $Data(base + target, this.unit) as this;
 	}
 
 	subtract(val: Numeric, unit?: $DataUnit): this {
-		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Data.#factors, val, unit);
 		return new $Data(base - target, this.unit) as this;
 	}
 
 	multiply(val: Numeric, unit?: $DataUnit): this {
-		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Data.#factors, val, unit);
 		return new $Data(base * target, this.unit) as this;
 	}
 
 	divide(val: Numeric, unit?: $DataUnit): this {
-		const [base, target] = this.$toBaseTarget($Data.#factors, val, unit);
+		const [base, target] = this.$toUnitTarget($Data.#factors, val, unit);
 		return new $Data(base / target, this.unit) as this;
 	}
 

@@ -1,17 +1,17 @@
-<!-- source-mtime: 2026-11-26T08:38:38.170Z -->
+<!-- source-mtime: 2026-11-28T07:20:18.739Z -->
 
 # Test Coverage Report (Summary)
 
-Generated: Thu, 26 Nov 2026 08:47:54 GMT
+Generated: Sat, 28 Nov 2026 07:20:59 GMT
 
 ## Overall
 
 | Metric     | Covered | Total | Coverage |
 | ---------- | ------: | ----: | -------: |
-| Statements |    3489 |  3920 |      89% |
-| Branches   |    2173 |  2784 |   78.05% |
-| Functions  |     798 |   849 |   93.99% |
-| Lines      |    3271 |  3639 |   89.88% |
+| Statements |    3508 |  4025 |   87.15% |
+| Branches   |    2179 |  2796 |   77.93% |
+| Functions  |     800 |   897 |   89.18% |
+| Lines      |    3290 |  3744 |   87.87% |
 
 ## Files
 
@@ -30,15 +30,15 @@ Generated: Thu, 26 Nov 2026 08:47:54 GMT
 | src/colors/initials.ts        |     92.85% |   90.90% |   100.00% |  92.59% |
 | src/colors/random.ts          |    100.00% |   92.30% |   100.00% | 100.00% |
 | src/colors/utils.ts           |     68.42% |   50.00% |   100.00% |  68.42% |
-| src/converter/area.ts         |    100.00% |  100.00% |   100.00% | 100.00% |
-| src/converter/base.ts         |    100.00% |  100.00% |   100.00% | 100.00% |
+| src/converter/area.ts         |     46.15% |  100.00% |    36.36% |  46.15% |
+| src/converter/base.ts         |     87.03% |  100.00% |    70.83% |  86.79% |
 | src/converter/Converter.ts    |    100.00% |  100.00% |   100.00% | 100.00% |
-| src/converter/data.ts         |    100.00% |  100.00% |   100.00% | 100.00% |
+| src/converter/data.ts         |     46.15% |  100.00% |    36.36% |  46.15% |
 | src/converter/length.ts       |    100.00% |  100.00% |   100.00% | 100.00% |
-| src/converter/mass.ts         |    100.00% |  100.00% |   100.00% | 100.00% |
-| src/converter/temp.ts         |    100.00% |  100.00% |   100.00% | 100.00% |
-| src/converter/time.ts         |    100.00% |  100.00% |   100.00% | 100.00% |
-| src/converter/volume.ts       |    100.00% |  100.00% |   100.00% | 100.00% |
+| src/converter/mass.ts         |     46.15% |  100.00% |    36.36% |  46.15% |
+| src/converter/temp.ts         |     59.45% |   57.14% |    53.33% |  59.45% |
+| src/converter/time.ts         |     69.23% |  100.00% |    63.63% |  69.23% |
+| src/converter/volume.ts       |     46.15% |  100.00% |    36.36% |  46.15% |
 | src/date/calculation.ts       |    100.00% |  100.00% |   100.00% | 100.00% |
 | src/date/greet.ts             |     95.45% |   96.55% |   100.00% |  95.45% |
 | src/date/guards.ts            |     62.96% |   46.00% |    57.14% |  66.66% |
@@ -104,7 +104,7 @@ Generated: Thu, 26 Nov 2026 08:47:54 GMT
 | ----------- | ----: | ---------: | -------: | --------: | ------: |
 | array       |     5 |     90.55% |   78.33% |    98.75% |  95.55% |
 | colors      |     8 |     93.27% |   88.07% |    98.53% |  93.61% |
-| converter   |     9 |    100.00% |  100.00% |   100.00% | 100.00% |
+| converter   |     9 |     66.70% |   95.24% |    59.25% |  66.67% |
 | date        |     7 |     87.44% |   80.77% |    93.88% |  90.03% |
 | dom         |     3 |     68.03% |   71.41% |    91.67% |  68.03% |
 | form        |     3 |     70.76% |   60.47% |    93.33% |  70.35% |
@@ -121,18 +121,18 @@ Generated: Thu, 26 Nov 2026 08:47:54 GMT
 
 ## Lowest Coverage
 
-| File                   | Statements |
-| ---------------------- | ---------: |
-| src/stylog/helpers.ts  |     20.00% |
-| src/dom/utils.ts       |     35.29% |
-| src/stylog/utils.ts    |     52.38% |
-| src/utils/Paginator.ts |     60.86% |
-| src/form/convert.ts    |     62.85% |
-| src/date/guards.ts     |     62.96% |
-| src/object/sanitize.ts |     65.26% |
-| src/colors/utils.ts    |     68.42% |
-| src/stylog/Stylog.ts   |     68.80% |
-| src/form/transform.ts  |     69.44% |
+| File                    | Statements |
+| ----------------------- | ---------: |
+| src/stylog/helpers.ts   |     20.00% |
+| src/dom/utils.ts        |     35.29% |
+| src/converter/area.ts   |     46.15% |
+| src/converter/data.ts   |     46.15% |
+| src/converter/mass.ts   |     46.15% |
+| src/converter/volume.ts |     46.15% |
+| src/stylog/utils.ts     |     52.38% |
+| src/converter/temp.ts   |     59.45% |
+| src/utils/Paginator.ts  |     60.86% |
+| src/form/convert.ts     |     62.85% |
 
 ## Highest Coverage
 
@@ -141,15 +141,8 @@ Generated: Thu, 26 Nov 2026 08:47:54 GMT
 | src/colors/css-colors.ts      |    100.00% |
 | src/colors/guards.ts          |    100.00% |
 | src/colors/random.ts          |    100.00% |
-| src/converter/area.ts         |    100.00% |
-| src/converter/base.ts         |    100.00% |
 | src/converter/Converter.ts    |    100.00% |
-| src/converter/data.ts         |    100.00% |
 | src/converter/length.ts       |    100.00% |
-| src/converter/mass.ts         |    100.00% |
-| src/converter/temp.ts         |    100.00% |
-| src/converter/time.ts         |    100.00% |
-| src/converter/volume.ts       |    100.00% |
 | src/date/calculation.ts       |    100.00% |
 | src/date/timezone.ts          |    100.00% |
 | src/guards/non-primitives.ts  |    100.00% |
@@ -174,9 +167,9 @@ Generated: Thu, 26 Nov 2026 08:47:54 GMT
 
 | Range  | Files |
 | ------ | ----: |
-| 100%   |    31 |
+| 100%   |    24 |
 | 95–99% |    13 |
 | 90–94% |    11 |
-| 80–89% |    11 |
+| 80–89% |    12 |
 | 70–79% |     4 |
-| <70%   |    10 |
+| <70%   |    16 |

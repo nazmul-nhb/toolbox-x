@@ -47,7 +47,7 @@ describe('getColorForInitial', () => {
 	});
 });
 
-describe('getColorForInitial', () => {
+describe('getColorForInitial2', () => {
 	test('returns correct color for single alphabet input', () => {
 		expect(getColorForInitial('A')).toBe(ALPHABET_COLOR_PALETTE[0] + 'FF');
 		expect(getColorForInitial('Z')).toBe(ALPHABET_COLOR_PALETTE[25] + 'FF');
